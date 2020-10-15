@@ -12,36 +12,32 @@ class RatingInformation extends StatelessWidget {
 
     for (var i = 1; i <= 5; i++) {
       var star;
-      if(  i+1 <= mVideo.rating + 1){
+      if (i + 1 <= mVideo.rating + 1) {
         var color = theme.accentColor;
-         star = new Icon(
+        star = new Icon(
           Icons.star,
           color: color,
         );
-
-      }else{
-        if(i + 0.5 <= mVideo.rating+1){
+      } else {
+        if (i + 0.5 <= mVideo.rating + 1) {
           var color = theme.accentColor;
-           star = new Icon(
+          star = new Icon(
             Icons.star_half,
             color: color,
           );
-        }
-        else{
+        } else {
           var color = theme.accentColor;
-           star = new Icon(
+          star = new Icon(
             Icons.star_border,
             color: color,
           );
         }
       }
 
-
-
       stars.add(star);
     }
 
-    return new Flex(direction: Axis.horizontal,children: stars);
+    return new Flex(direction: Axis.horizontal, children: stars);
   }
 
   @override
@@ -56,7 +52,7 @@ class RatingInformation extends StatelessWidget {
       children: [
         new Text(
           mVideo.rating.toString(),
-          style: textTheme.title.copyWith(
+          style: textTheme.headline6.copyWith(
             fontWeight: FontWeight.w400,
             color: theme.accentColor,
           ),

@@ -25,53 +25,58 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
   int commentsCount = 0;
   List<BlogComments> ls;
 
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Blog Details", style: TextStyle(fontSize: 16.0),),
+      title: Text(
+        "Blog Details",
+        style: TextStyle(fontSize: 16.0),
+      ),
       centerTitle: true,
       backgroundColor: primaryDarkColor.withOpacity(0.98),
     );
   }
 
-  void getComments(){
-    ls = List<BlogComments>.generate(commentsCount == null ? 0 : commentsCount, (int mComIndex){
+  void getComments() {
+    ls = List<BlogComments>.generate(commentsCount == null ? 0 : commentsCount,
+        (int mComIndex) {
       print(blogComments[mComIndex]['comment']);
-        return BlogComments(
-            id: blogComments[mComIndex]['id'],
-            cName: blogComments[mComIndex]['name'],
-            cEmail: blogComments[mComIndex]['email'],
-            cBlogId: blogComments[mComIndex]['blog_id'],
-            cComment: blogComments[mComIndex]['comment'],
-            cCreatedAt: blogComments[mComIndex]['created_at'],
-            cUpdatedAt: blogComments[mComIndex]['updated_at'],
-        );
-      }
-    );
+      return BlogComments(
+        id: blogComments[mComIndex]['id'],
+        cName: blogComments[mComIndex]['name'],
+        cEmail: blogComments[mComIndex]['email'],
+        cBlogId: blogComments[mComIndex]['blog_id'],
+        cComment: blogComments[mComIndex]['comment'],
+        cCreatedAt: blogComments[mComIndex]['created_at'],
+        cUpdatedAt: blogComments[mComIndex]['updated_at'],
+      );
+    });
   }
 
-  _updateComments(){
+  _updateComments() {
     setState(() {
       commentsCount = commentsCount + 1;
     });
   }
 
-
-  Future <String> postComment() async{
-      final postCommentResponse = await http.post(APIData.postBlogComment, body: {
-        "type": 'B',
-        "id": '${widget.blogId}',
-        "comment": '${commentsController.text}',
-        "name": '$name',
-        "email": '$email',
-      },
-        headers: {
-          // ignore: deprecated_member_use
-          HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
-        });
+  Future<String> postComment() async {
+    final postCommentResponse = await http.post(APIData.postBlogComment, body: {
+      "type": 'B',
+      "id": '${widget.blogId}',
+      "comment": '${commentsController.text}',
+      "name": '$name',
+      "email": '$email',
+    }, headers: {
+      // ignore: deprecated_member_use
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
+    });
 
     print(postCommentResponse.statusCode);
-    if(postCommentResponse.statusCode == 200){
-      ls.add(BlogComments(cBlogId: '${widget.blogId}', cName: name, cEmail: email, cComment: commentsController.text));
+    if (postCommentResponse.statusCode == 200) {
+      ls.add(BlogComments(
+          cBlogId: '${widget.blogId}',
+          cName: name,
+          cEmail: email,
+          cComment: commentsController.text));
       _updateComments();
 
       setState(() {
@@ -83,7 +88,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
       Fluttertoast.showToast(msg: "Commented Successfully");
       commentsController.text = '';
       Navigator.pop(context);
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "Error in commenting");
       commentsController.text = '';
       Navigator.pop(context);
@@ -92,18 +97,21 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
     return null;
   }
 
-  Future <void> addComment(BuildContext context) {
+  Future<void> addComment(BuildContext context) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          contentPadding:  EdgeInsets.only(left: 25.0, right: 25.0),
+          contentPadding: EdgeInsets.only(left: 25.0, right: 25.0),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(25.0))),
           title: Container(
             alignment: Alignment.topLeft,
-            child: Text('Add Comments',style: TextStyle(color: greenPrime, fontWeight: FontWeight.w600),),
+            child: Text(
+              'Add Comments',
+              style: TextStyle(color: greenPrime, fontWeight: FontWeight.w600),
+            ),
           ),
           content: Container(
             height: MediaQuery.of(context).size.height / 4,
@@ -121,7 +129,8 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                       maxLines: 4,
                       decoration: new InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                        contentPadding: EdgeInsets.only(
+                            left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
                         hintText: "Comment",
                         errorStyle: TextStyle(fontSize: 10),
                         hintStyle: TextStyle(
@@ -147,12 +156,16 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                     color: greenPrime,
                     height: 45.0,
                     width: 100.0,
-                    padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0, bottom: 5.0),
+                    padding: EdgeInsets.only(
+                        left: 15.0, right: 15.0, top: 5.0, bottom: 5.0),
                     child: Center(
-                      child: Text("Post", textAlign: TextAlign.center,),
+                      child: Text(
+                        "Post",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                  onTap: (){
+                  onTap: () {
                     final form = _formKey.currentState;
                     form.save();
                     if (form.validate() == true) {
@@ -168,7 +181,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
     );
   }
 
-  Widget comments(){
+  Widget comments() {
     return ListView.builder(
         itemCount: this.commentsCount,
         scrollDirection: Axis.vertical,
@@ -180,25 +193,36 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
   _buildRow(int position) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 10.0,),
+        SizedBox(
+          height: 10.0,
+        ),
         Row(
           children: <Widget>[
-            ls[position].cName == null ? SizedBox.shrink():
-            Text(ls[position].cName, style: TextStyle(fontSize: 13.0),),
+            ls[position].cName == null
+                ? SizedBox.shrink()
+                : Text(
+                    ls[position].cName,
+                    style: TextStyle(fontSize: 13.0),
+                  ),
           ],
         ),
-        SizedBox(height: 3.0,),
+        SizedBox(
+          height: 3.0,
+        ),
         Row(
           children: <Widget>[
-            ls[position].cComment == null ? SizedBox.shrink():
-            Text(ls[position].cComment, style: TextStyle(fontSize: 12.0, color: whiteColor.withOpacity(0.6)),
-            ),
+            ls[position].cComment == null
+                ? SizedBox.shrink()
+                : Text(
+                    ls[position].cComment,
+                    style: TextStyle(
+                        fontSize: 12.0, color: whiteColor.withOpacity(0.6)),
+                  ),
           ],
         ),
       ],
     );
   }
-
 
   @override
   void initState() {
@@ -208,14 +232,13 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
     });
     blogComments = blogResponse[widget.index]['comments'];
     getComments();
-
   }
 
-  Widget blogDetails(){
+  Widget blogDetails() {
     return Html(
-      data: blogResponse[widget.index]['detail'] == null ?
-      """</div>""" :
-      """${blogResponse[widget.index]['detail']}</div>""",
+      data: blogResponse[widget.index]['detail'] == null
+          ? """</div>"""
+          : """${blogResponse[widget.index]['detail']}</div>""",
       customTextAlign: (dom.Node node) {
         if (node is dom.Element) {
           switch (node.localName) {
@@ -229,7 +252,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
       body: SingleChildScrollView(
@@ -241,49 +264,71 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                     height: 300,
                     width: double.infinity,
                     child: ClipRRect(
-                      borderRadius:
-                      new BorderRadius.circular(8.0),
+                      borderRadius: new BorderRadius.circular(8.0),
                       child: new FadeInImage.assetNetwork(
-                        image: APIData.blogImageUri+"${blogResponse[widget.index]['image']}",
+                        image: APIData.blogImageUri +
+                            "${blogResponse[widget.index]['image']}",
                         placeholder: "assets/placeholder_box.jpg",
                         height: 60.0,
                         width: 60.0,
                         fit: BoxFit.cover,
                       ),
-                    )
-                ),
+                    )),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+              padding:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(children: <Widget>[
-                    Expanded(
-                      child: blogResponse[widget.index]['updated_at'] == null ? SizedBox.shrink():
-                      Text(DateFormat('dd-MM-yyyy').format(DateTime.parse(blogResponse[widget.index]['updated_at']))),
-                    ),
-                    IconButton(icon: Icon(Icons.share), onPressed: (){
-                      Share.share(blogResponse[widget.index]['title']);
-                    },)
-                  ],),
-                  Text(blogResponse[widget.index]['title'], style: Theme.of(context).textTheme.title,),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: blogResponse[widget.index]['updated_at'] == null
+                            ? SizedBox.shrink()
+                            : Text(DateFormat('dd-MM-yyyy').format(
+                                DateTime.parse(
+                                    blogResponse[widget.index]['updated_at']))),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.share),
+                        onPressed: () {
+                          Share.share(blogResponse[widget.index]['title']);
+                        },
+                      )
+                    ],
+                  ),
+                  Text(
+                    blogResponse[widget.index]['title'],
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                   Divider(),
-                  SizedBox(height: 10.0,),
-                  Row(children: <Widget>[
-                    Icon(Icons.comment),
-                    SizedBox(width: 5.0,),
-                    Text("$commentsCount"),
-                  ],),
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.comment),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text("$commentsCount"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   blogDetails(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Comments", textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+                      Text(
+                        "Comments",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16.0),
                       ),
                       ButtonTheme(
                         minWidth: 60.0,
@@ -291,9 +336,10 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                         child: RaisedButton(
                             elevation: 10.0,
                             color: greenPrime,
-                            padding: EdgeInsets.only(left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
+                            padding: EdgeInsets.only(
+                                left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
                             child: Text("Add"),
-                            onPressed: (){
+                            onPressed: () {
                               addComment(context);
                             }),
                       ),
@@ -306,7 +352,6 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
             ),
           ],
         ),
-
       ),
     );
   }

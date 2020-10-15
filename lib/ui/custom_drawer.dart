@@ -36,7 +36,7 @@ class CustomDrawerState extends State<CustomDrawer> {
   void writeToFile(String key, String value) {
     Map<String, String> content = {key: value};
     Map<dynamic, dynamic> jsonFileContent =
-    json.decode(jsonFile.readAsStringSync());
+        json.decode(jsonFile.readAsStringSync());
     jsonFileContent.addAll(content);
     jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
@@ -51,16 +51,16 @@ class CustomDrawerState extends State<CustomDrawer> {
           width: MediaQuery.of(context).size.width / 4,
           child: userImage != null
               ? Image.network(
-            "${APIData.profileImageUri}" + "$userImage",
+                  "${APIData.profileImageUri}" + "$userImage",
 //            scale: 1.7,
-            fit: BoxFit.cover,
-          )
+                  fit: BoxFit.cover,
+                )
               : Image.asset(
-            "assets/avatar.png",
+                  "assets/avatar.png",
 //            scale: 1.7,
-            width: MediaQuery.of(context).size.width / 4.5,
-            fit: BoxFit.cover,
-          ),
+                  width: MediaQuery.of(context).size.width / 4.5,
+                  fit: BoxFit.cover,
+                ),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 1.0)),
         ),
@@ -78,16 +78,16 @@ class CustomDrawerState extends State<CustomDrawer> {
           width: 60.0,
           child: userImage != null
               ? Image.network(
-            "${APIData.profileImageUri}" + "$userImage",
+                  "${APIData.profileImageUri}" + "$userImage",
 //            scale: 1.7,
-            fit: BoxFit.cover,
-          )
+                  fit: BoxFit.cover,
+                )
               : Image.asset(
-            "assets/avatar.png",
+                  "assets/avatar.png",
 //            scale: 1.5,
-            width: MediaQuery.of(context).size.width / 4.5,
-            fit: BoxFit.cover,
-          ),
+                  width: MediaQuery.of(context).size.width / 4.5,
+                  fit: BoxFit.cover,
+                ),
         ),
         SizedBox(
           height: 10.0,
@@ -149,15 +149,15 @@ class CustomDrawerState extends State<CustomDrawer> {
           width: 50.0,
           child: userImage != null
               ? Image.network(
-            "${APIData.profileImageUri}" + "$userImage",
-            scale: 1.7,
-            fit: BoxFit.cover,
-          )
+                  "${APIData.profileImageUri}" + "$userImage",
+                  scale: 1.7,
+                  fit: BoxFit.cover,
+                )
               : Image.asset(
-            "assets/avatar.png",
-            scale: 1.7,
-            fit: BoxFit.cover,
-          ),
+                  "assets/avatar.png",
+                  scale: 1.7,
+                  fit: BoxFit.cover,
+                ),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.white, width: 1.0)),
         ),
@@ -185,103 +185,108 @@ class CustomDrawerState extends State<CustomDrawer> {
               ),
               status == "1"
                   ? userPaymentType == "Free"
-                  ? profileImage()
-                  : Container(
-                height: 100,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: mScreenCount,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        child: screenList[index] == '$myActiveScreen'
-                            ? Column(
-                          children: <Widget>[
-                            Container(
-                              height: 70.0,
-                              margin: EdgeInsets.only(right: 10.0),
-                              width: 70,
-                              child: userImage != null
-                                  ? Image.network(
-                                "${APIData.profileImageUri}" +
-                                    "$userImage",
-                                fit: BoxFit.cover,
-                              )
-                                  : Image.asset(
-                                "assets/avatar.png",
-                                width: MediaQuery.of(context).size.width / 4.5,
-                                fit: BoxFit.cover,
-                              ),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.white,
-                                      width: 1.0)),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            screenList[index] == null
-                                ? Text(
-                              '${screenList[index]}',
-                              style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.white
-                                      .withOpacity(0.7)),
-                            )
-                                : Text(
-                              screenList[index],
-                              style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.white
-                                      .withOpacity(0.7)),
-                            ),
-                          ],
+                      ? profileImage()
+                      : Container(
+                          height: 100,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: mScreenCount,
+                              itemBuilder: (BuildContext context, int index) {
+                                return InkWell(
+                                  child: screenList[index] == '$myActiveScreen'
+                                      ? Column(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 70.0,
+                                              margin:
+                                                  EdgeInsets.only(right: 10.0),
+                                              width: 70,
+                                              child: userImage != null
+                                                  ? Image.network(
+                                                      "${APIData.profileImageUri}" +
+                                                          "$userImage",
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : Image.asset(
+                                                      "assets/avatar.png",
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4.5,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 1.0)),
+                                            ),
+                                            SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            screenList[index] == null
+                                                ? Text(
+                                                    '${screenList[index]}',
+                                                    style: TextStyle(
+                                                        fontSize: 12.0,
+                                                        color: Colors.white
+                                                            .withOpacity(0.7)),
+                                                  )
+                                                : Text(
+                                                    screenList[index],
+                                                    style: TextStyle(
+                                                        fontSize: 12.0,
+                                                        color: Colors.white
+                                                            .withOpacity(0.7)),
+                                                  ),
+                                          ],
+                                        )
+                                      : Column(
+                                          children: <Widget>[
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 12.0),
+                                              height: 60.0,
+                                              width: 60.0,
+                                              child: userImage != null
+                                                  ? Image.network(
+                                                      "${APIData.profileImageUri}" +
+                                                          "$userImage",
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : Image.asset(
+                                                      "assets/avatar.png",
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4.5,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                            ),
+                                            SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            screenList[index] == null
+                                                ? userName(
+                                                    "${screenList[index]}")
+                                                : userName(screenList[index]),
+                                          ],
+                                        ),
+                                  onTap: () {
+                                    setState(() {
+                                      myActiveScreen = screenList[index];
+                                      screenCount = index + 1;
+                                    });
+                                    writeToFile("screenName", myActiveScreen);
+                                    writeToFile("screenStatus", "YES");
+                                    writeToFile("screenCount", "${index + 1}");
+                                  },
+                                );
+                              }),
                         )
-                            : Column(
-                          children: <Widget>[
-                            Container(
-                              margin:
-                              EdgeInsets.only(right: 12.0),
-                              height: 60.0,
-                              width: 60.0,
-                              child: userImage != null
-                                  ? Image.network(
-                                "${APIData.profileImageUri}" +
-                                    "$userImage",
-                                fit: BoxFit.cover,
-                              )
-                                  : Image.asset(
-                                "assets/avatar.png",
-                                width:
-                                MediaQuery.of(context)
-                                    .size
-                                    .width /
-                                    4.5,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            screenList[index] == null
-                                ? userName(
-                                "${screenList[index]}")
-                                : userName(screenList[index]),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            myActiveScreen = screenList[index];
-                            screenCount = index + 1;
-                          });
-                          writeToFile("screenName", myActiveScreen);
-                          writeToFile("screenStatus", "YES");
-                          writeToFile("screenCount", "${index + 1}");
-                        },
-                      );
-                    }),
-              )
                   : profileImage(),
               SizedBox(
                 height: 15.0,
@@ -330,7 +335,7 @@ class CustomDrawerState extends State<CustomDrawer> {
       child: InkWell(
           onTap: () {
             var route =
-            MaterialPageRoute(builder: (context) => NotificationsPage());
+                MaterialPageRoute(builder: (context) => NotificationsPage());
             Navigator.push(context, route);
           },
           child: Padding(
@@ -354,11 +359,11 @@ class CustomDrawerState extends State<CustomDrawer> {
           )),
       decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(
-              color: Color.fromRGBO(20, 20, 20, 1.0),
-              width: 3.0,
-            ),
-          )),
+        bottom: BorderSide(
+          color: Color.fromRGBO(20, 20, 20, 1.0),
+          width: 3.0,
+        ),
+      )),
     );
   }
 
@@ -371,8 +376,8 @@ class CustomDrawerState extends State<CustomDrawer> {
               context,
               MaterialPageRoute(
                   builder: (context) => BottomNavigationBarController(
-                    pageInd: 2,
-                  )),
+                        pageInd: 2,
+                      )),
             );
           },
           child: Padding(
@@ -396,11 +401,11 @@ class CustomDrawerState extends State<CustomDrawer> {
           )),
       decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(
-              color: Color.fromRGBO(20, 20, 20, 1.0),
-              width: 3.0,
-            ),
-          )),
+        bottom: BorderSide(
+          color: Color.fromRGBO(20, 20, 20, 1.0),
+          width: 3.0,
+        ),
+      )),
     );
   }
 
@@ -409,7 +414,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return InkWell(
         onTap: () {
           var route =
-          MaterialPageRoute(builder: (context) => AppSettingsPage());
+              MaterialPageRoute(builder: (context) => AppSettingsPage());
           Navigator.push(context, route);
         },
         child: Padding(
@@ -651,7 +656,7 @@ class CustomDrawerState extends State<CustomDrawer> {
               Expanded(
                 flex: 1,
                 child:
-                Icon(Icons.settings_power, size: 15, color: Colors.white70),
+                    Icon(Icons.settings_power, size: 15, color: Colors.white70),
               )
             ],
           ),
@@ -702,7 +707,6 @@ class CustomDrawerState extends State<CustomDrawer> {
 //  Drawer body container
   Widget drawerBodyContainer(height2) {
     return Container(
-      height: height2,
       child: Column(
         children: <Widget>[
           notification(),
@@ -751,7 +755,7 @@ class CustomDrawerState extends State<CustomDrawer> {
       fileExists = jsonFile.existsSync();
       if (fileExists)
         this.setState(
-                () => fileContent = json.decode(jsonFile.readAsStringSync()));
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
     });
   }
 
@@ -836,7 +840,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                     child: Text(
                       "Are you sure that you want to logout?",
                       style:
-                      TextStyle(color: Color.fromRGBO(155, 155, 155, 1.0)),
+                          TextStyle(color: Color.fromRGBO(155, 155, 155, 1.0)),
                     ),
                   ),
                   InkWell(
@@ -849,7 +853,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                       child: Text(
                         "Cancel",
                         style:
-                        TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),
+                            TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -899,4 +903,3 @@ class CustomDrawerState extends State<CustomDrawer> {
     fileExists = false;
   }
 }
-

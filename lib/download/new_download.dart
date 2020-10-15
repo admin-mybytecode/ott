@@ -42,7 +42,15 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
   var dFileName;
   Future<List<Todo>> future;
   int id;
-  var mtName, mReadyUrl, mIFrameUrl, mUrl360, mUrl480, mUrl720, mUrl1080, youtubeUrl, vimeoUrl;
+  var mtName,
+      mReadyUrl,
+      mIFrameUrl,
+      mUrl360,
+      mUrl480,
+      mUrl720,
+      mUrl1080,
+      youtubeUrl,
+      vimeoUrl;
   TargetPlatform platform;
   var ckStatus;
   var newTask;
@@ -167,35 +175,33 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
   void _showDialog(task) {
     getAllScreens();
     var downCount;
-    if(downloadLimit == null){
+    if (downloadLimit == null) {
       Fluttertoast.showToast(msg: "You can't download with this plan.");
       return;
     }
-    var dCount= downloadLimit / mScreenCount;
+    var dCount = downloadLimit / mScreenCount;
 
-    if(fileContent['screenCount'] == "1"){
+    if (fileContent['screenCount'] == "1") {
       setState(() {
         downCount = download1;
       });
-    }else if(fileContent['screenCount'] == "2"){
+    } else if (fileContent['screenCount'] == "2") {
       setState(() {
         downCount = download2;
       });
-    }else if(fileContent['screenCount'] == "3"){
+    } else if (fileContent['screenCount'] == "3") {
       setState(() {
         downCount = download3;
       });
-    }
-    else if(fileContent['screenCount'] == "4"){
+    } else if (fileContent['screenCount'] == "4") {
       setState(() {
         downCount = download4;
       });
     }
 
-    if(dCount.toInt() > downCount){
+    if (dCount.toInt() > downCount) {
       _requestDownload(task);
-    }
-    else{
+    } else {
       Fluttertoast.showToast(msg: "Your download limit exceed.");
     }
   }
@@ -319,7 +325,8 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
                               if (dCount.toInt() > downCount) {
                                 _requestDownload360(task);
                               } else {
-                                Fluttertoast.showToast(msg: "Download limit exceed.");
+                                Fluttertoast.showToast(
+                                    msg: "Download limit exceed.");
                               }
                               Navigator.pop(context);
                             },
@@ -472,8 +479,8 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
                   checkMkv == ".mkv" ||
                   checkM3u8 == ".m3u8") {
                 getAllScreens();
-                print("MSCREEN: ${mScreenCount}");
-                print("MSCREEN: ${downloadLimit}");
+                print("MSCREEN: $mScreenCount");
+                print("MSCREEN: $downloadLimit");
                 if (downloadLimit == null) {
                   Fluttertoast.showToast(msg: "Can't download with this plan.");
                   return;
@@ -482,16 +489,17 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
                   dCount = downloadLimit / mScreenCount;
                 });
                 _showDialog(task);
-              }
-              else {
+              } else {
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
               }
-            }
-            else if (mUrl360 != "null" || mUrl480 != "null" || mUrl720 != "null" || mUrl1080 != "null") {
+            } else if (mUrl360 != "null" ||
+                mUrl480 != "null" ||
+                mUrl720 != "null" ||
+                mUrl1080 != "null") {
               getAllScreens();
-              print("MSCREEN: ${mScreenCount}");
-              print("MSCREEN: ${downloadLimit}");
+              print("MSCREEN: $mScreenCount");
+              print("MSCREEN: $downloadLimit");
               if (downloadLimit == null) {
                 Fluttertoast.showToast(msg: "Can't download with this plan.");
                 return;
@@ -847,11 +855,14 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
   }
 
   Widget column() {
-    if(download == 0){
+    if (download == 0) {
       return Column(
         children: <Widget>[
           IconButton(
-              icon: Icon(Icons.file_download, size: 30,),
+              icon: Icon(
+                Icons.file_download,
+                size: 30,
+              ),
               onPressed: () {
                 Fluttertoast.showToast(msg: "Downloading is OFF.");
               }),
@@ -863,168 +874,169 @@ class _DownloadEpisodePageState extends State<DownloadEpisodePage>
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.0,
                 color: Colors.white
-              // color: Colors.white
-            ),
+                // color: Colors.white
+                ),
           ),
         ],
       );
-    }else {
+    } else {
       return status == "1"
           ? userPaymentType == "Free"
-          ? Column(
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.file_download),
-              onPressed: () {
-                Fluttertoast.showToast(
-                    msg: "You can not download with free plan");
-              }),
-        ],
-      )
-          : Builder(
-        builder: (context) =>
-        isLoading
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : permissionReady
-            ? ddItems == null
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : Container(
-          child: Column(
-            children: ddItems
-                .map((item) =>
-            item.task == null
-                ? Container(
-              padding:
-              const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0),
-              child: Text(
-                item.name,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                    fontSize: 18.0),
-              ),
-            )
-                : Container(
-              child: InkWell(
-                onTap: item.task.status ==
-                    DownloadTaskStatus
-                        .complete
-                    ? () {
-                  _openDownloadedFile(
-                      item.task)
-                      .then((success) {
-                    if (!success) {
-                      Scaffold.of(context)
-                          .showSnackBar(
-                          SnackBar(
-                              content:
-                              Text('Cannot open this file')));
-                    }
-                  });
-                }
-                    : null,
-                child: Stack(
+              ? Column(
                   children: <Widget>[
-                    new Container(
-                      height: 62.0,
-                      child:
-                      _buildActionForTask(
-                          item.task),
-                    ),
-                    item.task.status ==
-                        DownloadTaskStatus
-                            .running ||
-                        item.task.status ==
-                            DownloadTaskStatus
-                                .paused
-                        ? new Positioned(
-                      left: 15.0,
-                      right: 15.0,
-                      bottom: 0.0,
-                      child:
-                      LinearProgressIndicator(
-                        value: item.task
-                            .progress /
-                            100,
-                      ),
-                    )
-                        : Container()
-                  ]
-                      .where((child) =>
-                  child != null)
-                      .toList(),
-                ),
-              ),
-            ))
-                .toList(),
-          ),
-        )
-            : Container(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0),
-                  child: Text(
-                    'Please grant accessing storage permission to continue -_-',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 18.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 32.0,
-                ),
-                FlatButton(
-                    onPressed: () {
-                      _checkPermission().then((hasGranted) {
-                        setState(() {
-                          permissionReady = hasGranted;
-                        });
-                      });
-                    },
-                    child: Text(
-                      'Retry',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
-                    ))
-              ],
-            ),
-          ),
-        ),
-      )
+                    IconButton(
+                        icon: Icon(Icons.file_download),
+                        onPressed: () {
+                          Fluttertoast.showToast(
+                              msg: "You can not download with free plan");
+                        }),
+                  ],
+                )
+              : Builder(
+                  builder: (context) => isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : permissionReady
+                          ? ddItems == null
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Container(
+                                  child: Column(
+                                    children: ddItems
+                                        .map((item) => item.task == null
+                                            ? Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 8.0),
+                                                child: Text(
+                                                  item.name,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.blue,
+                                                      fontSize: 18.0),
+                                                ),
+                                              )
+                                            : Container(
+                                                child: InkWell(
+                                                  onTap: item.task.status ==
+                                                          DownloadTaskStatus
+                                                              .complete
+                                                      ? () {
+                                                          _openDownloadedFile(
+                                                                  item.task)
+                                                              .then((success) {
+                                                            if (!success) {
+                                                              Scaffold.of(
+                                                                      context)
+                                                                  .showSnackBar(
+                                                                      SnackBar(
+                                                                          content:
+                                                                              Text('Cannot open this file')));
+                                                            }
+                                                          });
+                                                        }
+                                                      : null,
+                                                  child: Stack(
+                                                    children: <Widget>[
+                                                      new Container(
+                                                        height: 62.0,
+                                                        child:
+                                                            _buildActionForTask(
+                                                                item.task),
+                                                      ),
+                                                      item.task.status ==
+                                                                  DownloadTaskStatus
+                                                                      .running ||
+                                                              item.task
+                                                                      .status ==
+                                                                  DownloadTaskStatus
+                                                                      .paused
+                                                          ? new Positioned(
+                                                              left: 15.0,
+                                                              right: 15.0,
+                                                              bottom: 0.0,
+                                                              child:
+                                                                  LinearProgressIndicator(
+                                                                value: item.task
+                                                                        .progress /
+                                                                    100,
+                                                              ),
+                                                            )
+                                                          : Container()
+                                                    ]
+                                                        .where((child) =>
+                                                            child != null)
+                                                        .toList(),
+                                                  ),
+                                                ),
+                                              ))
+                                        .toList(),
+                                  ),
+                                )
+                          : Container(
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24.0),
+                                      child: Text(
+                                        'Please grant accessing storage permission to continue -_-',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: 18.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 32.0,
+                                    ),
+                                    FlatButton(
+                                        onPressed: () {
+                                          _checkPermission().then((hasGranted) {
+                                            setState(() {
+                                              permissionReady = hasGranted;
+                                            });
+                                          });
+                                        },
+                                        child: Text(
+                                          'Retry',
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0),
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                )
           : Column(
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.file_download),
-              onPressed: () {
-                _showMsg();
-              }),
-          Text(
-            "Download",
-            style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: 12.0,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.0,
-                color: Colors.white
-              // color: Colors.white
-            ),
-          ),
-        ],
-      );
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.file_download),
+                    onPressed: () {
+                      _showMsg();
+                    }),
+                Text(
+                  "Download",
+                  style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.0,
+                      color: Colors.white
+                      // color: Colors.white
+                      ),
+                ),
+              ],
+            );
     }
   }
 

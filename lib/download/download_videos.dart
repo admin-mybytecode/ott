@@ -22,7 +22,8 @@ class OfflineDownloadPage extends StatefulWidget {
   _OfflineDownloadPageState createState() => _OfflineDownloadPageState();
 }
 
-class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTickerProviderStateMixin {
+class _OfflineDownloadPageState extends State<OfflineDownloadPage>
+    with SingleTickerProviderStateMixin {
   static const _channel = const MethodChannel('vn.hunghd/downloader');
 
   var videos = [];
@@ -40,9 +41,7 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
         link: video['info'],
         type: video['vtype'],
         seasonId: video['vtype'] == 'M' ? null : video['season_id'],
-        episodeId: video['vtype'] == 'M' ? null : video['episode_id'])
-    )
-    );
+        episodeId: video['vtype'] == 'M' ? null : video['episode_id'])));
 
     for (int i = count; i < _tasks.length; i++) {
       _items.add(_ItemHolder(name: _tasks[i].name, task: _tasks[i]));
@@ -58,7 +57,7 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
         }
       }
     });
-    if(mounted) {
+    if (mounted) {
       setState(() {
         _isLoading = false;
       });
@@ -91,7 +90,6 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
   void dispose() {
     super.dispose();
   }
-
 
   static void downloadCallback(
       String id, DownloadTaskStatus status, int progress) {
@@ -140,16 +138,19 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
     getUrlVideo();
     return Scaffold(
       appBar: appBar(),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
-          child: Icon(
-            Icons.refresh,
-            color: Colors.white,
-            size: 25.0,
-          ),
-          onPressed: () {
-            getUpdates();
-          }),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 60.0),
+        child: FloatingActionButton(
+            backgroundColor: Colors.black,
+            child: Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 25.0,
+            ),
+            onPressed: () {
+              getUpdates();
+            }),
+      ),
       body: Builder(builder: (context) {
         return _isLoading
             ? new Center(
@@ -174,7 +175,8 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
                             ),
                           )
                         : new Container(
-                            padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 8.0),
                             child: InkWell(
                               onTap: item.task.status ==
                                       DownloadTaskStatus.complete
@@ -364,7 +366,7 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage> with SingleTi
         taskId: task.taskId, shouldDeleteContent: true);
     await _prepare();
 
-    var raw = await task.type == 'M'
+    var raw = task.type == 'M'
         ? cdb.delete(
             DatabaseCreator.todoTable,
             where: "movie_id = ? AND vtype = ?",

@@ -26,7 +26,8 @@ class VideosPage extends StatefulWidget {
   _VideosPageState createState() => new _VideosPageState();
 }
 
-class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateMixin, RouteAware {
+class _VideosPageState extends State<VideosPage>
+    with SingleTickerProviderStateMixin, RouteAware {
   List data1;
   GlobalKey _keyRed = GlobalKey();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -52,13 +53,13 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
           break;
         case DataConnectionStatus.disconnected:
           var router = new MaterialPageRoute(
-              builder: (BuildContext context) =>  OfflineDownloadPage(
-                key: PageStorageKey('Page4'),
-              )
-          );
+              builder: (BuildContext context) => OfflineDownloadPage(
+                    key: PageStorageKey('Page4'),
+                  ));
           Navigator.of(context).push(router);
           break;
-      }});
+      }
+    });
   }
 
 //  Used to refresh the list of movies and TV series on the home page
@@ -79,20 +80,19 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
           });
 
       final mainResponse =
-      await http.get(Uri.encodeFull(APIData.allDataApi), headers: {
+          await http.get(Uri.encodeFull(APIData.allDataApi), headers: {
         // ignore: deprecated_member_use
         HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-      }
-      );
+      });
 
       mainData = json.decode(mainResponse.body);
 
       menuDataResponse = json.decode(menuData.body);
-    if(mounted){
-      setState(() {
-        menuDataArray = menuDataResponse['data'];
-      });
-    }
+      if (mounted) {
+        setState(() {
+          menuDataArray = menuDataResponse['data'];
+        });
+      }
       menuDataListLength = menuDataArray == null ? 0 : menuDataArray.length;
       searchIds.clear();
       if (menuDataListLength != null) {
@@ -113,9 +113,9 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
       }
     } on SocketException catch (_) {
       var router = new MaterialPageRoute(
-          builder: (BuildContext context) => OfflineDownloadPage(
-            key: PageStorageKey('Page4'),
-          ),
+        builder: (BuildContext context) => OfflineDownloadPage(
+          key: PageStorageKey('Page4'),
+        ),
       );
       Navigator.of(context).push(router);
       print('not connected');
@@ -131,7 +131,7 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
   }
 
 //  Heading text shimmer
-  Widget headingTextShimmer(){
+  Widget headingTextShimmer() {
     return Container(
       child: new Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 12.0, 8.0, 5.0),
@@ -141,25 +141,21 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
             new Container(
               child: new Container(
                 child: new ClipRRect(
-                  borderRadius:
-                  new BorderRadius.circular(8.0),
+                  borderRadius: new BorderRadius.circular(8.0),
                   child: new SizedBox(
-                    child: Shimmer
-                        .fromColors(
+                    child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                      highlightColor:
-                      Color.fromRGBO(50, 50, 50, 1.0),
+                      highlightColor: Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
-                        elevation: 0.0, color: Color.fromRGBO(45, 45, 45, 1.0),
-                        shape:
-                        RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10),),
+                        elevation: 0.0,
+                        color: Color.fromRGBO(45, 45, 45, 1.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
                         ),
-                        clipBehavior:
-                        Clip.antiAliasWithSaveLayer,
-                        child:
-                        SizedBox(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: SizedBox(
                           width: 220,
                           height: 8,
                         ),
@@ -176,42 +172,32 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
   }
 
 //  Slider image shimmer
-  Widget sliderImageShimmer(width){
+  Widget sliderImageShimmer(width) {
     return Padding(
-      padding: const EdgeInsets.only(
-          left:15.0,right: 15.0),
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
       child: new InkWell(
         onTap: () {},
         child: new Column(
-          crossAxisAlignment:
-          CrossAxisAlignment
-              .center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             new Container(
               child: new Container(
                 child: new ClipRRect(
-                  borderRadius:
-                  new BorderRadius.circular(0.0),
+                  borderRadius: new BorderRadius.circular(0.0),
                   child: new SizedBox(
-                    child: Shimmer
-                        .fromColors(
+                    child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
                       highlightColor: Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
                         color: Color.fromRGBO(45, 45, 45, 1.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius
-                              .all(
-                            Radius.circular(
-                                10),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
                         ),
-                        clipBehavior:
-                        Clip.antiAliasWithSaveLayer,
-                        child:
-                        SizedBox(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: SizedBox(
                           width: width,
                           height: 180,
                         ),
@@ -228,31 +214,25 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
   }
 
 // images shimmer
-  Widget videoImageShimmer(width){
+  Widget videoImageShimmer(width) {
     return SizedBox.fromSize(
         size: const Size.fromHeight(180.0),
         child: ListView.builder(
             itemCount: 10,
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(
-                left: 16.0, top: 4.0),
-            itemBuilder: (BuildContext context,
-                int position) {
+            padding: const EdgeInsets.only(left: 16.0, top: 4.0),
+            itemBuilder: (BuildContext context, int position) {
               return new Padding(
-                padding: const EdgeInsets.only(
-                    right: 12.0),
+                padding: const EdgeInsets.only(right: 12.0),
                 child: new InkWell(
                   onTap: () {},
                   child: new Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment
-                        .center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       new Container(
                         child: new Container(
                           child: new ClipRRect(
-                            borderRadius:
-                            new BorderRadius.circular(8.0),
+                            borderRadius: new BorderRadius.circular(8.0),
                             child: new SizedBox(
                               child: Shimmer.fromColors(
                                 baseColor: Color.fromRGBO(45, 45, 45, 1.0),
@@ -260,19 +240,13 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                                 child: Card(
                                   elevation: 0.0,
                                   color: Color.fromRGBO(45, 45, 45, 1.0),
-                                  shape:
-                                  RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius
-                                        .all(
-                                      Radius.circular(
-                                          10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
                                     ),
                                   ),
-                                  clipBehavior:
-                                  Clip.antiAliasWithSaveLayer,
-                                  child:
-                                  SizedBox(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: SizedBox(
                                     width: 100,
                                     height: 160,
                                   ),
@@ -289,47 +263,42 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
             }));
   }
 
-
 // shimmer
-  Widget shimmer(width){
+  Widget shimmer(width) {
     return SingleChildScrollView(
         child: new Column(
             key: _keyRed,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 //                  Image slider shimmer
-              sliderImageShimmer(width),
+          sliderImageShimmer(width),
 
-              new Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, bottom: 0.0, left: 0.0, right: 0.0),
-                  child: new ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      physics: ClampingScrollPhysics(),
-                      primary: true,
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.only(top: 0.0),
-                      itemBuilder: (BuildContext context, int index) {
-                        return new Padding(
-                            padding: const EdgeInsets.only(
-                                top: 0.0,
-                                bottom: 0.0,
-                                left: 0.0,
-                                right: 0.0),
-                            child: new Column(children: <Widget>[
+          new Padding(
+              padding: const EdgeInsets.only(
+                  top: 10.0, bottom: 0.0, left: 0.0, right: 0.0),
+              child: new ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  physics: ClampingScrollPhysics(),
+                  primary: true,
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.only(top: 0.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return new Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
+                        child: new Column(children: <Widget>[
 //                                  Heading text shimmer
-                              headingTextShimmer(),
+                          headingTextShimmer(),
 //                                  All data images shimmer
-                              videoImageShimmer(width),
-                            ]));
-                      }))
-            ]));
+                          videoImageShimmer(width),
+                        ]));
+                  }))
+        ]));
   }
 
-
 // List tv series and movies
-  Widget tvSeriesAndMoviesList(){
+  Widget tvSeriesAndMoviesList() {
     return Padding(
         padding: const EdgeInsets.only(
             top: 10.0, bottom: 0.0, left: 0.0, right: 0.0),
@@ -348,43 +317,54 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
               List<dynamic> se;
 
               newVideosList1 = List<VideoDataModel>.generate(
-                  menuDataArray[index1].length == null ? 0 : menuDataArray[index1].length, (int index) {
+                  menuDataArray[index1].length == null
+                      ? 0
+                      : menuDataArray[index1].length, (int index) {
                 data1 = menuDataArray[index1];
                 type = data1[index]['type'];
                 description = data1[index]['detail'];
                 t = description;
                 var genreIdByM = data1[index]['genre_id'];
-                singleId =  genreIdByM == null ? null : genreIdByM.split(",");
+                singleId = genreIdByM == null ? null : genreIdByM.split(",");
 
                 double convrInStart;
                 dynamic vRating = data1[index]['rating'];
                 switch (vRating.runtimeType) {
-                  case double: {
-                    double tmdbrating =  data1[index]['rating'] == null ? 0 : data1[index]['rating'];
-                    convrInStart = tmdbrating != null ? tmdbrating/2 : 0;
-                  }
-                  break;
-                  case int: {
-                    var tmdbrating =  data1[index]['rating'] == null ? 0 : data1[index]['rating'];
-                    convrInStart = tmdbrating != null ? tmdbrating/2 : 0;
-                  }
-                  break;
-                  case String:{
-                    var tmdbrating =  data1[index]['rating'] == null ? 0 : double.parse(data1[index]['rating']);
-                    convrInStart = tmdbrating != null ? tmdbrating/2 : 0;
-                  }
-                  break;
+                  case double:
+                    {
+                      double tmdbrating = data1[index]['rating'] == null
+                          ? 0
+                          : data1[index]['rating'];
+                      convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                    }
+                    break;
+                  case int:
+                    {
+                      var tmdbrating = data1[index]['rating'] == null
+                          ? 0
+                          : data1[index]['rating'];
+                      convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                    }
+                    break;
+                  case String:
+                    {
+                      var tmdbrating = data1[index]['rating'] == null
+                          ? 0
+                          : double.parse(data1[index]['rating']);
+                      convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                    }
+                    break;
                 }
 
                 var idTM;
-                if(type == "T"){
+                if (type == "T") {
                   se = data1[index]['seasons'] as List<dynamic>;
                   idTM = data1[index]['comments'];
-                }else{
+                } else {
                   se = data1[index]['movie_series'] as List<dynamic>;
                   idTM = data1[index]['comments'];
                   videoLink = data1[index]['video_link'];
-                  iFrameURL =  videoLink['iframeurl'];
+                  iFrameURL = videoLink['iframeurl'];
                   iReadyUrl = videoLink['ready_url'];
                   vUrl360 = videoLink['url_360'];
                   vUrl480 = videoLink['url_480'];
@@ -396,10 +376,14 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                   name: '${data1[index]['title']}',
                   box: type == "T"
                       ? "${APIData.tvImageUriTv}" +
-                      "${data1[index]['thumbnail']}" : "${APIData.movieImageUri}" + "${data1[index]['thumbnail']}",
-                  cover: type == "T" ? "${APIData.tvImageUriPosterTv}" + "${data1[index]['poster']}"
+                          "${data1[index]['thumbnail']}"
+                      : "${APIData.movieImageUri}" +
+                          "${data1[index]['thumbnail']}",
+                  cover: type == "T"
+                      ? "${APIData.tvImageUriPosterTv}" +
+                          "${data1[index]['poster']}"
                       : "${APIData.movieImageUriPosterMovie}" +
-                      "${data1[index]['poster']}",
+                          "${data1[index]['poster']}",
                   description: "$t",
                   datatype: type,
                   rating: convrInStart,
@@ -413,46 +397,43 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                   screenshots: List.generate(3, (int xyz) {
                     return type == "T"
                         ? "${APIData.tvImageUriPosterTv}" +
-                        "${data1[index]['poster']}"
+                            "${data1[index]['poster']}"
                         : "${APIData.movieImageUriPosterMovie}" +
-                        "${data1[index]['poster']}";
+                            "${data1[index]['poster']}";
                   }),
                   url: '${data1[index]['trailer_url']}',
                   menuId: 1,
-                  genre: List.generate(
-                      singleId == null ? 0 : singleId.length,
-                          (int xyz) {
-                        return "${singleId[xyz]}";
-                      }),
-
-                  genres: List.generate(
-                      genreData == null ? 0 : genreData.length,
+                  genre: List.generate(singleId == null ? 0 : singleId.length,
+                      (int xyz) {
+                    return "${singleId[xyz]}";
+                  }),
+                  genres:
+                      List.generate(genreData == null ? 0 : genreData.length,
                           (int genereIndex) {
-                        var genreId2 = genreData[genereIndex]['id'].toString();
+                    var genreId2 = genreData[genereIndex]['id'].toString();
 
-                        var genrelist = List.generate(
-                            singleId == null ? 0 : singleId.length,
-                                (int i) {
-                              return "${singleId[i]}";
-                            });
-                        var isAv2 = 0;
-                        for (var y in genrelist) {
-                          if (genreId2 == y) {
-                            isAv2 = 1;
-                            break;
-                          }
-                        }
-                        if (isAv2 == 1) {
-                          if( genreData[genereIndex]['name'] == null){
-                          }else{
-                            return "${genreData[genereIndex]['name']}";
-                          }
-                        }
-                        return null;
-                      }),
-
-                  seasons: List<Seasons>.generate(se== null ? 0 : se.length, (int seasonIndex){
-                    if(type == "T"){
+                    var genrelist = List.generate(
+                        singleId == null ? 0 : singleId.length, (int i) {
+                      return "${singleId[i]}";
+                    });
+                    var isAv2 = 0;
+                    for (var y in genrelist) {
+                      if (genreId2 == y) {
+                        isAv2 = 1;
+                        break;
+                      }
+                    }
+                    if (isAv2 == 1) {
+                      if (genreData[genereIndex]['name'] == null) {
+                      } else {
+                        return "${genreData[genereIndex]['name']}";
+                      }
+                    }
+                    return null;
+                  }),
+                  seasons: List<Seasons>.generate(se == null ? 0 : se.length,
+                      (int seasonIndex) {
+                    if (type == "T") {
                       return Seasons(
                         id: se[seasonIndex]['id'],
                         sTvSeriesId: se[seasonIndex]['tv_series_id'],
@@ -464,14 +445,12 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                         language: se[seasonIndex]['a_language'],
                         type: se[seasonIndex]['type'],
                       );
-                    } else{
+                    } else {
                       return null;
                     }
-                  }
-                  ),
-
+                  }),
                   comments: List<CommentsModel>.generate(
-                      idTM == null ? 0 : idTM.length, (int comIndex){
+                      idTM == null ? 0 : idTM.length, (int comIndex) {
                     return CommentsModel(
                       id: idTM[comIndex]['id'],
                       cComment: idTM[comIndex]['comment'],
@@ -487,8 +466,7 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                   aLang: '${data1[index]['a_language']}',
                   vStatus: "${data1[index]['status']}",
                 );
-              }
-              );
+              });
 
               newVideosList1.removeWhere((item) => item.vStatus == "0");
 
@@ -496,29 +474,34 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
 
               return Padding(
                 padding: const EdgeInsets.only(
-                    top: 0.0,
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0),
+                    top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
                 child: new Column(
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(right: 15.0,),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 15.0,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           videoTypeContainer(type),
                           InkWell(
-                            child: Text("View All",
+                            child: Text(
+                              "View All",
                               style: TextStyle(
                                   fontFamily: 'Lato',
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w600,
                                   color: greenPrime),
                             ),
-                            onTap: (){
+                            onTap: () {
                               var router = new MaterialPageRoute(
-                                  builder: (BuildContext context) => GridVideosPageMt("${type == "T" ? "TV Series" : "Movies"}",'$type', newVideosList1));
+                                  builder: (BuildContext context) =>
+                                      GridVideosPageMt(
+                                          "${type == "T" ? "TV Series" : "Movies"}",
+                                          '$type',
+                                          newVideosList1));
                               Navigator.of(context).push(router);
                             },
                           )
@@ -527,18 +510,17 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                     ),
                     Container(
                       child: HorizontalVideoController(
-                          newVideosList1.reversed.toList(),
+                        newVideosList1.reversed.toList(),
                       ),
                     ),
                   ],
                 ),
               );
-            })
-    );
+            }));
   }
 
 // List all genres
-  Widget allGenresList(){
+  Widget allGenresList() {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: genreData == null ? 0 : genreData.length,
@@ -557,40 +539,34 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
             sum += m2;
           }
 
-          var gTest = List.generate(
-              genreData == null ? 0 : genreData.length,
-                  (int xyz) {
-                var genreId2 = genreData[xyz]['id'].toString();
-                var zx = List.generate(
-                    singleId == null ? 0 : singleId.length,
-                        (int xyz) {
-                      return "${singleId[xyz]}";
-                    }
-                );
-                var isAv2 = 0;
-                for (var y in zx) {
-                  if (genreId2 == y) {
-                    isAv2 = 1;
-                    break;
-                  }
-                }
-                if (isAv2 == 1) {
-                  if( genreData[xyz]['name'] == null){
-                  }
-                  else{
-                    return "${genreData[xyz]['name']}";
-                  }
-                }
-                return null;
+          var gTest = List.generate(genreData == null ? 0 : genreData.length,
+              (int xyz) {
+            var genreId2 = genreData[xyz]['id'].toString();
+            var zx = List.generate(singleId == null ? 0 : singleId.length,
+                (int xyz) {
+              return "${singleId[xyz]}";
+            });
+            var isAv2 = 0;
+            for (var y in zx) {
+              if (genreId2 == y) {
+                isAv2 = 1;
+                break;
               }
-          );
+            }
+            if (isAv2 == 1) {
+              if (genreData[xyz]['name'] == null) {
+              } else {
+                return "${genreData[xyz]['name']}";
+              }
+            }
+            return null;
+          });
 
           gTest.removeWhere((value) => value == null);
           newVideosListG = List<VideoDataModel>.generate(
               searchIds == null ? 0 : sum, (int index) {
             var type = searchIds[index]['type'];
-            var description =
-            searchIds[index]['detail'];
+            var description = searchIds[index]['detail'];
             var t = description;
             var genreIdByM = searchIds[index]['genre_id'];
             singleId = genreIdByM == null ? null : genreIdByM.split(",");
@@ -599,25 +575,31 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
             dynamic vRating = searchIds[index]['rating'];
             switch (vRating.runtimeType) {
               case int:
-                var tmdbrating =  searchIds[index]['rating'] == null ? 0 : searchIds[index]['rating'];
+                var tmdbrating = searchIds[index]['rating'] == null
+                    ? 0
+                    : searchIds[index]['rating'];
                 convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
-              break;
+                break;
               case double:
-                double tmdbrating =  searchIds2[index]['rating'] == null ? 0 : searchIds2[index]['rating'].toDouble();
-                convrInStart = tmdbrating != null ? tmdbrating/2 : 0;
-              break;
-              case String:
-                var tmdbrating =  searchIds[index]['rating'] == null ? 0 : double.parse(searchIds[index]['rating']);
+                double tmdbrating = searchIds2[index]['rating'] == null
+                    ? 0
+                    : searchIds2[index]['rating'].toDouble();
                 convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
-              break;
+                break;
+              case String:
+                var tmdbrating = searchIds[index]['rating'] == null
+                    ? 0
+                    : double.parse(searchIds[index]['rating']);
+                convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                break;
             }
 
             List<dynamic> se;
             var comGenreLen;
-            if(type == "T"){
+            if (type == "T") {
               se = searchIds[index]['seasons'] as List<dynamic>;
               comGenreLen = searchIds[index]['comments'];
-            }else{
+            } else {
               se = searchIds[index]['movie_series'] as List<dynamic>;
               comGenreLen = searchIds[index]['comments'];
               videoLink = searchIds[index]['video_link'];
@@ -629,18 +611,18 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
               vUrl1080 = videoLink['url_1080'];
             }
             return VideoDataModel(
-              id:searchIds[index]['id'],
+              id: searchIds[index]['id'],
               name: '${searchIds[index]['title']}',
               box: type == "T"
                   ? "${APIData.tvImageUriTv}" +
-                  "${searchIds[index]['thumbnail']}"
+                      "${searchIds[index]['thumbnail']}"
                   : "${APIData.movieImageUri}" +
-                  "${searchIds[index]['thumbnail']}",
+                      "${searchIds[index]['thumbnail']}",
               cover: type == "T"
                   ? "${APIData.tvImageUriPosterTv}" +
-                  "${searchIds[index]['poster']}"
+                      "${searchIds[index]['poster']}"
                   : "${APIData.movieImageUriPosterMovie}" +
-                  "${searchIds[index]['poster']}",
+                      "${searchIds[index]['poster']}",
               description: '$t',
               datatype: type,
               rating: convrInStart,
@@ -654,48 +636,42 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
               screenshots: List.generate(3, (int xyz) {
                 return type == "T"
                     ? "${APIData.tvImageUriPosterTv}" +
-                    "${searchIds[index]['poster']}"
+                        "${searchIds[index]['poster']}"
                     : "${APIData.movieImageUriPosterMovie}" +
-                    "${searchIds[index]['poster']}";
+                        "${searchIds[index]['poster']}";
               }),
               url: '${searchIds[index]['trailer_url']}',
               menuId: 1,
-              genre: List.generate(
-                  singleId == null ? 0 : singleId.length,
-                      (int xyz) {
-                    return "${singleId[xyz]}";
-                  }),
-              genres: List.generate(
-                  genreData == null ? 0 : genreData.length,
-                      (int xyz) {
-                    var genreId2 = genreData[xyz]['id'].toString();
+              genre: List.generate(singleId == null ? 0 : singleId.length,
+                  (int xyz) {
+                return "${singleId[xyz]}";
+              }),
+              genres: List.generate(genreData == null ? 0 : genreData.length,
+                  (int xyz) {
+                var genreId2 = genreData[xyz]['id'].toString();
 
-                    var zx = List.generate(
-                        singleId == null ? 0 : singleId.length,
-                            (int xyz) {
-                          return "${singleId[xyz]}";
-                        });
-                    var isAv2 = 0;
-                    for (var y in zx) {
-                      if (genreId2 == y) {
-                        isAv2 = 1;
-                        break;
-                      }
-                    }
-                    if (isAv2 == 1) {
-                      if( genreData[xyz]['name'] == null){
-
-                      }else{
-                        return "${genreData[xyz]['name']}";
-                      }
-
-                    }
-                    return null;
-
-                  }),
-
-              seasons: List<Seasons>.generate(se== null ? 0 : se.length, (int s){
-                if(type == "T"){
+                var zx = List.generate(singleId == null ? 0 : singleId.length,
+                    (int xyz) {
+                  return "${singleId[xyz]}";
+                });
+                var isAv2 = 0;
+                for (var y in zx) {
+                  if (genreId2 == y) {
+                    isAv2 = 1;
+                    break;
+                  }
+                }
+                if (isAv2 == 1) {
+                  if (genreData[xyz]['name'] == null) {
+                  } else {
+                    return "${genreData[xyz]['name']}";
+                  }
+                }
+                return null;
+              }),
+              seasons:
+                  List<Seasons>.generate(se == null ? 0 : se.length, (int s) {
+                if (type == "T") {
                   return new Seasons(
                     id: se[s]['id'],
                     sTvSeriesId: se[s]['tv_series_id'],
@@ -706,14 +682,13 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                     sActorId: se[s]['actor_id'],
                     language: se[s]['a_language'],
                     type: se[s]['type'],
-
                   );
-                }else{
+                } else {
                   return null;
                 }
               }),
               comments: List<CommentsModel>.generate(
-                  comGenreLen == null ? 0 : comGenreLen.length, (int comIndex){
+                  comGenreLen == null ? 0 : comGenreLen.length, (int comIndex) {
                 return CommentsModel(
                   id: comGenreLen[comIndex]['id'],
                   cComment: comGenreLen[comIndex]['comment'],
@@ -726,8 +701,12 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                 );
               }),
               maturityRating: '${searchIds[index]['maturity_rating']}',
-              duration: type == "T" ? 'Not Available': '${searchIds[index]['duration']}',
-              released: type == "T" ? 'Not Available': '${searchIds[index]['released']}',
+              duration: type == "T"
+                  ? 'Not Available'
+                  : '${searchIds[index]['duration']}',
+              released: type == "T"
+                  ? 'Not Available'
+                  : '${searchIds[index]['released']}',
               vStatus: "${searchIds[index]['status']}",
             );
             //   newGamesList.add(test);
@@ -748,16 +727,12 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
           if (isAv == 1) {
             return new Padding(
               padding: const EdgeInsets.only(
-                  top: 0.0,
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0),
+                  top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
               child: new Column(
                 children: <Widget>[
                   new Container(
-                    child:  Padding(
-                      padding: const EdgeInsets.fromLTRB(
-                          16.0, 12.0, 15.0, 5.0),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 12.0, 15.0, 5.0),
                       child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -767,22 +742,26 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                               style: TextStyle(
                                   fontFamily: 'Lato',
                                   fontSize: 16.0,
-                                  fontWeight:
-                                  FontWeight.w800,
+                                  fontWeight: FontWeight.w800,
                                   letterSpacing: 0.9,
                                   color: Colors.white),
                             ),
                             InkWell(
-                              child: Text("View All",
+                              child: Text(
+                                "View All",
                                 style: TextStyle(
                                     fontFamily: 'Lato',
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w600,
                                     color: greenPrime),
                               ),
-                              onTap: (){
+                              onTap: () {
                                 var router = new MaterialPageRoute(
-                                  builder: (BuildContext context) => GridVideosPage( genreName, genreData[index1]['id'].toString(), newVideosListG),
+                                  builder: (BuildContext context) =>
+                                      GridVideosPage(
+                                          genreName,
+                                          genreData[index1]['id'].toString(),
+                                          newVideosListG),
                                 );
                                 Navigator.of(context).push(router);
                               },
@@ -792,9 +771,8 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
                   ),
                   new Container(
                       child: new HorizontalGenreController(
-                          newVideosListG.reversed.toList(),
-                      )
-                  ),
+                    newVideosListG.reversed.toList(),
+                  )),
                 ],
               ),
             );
@@ -803,50 +781,46 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
               padding: const EdgeInsets.only(right: 0.0),
             );
           }
-        }
-    );
+        });
   }
 
 // tv series and movies column
-  Widget tvAndMoviesColumn(){
+  Widget tvAndMoviesColumn() {
     return SingleChildScrollView(
         child: Column(
-          key: _keyRed,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            imageSliderContainer(),
+      key: _keyRed,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        imageSliderContainer(),
 
 //              TV And Movie
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 0.0, left: 0.0, right: 0.0),
-              child: tvSeriesAndMoviesList(),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(
+              top: 10.0, bottom: 0.0, left: 0.0, right: 0.0),
+          child: tvSeriesAndMoviesList(),
+        ),
 
 //             For All Genre
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
-              child: allGenresList(),
-            ),
-          ],
-        )
-    );
+        Padding(
+          padding: const EdgeInsets.only(
+              top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
+          child: allGenresList(),
+        ),
+      ],
+    ));
   }
 
 // slider image container
-  Widget imageSliderContainer(){
-    return Stack(
-        children: <Widget>[
-          Container(
-            child: sliderData.length == 0 ?
-            SizedBox.shrink()
-                : ImageSlider(),
-          ),
-        ]);
+  Widget imageSliderContainer() {
+    return Stack(children: <Widget>[
+      Container(
+        child: sliderData.length == 0 ? SizedBox.shrink() : ImageSlider(),
+      ),
+    ]);
   }
+
 // Type Text
-  Widget typeText(type){
+  Widget typeText(type) {
     return Text(
       "${type == "T" ? "Latest TV Series" : "Latest Movies"}",
       style: TextStyle(
@@ -858,15 +832,12 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
     );
   }
 
-
-  Widget videoTypeContainer(type){
+  Widget videoTypeContainer(type) {
     return Container(
       child: new Padding(
-        padding: const EdgeInsets.fromLTRB(
-            16.0, 12.0, 8.0, 5.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 12.0, 8.0, 5.0),
         child: new Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               typeText(type),
             ]),
@@ -880,20 +851,16 @@ class _VideosPageState extends State<VideosPage> with SingleTickerProviderStateM
     return new Container(
       child: RefreshIndicator(
         key: refreshKey,
-        child:
-        menuDataListLength == 0 || menuDataArray == null || menuDataArray[0] == "No Data Found"?
+        child: menuDataListLength == 0 ||
+                menuDataArray == null ||
+                menuDataArray[0] == "No Data Found"
+            ?
 //      For Shimmer
-          shimmer(width) :
-        tvAndMoviesColumn(),
+            shimmer(width)
+            : tvAndMoviesColumn(),
         onRefresh: refreshList,
       ),
       color: Color.fromRGBO(34, 34, 34, 1.0),
     );
   }
 }
-
-
-
-
-
-

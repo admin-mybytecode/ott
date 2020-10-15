@@ -32,9 +32,9 @@ class VideoDetailHeader extends StatefulWidget {
   VideoDetailHeaderState createState() => VideoDetailHeaderState();
 }
 
-class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindingObserver{
+class VideoDetailHeaderState extends State<VideoDetailHeader>
+    with WidgetsBindingObserver {
   Connectivity connectivity;
-
 
   // ignore: cancel_subscriptions
   StreamSubscription<ConnectivityResult> subscription;
@@ -43,7 +43,14 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
   var dMsg = '';
   var hdUrl;
   var sdUrl;
-  var mReadyUrl, mIFrameUrl, mUrl360, mUrl480, mUrl720, mUrl1080, youtubeUrl, vimeoUrl;
+  var mReadyUrl,
+      mIFrameUrl,
+      mUrl360,
+      mUrl480,
+      mUrl720,
+      mUrl1080,
+      youtubeUrl,
+      vimeoUrl;
 
   Future<void> initPlatformState() async {
     String ipAddress;
@@ -104,32 +111,33 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
   }
 
   updateScreens(screen, count) async {
-      final updateScreensResponse = await http.post(
-          APIData.updateScreensApi, body: {
-        "macaddress": '$ip',
-        "screen": '$screen',
-        "count": '$count',
-      }, headers: {
-        // ignore: deprecated_member_use
-        HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-      });
+    final updateScreensResponse =
+        await http.post(APIData.updateScreensApi, body: {
+      "macaddress": '$ip',
+      "screen": '$screen',
+      "count": '$count',
+    }, headers: {
+      // ignore: deprecated_member_use
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
+    });
 
-      if (updateScreensResponse.statusCode == 200) {
-        print(updateScreensResponse.body);
-      }
+    if (updateScreensResponse.statusCode == 200) {
+      print(updateScreensResponse.body);
+    }
   }
 
   getAllScreens(mVideoUrl, type) async {
     var screensRes;
     var resCode;
-      final getAllScreensResponse = await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
-        // ignore: deprecated_member_use
-        HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-      });
-      print(getAllScreensResponse.statusCode);
-      print(getAllScreensResponse.body);
-      resCode = getAllScreensResponse.statusCode;
-      screensRes = json.decode(getAllScreensResponse.body);
+    final getAllScreensResponse =
+        await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
+      // ignore: deprecated_member_use
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
+    });
+    print(getAllScreensResponse.statusCode);
+    print(getAllScreensResponse.body);
+    resCode = getAllScreensResponse.statusCode;
+    screensRes = json.decode(getAllScreensResponse.body);
 
     setState(() {
       screenUsed1 = screensRes['screen']['screen_1_used'];
@@ -145,174 +153,144 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
     });
 
     if (resCode == 200) {
-      if(fileContent["screenCount"] == "1"){
-        if(screenUsed1 == "YES"){
+      if (fileContent["screenCount"] == "1") {
+        if (screenUsed1 == "YES") {
           Fluttertoast.showToast(msg: "Profile already in use.");
           return false;
-        }else{
+        } else {
           updateScreens(fileContent['screenName'], fileContent['screenCount']);
-          if(type == "CUSTOM"){
+          if (type == "CUSTOM") {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) => new MyCustomPlayer(
+                      url: mVideoUrl,
+                      title: widget.game.name,
+                      downloadStatus: 1,
+                    ));
+            Navigator.of(context).push(router);
+          } else if (type == "EMD") {
             var router = new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                new MyCustomPlayer(
-                  url: mVideoUrl,
-                  title: widget.game.name,
-                  downloadStatus: 1,
-                ));
+                    IFramePlayerPage(url: mVideoUrl));
             Navigator.of(context).push(router);
-          }else if(type == "EMD"){
+          } else if (type == "JS") {
             var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>  IFramePlayerPage(url: mVideoUrl)
-            );
-            Navigator.of(context).push(router);
-          }
-          else if(type == "JS"){
-            var router = new MaterialPageRoute(
-              builder: (BuildContext context) => PlayerMovie(
-                  id : widget.game.id,
-                  type: widget.game.datatype
-              ),
+              builder: (BuildContext context) =>
+                  PlayerMovie(id: widget.game.id, type: widget.game.datatype),
             );
             Navigator.of(context).push(router);
           }
         }
-      }
-      else if(fileContent["screenCount"] == "2"){
-        if(screenUsed2 == "YES"){
+      } else if (fileContent["screenCount"] == "2") {
+        if (screenUsed2 == "YES") {
           Fluttertoast.showToast(msg: "Profile already in use.");
           return false;
-        } else{
-          updateScreens(
-              fileContent['screenName'],
-              fileContent['screenCount']);
-          if(type == "CUSTOM"){
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                new MyCustomPlayer(
-                  url: mVideoUrl,
-                  title: widget.game.name,
-                  downloadStatus: 1,
-                ));
-            Navigator.of(context).push(router);
-          }else if (type == "EMD"){
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>  IFramePlayerPage(url: mVideoUrl)
-            );
-            Navigator.of(context).push(router);
-          }
-          else if (type == "JS"){
-            var router = new MaterialPageRoute(
-              builder: (BuildContext context) => PlayerMovie(
-                  id : widget.game.id,
-                  type: widget.game.datatype
-              ),
-            );
-            Navigator.of(context).push(router);
-          }
-        }
-      }
-      else if(fileContent["screenCount"] == "3"){
-        if(screenUsed3 == "YES"){
-          Fluttertoast.showToast(msg: "Profile already in use.");
-          return false;
-        }else{
+        } else {
           updateScreens(fileContent['screenName'], fileContent['screenCount']);
-          if(type == "CUSTOM"){
+          if (type == "CUSTOM") {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) => new MyCustomPlayer(
+                      url: mVideoUrl,
+                      title: widget.game.name,
+                      downloadStatus: 1,
+                    ));
+            Navigator.of(context).push(router);
+          } else if (type == "EMD") {
             var router = new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                new MyCustomPlayer(
-                  url: mVideoUrl,
-                  title: widget.game.name,
-                  downloadStatus: 1,
-                ));
+                    IFramePlayerPage(url: mVideoUrl));
             Navigator.of(context).push(router);
-          }else if (type == "EMD"){
+          } else if (type == "JS") {
             var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>  IFramePlayerPage(url: mVideoUrl)
+              builder: (BuildContext context) =>
+                  PlayerMovie(id: widget.game.id, type: widget.game.datatype),
             );
             Navigator.of(context).push(router);
           }
-          else if (type == "JS"){
+        }
+      } else if (fileContent["screenCount"] == "3") {
+        if (screenUsed3 == "YES") {
+          Fluttertoast.showToast(msg: "Profile already in use.");
+          return false;
+        } else {
+          updateScreens(fileContent['screenName'], fileContent['screenCount']);
+          if (type == "CUSTOM") {
             var router = new MaterialPageRoute(
-              builder: (BuildContext context) => PlayerMovie(
-                  id : widget.game.id,
-                  type: widget.game.datatype
-              ),
+                builder: (BuildContext context) => new MyCustomPlayer(
+                      url: mVideoUrl,
+                      title: widget.game.name,
+                      downloadStatus: 1,
+                    ));
+            Navigator.of(context).push(router);
+          } else if (type == "EMD") {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    IFramePlayerPage(url: mVideoUrl));
+            Navigator.of(context).push(router);
+          } else if (type == "JS") {
+            var router = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  PlayerMovie(id: widget.game.id, type: widget.game.datatype),
+            );
+            Navigator.of(context).push(router);
+          }
+        }
+      } else if (fileContent["screenCount"] == "4") {
+        if (screenUsed4 == "YES") {
+          Fluttertoast.showToast(msg: "Profile already in use.");
+          return false;
+        } else {
+          updateScreens(fileContent['screenName'], fileContent['screenCount']);
+          if (type == "CUSTOM") {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) => new MyCustomPlayer(
+                      url: mVideoUrl,
+                      title: widget.game.name,
+                      downloadStatus: 1,
+                    ));
+            Navigator.of(context).push(router);
+          } else if (type == "EMD") {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    IFramePlayerPage(url: mVideoUrl));
+            Navigator.of(context).push(router);
+          } else if (type == "JS") {
+            var router = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  PlayerMovie(id: widget.game.id, type: widget.game.datatype),
             );
             Navigator.of(context).push(router);
           }
         }
       }
-      else if(fileContent["screenCount"] == "4"){
-        if(screenUsed4 == "YES"){
-          Fluttertoast.showToast(msg: "Profile already in use.");
-          return false;
-        }else{
-          updateScreens(
-              fileContent['screenName'],
-              fileContent['screenCount']);
-          if(type== "CUSTOM"){
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                new MyCustomPlayer(
-                  url: mVideoUrl,
-                  title: widget.game.name,
-                  downloadStatus: 1,
-                ));
-            Navigator.of(context).push(router);
-          }else if (type == "EMD"){
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) =>  IFramePlayerPage(url: mVideoUrl)
-            );
-            Navigator.of(context).push(router);
-          }
-          else if (type == "JS"){
-            var router = new MaterialPageRoute(
-              builder: (BuildContext context) => PlayerMovie(
-                  id : widget.game.id,
-                  type: widget.game.datatype
-              ),
-            );
-            Navigator.of(context).push(router);
-          }
-
-          }
-      }
-
     }
   }
 
-  freeTrial(videoURL, type){
-    if(type == "EMD"){
+  freeTrial(videoURL, type) {
+    if (type == "EMD") {
       var router = new MaterialPageRoute(
-          builder: (BuildContext context) =>  IFramePlayerPage(url: mIFrameUrl)
-      );
+          builder: (BuildContext context) => IFramePlayerPage(url: mIFrameUrl));
       Navigator.of(context).push(router);
-    }else if(type == "CUSTOM"){
+    } else if (type == "CUSTOM") {
       print("cus");
       print("cus $videoURL");
       var router1 = new MaterialPageRoute(
-          builder: (BuildContext context) =>
-          new MyCustomPlayer(
-            url: videoURL,
-            title: widget.game.name,
-            downloadStatus: 1,
-          ));
+          builder: (BuildContext context) => new MyCustomPlayer(
+                url: videoURL,
+                title: widget.game.name,
+                downloadStatus: 1,
+              ));
       Navigator.of(context).push(router1);
-    }else {
+    } else {
       var router = new MaterialPageRoute(
-        builder: (BuildContext context) => PlayerMovie(
-            id : widget.game.id,
-            type: widget.game.datatype
-        ),
+        builder: (BuildContext context) =>
+            PlayerMovie(id: widget.game.id, type: widget.game.datatype),
       );
       Navigator.of(context).push(router);
     }
-
   }
 
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    switch(state){
+    switch (state) {
       case AppLifecycleState.inactive:
         print("Inactive");
         break;
@@ -336,7 +314,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
     // TODO: implement initState
     super.initState();
     if (status == "1") {
-      if(userPaymentType != "Free"){
+      if (userPaymentType != "Free") {
         print("MyActiveScreen1: ${fileContent['screenName']}");
         print("MyActiveScreen2: ${fileContent['screenStatus']}");
         print("MyActiveScreen3: ${fileContent['screenCount']}");
@@ -344,7 +322,8 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
       }
     }
     connectivity = new Connectivity();
-    subscription = connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription =
+        connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
       _connectionStatus = result.toString();
       print(_connectionStatus);
       getValuesSF();
@@ -363,8 +342,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
         );
         Navigator.of(context).push(router);
       }
-    }
-    );
+    });
   }
 
   void _showMsg() {
@@ -458,26 +436,31 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
     mUrl1080 = widget.game.url1080;
     print("Url 1080: $mUrl1080");
 
-    if (mUrl360 != "null" || mUrl480 != "null" || mUrl720 != "null" || mUrl1080 != "null") {
+    if (mUrl360 != "null" ||
+        mUrl480 != "null" ||
+        mUrl720 != "null" ||
+        mUrl1080 != "null") {
       print("Multi Quality");
       _showQualityDialog(mUrl360, mUrl480, mUrl720, mUrl1080);
     } else {
-      if(mIFrameUrl != "null"){
+      if (mIFrameUrl != "null") {
         var matchIFrameUrl = mIFrameUrl.substring(0, 24);
-        if(matchIFrameUrl == 'https://drive.google.com'){
+        if (matchIFrameUrl == 'https://drive.google.com') {
           var ind = mIFrameUrl.lastIndexOf('d/');
           var t = "$mIFrameUrl".trim().substring(ind + 2);
           var rep = t.replaceAll('/preview', '');
-          var newurl = "https://www.googleapis.com/drive/v3/files/$rep?alt=media&key=${APIData.googleDriveApi}";
-          userPaymentType == "Free" ? freeTrial(newurl, "CUSTOM"): getAllScreens(newurl, "CUSTOM");
-        }else{
+          var newurl =
+              "https://www.googleapis.com/drive/v3/files/$rep?alt=media&key=${APIData.googleDriveApi}";
+          userPaymentType == "Free"
+              ? freeTrial(newurl, "CUSTOM")
+              : getAllScreens(newurl, "CUSTOM");
+        } else {
           var router = new MaterialPageRoute(
-              builder: (BuildContext context) =>  IFramePlayerPage(url: mIFrameUrl)
-          );
+              builder: (BuildContext context) =>
+                  IFramePlayerPage(url: mIFrameUrl));
           Navigator.of(context).push(router);
         }
-      }
-      else if(mReadyUrl != "null"){
+      } else if (mReadyUrl != "null") {
         var matchUrl = mReadyUrl.substring(0, 23);
         var checkMp4 = mReadyUrl.substring(mReadyUrl.length - 4);
         var checkMpd = mReadyUrl.substring(mReadyUrl.length - 4);
@@ -485,34 +468,34 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
         var checkMkv = mReadyUrl.substring(mReadyUrl.length - 4);
         var checkM3u8 = mReadyUrl.substring(mReadyUrl.length - 5);
 
-        if(matchUrl.substring(0, 18) == "https://vimeo.com/"){
+        if (matchUrl.substring(0, 18) == "https://vimeo.com/") {
           var router = new MaterialPageRoute(
-            builder: (BuildContext context) => PlayerMovie(
-                id : widget.game.id,
-                type: widget.game.datatype
-            ),
+            builder: (BuildContext context) =>
+                PlayerMovie(id: widget.game.id, type: widget.game.datatype),
           );
           Navigator.of(context).push(router);
-        }
-
-        else if(matchUrl == 'https://www.youtube.com/embed'){
-          var url= '${widget.game.readyUrl}';
+        } else if (matchUrl == 'https://www.youtube.com/embed') {
+          var url = '${widget.game.readyUrl}';
           print("youtube En: ${widget.game.readyUrl}");
           var router = new MaterialPageRoute(
-              builder: (BuildContext context) =>  IFramePlayerPage(url: url)
-          );
+              builder: (BuildContext context) => IFramePlayerPage(url: url));
           Navigator.of(context).push(router);
-        }
-        else if(matchUrl.substring(0, 23) == 'https://www.youtube.com'){
-          userPaymentType == "Free" ? freeTrial(widget.game.readyUrl, "JS"): getAllScreens(widget.game.readyUrl, "JS");
-        }
-        else if(checkMp4 == ".mp4" || checkMpd == ".mpd" ||
-            checkWebm == ".webm" || checkMkv == ".mkv" ||
-            checkM3u8 == ".m3u8"){
-          userPaymentType == "Free" ? freeTrial(widget.game.readyUrl, "CUSTOM"): getAllScreens(widget.game.readyUrl, "CUSTOM");
-        }
-        else{
-          userPaymentType == "Free" ? freeTrial(widget.game.readyUrl, "JS"): getAllScreens(widget.game.readyUrl, "JS");
+        } else if (matchUrl.substring(0, 23) == 'https://www.youtube.com') {
+          userPaymentType == "Free"
+              ? freeTrial(widget.game.readyUrl, "JS")
+              : getAllScreens(widget.game.readyUrl, "JS");
+        } else if (checkMp4 == ".mp4" ||
+            checkMpd == ".mpd" ||
+            checkWebm == ".webm" ||
+            checkMkv == ".mkv" ||
+            checkM3u8 == ".m3u8") {
+          userPaymentType == "Free"
+              ? freeTrial(widget.game.readyUrl, "CUSTOM")
+              : getAllScreens(widget.game.readyUrl, "CUSTOM");
+        } else {
+          userPaymentType == "Free"
+              ? freeTrial(widget.game.readyUrl, "JS")
+              : getAllScreens(widget.game.readyUrl, "JS");
         }
       }
     }
@@ -526,147 +509,143 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             backgroundColor: Color.fromRGBO(250, 250, 250, 1.0),
-            title: Text("Video Quality", style: TextStyle(
-                color: Color.fromRGBO( 72, 163, 198, 1.0),
-                fontWeight: FontWeight.w600,
-                fontSize: 20.0),
-              textAlign: TextAlign.center,),
+            title: Text(
+              "Video Quality",
+              style: TextStyle(
+                  color: Color.fromRGBO(72, 163, 198, 1.0),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20.0),
+              textAlign: TextAlign.center,
+            ),
             content: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text("Available video Format in which you want to play video.",
+                  Text(
+                    "Available video Format in which you want to play video.",
                     style: TextStyle(
-                        color: Colors.black.withOpacity(0.7),
-                        fontSize: 12.0
-                    ),
+                        color: Colors.black.withOpacity(0.7), fontSize: 12.0),
                   ),
                   SizedBox(
                     height: 5.0,
                   ),
-                  mUrl360 == "null"? SizedBox.shrink() : Padding(
-                    padding: EdgeInsets.only(
-                        left: 50.0,
-                        right: 50.0
-                    ),
-                    child: RaisedButton(
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO( 72, 163, 198, 1.0),
-                      color: greenPrime,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("360"),
-                      ),
-                      onPressed: (){
-                        Navigator.pop(context);
-                        if(userPaymentType == "Free"){
-                          freeTrial(mUrl360, "CUSTOM");
-                        }else{
-                          getAllScreens(mUrl360, "CUSTOM");
-                        }
-                      },
-                    ),
-                  ),
+                  mUrl360 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            color: greenPrime,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("360"),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              if (userPaymentType == "Free") {
+                                freeTrial(mUrl360, "CUSTOM");
+                              } else {
+                                getAllScreens(mUrl360, "CUSTOM");
+                              }
+                            },
+                          ),
+                        ),
                   SizedBox(
                     height: 5.0,
                   ),
-                  mUrl480 == "null"? SizedBox.shrink() :  Padding(
-                    padding: EdgeInsets.only(
-                        left: 50.0,
-                        right: 50.0
-                    ),
-                    child: RaisedButton(
-                      color: greenPrime,
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO( 72, 163, 198, 1.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("480"),
-                      ),
-                      onPressed: (){
-                        Navigator.pop(context);
-                        if(userPaymentType == "Free"){
-                          freeTrial(mUrl480, "CUSTOM");
-
-                        }else{
-                          getAllScreens(mUrl480, "CUSTOM");
-                        }
-                      },
-                    ),
-                  ),
+                  mUrl480 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            color: greenPrime,
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("480"),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              if (userPaymentType == "Free") {
+                                freeTrial(mUrl480, "CUSTOM");
+                              } else {
+                                getAllScreens(mUrl480, "CUSTOM");
+                              }
+                            },
+                          ),
+                        ),
                   SizedBox(
                     height: 5.0,
                   ),
-                  mUrl720 == "null"? SizedBox.shrink() :  Padding(
-                    padding: EdgeInsets.only(
-                        left: 50.0,
-                        right: 50.0
-                    ),
-                    child: RaisedButton(
-                      color: greenPrime,
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO( 72, 163, 198, 1.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("720"),
-                      ),
-                      onPressed: (){
-                        Navigator.pop(context);
-                        if(userPaymentType == "Free"){
-                          freeTrial(mUrl720, "CUSTOM");
-                        }else{
-                          getAllScreens(mUrl720, "CUSTOM");
-                        }
-                      },
-                    ),
-                  ),
+                  mUrl720 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            color: greenPrime,
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("720"),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              if (userPaymentType == "Free") {
+                                freeTrial(mUrl720, "CUSTOM");
+                              } else {
+                                getAllScreens(mUrl720, "CUSTOM");
+                              }
+                            },
+                          ),
+                        ),
                   SizedBox(
                     height: 5.0,
                   ),
-                  mUrl1080 == "null"? SizedBox.shrink() :  Padding(
-                    padding: EdgeInsets.only(
-                        left: 50.0,
-                        right: 50.0
-                    ),
-                    child: RaisedButton(
-                      color: greenPrime,
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO( 72, 163, 198, 1.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("1080"),
-                      ),
-                      onPressed: (){
-                        Navigator.pop(context);
-                        if(userPaymentType == "Free"){
-                          freeTrial(mUrl1080, "CUSTOM");
-                        }else{
-                          getAllScreens(mUrl1080, "CUSTOM");
-                        }
-                      },
-                    ),
-                  ),
+                  mUrl1080 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            color: greenPrime,
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("1080"),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              if (userPaymentType == "Free") {
+                                freeTrial(mUrl1080, "CUSTOM");
+                              } else {
+                                getAllScreens(mUrl1080, "CUSTOM");
+                              }
+                            },
+                          ),
+                        ),
                   SizedBox(
                     height: 5.0,
                   ),
                 ],
               ),
-            )
-        );
+            ));
       },
     );
   }
@@ -677,23 +656,24 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
     var checkWebm = widget.game.url.substring(widget.game.url.length - 5);
     var checkMkv = widget.game.url.substring(widget.game.url.length - 4);
     var checkM3u8 = widget.game.url.substring(widget.game.url.length - 5);
-    if(widget.game.url.substring(0, 23) == 'https://www.youtube.com'){
+    if (widget.game.url.substring(0, 23) == 'https://www.youtube.com') {
       var router = new MaterialPageRoute(
           builder: (BuildContext context) => new PlayerMovieTrailer(
               id: widget.game.id, type: widget.game.datatype));
       Navigator.of(context).push(router);
-    }else if(checkMp4 == ".mp4" || checkMpd == ".mpd" ||
-        checkWebm == ".webm" || checkMkv == ".mkv" ||
-        checkM3u8 == ".m3u8"){
+    } else if (checkMp4 == ".mp4" ||
+        checkMpd == ".mpd" ||
+        checkWebm == ".webm" ||
+        checkMkv == ".mkv" ||
+        checkM3u8 == ".m3u8") {
       var router = new MaterialPageRoute(
-          builder: (BuildContext context) =>
-          new TrailerCustomPlayer(
-            url: widget.game.url,
-            title: widget.game.name,
-            downloadStatus: 1,
-          ));
+          builder: (BuildContext context) => new TrailerCustomPlayer(
+                url: widget.game.url,
+                title: widget.game.name,
+                downloadStatus: 1,
+              ));
       Navigator.of(context).push(router);
-    }else {
+    } else {
       var router = new MaterialPageRoute(
           builder: (BuildContext context) => new PlayerMovieTrailer(
               id: widget.game.id, type: widget.game.datatype));
@@ -747,7 +727,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
               children: [
                 new Text(
                   widget.game.name,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
@@ -756,7 +736,9 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
                   children: <Widget>[
                     Flexible(
                       flex: 1,
-                      child: widget.game.rating == null? SizedBox.shrink() : RatingInformation(widget.game),
+                      child: widget.game.rating == null
+                          ? SizedBox.shrink()
+                          : RatingInformation(widget.game),
                     )
                   ],
                 ),
@@ -838,47 +820,49 @@ class VideoDetailHeaderState extends State<VideoDetailHeader> with WidgetsBindin
                   )
                 : SizedBox.shrink(),
             widget.game.datatype == 'M'
-                ? widget.game.url == null ? SizedBox.shrink() : OutlineButton(
-                    onPressed: _onTapTrailer,
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 0,
-                          child:
-                              new Icon(playOutlineIcon, color: Colors.white70),
-                        ),
-                        new Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: new Text(
-                            "Trailer",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 0.9,
-                              color: Colors.white,
-                              // color: Colors.white
+                ? widget.game.url == null
+                    ? SizedBox.shrink()
+                    : OutlineButton(
+                        onPressed: _onTapTrailer,
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 0,
+                              child: new Icon(playOutlineIcon,
+                                  color: Colors.white70),
                             ),
-                          ),
+                            new Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: new Text(
+                                "Trailer",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Lato',
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 0.9,
+                                  color: Colors.white,
+                                  // color: Colors.white
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)),
-                    borderSide:
-                        new BorderSide(color: Colors.white70, width: 2.0),
-                    highlightColor: theme.accentColor,
-                    highlightedBorderColor: theme.accentColor,
-                    splashColor: Colors.black12,
-                    highlightElevation: 0.0,
-                  )
+                        padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        borderSide:
+                            new BorderSide(color: Colors.white70, width: 2.0),
+                        highlightColor: theme.accentColor,
+                        highlightedBorderColor: theme.accentColor,
+                        splashColor: Colors.black12,
+                        highlightElevation: 0.0,
+                      )
                 : SizedBox.shrink()
           ],
         ));

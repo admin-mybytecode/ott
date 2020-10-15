@@ -44,6 +44,7 @@ dependencies:
   permission_handler: ^4.0.0
   flutter_downloader: ^1.4.1
   data_connection_checker: ^0.3.4
+  floating_bottom_navigation_bar: ^1.4.1
 
   cupertino_icons: ^0.1.2
   flutter_paystack: 1.0.1

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -21,20 +20,20 @@ class TrailerCustomPlayer extends StatefulWidget {
   }
 }
 
-class _TrailerCustomPlayerState extends State<TrailerCustomPlayer> with WidgetsBindingObserver {
+class _TrailerCustomPlayerState extends State<TrailerCustomPlayer>
+    with WidgetsBindingObserver {
   TargetPlatform _platform;
   VideoPlayerController _videoPlayerController1;
   VideoPlayerController _videoPlayerController2;
   ChewieController _chewieController;
   DateTime currentBackPressTime;
 
-
-  void stopScreenLock() async{
+  void stopScreenLock() async {
     Wakelock.enable();
   }
 
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    switch(state){
+    switch (state) {
       case AppLifecycleState.inactive:
         _chewieController.pause();
         debugPrint("Inactive");
@@ -59,14 +58,12 @@ class _TrailerCustomPlayerState extends State<TrailerCustomPlayer> with WidgetsB
     });
     WidgetsBinding.instance.addObserver(this);
     print(widget.url);
-    _videoPlayerController1 = VideoPlayerController.network(
-        widget.url);
+    _videoPlayerController1 = VideoPlayerController.network(widget.url);
     _videoPlayerController2 = VideoPlayerController.network(widget.url);
-
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
-      aspectRatio: 3/2,
+      aspectRatio: 3 / 2,
       autoPlay: true,
       looping: true,
       materialProgressColors: ChewieProgressColors(
@@ -84,16 +81,15 @@ class _TrailerCustomPlayerState extends State<TrailerCustomPlayer> with WidgetsB
     var r = _videoPlayerController1.value.aspectRatio;
     String os = Platform.operatingSystem;
 
-    if(os == 'android'){
+    if (os == 'android') {
       setState(() {
         _platform = TargetPlatform.android;
       });
-    }else{
+    } else {
       setState(() {
         _platform = TargetPlatform.iOS;
       });
     }
-
   }
 
   @override
@@ -104,23 +100,22 @@ class _TrailerCustomPlayerState extends State<TrailerCustomPlayer> with WidgetsB
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Center(
-                  child: Chewie(
-                    controller: _chewieController,
-                    title: widget.title,
-                    downloadStatus: widget.downloadStatus,
-                  ),
-                ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Center(
+              child: Chewie(
+                controller: _chewieController,
+                title: widget.title,
+                downloadStatus: widget.downloadStatus,
               ),
-            ],
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 }

@@ -46,7 +46,15 @@ class _DownloadPageState extends State<DownloadPage>
   var dFileName;
   List x = new List();
   int id;
-  var mtName, mReadyUrl, mIFrameUrl, mUrl360, mUrl480, mUrl720, mUrl1080, youtubeUrl, vimeoUrl;
+  var mtName,
+      mReadyUrl,
+      mIFrameUrl,
+      mUrl360,
+      mUrl480,
+      mUrl720,
+      mUrl1080,
+      youtubeUrl,
+      vimeoUrl;
   TargetPlatform platform;
   var dMsg = '';
   var download1, download2, download3, download4, downCount;
@@ -76,9 +84,12 @@ class _DownloadPageState extends State<DownloadPage>
 
     tasks?.forEach((task) {
       for (TaskInfo info in dTasks) {
-        if (info.hdLink == task.url ||  info.ifLink == task.url || info.link360 == task.url || info.link480 == task.url ||
-            info.link720 == task.url
-            || info.link1080 == task.url) {
+        if (info.hdLink == task.url ||
+            info.ifLink == task.url ||
+            info.link360 == task.url ||
+            info.link480 == task.url ||
+            info.link720 == task.url ||
+            info.link1080 == task.url) {
           setState(() {
             mReadyUrl = info.hdLink;
             mIFrameUrl = info.ifLink;
@@ -120,8 +131,8 @@ class _DownloadPageState extends State<DownloadPage>
           .checkPermissionStatus(PermissionGroup.storage);
       if (permission != PermissionStatus.granted) {
         Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler()
-            .requestPermissions([PermissionGroup.storage]);
+            await PermissionHandler()
+                .requestPermissions([PermissionGroup.storage]);
         if (permissions[PermissionGroup.storage] == PermissionStatus.granted) {
           return true;
         }
@@ -149,7 +160,7 @@ class _DownloadPageState extends State<DownloadPage>
       int progress = data[2];
 
       final task =
-      dTasks?.firstWhere((task) => task.taskId == id, orElse: () => null);
+          dTasks?.firstWhere((task) => task.taskId == id, orElse: () => null);
 
       if (task != null) {
         setState(() {
@@ -164,66 +175,72 @@ class _DownloadPageState extends State<DownloadPage>
     IsolateNameServer.removePortNameMapping('downloader_senddPort');
   }
 
-
   static void downloadCallback(
       String id, DownloadTaskStatus status, int progress) {
     print(
         'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
     final SendPort send =
-    IsolateNameServer.lookupPortByName('downloader_senddPort');
+        IsolateNameServer.lookupPortByName('downloader_senddPort');
     send.send([id, status, progress]);
   }
 
   void _showDialog(task) {
     getAllScreens();
     var downCount;
-    if(downloadLimit == null){
+    if (downloadLimit == null) {
       Fluttertoast.showToast(msg: "You can't download with this plan.");
       return;
     }
-    var dCount= downloadLimit / mScreenCount;
+    var dCount = downloadLimit / mScreenCount;
 
-    if(fileContent['screenCount'] == "1"){
+    if (fileContent['screenCount'] == "1") {
       setState(() {
         downCount = download1;
       });
-    }else if(fileContent['screenCount'] == "2"){
+    } else if (fileContent['screenCount'] == "2") {
       setState(() {
         downCount = download2;
       });
-    }else if(fileContent['screenCount'] == "3"){
+    } else if (fileContent['screenCount'] == "3") {
       setState(() {
         downCount = download3;
       });
-    }
-    else if(fileContent['screenCount'] == "4"){
+    } else if (fileContent['screenCount'] == "4") {
       setState(() {
         downCount = download4;
       });
     }
 
-    if(dCount.toInt() > downCount){
+    if (dCount.toInt() > downCount) {
       _requestDownload(task);
-    }
-    else{
+    } else {
       Fluttertoast.showToast(msg: "Your download limit exceed.");
     }
   }
+
   Future<String> getAllScreens() async {
     final getAllScreensResponse =
-    await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
+        await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
       // ignore: deprecated_member_use
-      HttpHeaders.AUTHORIZATION: nToken == null ? fullData: nToken
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
     });
     print(getAllScreensResponse.statusCode);
     print(getAllScreensResponse.body);
     var screensRes = json.decode(getAllScreensResponse.body);
-    if(getAllScreensResponse.statusCode == 200){
+    if (getAllScreensResponse.statusCode == 200) {
       setState(() {
-        download1 = screensRes['screen']['download_1'] == null ? 0 : screensRes['screen']['download_1'];
-        download2 = screensRes['screen']['download_2'] == null ? 0 : screensRes['screen']['download_2'];
-        download3 = screensRes['screen']['download_3'] == null ? 0 : screensRes['screen']['download_3'];
-        download4 = screensRes['screen']['download_4'] == null ? 0 : screensRes['screen']['download_4'];
+        download1 = screensRes['screen']['download_1'] == null
+            ? 0
+            : screensRes['screen']['download_1'];
+        download2 = screensRes['screen']['download_2'] == null
+            ? 0
+            : screensRes['screen']['download_2'];
+        download3 = screensRes['screen']['download_3'] == null
+            ? 0
+            : screensRes['screen']['download_3'];
+        download4 = screensRes['screen']['download_4'] == null
+            ? 0
+            : screensRes['screen']['download_4'];
       });
     }
     return null;
@@ -259,109 +276,117 @@ class _DownloadPageState extends State<DownloadPage>
                   SizedBox(
                     height: 10.0,
                   ),
-                  widget.game.url360 == "null" ? SizedBox.shrink() : Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0),
-                    child: RaisedButton(
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                      color: greenPrime,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("360"),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          downCount = download1;
-                        });
-                        if (dCount.toInt() > downCount) {
-                          _requestDownload360(task);
-                        } else {
-                          Fluttertoast.showToast(msg: "Download limit exceed.");
-                        }
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  widget.game.url480 == "null" ? SizedBox.shrink() : Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0),
-                    child: RaisedButton(
-                      color: greenPrime,
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("480"),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          downCount = download2;
-                        });
-                        _requestDownload480(task);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  widget.game.url720 == "null" ? SizedBox.shrink() : Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0),
-                    child: RaisedButton(
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                      color: greenPrime,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("720"),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          downCount = download3;
-                        });
-                        _requestDownload720(task);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  widget.game.url1080 == "null" ? SizedBox.shrink() : Padding(
-                    padding: EdgeInsets.only(left: 50.0, right: 50.0),
-                    child: RaisedButton(
-                      hoverColor: Colors.red,
-                      splashColor: Color.fromRGBO(49, 131, 41, 1.0),
-                      highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                      color: greenPrime,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100.0,
-                        height: 30.0,
-                        child: Text("1080"),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          downCount = download4;
-                        });
-                        _requestDownload1080(task);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
+                  widget.game.url360 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            color: greenPrime,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("360"),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                downCount = download1;
+                              });
+                              if (dCount.toInt() > downCount) {
+                                _requestDownload360(task);
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "Download limit exceed.");
+                              }
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                  widget.game.url480 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            color: greenPrime,
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("480"),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                downCount = download2;
+                              });
+                              _requestDownload480(task);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                  widget.game.url720 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            color: greenPrime,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("720"),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                downCount = download3;
+                              });
+                              _requestDownload720(task);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                  widget.game.url1080 == "null"
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                          child: RaisedButton(
+                            hoverColor: Colors.red,
+                            splashColor: Color.fromRGBO(49, 131, 41, 1.0),
+                            highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
+                            color: greenPrime,
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100.0,
+                              height: 30.0,
+                              child: Text("1080"),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                downCount = download4;
+                              });
+                              _requestDownload1080(task);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
                 ],
               ),
             ));
       },
     );
-
   }
+
   Widget _buildActionForTask(TaskInfo task) {
     if (task.status == DownloadTaskStatus.undefined) {
-      return
-        RawMaterialButton(
+      return RawMaterialButton(
         onPressed: () {
           mIFrameUrl = widget.game.iFrameLink;
           print("Iframe: $mIFrameUrl");
@@ -385,8 +410,7 @@ class _DownloadPageState extends State<DownloadPage>
             if (mIFrameUrl != "null") {
               Fluttertoast.showToast(msg: "Can't download this video.");
               return;
-            }
-            else if (mReadyUrl != "null") {
+            } else if (mReadyUrl != "null") {
               print("Ready URL Condition");
               var matchUrl = mReadyUrl.substring(0, 29);
 
@@ -402,21 +426,19 @@ class _DownloadPageState extends State<DownloadPage>
               } else if (matchUrl == 'https://www.youtube.com/embed') {
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
-              }
-              else if (matchUrl.substring(0, 23) ==
+              } else if (matchUrl.substring(0, 23) ==
                   'https://www.youtube.com') {
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
-              }
-              else if (matchUrl.substring(0, 29) == 'https://drive.google.com/file/') {
+              } else if (matchUrl.substring(0, 29) ==
+                  'https://drive.google.com/file/') {
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
-              }
-              else if (matchUrl.substring(0, 29) == 'https://drive.google.com/file/') {
+              } else if (matchUrl.substring(0, 29) ==
+                  'https://drive.google.com/file/') {
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
-              }
-              else if (checkMp4 == ".mp4" ||
+              } else if (checkMp4 == ".mp4" ||
                   checkMpd == ".mpd" ||
                   checkWebm == ".webm" ||
                   checkMkv == ".mkv" ||
@@ -426,11 +448,13 @@ class _DownloadPageState extends State<DownloadPage>
                 Fluttertoast.showToast(msg: "Can't download this video.");
                 return;
               }
-            }
-            else if (mUrl360 != "null" || mUrl480 != "null" || mUrl720 != "null" || mUrl1080 != "null") {
+            } else if (mUrl360 != "null" ||
+                mUrl480 != "null" ||
+                mUrl720 != "null" ||
+                mUrl1080 != "null") {
               getAllScreens();
-              print("MSCREEN: ${mScreenCount}");
-              print("MSCREEN: ${downloadLimit}");
+              print("MSCREEN: $mScreenCount");
+              print("MSCREEN: $downloadLimit");
               if (downloadLimit == null) {
                 Fluttertoast.showToast(msg: "Can't download with this plan.");
                 return;
@@ -439,8 +463,7 @@ class _DownloadPageState extends State<DownloadPage>
                 dCount = downloadLimit / mScreenCount;
               });
               _showMultiDialog(task);
-            }
-            else {
+            } else {
               Fluttertoast.showToast(msg: "Can't download this video.");
               return;
             }
@@ -488,7 +511,7 @@ class _DownloadPageState extends State<DownloadPage>
         constraints: BoxConstraints(minHeight: 32.0, minWidth: 32.0),
       );
     } else if (task.status == DownloadTaskStatus.complete) {
-      int progress = 100 ;
+      int progress = 100;
       createTodo(task, task.name, dFileName, widget.game.datatype,
           widget.game.id, task.taskId, progress, task.hdLink);
       return Row(
@@ -563,7 +586,7 @@ class _DownloadPageState extends State<DownloadPage>
   }
 
   increaseCounter() async {
-    final increaseCounter = await http.post( APIData.downloadCounter, body: {
+    final increaseCounter = await http.post(APIData.downloadCounter, body: {
       "count": '${fileContent['screenCount']}',
     }, headers: {
       // ignore: deprecated_member_use
@@ -580,7 +603,7 @@ class _DownloadPageState extends State<DownloadPage>
         return AlertDialog(
           backgroundColor: Colors.white,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           title: new Text(
             "Stop Download",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
@@ -628,7 +651,7 @@ class _DownloadPageState extends State<DownloadPage>
         return AlertDialog(
           backgroundColor: Colors.white,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           title: new Text(
             "Delete Downloaded",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
@@ -685,14 +708,17 @@ class _DownloadPageState extends State<DownloadPage>
     await _prepare();
     var raw = await cdb.delete(
       DatabaseCreator.todoTable,
-      where: "movie_id = ? AND vtype = ?", whereArgs: ['${widget.game.id}', '${widget.game.datatype}'],
+      where: "movie_id = ? AND vtype = ?",
+      whereArgs: ['${widget.game.id}', '${widget.game.datatype}'],
     );
     setState(() {});
   }
 
-  void createTodo(task, taskName, mVideoFileName, videoType, vMovieId, taskId, progress, url) async {
+  void createTodo(task, taskName, mVideoFileName, videoType, vMovieId, taskId,
+      progress, url) async {
     name = taskName;
-    checkName(task, taskName, mVideoFileName, videoType, vMovieId, taskId, progress, url);
+    checkName(task, taskName, mVideoFileName, videoType, vMovieId, taskId,
+        progress, url);
   }
 
   addPersonToDatabase(Todo todo) async {
@@ -705,12 +731,17 @@ class _DownloadPageState extends State<DownloadPage>
   }
 
   updatePersoneDatabase(ProgressData pdata, vMovieId, videoType) async {
-    var raw = await cdb.update(DatabaseCreator.todoTable, pdata.toMap(), where: "movie_id = ? AND vtype = ? AND progress = ?", whereArgs: [vMovieId, videoType, 0],);
+    var raw = await cdb.update(
+      DatabaseCreator.todoTable,
+      pdata.toMap(),
+      where: "movie_id = ? AND vtype = ? AND progress = ?",
+      whereArgs: [vMovieId, videoType, 0],
+    );
     return raw;
   }
 
-  Future<Todo> getPersonWithId(
-      task, taskName, mVideoFileName, videoType, vMovieId, taskId, progress, url) async {
+  Future<Todo> getPersonWithId(task, taskName, mVideoFileName, videoType,
+      vMovieId, taskId, progress, url) async {
     int count = await RepositoryServiceTodo.todosCount();
     if (count > 0) {
       var response = await cdb.query(
@@ -730,11 +761,11 @@ class _DownloadPageState extends State<DownloadPage>
             episodeId: null,
             dTaskId: taskId,
             dUserId: fileContent['user'],
-            progress: progress
-        ));
+            progress: progress));
         increaseCounter();
       } else {
-        updatePersoneDatabase(ProgressData(dTaskId:taskId, progress: progress), vMovieId, videoType);
+        updatePersoneDatabase(ProgressData(dTaskId: taskId, progress: progress),
+            vMovieId, videoType);
       }
     } else {
       addPersonToDatabase(Todo(
@@ -748,14 +779,15 @@ class _DownloadPageState extends State<DownloadPage>
           episodeId: null,
           dTaskId: taskId,
           dUserId: fileContent['user'],
-          progress: progress
-      ));
+          progress: progress));
       increaseCounter();
     }
   }
 
-  void checkName(task, taskName, mVideoFileName, videoType, vMovieId, taskId, progress, url) async{
-    getPersonWithId(task, taskName, mVideoFileName, videoType, vMovieId, taskId, progress, url);
+  void checkName(task, taskName, mVideoFileName, videoType, vMovieId, taskId,
+      progress, url) async {
+    getPersonWithId(task, taskName, mVideoFileName, videoType, vMovieId, taskId,
+        progress, url);
   }
 
   saveNewFileName(dFileName) async {
@@ -779,7 +811,8 @@ class _DownloadPageState extends State<DownloadPage>
         openFileFromNotification: true);
 
     int progress = 0;
-    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id, task.taskId, progress, task.hdLink);
+    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id,
+        task.taskId, progress, task.hdLink);
   }
 
   void _requestDownload360(TaskInfo task) async {
@@ -796,8 +829,10 @@ class _DownloadPageState extends State<DownloadPage>
         openFileFromNotification: true);
 
     int progress = 0;
-    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id, task.taskId, progress, task.link360);
+    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id,
+        task.taskId, progress, task.link360);
   }
+
   void _requestDownload480(TaskInfo task) async {
     Wakelock.enable();
     setState(() {
@@ -812,8 +847,10 @@ class _DownloadPageState extends State<DownloadPage>
         openFileFromNotification: true);
 
     int progress = 0;
-    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id, task.taskId, progress, task.link480);
+    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id,
+        task.taskId, progress, task.link480);
   }
+
   void _requestDownload720(TaskInfo task) async {
     Wakelock.enable();
     setState(() {
@@ -828,8 +865,10 @@ class _DownloadPageState extends State<DownloadPage>
         openFileFromNotification: true);
 
     int progress = 0;
-    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id, task.taskId, progress, task.link720);
+    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id,
+        task.taskId, progress, task.link720);
   }
+
   void _requestDownload1080(TaskInfo task) async {
     Wakelock.enable();
     setState(() {
@@ -844,7 +883,8 @@ class _DownloadPageState extends State<DownloadPage>
         openFileFromNotification: true);
 
     int progress = 0;
-    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id, task.taskId, progress, task.link1080);
+    createTodo(task, task.name, dFileName, widget.game.datatype, widget.game.id,
+        task.taskId, progress, task.link1080);
   }
 
   void _cancelDownload(TaskInfo task) async {
@@ -874,15 +914,15 @@ class _DownloadPageState extends State<DownloadPage>
 
     var cFileName = response[0]['info'];
 
-     var fileNamenew = cFileName.split('/').last;
+    var fileNamenew = cFileName.split('/').last;
 
     var router = new MaterialPageRoute(
         builder: (BuildContext context) => DownloadedVideoPlayer(
-          taskId: task.taskId,
-          name: task.name,
-          fileName: fileNamenew,
-          downloadStatus: 0,
-        ));
+              taskId: task.taskId,
+              name: task.name,
+              fileName: fileNamenew,
+              downloadStatus: 0,
+            ));
     Navigator.of(context).push(router);
 
     return null;
@@ -892,27 +932,27 @@ class _DownloadPageState extends State<DownloadPage>
   Widget downloadText(TaskInfo task) {
     return task.status == DownloadTaskStatus.complete
         ? Text(
-      "Downloaded",
-      style: TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.0,
-          color: greenPrime
-        // color: Colors.white
-      ),
-    )
+            "Downloaded",
+            style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.0,
+                color: greenPrime
+                // color: Colors.white
+                ),
+          )
         : Text(
-      "Download",
-      style: TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.0,
-          color: Colors.white
-        // color: Colors.white
-      ),
-    );
+            "Download",
+            style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.0,
+                color: Colors.white
+                // color: Colors.white
+                ),
+          );
   }
 
   void _showMsg() {
@@ -952,7 +992,7 @@ class _DownloadPageState extends State<DownloadPage>
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       contentPadding:
-      EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0, bottom: 0.0),
+          EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0, bottom: 0.0),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -992,11 +1032,14 @@ class _DownloadPageState extends State<DownloadPage>
   }
 
   Widget column() {
-    if(download == 0){
+    if (download == 0) {
       return Column(
         children: <Widget>[
           IconButton(
-              icon: Icon(Icons.file_download, size: 30,),
+              icon: Icon(
+                Icons.file_download,
+                size: 30,
+              ),
               onPressed: () {
                 Fluttertoast.showToast(msg: "Downloading is OFF.");
               }),
@@ -1008,176 +1051,188 @@ class _DownloadPageState extends State<DownloadPage>
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.0,
                 color: Colors.white
-              // color: Colors.white
-            ),
+                // color: Colors.white
+                ),
           ),
         ],
       );
-    }else{
-      return status == "1" ? userPaymentType == "Free" ? Column(
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.file_download, size: 30,),
-              onPressed: () {
-                Fluttertoast.showToast(msg: "You can not download video using free trial.");
-              }),
-          Text(
-            "Download",
-            style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: 12.0,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.0,
-                color: Colors.white
-              // color: Colors.white
-            ),
-          ),
-        ],
-      ) : Builder(
-        builder: (context) => isLoading
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : permissionReady
-            ? Container(
-          child: Column(
-            children: dItems
-                .map((item) {
-              checkConn(item.task);
-              return item.task == null
-                  ? Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 8.0),
-                child: Text(
-                  item.name,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                      fontSize: 18.0),
-                ),
-              )
-                  : Container(
-                child: InkWell(
-                  onTap: item.task.status ==
-                      DownloadTaskStatus.complete
-                      ? () {
-                    _openDownloadedFile(item.task)
-                        .then((success) {
-                      if (!success) {
-                        Scaffold.of(context)
-                            .showSnackBar(SnackBar(
-                            content: Text(
-                                'Cannot open this file')));
-                      }
-                    });
-                  }
-                      : null,
-                  child: Stack(
-                    children: <Widget>[
-                      new Container(
-                        width: double.infinity,
-                        margin:
-                        EdgeInsets.only(bottom: 10.0),
-                        height: 62.0,
-                        child: Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
-                          mainAxisAlignment:
-                          MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            _buildActionForTask(
-                                item.task),
-                            downloadText(item.task),
-                          ],
+    } else {
+      return status == "1"
+          ? userPaymentType == "Free"
+              ? Column(
+                  children: <Widget>[
+                    IconButton(
+                        icon: Icon(
+                          Icons.file_download,
+                          size: 30,
                         ),
-                      ),
-                      item.task.status ==
-                          DownloadTaskStatus
-                              .running ||
-                          item.task.status ==
-                              DownloadTaskStatus
-                                  .paused
-                          ? new Positioned(
-                        left: 15.0,
-                        right: 15.0,
-                        bottom: 0.0,
-                        child:
-                        LinearProgressIndicator(
-                          value:
-                          item.task.progress /
-                              100,
-                        ),
-                      )
-                          : Container()
-                    ]
-                        .where((child) => child != null)
-                        .toList(),
-                  ),
-                ),
-              );}
-            )
-                .toList(),
-          ),
-        )
-            : Container(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0),
-                  child: Text(
-                    'Please grant accessing storage permission to continue -_-',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.blueGrey, fontSize: 18.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 32.0,
-                ),
-                FlatButton(
-                    onPressed: () {
-                      _checkPermission().then((hasGranted) {
-                        setState(() {
-                          permissionReady = hasGranted;
-                        });
-                      });
-                    },
-                    child: Text(
-                      'Retry',
+                        onPressed: () {
+                          Fluttertoast.showToast(
+                              msg:
+                                  "You can not download video using free trial.");
+                        }),
+                    Text(
+                      "Download",
                       style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
-                    ))
+                          fontFamily: 'Lato',
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.0,
+                          color: Colors.white
+                          // color: Colors.white
+                          ),
+                    ),
+                  ],
+                )
+              : Builder(
+                  builder: (context) => isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : permissionReady
+                          ? Container(
+                              child: Column(
+                                children: dItems.map((item) {
+                                  checkConn(item.task);
+                                  return item.task == null
+                                      ? Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0, vertical: 8.0),
+                                          child: Text(
+                                            item.name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                                fontSize: 18.0),
+                                          ),
+                                        )
+                                      : Container(
+                                          child: InkWell(
+                                            onTap: item.task.status ==
+                                                    DownloadTaskStatus.complete
+                                                ? () {
+                                                    _openDownloadedFile(
+                                                            item.task)
+                                                        .then((success) {
+                                                      if (!success) {
+                                                        Scaffold.of(context)
+                                                            .showSnackBar(SnackBar(
+                                                                content: Text(
+                                                                    'Cannot open this file')));
+                                                      }
+                                                    });
+                                                  }
+                                                : null,
+                                            child: Stack(
+                                              children: <Widget>[
+                                                new Container(
+                                                  width: double.infinity,
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 10.0),
+                                                  height: 62.0,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: <Widget>[
+                                                      _buildActionForTask(
+                                                          item.task),
+                                                      downloadText(item.task),
+                                                    ],
+                                                  ),
+                                                ),
+                                                item.task.status ==
+                                                            DownloadTaskStatus
+                                                                .running ||
+                                                        item.task.status ==
+                                                            DownloadTaskStatus
+                                                                .paused
+                                                    ? new Positioned(
+                                                        left: 15.0,
+                                                        right: 15.0,
+                                                        bottom: 0.0,
+                                                        child:
+                                                            LinearProgressIndicator(
+                                                          value: item.task
+                                                                  .progress /
+                                                              100,
+                                                        ),
+                                                      )
+                                                    : Container()
+                                              ]
+                                                  .where(
+                                                      (child) => child != null)
+                                                  .toList(),
+                                            ),
+                                          ),
+                                        );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24.0),
+                                      child: Text(
+                                        'Please grant accessing storage permission to continue -_-',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: 18.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 32.0,
+                                    ),
+                                    FlatButton(
+                                        onPressed: () {
+                                          _checkPermission().then((hasGranted) {
+                                            setState(() {
+                                              permissionReady = hasGranted;
+                                            });
+                                          });
+                                        },
+                                        child: Text(
+                                          'Retry',
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0),
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            ),
+                )
+          : Column(
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.file_download),
+                    onPressed: () {
+                      _showMsg();
+                    }),
+                Text(
+                  "Download",
+                  style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.0,
+                      color: Colors.white
+                      // color: Colors.white
+                      ),
+                ),
               ],
-            ),
-          ),
-        ),
-      ) : Column(
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.file_download),
-              onPressed: () {
-                _showMsg();
-              }),
-          Text(
-            "Download",
-            style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: 12.0,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.0,
-                color: Colors.white
-              // color: Colors.white
-            ),
-          ),
-        ],
-      );
+            );
     }
   }
 
@@ -1199,11 +1254,11 @@ class _DownloadPageState extends State<DownloadPage>
     permissionReady = false;
     _prepare();
     getNewFileName();
-   if(status == "1"){
-     if(userPaymentType != "Free"){
-       getAllScreens();
-     }
-   }
+    if (status == "1") {
+      if (userPaymentType != "Free") {
+        getAllScreens();
+      }
+    }
     super.initState();
   }
 
