@@ -74,7 +74,10 @@ class ChewieState extends State<Chewie> {
   Widget build(BuildContext context) {
     return _ChewieControllerProvider(
       controller: widget.controller,
-      child: PlayerWithControls(title: widget.title, downloadStatus: widget.downloadStatus,),
+      child: PlayerWithControls(
+        title: widget.title,
+        downloadStatus: widget.downloadStatus,
+      ),
     );
   }
 
@@ -194,7 +197,7 @@ class ChewieController extends ChangeNotifier {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ],
-    this.routePageBuilder = null,
+    this.routePageBuilder,
   }) : assert(videoPlayerController != null,
             'You must provide a controller to play a video') {
     _initialize();
@@ -275,9 +278,8 @@ class ChewieController extends ChangeNotifier {
   final ChewieRoutePageBuilder routePageBuilder;
 
   static ChewieController of(BuildContext context) {
-    final chewieControllerProvider =
-        context.inheritFromWidgetOfExactType(_ChewieControllerProvider)
-            as _ChewieControllerProvider;
+    final chewieControllerProvider = context
+        .dependOnInheritedWidgetOfExactType() as _ChewieControllerProvider;
 
     return chewieControllerProvider.controller;
   }

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:isolate';
 import 'package:nexthour/model/todo.dart';
 import 'package:nexthour/model/task_info.dart';
 import 'package:flutter/material.dart';
@@ -12,23 +11,22 @@ String fileName = "userJSON.json";
 bool fileExists = false;
 Map<dynamic, dynamic> fileContent;
 
-
-String name='';
-String email='';
-String mobile='';
-String dob='';
-String address='';
-String role='';
-String nameInitial='';
-String message='';
-String fullData='';
+String name = '';
+String email = '';
+String mobile = '';
+String dob = '';
+String address = '';
+String role = '';
+String nameInitial = '';
+String message = '';
+String fullData = '';
 // ignore: non_constant_identifier_names
-String created_at='';
-String activePlan='';
-String activeStatus='';
-String expiryDate='';
-String subscriptionHistory='';
-String subNamesHistory='';
+String created_at = '';
+String activePlan = '';
+String activeStatus = '';
+String expiryDate = '';
+String subscriptionHistory = '';
+String subNamesHistory = '';
 String ip = 'Unknown';
 String dailyAmountAp;
 
@@ -153,7 +151,6 @@ var dCount;
 var download;
 var dailyAmount;
 
-
 Future<List<Todo>> future;
 
 //  Used for movies, slider and genres
@@ -164,7 +161,7 @@ List sliderData;
 List topMenuData;
 List menuDataArray;
 
-List allDataList= new List();
+List allDataList = new List();
 List<Todo> todos = List();
 List screenList = [];
 
@@ -176,21 +173,18 @@ bool isLoading;
 bool permissionReady;
 String dLocalPath;
 
-
 //  Used for search page
 List searchIds = new List();
 List searchIds2 = new List();
 
-
-
 //  Used for watchlist page
 List userWatchList = new List();
 
-Color greenPrime = const Color.fromRGBO( 125, 183, 91, 1.0);
-Color bluePrime = const Color.fromRGBO( 72, 163, 198, 1.0);
-Color primaryColor= Colors.black;
-Color primaryDarkColor= const Color.fromRGBO( 0, 0, 0, 1.0);
-Color blackColor= const Color.fromRGBO( 0, 0, 0, 1.0);
-Color cardColor= const Color.fromRGBO( 90, 90, 90, 1.0);
-Color textColor= const Color.fromRGBO( 30, 30, 30, 1.0);
-Color whiteColor= const Color.fromRGBO(255, 255, 255, 1.0);
+Color greenPrime = const Color.fromRGBO(125, 183, 91, 1.0);
+Color bluePrime = const Color.fromRGBO(72, 163, 198, 1.0);
+Color primaryColor = Colors.black;
+Color primaryDarkColor = const Color.fromRGBO(0, 0, 0, 1.0);
+Color blackColor = const Color.fromRGBO(0, 0, 0, 1.0);
+Color cardColor = const Color.fromRGBO(90, 90, 90, 1.0);
+Color textColor = const Color.fromRGBO(30, 30, 30, 1.0);
+Color whiteColor = const Color.fromRGBO(255, 255, 255, 1.0);

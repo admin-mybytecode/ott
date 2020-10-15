@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'dart:async';
@@ -26,14 +27,15 @@ class BottomNavigationBarController extends StatefulWidget {
       _BottomNavigationBarControllerState();
 }
 
-class _BottomNavigationBarControllerState extends State<BottomNavigationBarController> {
+class _BottomNavigationBarControllerState
+    extends State<BottomNavigationBarController> {
   int _selectedIndex;
   DataConnectionChecker dataConnectivity;
   StreamSubscription<DataConnectionStatus> listener;
 
   Future<String> getAllScreens() async {
     final getAllScreensResponse =
-    await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
+        await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
       // ignore: deprecated_member_use
       HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
     });
@@ -82,18 +84,17 @@ class _BottomNavigationBarControllerState extends State<BottomNavigationBarContr
         case DataConnectionStatus.disconnected:
           _selectedIndex = widget.pageInd != null ? widget.pageInd : 3;
           var router = new MaterialPageRoute(
-              builder: (BuildContext context) =>   OfflineDownloadPage());
+              builder: (BuildContext context) => OfflineDownloadPage());
           Navigator.of(context).push(router);
           break;
       }
     });
-    if(status == "1"){
-      if(userPaymentType != "Free"){
+    if (status == "1") {
+      if (userPaymentType != "Free") {
         getAllScreens();
       }
     }
   }
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -105,26 +106,55 @@ class _BottomNavigationBarControllerState extends State<BottomNavigationBarContr
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.black,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(title: Text("Home"), icon: Icon(Icons.home)),
-                BottomNavigationBarItem(title: Text("Search"), icon: Icon(Icons.search)),
-                BottomNavigationBarItem(title: Text("Wishlist"), icon: Icon(Icons.favorite_border)),
-                BottomNavigationBarItem(title: Text("Download"), icon: Icon(Icons.file_download)),
-                BottomNavigationBarItem(title: Text('Menu'), icon: Icon(Icons.menu)),
+            extendBody: true,
+            body: Stack(
+              children: <Widget>[
+                Center(
+                  child: _widgetOptions.elementAt(_selectedIndex),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 4.0,
+                          sigmaY: 4.0,
+                        ),
+                        child: BottomNavigationBar(
+                          type: BottomNavigationBarType.fixed,
+                          backgroundColor: Colors.white.withOpacity(0.12),
+                          items: const <BottomNavigationBarItem>[
+                            BottomNavigationBarItem(
+                                label: "Home", icon: Icon(Icons.home)),
+                            BottomNavigationBarItem(
+                                label: "Search", icon: Icon(Icons.search)),
+                            BottomNavigationBarItem(
+                                label: "Wishlist",
+                                icon: Icon(Icons.favorite_border)),
+                            BottomNavigationBarItem(
+                                label: "Download",
+                                icon: Icon(Icons.file_download)),
+                            BottomNavigationBarItem(
+                              label: 'Menu',
+                              icon: Icon(Icons.menu),
+                            ),
+                          ],
+                          currentIndex: _selectedIndex,
+                          selectedItemColor: greenPrime,
+                          unselectedLabelStyle: TextStyle(color: Colors.white),
+                          unselectedItemColor: Colors.grey[400],
+                          onTap: _onItemTapped,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
-              currentIndex: _selectedIndex,
-              selectedItemColor: Colors.white,
-              unselectedLabelStyle: TextStyle(color: Colors.white),
-              unselectedItemColor: Colors.grey,
-              onTap: _onItemTapped,
-            ),
-            body: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            )
-        ),
+            )),
         onWillPop: onWillPopS);
   }
 }

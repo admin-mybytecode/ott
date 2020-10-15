@@ -13,19 +13,19 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.black, // navigation bar color
-    statusBarColor: Colors.black,  // status bar color
+    statusBarColor: Colors.black, // status bar color
   ));
 
   runApp(
-       MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Next Hour',
-        home: LoadingScreen(),
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.blue[800],
-          accentColor: Color.fromRGBO(125,183,91, 1.0),
-        ),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Next Hour',
+      home: LoadingScreen(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.blue[800],
+        accentColor: Color.fromRGBO(125, 183, 91, 1.0),
       ),
+    ),
   );
 }

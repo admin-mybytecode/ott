@@ -58,18 +58,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       stops: [0.1, 0.5, 0.7, 0.9],
       colors: [
         // Colors are easy thanks to Flutter's Colors class.
-        Color.fromRGBO(
-            72, 163, 198, 0.1)
-            .withOpacity(0.6),
-        Color.fromRGBO(
-            72, 163, 198, 0.2)
-            .withOpacity(0.7),
-        Color.fromRGBO(
-            72, 163, 198, 0.3)
-            .withOpacity(0.8),
-        Color.fromRGBO(
-            72, 163, 198, 0.4)
-            .withOpacity(0.9),
+        Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.6),
+        Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.7),
+        Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.8),
+        Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.9),
       ],
     );
 
@@ -143,24 +135,26 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   /// Builds a back container containing cvv
   ///
   Padding buildBackContainer(
-      double width,
-      double height,
-      BuildContext context,
-      Orientation orientation,
-      ) {
-    final TextStyle defaultTextStyle = Theme.of(context).textTheme.title.merge(
-      TextStyle(
-        color: Colors.black,
-        fontFamily: 'halter',
-        fontSize: 16,
-        package: 'flutter_credit_card',
-      ),
-    );
+    double width,
+    double height,
+    BuildContext context,
+    Orientation orientation,
+  ) {
+    final TextStyle defaultTextStyle =
+        Theme.of(context).textTheme.headline6.merge(
+              TextStyle(
+                color: Colors.black,
+                fontFamily: 'halter',
+                fontSize: 16,
+                package: 'flutter_credit_card',
+              ),
+            );
 
-    return Padding(padding: EdgeInsets.all(16),
+    return Padding(
+      padding: EdgeInsets.all(16),
       child: Material(
           borderRadius: BorderRadius.circular(8),
-          child:Container(
+          child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: const <BoxShadow>[
@@ -178,21 +172,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                   stops: [0.1, 0.5, 0.7, 0.9],
                   colors: [
                     // Colors are easy thanks to Flutter's Colors class.
-                    Color.fromRGBO(
-                        72, 163, 198, 0.1)
-                        .withOpacity(0.6),
-                    Color.fromRGBO(
-                        72, 163, 198, 0.2)
-                        .withOpacity(0.7),
-                    Color.fromRGBO(
-                        72, 163, 198, 0.3)
-                        .withOpacity(0.8),
-                    Color.fromRGBO(
-                        72, 163, 198, 0.4)
-                        .withOpacity(0.9),
+                    Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.6),
+                    Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.7),
+                    Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.8),
+                    Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.9),
                   ],
-                )
-            ),
+                )),
 //        margin: const EdgeInsets.all(16),
             width: widget.width ?? width,
             height: widget.height ??
@@ -231,7 +216,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                               padding: const EdgeInsets.all(5),
                               child: Text(
                                 widget.cvvCode.isEmpty
-                                    ? isAmex ? 'XXXX' : 'XXX'
+                                    ? isAmex
+                                        ? 'XXXX'
+                                        : 'XXX'
                                     : widget.cvvCode,
                                 maxLines: 1,
                                 style: widget.textStyle ?? defaultTextStyle,
@@ -248,15 +235,15 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 16),
                       child: getCardTypeIcon(widget.cardNumber),
                     ),
                   ),
                 ),
               ],
             ),
-          )
-      ),
+          )),
     );
   }
 
@@ -265,13 +252,13 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   /// Card number, Exp. year and Card holder name
   ///
   Padding buildFrontContainer(
-      double width,
-      double height,
-      BuildContext context,
-      Orientation orientation,
-      ) {
-
-    return Padding(padding: EdgeInsets.all(16),
+    double width,
+    double height,
+    BuildContext context,
+    Orientation orientation,
+  ) {
+    return Padding(
+      padding: EdgeInsets.all(16),
       child: Material(
         borderRadius: BorderRadius.circular(8),
         child: Container(
@@ -293,18 +280,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                 stops: [0.1, 0.5, 0.7, 0.9],
                 colors: [
                   // Colors are easy thanks to Flutter's Colors class.
-                  Color.fromRGBO(
-                      72, 163, 198, 1.0)
-                      .withOpacity(0.6),
-                  Color.fromRGBO(
-                      72, 163, 198, 1.0)
-                      .withOpacity(0.7),
-                  Color.fromRGBO(
-                      72, 163, 198, 1.0)
-                      .withOpacity(0.8),
-                  Color.fromRGBO(
-                      72, 163, 198, 1.0)
-                      .withOpacity(0.9),
+                  Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.6),
+                  Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.7),
+                  Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.8),
+                  Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.9),
                 ],
               ),
               image: new DecorationImage(
@@ -312,11 +291,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(
                     Colors.black.withOpacity(0.4), BlendMode.multiply),
-              )
-          ),
+              )),
           width: widget.width ?? width,
           height: widget.height ??
-              (orientation == Orientation.portrait ? height / 4 : height /2),
+              (orientation == Orientation.portrait ? height / 4 : height / 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -366,9 +344,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 16),
                       child: Text(
-                        widget.cardHolderName.isEmpty || widget.cardHolderName == null
+                        widget.cardHolderName.isEmpty ||
+                                widget.cardHolderName == null
                             ? 'CARD HOLDER'
                             : widget.cardHolderName,
                         maxLines: 1,
@@ -379,7 +359,6 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                           fontSize: 16,
                           package: 'flutter_credit_card',
                         ),
-
                       ),
                     )
                   ],
@@ -396,7 +375,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   /// A [List<String>] represents a range.
   /// i.e. ['51', '55'] represents the range of cards starting with '51' to those starting with '55'
   Map<CardType, Set<List<String>>> cardNumPatterns =
-  <CardType, Set<List<String>>>{
+      <CardType, Set<List<String>>>{
     CardType.visa: <List<String>>{
       <String>['4'],
     },
@@ -431,11 +410,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     }
 
     cardNumPatterns.forEach(
-          (CardType type, Set<List<String>> patterns) {
+      (CardType type, Set<List<String>> patterns) {
         for (List<String> patternRange in patterns) {
           // Remove any spaces
           String ccPatternStr =
-          cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
+              cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
           final int rangeLen = patternRange[0].length;
           // Trim the Credit Card number string to match the pattern prefix length
           if (rangeLen < cardNumber.length) {
