@@ -83,7 +83,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
 //  User profile image
   Widget userProfileImage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
       child: Container(
         height: 130.0,
         width: 130.0,
@@ -135,8 +135,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
     return RadialSeekBar(
       trackColor: Color.fromRGBO(20, 20, 20, 1.0),
       trackWidth: 8.0,
-      progressColor:
-          difference == null ? Colors.red : Color.fromRGBO(72, 163, 198, 1.0),
+      progressColor: difference == null ? Colors.red : greenPrime,
       progressWidth: 8.0,
       progress: difference == null ? 1.0 : progressWidth,
       centerContent: Column(
@@ -157,7 +156,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
     return Container(
       height: 200.0,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -475,13 +474,14 @@ class ManageProfileFormState extends State<ManageProfileForm> {
 //  Show name and joined date container
   Widget nameAndJoinedDateContainer() {
     return Container(
-      height: 100.0,
+      height: 100,
       child: Row(
         children: <Widget>[
           Expanded(
             flex: 1,
             child: Card(
-              child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -556,6 +556,13 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             ),
             dobAndMobile(),
             nameAndJoinedDateContainer(),
+            Divider(
+              height: 30,
+              color: greenPrime,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+            ),
             roundedSeekBarContainer(),
           ],
         ),
