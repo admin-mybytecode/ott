@@ -141,32 +141,84 @@ class CustomDrawerState extends State<CustomDrawer> {
             )));
   }
 
-  Widget profileImage() {
-    return Column(
+  Widget profileImage(width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          height: 50.0,
-          width: 50.0,
-          child: userImage != null
-              ? Image.network(
-                  "${APIData.profileImageUri}" + "$userImage",
-                  scale: 1.7,
-                  fit: BoxFit.cover,
-                )
-              : Image.asset(
-                  "assets/avatar.png",
-                  scale: 1.7,
-                  fit: BoxFit.cover,
-                ),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 1.0)),
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Container(
+            height: 70.0,
+            width: 70.0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(100.0)),
+              child: userImage != null
+                  ? Image.network(
+                      "${APIData.profileImageUri}" + "$userImage",
+                      scale: 1.7,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      "assets/avatar.png",
+                      scale: 1.7,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 1.0),
+                borderRadius: BorderRadius.circular(100.0)),
+          ),
         ),
-        Text(name,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w400)),
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Text(name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400)),
+        ),
+        Column(
+          children: [
+            Container(
+              width: width * 0.4,
+              child: InkWell(
+                onTap: () {
+                  var route = MaterialPageRoute(
+                      builder: (context) => ManageProfileForm());
+                  Navigator.push(context, route);
+                },
+                child: new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.person, size: 20, color: Colors.black87),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      "Manage Profile",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30.0,
+            ),
+            Divider(
+              color: Colors.white,
+              thickness: 10.0,
+              height: 10.0,
+            ),
+            signOut(),
+          ],
+        ),
       ],
     );
   }
@@ -181,11 +233,11 @@ class CustomDrawerState extends State<CustomDrawer> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 15.0,
+                height: 40.0,
               ),
               status == "1"
                   ? userPaymentType == "Free"
-                      ? profileImage()
+                      ? profileImage(width)
                       : Container(
                           height: 100,
                           child: ListView.builder(
@@ -202,7 +254,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                                               height: 70.0,
                                               margin:
                                                   EdgeInsets.only(right: 10.0),
-                                              width: 70,
+                                              width: 70.0,
                                               child: userImage != null
                                                   ? Image.network(
                                                       "${APIData.profileImageUri}" +
@@ -222,9 +274,6 @@ class CustomDrawerState extends State<CustomDrawer> {
                                                   border: Border.all(
                                                       color: Colors.white,
                                                       width: 1.0)),
-                                            ),
-                                            SizedBox(
-                                              height: 10.0,
                                             ),
                                             screenList[index] == null
                                                 ? Text(
@@ -266,9 +315,6 @@ class CustomDrawerState extends State<CustomDrawer> {
                                                       fit: BoxFit.cover,
                                                     ),
                                             ),
-                                            SizedBox(
-                                              height: 10.0,
-                                            ),
                                             screenList[index] == null
                                                 ? userName(
                                                     "${screenList[index]}")
@@ -287,44 +333,11 @@ class CustomDrawerState extends State<CustomDrawer> {
                                 );
                               }),
                         )
-                  : profileImage(),
-              SizedBox(
-                height: 15.0,
-              ),
-              Container(
-                  width: width,
-                  color: primaryDarkColor,
-                  child: Padding(
-                      padding: EdgeInsets.only(bottom: 15.0),
-                      child: InkWell(
-                        onTap: () {
-                          var route = MaterialPageRoute(
-                              builder: (context) => ManageProfileForm());
-                          Navigator.push(context, route);
-                        },
-                        child: new Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.edit, size: 15, color: Colors.white70),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              "Manage Profile",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        ),
-                      ))),
+                  : profileImage(width),
             ],
           ),
           decoration: BoxDecoration(
-            color: primaryDarkColor,
+            color: greenPrime,
           ),
         ));
   }
@@ -638,28 +651,21 @@ class CustomDrawerState extends State<CustomDrawer> {
         onTap: () {
           _signOutDialog();
         },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 8,
-                child: Text(
-                  "Sign Out",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child:
-                    Icon(Icons.settings_power, size: 15, color: Colors.white70),
-              )
-            ],
-          ),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(Icons.logout, size: 20, color: Colors.black87),
+            ),
+            Text(
+              "Sign Out",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400),
+            ),
+          ],
         ));
   }
 
@@ -719,7 +725,6 @@ class CustomDrawerState extends State<CustomDrawer> {
           help(),
           rateUs(),
           shareApp(),
-          signOut(),
         ],
       ),
       decoration: BoxDecoration(
