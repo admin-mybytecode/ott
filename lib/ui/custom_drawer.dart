@@ -142,84 +142,78 @@ class CustomDrawerState extends State<CustomDrawer> {
   }
 
   Widget profileImage(width) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Container(
-            height: 70.0,
-            width: 70.0,
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(100.0)),
-              child: userImage != null
-                  ? Image.network(
-                      "${APIData.profileImageUri}" + "$userImage",
-                      scale: 1.7,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      "assets/avatar.png",
-                      scale: 1.7,
-                      fit: BoxFit.cover,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: Container(
+              height: 80.0,
+              width: 80.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                child: userImage != null
+                    ? Image.network(
+                        "${APIData.profileImageUri}" + "$userImage",
+                        scale: 1.7,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        "assets/avatar.png",
+                        scale: 1.7,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 0.0),
+                  borderRadius: BorderRadius.circular(100.0)),
             ),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1.0),
-                borderRadius: BorderRadius.circular(100.0)),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Text(name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w400)),
-        ),
-        Column(
-          children: [
-            Container(
-              width: width * 0.4,
-              child: InkWell(
-                onTap: () {
-                  var route = MaterialPageRoute(
-                      builder: (context) => ManageProfileForm());
-                  Navigator.push(context, route);
-                },
-                child: new Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.person, size: 20, color: Colors.black87),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      "Manage Profile",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: whiteColor,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.w400)),
+              ),
+              Container(
+                width: width * 0.4,
+                child: InkWell(
+                  onTap: () {
+                    var route = MaterialPageRoute(
+                        builder: (context) => ManageProfileForm());
+                    Navigator.push(context, route);
+                  },
+                  child: new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.person, size: 15, color: whiteColor),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "Manage Profile",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: whiteColor,
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Divider(
-              color: Colors.white,
-              thickness: 10.0,
-              height: 10.0,
-            ),
-            signOut(),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -227,14 +221,12 @@ class CustomDrawerState extends State<CustomDrawer> {
   Widget drawerHeader(width) {
     return Container(
         width: width,
+        height: 110,
         child: DrawerHeader(
           margin: EdgeInsets.fromLTRB(0, 0.0, 0, 0),
           padding: EdgeInsets.all(0.0),
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 40.0,
-              ),
               status == "1"
                   ? userPaymentType == "Free"
                       ? profileImage(width)
@@ -337,14 +329,15 @@ class CustomDrawerState extends State<CustomDrawer> {
             ],
           ),
           decoration: BoxDecoration(
-            color: greenPrime,
+            color: Colors.transparent,
           ),
         ));
   }
 
 //  Notification
   Widget notification() {
-    return Container(
+    return Card(
+      color: Colors.transparent,
       child: InkWell(
           onTap: () {
             var route =
@@ -370,19 +363,13 @@ class CustomDrawerState extends State<CustomDrawer> {
               ],
             ),
           )),
-      decoration: BoxDecoration(
-          border: Border(
-        bottom: BorderSide(
-          color: Color.fromRGBO(20, 20, 20, 1.0),
-          width: 3.0,
-        ),
-      )),
     );
   }
 
 //  My List
   Widget myList() {
-    return Container(
+    return Card(
+      color: Colors.transparent,
       child: InkWell(
           onTap: () {
             Navigator.push(
@@ -412,13 +399,6 @@ class CustomDrawerState extends State<CustomDrawer> {
               ],
             ),
           )),
-      decoration: BoxDecoration(
-          border: Border(
-        bottom: BorderSide(
-          color: Color.fromRGBO(20, 20, 20, 1.0),
-          width: 3.0,
-        ),
-      )),
     );
   }
 
@@ -434,13 +414,13 @@ class CustomDrawerState extends State<CustomDrawer> {
               Navigator.push(context, route);
             },
             child: Padding(
-              padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
               child: Center(
                 child: Text(
                   "App Settings",
                   style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 14.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w400),
                 ),
               ),
@@ -459,13 +439,13 @@ class CustomDrawerState extends State<CustomDrawer> {
               _onButtonPressed();
             },
             child: Padding(
-              padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
               child: Center(
                 child: Text(
                   "Account",
                   style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 14.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w400),
                 ),
               ),
@@ -476,218 +456,208 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  Subscribe
   Widget subscribe() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            _onSubscribe();
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Subscribe",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              _onSubscribe();
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Subscribe",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
 //  Help
   Widget help() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) => new HelpPage());
-            Navigator.of(context).push(router);
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Help",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              var router = new MaterialPageRoute(
+                  builder: (BuildContext context) => new HelpPage());
+              Navigator.of(context).push(router);
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Help",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
   // Blog
   Widget blog() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            var route = MaterialPageRoute(builder: (context) => BlogPage());
-            Navigator.push(context, route);
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Blog",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              var route = MaterialPageRoute(builder: (context) => BlogPage());
+              Navigator.push(context, route);
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Blog",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
   // Donate
   Widget donate() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            var route = MaterialPageRoute(builder: (context) => DonationPage());
-            Navigator.push(context, route);
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Donate",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              var route =
+                  MaterialPageRoute(builder: (context) => DonationPage());
+              Navigator.push(context, route);
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Donate",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
 //  Rate Us
   Widget rateUs() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            String os = Platform.operatingSystem; //in your code
-            if (os == 'android') {
-              if (APIData.androidAppId != '') {
-                LaunchReview.launch(
-                  androidAppId: APIData.androidAppId,
-                );
-              } else {
-                Fluttertoast.showToast(msg: 'PlayStore id not available');
-              }
-            } else {
-              if (APIData.iosAppId != '') {
-                LaunchReview.launch(
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              String os = Platform.operatingSystem; //in your code
+              if (os == 'android') {
+                if (APIData.androidAppId != '') {
+                  LaunchReview.launch(
                     androidAppId: APIData.androidAppId,
-                    iOSAppId: APIData.iosAppId);
-
-                LaunchReview.launch(
-                    writeReview: false, iOSAppId: APIData.iosAppId);
+                  );
+                } else {
+                  Fluttertoast.showToast(msg: 'PlayStore id not available');
+                }
               } else {
-                Fluttertoast.showToast(msg: 'AppStore id not available');
+                if (APIData.iosAppId != '') {
+                  LaunchReview.launch(
+                      androidAppId: APIData.androidAppId,
+                      iOSAppId: APIData.iosAppId);
+
+                  LaunchReview.launch(
+                      writeReview: false, iOSAppId: APIData.iosAppId);
+                } else {
+                  Fluttertoast.showToast(msg: 'AppStore id not available');
+                }
               }
-            }
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Rate Us",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Rate Us",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
 //  Share app
   Widget shareApp() {
-    return Card(
-      child: InkWell(
-          onTap: () {
-            String os = Platform.operatingSystem; //in your code
-            if (os == 'android') {
-              if (APIData.androidAppId != '') {
-                Share.share(APIData.shareAndroidAppUrl);
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              String os = Platform.operatingSystem; //in your code
+              if (os == 'android') {
+                if (APIData.androidAppId != '') {
+                  Share.share(APIData.shareAndroidAppUrl);
+                } else {
+                  Fluttertoast.showToast(msg: 'PlayStore id not available');
+                }
               } else {
-                Fluttertoast.showToast(msg: 'PlayStore id not available');
+                if (APIData.iosAppId != '') {
+                  Share.share(APIData.iosAppId);
+                } else {
+                  Fluttertoast.showToast(msg: 'AppStore id not available');
+                }
               }
-            } else {
-              if (APIData.iosAppId != '') {
-                Share.share(APIData.iosAppId);
-              } else {
-                Fluttertoast.showToast(msg: 'AppStore id not available');
-              }
-            }
-          },
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Share app",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          )),
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
+              child: Text(
+                "Share app",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
+      ),
     );
   }
 
 //  Sign Out
   Widget signOut() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-            onTap: () {
-              _signOutDialog();
-            },
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Icon(Icons.logout, size: 20, color: Colors.black87),
-                ),
-                Text(
-                  "Sign Out",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            )),
-      ),
-    );
+    return InkWell(
+        onTap: () {
+          _signOutDialog();
+        },
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Icon(Icons.logout, size: 20, color: whiteColor),
+            ),
+            Text(
+              "Sign Out",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400),
+            ),
+          ],
+        ));
   }
 
   // Bottom Sheet after on tapping account
@@ -747,12 +717,24 @@ class CustomDrawerState extends State<CustomDrawer> {
                 account(),
               ],
             ),
-            donationStatus == 1 ? donate() : SizedBox.shrink(),
-            blogStatus == 1 ? blog() : SizedBox.shrink(),
-            isAdmin == 1 ? SizedBox.shrink() : subscribe(),
-            help(),
-            rateUs(),
-            shareApp(),
+            Row(
+              children: [
+                isAdmin == 1 ? SizedBox.shrink() : subscribe(),
+                help(),
+              ],
+            ),
+            Row(
+              children: [
+                blogStatus == 1 ? blog() : SizedBox.shrink(),
+                rateUs(),
+              ],
+            ),
+            Row(
+              children: [
+                donationStatus == 1 ? donate() : SizedBox.shrink(),
+                shareApp(),
+              ],
+            ),
           ],
         ),
       ),
@@ -768,8 +750,32 @@ class CustomDrawerState extends State<CustomDrawer> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Card(
+                  color: Colors.transparent,
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 20.0,
+                        ),
+                        child: Text(
+                          "Account",
+                          style: TextStyle(fontSize: 35),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 130.0),
+                        child: signOut(),
+                      ),
+                    ],
+                  ),
+                ),
                 drawerHeader(width),
-                drawerBodyContainer(height2),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: drawerBodyContainer(height2),
+                ),
               ]),
         ],
       ),
