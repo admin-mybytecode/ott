@@ -121,12 +121,12 @@ class _BottomNavigationBarControllerState
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(
-                          sigmaX: 4.0,
-                          sigmaY: 4.0,
+                          sigmaX: 10.0,
+                          sigmaY: 10.0,
                         ),
                         child: BottomNavigationBar(
                           type: BottomNavigationBarType.fixed,
-                          backgroundColor: Colors.white.withOpacity(0.12),
+                          backgroundColor: Colors.white.withOpacity(0.1),
                           items: const <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
