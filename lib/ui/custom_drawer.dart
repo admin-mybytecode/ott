@@ -424,249 +424,270 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  App settings
   Widget appSettings() {
-    return InkWell(
-        onTap: () {
-          var route =
-              MaterialPageRoute(builder: (context) => AppSettingsPage());
-          Navigator.push(context, route);
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "App Settings",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              var route =
+                  MaterialPageRoute(builder: (context) => AppSettingsPage());
+              Navigator.push(context, route);
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+              child: Center(
+                child: Text(
+                  "App Settings",
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
-            ],
-          ),
-        ));
+            )),
+      ),
+    );
   }
 
 //  Account
   Widget account() {
-    return InkWell(
-        onTap: () {
-          _onButtonPressed();
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Account",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+            onTap: () {
+              _onButtonPressed();
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+              child: Center(
+                child: Text(
+                  "Account",
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
-            ],
-          ),
-        ));
+            )),
+      ),
+    );
   }
 
 //  Subscribe
   Widget subscribe() {
-    return InkWell(
-        onTap: () {
-          _onSubscribe();
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Subscribe",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+    return Card(
+      child: InkWell(
+          onTap: () {
+            _onSubscribe();
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Subscribe",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
 //  Help
   Widget help() {
-    return InkWell(
-        onTap: () {
-          var router = new MaterialPageRoute(
-              builder: (BuildContext context) => new HelpPage());
-          Navigator.of(context).push(router);
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Help",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+    return Card(
+      child: InkWell(
+          onTap: () {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) => new HelpPage());
+            Navigator.of(context).push(router);
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Help",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
   // Blog
   Widget blog() {
-    return InkWell(
-        onTap: () {
-          var route = MaterialPageRoute(builder: (context) => BlogPage());
-          Navigator.push(context, route);
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Blog",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+    return Card(
+      child: InkWell(
+          onTap: () {
+            var route = MaterialPageRoute(builder: (context) => BlogPage());
+            Navigator.push(context, route);
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Blog",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
   // Donate
   Widget donate() {
-    return InkWell(
-        onTap: () {
-          var route = MaterialPageRoute(builder: (context) => DonationPage());
-          Navigator.push(context, route);
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Donate",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+    return Card(
+      child: InkWell(
+          onTap: () {
+            var route = MaterialPageRoute(builder: (context) => DonationPage());
+            Navigator.push(context, route);
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Donate",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
 //  Rate Us
   Widget rateUs() {
-    return InkWell(
-        onTap: () {
-          String os = Platform.operatingSystem; //in your code
-          if (os == 'android') {
-            if (APIData.androidAppId != '') {
-              LaunchReview.launch(
-                androidAppId: APIData.androidAppId,
-              );
-            } else {
-              Fluttertoast.showToast(msg: 'PlayStore id not available');
-            }
-          } else {
-            if (APIData.iosAppId != '') {
-              LaunchReview.launch(
+    return Card(
+      child: InkWell(
+          onTap: () {
+            String os = Platform.operatingSystem; //in your code
+            if (os == 'android') {
+              if (APIData.androidAppId != '') {
+                LaunchReview.launch(
                   androidAppId: APIData.androidAppId,
-                  iOSAppId: APIData.iosAppId);
-
-              LaunchReview.launch(
-                  writeReview: false, iOSAppId: APIData.iosAppId);
+                );
+              } else {
+                Fluttertoast.showToast(msg: 'PlayStore id not available');
+              }
             } else {
-              Fluttertoast.showToast(msg: 'AppStore id not available');
+              if (APIData.iosAppId != '') {
+                LaunchReview.launch(
+                    androidAppId: APIData.androidAppId,
+                    iOSAppId: APIData.iosAppId);
+
+                LaunchReview.launch(
+                    writeReview: false, iOSAppId: APIData.iosAppId);
+              } else {
+                Fluttertoast.showToast(msg: 'AppStore id not available');
+              }
             }
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Rate Us",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Rate Us",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
 //  Share app
   Widget shareApp() {
-    return InkWell(
-        onTap: () {
-          String os = Platform.operatingSystem; //in your code
-          if (os == 'android') {
-            if (APIData.androidAppId != '') {
-              Share.share(APIData.shareAndroidAppUrl);
+    return Card(
+      child: InkWell(
+          onTap: () {
+            String os = Platform.operatingSystem; //in your code
+            if (os == 'android') {
+              if (APIData.androidAppId != '') {
+                Share.share(APIData.shareAndroidAppUrl);
+              } else {
+                Fluttertoast.showToast(msg: 'PlayStore id not available');
+              }
             } else {
-              Fluttertoast.showToast(msg: 'PlayStore id not available');
+              if (APIData.iosAppId != '') {
+                Share.share(APIData.iosAppId);
+              } else {
+                Fluttertoast.showToast(msg: 'AppStore id not available');
+              }
             }
-          } else {
-            if (APIData.iosAppId != '') {
-              Share.share(APIData.iosAppId);
-            } else {
-              Fluttertoast.showToast(msg: 'AppStore id not available');
-            }
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Share app",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-        ));
+          },
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Share app",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
 //  Sign Out
   Widget signOut() {
-    return InkWell(
-        onTap: () {
-          _signOutDialog();
-        },
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Icon(Icons.logout, size: 20, color: Colors.black87),
-            ),
-            Text(
-              "Sign Out",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400),
-            ),
-          ],
-        ));
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+            onTap: () {
+              _signOutDialog();
+            },
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Icon(Icons.logout, size: 20, color: Colors.black87),
+                ),
+                Text(
+                  "Sign Out",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            )),
+      ),
+    );
   }
 
   // Bottom Sheet after on tapping account
@@ -712,23 +733,28 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  Drawer body container
   Widget drawerBodyContainer(height2) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          notification(),
-          myList(),
-          appSettings(),
-          account(),
-          donationStatus == 1 ? donate() : SizedBox.shrink(),
-          blogStatus == 1 ? blog() : SizedBox.shrink(),
-          isAdmin == 1 ? SizedBox.shrink() : subscribe(),
-          help(),
-          rateUs(),
-          shareApp(),
-        ],
-      ),
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(34, 34, 34, 1.0),
+    return SingleChildScrollView(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
+          children: <Widget>[
+            notification(),
+            myList(),
+            Row(
+              children: [
+                appSettings(),
+                account(),
+              ],
+            ),
+            donationStatus == 1 ? donate() : SizedBox.shrink(),
+            blogStatus == 1 ? blog() : SizedBox.shrink(),
+            isAdmin == 1 ? SizedBox.shrink() : subscribe(),
+            help(),
+            rateUs(),
+            shareApp(),
+          ],
+        ),
       ),
     );
   }
