@@ -145,7 +145,8 @@ class _VideosPageState extends State<VideosPage>
                   child: new SizedBox(
                     child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                      highlightColor: Color.fromRGBO(50, 50, 50, 1.0),
+                      highlightColor: greenPrime
+                          .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
                         color: Color.fromRGBO(45, 45, 45, 1.0),
@@ -187,7 +188,8 @@ class _VideosPageState extends State<VideosPage>
                   child: new SizedBox(
                     child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                      highlightColor: Color.fromRGBO(50, 50, 50, 1.0),
+                      highlightColor: greenPrime
+                          .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
                         color: Color.fromRGBO(45, 45, 45, 1.0),
@@ -236,7 +238,8 @@ class _VideosPageState extends State<VideosPage>
                             child: new SizedBox(
                               child: Shimmer.fromColors(
                                 baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                                highlightColor: Color.fromRGBO(50, 50, 50, 1.0),
+                                highlightColor: greenPrime.withOpacity(
+                                    0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                                 child: Card(
                                   elevation: 0.0,
                                   color: Color.fromRGBO(45, 45, 45, 1.0),

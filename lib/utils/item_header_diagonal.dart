@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 class DiagonallyCutColoredImage extends StatelessWidget {
   DiagonallyCutColoredImage(this.image, {@required this.color});
 
-  final FadeInImage image;
+  final Image image;
   final Color color;
 
   @override
@@ -27,7 +27,7 @@ class DiagonalClipper extends CustomClipper<Path> {
     path.lineTo(0.0, size.height);
     path.lineTo(size.width, size.height
 //        - 50.0
-    );
+        );
     path.lineTo(size.width, 0.0);
     path.close();
 
