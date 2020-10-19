@@ -110,7 +110,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
             alignment: Alignment.topLeft,
             child: Text(
               'Add Comments',
-              style: TextStyle(color: greenPrime, fontWeight: FontWeight.w600),
+              style: TextStyle(color: redPrime, fontWeight: FontWeight.w600),
             ),
           ),
           content: Container(
@@ -153,7 +153,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                 ),
                 InkWell(
                   child: Container(
-                    color: greenPrime,
+                    color: redPrime,
                     height: 45.0,
                     width: 100.0,
                     padding: EdgeInsets.only(
@@ -335,7 +335,7 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                         height: 25.0,
                         child: RaisedButton(
                             elevation: 10.0,
-                            color: greenPrime,
+                            color: redPrime,
                             padding: EdgeInsets.only(
                                 left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
                             child: Text("Add"),

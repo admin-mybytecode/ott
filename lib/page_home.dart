@@ -9,20 +9,25 @@ import 'package:nexthour/ui/page_video.dart';
 import 'apidata/apidata.dart';
 
 DateTime currentBackPressTime;
+
 class PageHome extends StatefulWidget {
-  PageHome({Key key,}) : super(key: key);
+  PageHome({
+    Key key,
+  }) : super(key: key);
 
   @override
   _PageHomeState createState() => new _PageHomeState();
 }
 
-class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin, RouteAware {
+class _PageHomeState extends State<PageHome>
+    with SingleTickerProviderStateMixin, RouteAware {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   ScrollController _scrollViewController;
   TabController _tabController;
-  List<Widget> containers = List<Widget>.generate(menuList == null ? 0 : menuList, (int index) {
+  List<Widget> containers =
+      List<Widget>.generate(menuList == null ? 0 : menuList, (int index) {
     menuId = topMenuData[index]['id'];
-    menuDataListLength=0;
+    menuDataListLength = 0;
     return new VideosPage(
       mId: menuId,
     );
@@ -37,7 +42,7 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
       Fluttertoast.showToast(msg: "Press again to exit.");
       return Future.value(false);
     }
-    return  SystemNavigator.pop();
+    return SystemNavigator.pop();
   }
 
 //  init state
@@ -47,7 +52,6 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
     _scrollViewController = new ScrollController();
     _tabController = TabController(
         vsync: this, length: menuList == null ? 0 : menuList, initialIndex: 0);
-
   }
 
   @override
@@ -87,7 +91,6 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
           ],
         ),
         backgroundColor: primaryDarkColor.withOpacity(0.98),
-
         pinned: true,
         floating: true,
         forceElevated: innerBoxIsScrolled,
@@ -96,11 +99,12 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
 //   Tabs used on home page
         bottom: TabBar(
           indicatorSize: TabBarIndicatorSize.tab,
-          indicatorColor: Color.fromRGBO(125, 183, 91, 1.0),
+          indicatorColor: redPrime,
           controller: _tabController,
           isScrollable: true,
-          tabs: List<Tab>.generate(menuList == null ? 0 : menuList,
-                (int index) {
+          tabs: List<Tab>.generate(
+            menuList == null ? 0 : menuList,
+            (int index) {
               return Tab(
                 child: new Container(
                   alignment: Alignment.center,
@@ -112,30 +116,24 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
                         fontSize: 13.0,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.9,
-                        color: Colors.white
-
-                    ),
+                        color: Colors.white),
                   ),
                 ),
               );
             },
           ),
-        )
-
-    );
+        ));
   }
 
 //  Scaffold body
   Widget _scaffoldBody() {
     return NestedScrollView(
       controller: _scrollViewController,
-      headerSliverBuilder:
-          (BuildContext context, bool innerBoxIsScrolled) {
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           _sliverAppBar(innerBoxIsScrolled),
         ];
       },
-
       body: TabBarView(
         controller: _tabController,
         children: containers,
@@ -146,9 +144,8 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
 //  When menu length is 0.
   Widget safeAreaMenuNull() {
     return SafeArea(
-      child: Scaffold(
-          body: scaffoldBodyMenuNull()
-      ),);
+      child: Scaffold(body: scaffoldBodyMenuNull()),
+    );
   }
 
 //  When menu length is not 0
@@ -160,17 +157,14 @@ class _PageHomeState extends State<PageHome> with SingleTickerProviderStateMixin
               child: Scaffold(
                 key: _scaffoldKey,
                 body: _scaffoldBody(),
-              )
-          ),
-          onWillPop: onWillPopS
-      ),
+              )),
+          onWillPop: onWillPopS),
     );
   }
 
 // Build method
   @override
   Widget build(BuildContext context) {
-    return menuList == null ?  safeAreaMenuNull() : safeArea();
+    return menuList == null ? safeAreaMenuNull() : safeArea();
   }
 }
-

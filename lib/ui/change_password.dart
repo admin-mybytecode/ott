@@ -15,8 +15,10 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-  TextEditingController _editNewPasswordController = new TextEditingController();
-  TextEditingController _editNewConfirmPasswordController = new TextEditingController();
+  TextEditingController _editNewPasswordController =
+      new TextEditingController();
+  TextEditingController _editNewConfirmPasswordController =
+      new TextEditingController();
   final formKey = new GlobalKey<FormState>();
   bool _isOldHidden = true;
   bool _isNewHidden = true;
@@ -26,13 +28,19 @@ class _ChangePasswordState extends State<ChangePassword> {
   var sPass;
   var sOldPass;
 
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Change Password", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0, color: whiteColor),),
+      title: Text(
+        "Change Password",
+        style: TextStyle(
+            fontWeight: FontWeight.w600, fontSize: 16.0, color: whiteColor),
+      ),
       centerTitle: true,
-      leading: IconButton(icon: Icon(Icons.arrow_back, color: whiteColor), onPressed: (){
-        Navigator.pop(context);
-      }),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: whiteColor),
+          onPressed: () {
+            Navigator.pop(context);
+          }),
       backgroundColor: Color.fromRGBO(20, 20, 20, 1.0),
     );
   }
@@ -58,7 +66,6 @@ class _ChangePasswordState extends State<ChangePassword> {
     });
   }
 
-
 //  TextField for new password
   Widget buildNewPasswordTextField(String hintText) {
     return TextFormField(
@@ -75,18 +82,21 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
         contentPadding: EdgeInsets.all(5.0),
         prefixIcon: Icon(Icons.lock_outline),
-        suffixIcon: hintText == "New Password" ?
-        IconButton(
-          onPressed: _toggleVisibility2,
-          icon: _isNewHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),) : null,),
-
+        suffixIcon: hintText == "New Password"
+            ? IconButton(
+                onPressed: _toggleVisibility2,
+                icon: _isNewHidden
+                    ? Icon(Icons.visibility_off)
+                    : Icon(Icons.visibility),
+              )
+            : null,
+      ),
       obscureText: hintText == "New Password" ? _isNewHidden : false,
-
       validator: (val) {
         if (val.length < 6) {
-          if(val.length==0){
+          if (val.length == 0) {
             return "Enter Password!";
-          }else{
+          } else {
             return "Password too short!";
           }
         } else {
@@ -113,28 +123,32 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
         contentPadding: EdgeInsets.all(5.0),
         prefixIcon: Icon(Icons.lock),
-        suffixIcon: hintText == "Confirm New Password" ?
-        IconButton(
-          onPressed: _toggleVisibility3,
-          icon: _isConfirmNewHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),) : null,
+        suffixIcon: hintText == "Confirm New Password"
+            ? IconButton(
+                onPressed: _toggleVisibility3,
+                icon: _isConfirmNewHidden
+                    ? Icon(Icons.visibility_off)
+                    : Icon(Icons.visibility),
+              )
+            : null,
       ),
-      obscureText: hintText == "Confirm New Password" ? _isConfirmNewHidden : false,
+      obscureText:
+          hintText == "Confirm New Password" ? _isConfirmNewHidden : false,
 
 //      Validation for password
       validator: (val) {
         if (val.length < 6) {
-          if(val.length==0){
+          if (val.length == 0) {
             return 'Enter Password!';
-          }else{
+          } else {
             return 'New Password too short!';
           }
         } else {
-          if(_editNewPasswordController.text == val){
+          if (_editNewPasswordController.text == val) {
             return null;
-          }else{
+          } else {
             return 'New Password & Confirm new password does not match.';
           }
-
         }
       },
       onSaved: (val) => _editNewConfirmPasswordController.text = val,
@@ -142,10 +156,10 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
 //  Form that containing text fields to update profile
-  Widget form(){
+  Widget form() {
     return Container(
-      padding: EdgeInsets.only(
-          top: 10.0, right: 20.0, left: 20.0, bottom: 20.0),
+      padding:
+          EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0, bottom: 20.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -179,8 +193,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius:
-          new BorderRadius.circular(5.0),
+          borderRadius: new BorderRadius.circular(5.0),
           // Box decoration takes a gradient
           gradient: LinearGradient(
             // Where the linear gradient begins and ends
@@ -190,18 +203,10 @@ class _ChangePasswordState extends State<ChangePassword> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Color.fromRGBO(
-                  72, 163, 198, 0.4)
-                  .withOpacity(0.4),
-              Color.fromRGBO(
-                  72, 163, 198, 0.3)
-                  .withOpacity(0.5),
-              Color.fromRGBO(
-                  72, 163, 198, 0.2)
-                  .withOpacity(0.6),
-              Color.fromRGBO(
-                  72, 163, 198, 0.1)
-                  .withOpacity(0.7),
+              Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
+              Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
+              Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
+              Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
             ],
           ),
           boxShadow: <BoxShadow>[
@@ -213,19 +218,20 @@ class _ChangePasswordState extends State<ChangePassword> {
           ],
         ),
         child: Center(
-          child: isShowIndicator == true ? CircularProgressIndicator(
-            backgroundColor: Colors.white,
-          ) : Text(
-            "Change Password",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-            ),
-          ),
+          child: isShowIndicator == true
+              ? CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                )
+              : Text(
+                  "Change Password",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.0,
+                  ),
+                ),
         ),
       ),
-
-      onTap: (){
+      onTap: () {
 //     To remove keypad on tapping button
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         setState(() {
@@ -235,9 +241,9 @@ class _ChangePasswordState extends State<ChangePassword> {
         form.save();
         if (form.validate() == true) {
           writeToFile("pass", _editNewPasswordController.text);
-         sPass= fileContent['pass'];
+          sPass = fileContent['pass'];
           updatePass();
-        }else{
+        } else {
           setState(() {
             isShowIndicator = false;
           });
@@ -262,13 +268,19 @@ class _ChangePasswordState extends State<ChangePassword> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text('Your password updated.',style: TextStyle(color: textColor.withOpacity(0.8)),),
+                  Text(
+                    'Your password updated.',
+                    style: TextStyle(color: textColor.withOpacity(0.8)),
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       FlatButton(
-                        child: Text('Ok',style: TextStyle(fontSize: 16.0,color: greenPrime),),
+                        child: Text(
+                          'Ok',
+                          style: TextStyle(fontSize: 16.0, color: redPrime),
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -285,9 +297,9 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  Future <String> updatePass() async {
-    final updateResponse = await http.post( APIData.userProfileUpdate, body: {
-      "email" : sEmail,
+  Future<String> updatePass() async {
+    final updateResponse = await http.post(APIData.userProfileUpdate, body: {
+      "email": sEmail,
       "current_password": sOldPass,
       "new_password": sPass,
     }, headers: {
@@ -298,11 +310,11 @@ class _ChangePasswordState extends State<ChangePassword> {
     setState(() {
       isShowIndicator = false;
     });
-    if(updateResponse.statusCode == 200){
+    if (updateResponse.statusCode == 200) {
       _editNewPasswordController.text = '';
       _editNewConfirmPasswordController.text = '';
       _profileUpdated(context);
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "Password updating failed.");
       setState(() {
         isShowIndicator = false;
@@ -312,9 +324,10 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   void writeToFile(String key, String value) {
     Map<String, String> content = {key: value};
-      Map<dynamic, dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
-      jsonFileContent.addAll(content);
-      jsonFile.writeAsStringSync(json.encode(jsonFileContent));
+    Map<dynamic, dynamic> jsonFileContent =
+        json.decode(jsonFile.readAsStringSync());
+    jsonFileContent.addAll(content);
+    jsonFile.writeAsStringSync(json.encode(jsonFileContent));
 
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
   }
@@ -329,29 +342,28 @@ class _ChangePasswordState extends State<ChangePassword> {
       fileExists = jsonFile.existsSync();
       if (fileExists)
         this.setState(
-                () => fileContent = json.decode(jsonFile.readAsStringSync()));
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
       sEmail = fileContent['user'];
       sOldPass = fileContent['pass'];
       print(sOldPass);
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Theme(data: ThemeData(
-          primaryColor: greenPrime,
-          primaryColorDark: greenPrime,
+    return Theme(
+        data: ThemeData(
+          primaryColor: redPrime,
+          primaryColorDark: redPrime,
           scaffoldBackgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
           backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
           brightness: Brightness.dark,
-          accentColor: greenPrime,
-          canvasColor: greenPrime,
-
-      ),
+          accentColor: redPrime,
+          canvasColor: redPrime,
+        ),
         child: Scaffold(
           appBar: appBar(),
           body: form(),
-    ));
+        ));
   }
 }

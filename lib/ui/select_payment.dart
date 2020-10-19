@@ -18,7 +18,8 @@ import 'package:nexthour/ui/razor_payments.dart';
 import 'package:nexthour/ui/paytm_payment_page.dart';
 import 'package:http/http.dart' as http;
 
-List listPaymentGateways =  new List();
+List listPaymentGateways = new List();
+
 class SelectPayment extends StatefulWidget {
   final int indexPer;
   SelectPayment({Key key, this.indexPer}) : super(key: key);
@@ -32,7 +33,6 @@ class SelectPayment extends StatefulWidget {
 
 class SelectPaymentState extends State<SelectPayment>
     with TickerProviderStateMixin, RouteAware {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = new GlobalKey<FormState>();
   ScrollController _scrollViewController;
@@ -54,7 +54,6 @@ class SelectPaymentState extends State<SelectPayment>
   var validCoupon, percent_off;
   bool isCoupanApplied = true;
   var mFlag = 0;
-
 
   Future<String> _applyCoupan() async {
     final applyCoupanResponse = await http.post(
@@ -105,49 +104,30 @@ class SelectPaymentState extends State<SelectPayment>
 
     listPaymentGateways = new List();
     if (stripePayment == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'stripe',
-          status: 1
-      )
-      );
+      listPaymentGateways.add(PaymentGateInfo(title: 'stripe', status: 1));
     }
     if (btreePayment == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'btree',
-          status: 1
-      ));
+      listPaymentGateways.add(PaymentGateInfo(title: 'btree', status: 1));
     }
     if (paystackPayment == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'paystack',
-          status: 1
-      ));
+      listPaymentGateways.add(PaymentGateInfo(title: 'paystack', status: 1));
     }
     if (bankPayment == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'bankPayment',
-          status: 1
-      ));
+      listPaymentGateways.add(PaymentGateInfo(title: 'bankPayment', status: 1));
     }
     if (razorPayPaymentStatus == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'razorPayment',
-          status: 1
-      ));
+      listPaymentGateways
+          .add(PaymentGateInfo(title: 'razorPayment', status: 1));
     }
     if (paytmPaymentStatus == 1) {
-      listPaymentGateways.add(PaymentGateInfo(
-          title: 'paytmPayment',
-          status: 1
-      ));
+      listPaymentGateways
+          .add(PaymentGateInfo(title: 'paytmPayment', status: 1));
     }
 
-    _paymentTabController =
-        TabController(vsync: this,
-            length: listPaymentGateways != null
-                ? listPaymentGateways.length
-                : 0,
-            initialIndex: 0);
+    _paymentTabController = TabController(
+        vsync: this,
+        length: listPaymentGateways != null ? listPaymentGateways.length : 0,
+        initialIndex: 0);
     initializeDateFormatting();
   }
 
@@ -155,22 +135,21 @@ class SelectPaymentState extends State<SelectPayment>
     refreshKey.currentState?.show();
     await Future.delayed(Duration(seconds: 2));
   }
+
 //  Apply coupon forward icon
   Widget applyCouponIcon() {
     return Expanded(
       flex: 1,
       child: Padding(
-        padding:
-        EdgeInsets.only(
-            left: 0.0),
+        padding: EdgeInsets.only(left: 0.0),
         child: Icon(
           Icons.keyboard_arrow_right,
-          color:
-          Colors.white70,
+          color: Colors.white70,
         ),
       ),
     );
   }
+
 //  Gift icon
   Widget giftIcon() {
     return Padding(
@@ -181,6 +160,7 @@ class SelectPaymentState extends State<SelectPayment>
       ),
     );
   }
+
 //  Payment method tas
   Widget paymentMethodTabs() {
     return PreferredSize(
@@ -191,7 +171,7 @@ class SelectPaymentState extends State<SelectPayment>
           isScrollable: true,
           tabs: List<Tab>.generate(
             listPaymentGateways == null ? 0 : listPaymentGateways.length,
-                (int index) {
+            (int index) {
               if (listPaymentGateways[index].title == 'stripe') {
                 return Tab(
                   child: tabLabelText('Stripe'),
@@ -228,12 +208,14 @@ class SelectPaymentState extends State<SelectPayment>
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor:
-        primaryDarkColor.withOpacity(1.0),
+        backgroundColor: primaryDarkColor.withOpacity(1.0),
         pinned: true,
         floating: true,
-      ), preferredSize: Size.fromHeight(0.0),);
+      ),
+      preferredSize: Size.fromHeight(0.0),
+    );
   }
+
 //  App bar material design
   Widget appbarMaterialDesign() {
     return Material(
@@ -245,31 +227,25 @@ class SelectPaymentState extends State<SelectPayment>
             end: Alignment.bottomRight,
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
-              Color.fromRGBO(72, 163, 198, 1.0)
-                  .withOpacity(0.3),
-              Color.fromRGBO(72, 163, 198, 1.0)
-                  .withOpacity(0.2),
-              Color.fromRGBO(72, 163, 198, 1.0)
-                  .withOpacity(0.1),
-              Color.fromRGBO(72, 163, 198, 1.0)
-                  .withOpacity(0.0),
+              Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.3),
+              Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.2),
+              Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.1),
+              Color.fromRGBO(72, 163, 198, 1.0).withOpacity(0.0),
             ],
           ),
         ),
       ),
     );
   }
+
 //  Select payment text
   Widget selectPaymentText() {
     return Row(
-      crossAxisAlignment:
-      CrossAxisAlignment.center,
-      mainAxisAlignment:
-      MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(
-              left: 20.0, top: 40.0),
+          padding: EdgeInsets.only(left: 20.0, top: 40.0),
         ),
         Expanded(
           child: Text(
@@ -277,27 +253,23 @@ class SelectPaymentState extends State<SelectPayment>
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
-                fontWeight:
-                FontWeight.w800),
+                fontWeight: FontWeight.w800),
           ),
         ),
       ],
     );
   }
+
 //  Plan name and user name
   Widget planAndUserName(indexPer) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-          0.0, 10.0, 0.0, 0.0),
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       child: Row(
-        crossAxisAlignment:
-        CrossAxisAlignment.center,
-        mainAxisAlignment:
-        MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(
-                left: 20.0),
+            padding: EdgeInsets.only(left: 20.0),
           ),
           Expanded(
               flex: 2,
@@ -309,21 +281,16 @@ class SelectPaymentState extends State<SelectPayment>
                     "${plan_details[indexPer]['name']}",
                     style: TextStyle(
                         color: Color.fromRGBO(72, 163, 198, 1.0),
-                        fontSize: 14.0, fontWeight: FontWeight.w600),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600),
                   ),
                   Padding(
-                    padding: EdgeInsets
-                        .only(
-                        top:
-                        15.0),
+                    padding: EdgeInsets.only(top: 15.0),
                   ),
                   Text(
                     name,
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize:
-                        12.0,
-                        height: 1.3),
+                        color: Colors.white, fontSize: 12.0, height: 1.3),
                   ),
                 ],
               )),
@@ -337,35 +304,26 @@ class SelectPaymentState extends State<SelectPayment>
     return Expanded(
         flex: 2,
         child: Column(
-          crossAxisAlignment:
-          CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Min duration ' + '${plan_details[indexPer]['interval_count']}' +
+              'Min duration ' +
+                  '${plan_details[indexPer]['interval_count']}' +
                   ' days',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  height: 1.3),
+              style:
+                  TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
             ),
             Padding(
-              padding: EdgeInsets
-                  .only(
-                  top:
-                  10.0),
+              padding: EdgeInsets.only(top: 10.0),
             ),
             Text(
               new DateFormat.yMMMd().format(new DateTime.now()),
-              style: TextStyle(
-                  color: Colors.white70,
-                  fontSize:
-                  12.0,
-                  height: 1.5),
+              style:
+                  TextStyle(color: Colors.white70, fontSize: 12.0, height: 1.5),
             ),
           ],
-        )
-    );
+        ));
   }
 
 //  After applying coupon
@@ -381,12 +339,17 @@ class SelectPaymentState extends State<SelectPayment>
               discountText(),
               Expanded(
                   flex: 1,
-                  child: validCoupon == true ? Text(
-                    percent_off.toString() + " %", style: TextStyle(
-                      color: Colors.white, fontSize: 12.0, height: 1.3),) :
-                  Text("0 %", style: TextStyle(
-                      color: Colors.white, fontSize: 12.0, height: 1.3),)
-              ),
+                  child: validCoupon == true
+                      ? Text(
+                          percent_off.toString() + " %",
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 12.0, height: 1.3),
+                        )
+                      : Text(
+                          "0 %",
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 12.0, height: 1.3),
+                        )),
             ],
           ),
           SizedBox(
@@ -397,14 +360,14 @@ class SelectPaymentState extends State<SelectPayment>
               afterDiscountText(),
               Expanded(
                 flex: 1,
-                child: validCoupon == true ? Text(
-                  afterDiscountAmount.toString() +
-                      " ${plan_details[indexPer]['currency']}",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12.0,
-                      height: 1.3),) :
-                amountText(indexPer),
+                child: validCoupon == true
+                    ? Text(
+                        afterDiscountAmount.toString() +
+                            " ${plan_details[indexPer]['currency']}",
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 12.0, height: 1.3),
+                      )
+                    : amountText(indexPer),
               ),
             ],
           )
@@ -418,25 +381,17 @@ class SelectPaymentState extends State<SelectPayment>
     return Expanded(
       flex: 2,
       child: Column(
-        crossAxisAlignment:
-        CrossAxisAlignment
-            .start,
-        mainAxisAlignment:
-        MainAxisAlignment
-            .start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
             child: Text(
               "${plan_details[indexPer]['amount']}" +
-                  " ${plan_details[indexPer]['currency']}"
-                      .toUpperCase(),
+                  " ${plan_details[indexPer]['currency']}".toUpperCase(),
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:
-                  22.0,
-                  fontWeight:
-                  FontWeight
-                      .w600),
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w600),
             ),
           ),
           SizedBox(
@@ -448,14 +403,10 @@ class SelectPaymentState extends State<SelectPayment>
                   ' ${plan_details[indexPer]['currency']} / ${plan_details[indexPer]['interval']} )',
               style: TextStyle(
                   color: Colors.white,
-                  fontSize:
-                  10.0,
-                  letterSpacing:
-                  0.8,
+                  fontSize: 10.0,
+                  letterSpacing: 0.8,
                   height: 1.3,
-                  fontWeight:
-                  FontWeight
-                      .w500),
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ],
@@ -484,8 +435,10 @@ class SelectPaymentState extends State<SelectPayment>
   Widget discountText() {
     return Expanded(
       flex: 5,
-      child: Text("Discount",
-        style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),),
+      child: Text(
+        "Discount",
+        style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
+      ),
     );
   }
 
@@ -493,21 +446,20 @@ class SelectPaymentState extends State<SelectPayment>
   Widget afterDiscountText() {
     return Expanded(
       flex: 5,
-      child: Text("After Discount Amount:", style: TextStyle(
-          color: Colors
-              .white,
-          fontSize: 12.0,
-          height: 1.3),),
+      child: Text(
+        "After Discount Amount:",
+        style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
+      ),
     );
   }
 
 //  Amount
   Widget amountText(indexPer) {
-    return Text("${plan_details[indexPer]['amount']}" +
-        " ${plan_details[indexPer]['currency']}", style: TextStyle(
-        color: primaryDarkColor,
-        fontSize: 12.0,
-        height: 1.3),);
+    return Text(
+      "${plan_details[indexPer]['amount']}" +
+          " ${plan_details[indexPer]['currency']}",
+      style: TextStyle(color: primaryDarkColor, fontSize: 12.0, height: 1.3),
+    );
   }
 
 //  Tab label text
@@ -551,15 +503,12 @@ class SelectPaymentState extends State<SelectPayment>
       height: 25.0,
       width: 25.0,
       decoration: BoxDecoration(
-          border: Border.all(
-              width: 2.0,
-              color: Color.fromRGBO(
-                  125, 183, 91, 1.0)),
+          border:
+              Border.all(width: 2.0, color: Color.fromRGBO(125, 183, 91, 1.0)),
           shape: BoxShape.circle,
           color: primaryDarkColor),
       child: Icon(Icons.keyboard_arrow_down,
-          size: 21.0,
-          color: Colors.white.withOpacity(0.7)),
+          size: 21.0, color: Colors.white.withOpacity(0.7)),
     );
   }
 
@@ -567,9 +516,7 @@ class SelectPaymentState extends State<SelectPayment>
   Widget swipeDownText() {
     return Text(
       "Swipe down wallet to pay",
-      style: TextStyle(
-          fontSize: 16.0,
-          color: Colors.white.withOpacity(0.7)),
+      style: TextStyle(fontSize: 16.0, color: Colors.white.withOpacity(0.7)),
     );
   }
 
@@ -579,17 +526,14 @@ class SelectPaymentState extends State<SelectPayment>
       width: double.infinity,
       height: double.infinity,
       color: primaryColor,
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             swipeDownRow(),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key("$indexPer"),
@@ -601,13 +545,11 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   if (_coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            BankPaymentPage()
-                    )
-                    );
-                  }
-                  else {
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                BankPaymentPage()));
+                  } else {
                     Future.delayed(Duration(seconds: 1)).then((_) {
                       Fluttertoast.showToast(
                           msg: "Coupan is only applicable to Stripe");
@@ -615,13 +557,10 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   return null;
                 },
-
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/bankwallets.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -634,17 +573,14 @@ class SelectPaymentState extends State<SelectPayment>
       width: double.infinity,
       height: double.infinity,
       color: primaryColor,
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             swipeDownRow(),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key("$indexPer"),
@@ -656,13 +592,11 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   if (_coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            MyRazorPaymentPage(index: indexPer)
-                    )
-                    );
-                  }
-                  else {
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MyRazorPaymentPage(index: indexPer)));
+                  } else {
                     Future.delayed(Duration(seconds: 1)).then((_) {
                       Fluttertoast.showToast(
                           msg: "Coupan is only applicable to Stripe");
@@ -670,13 +604,10 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   return null;
                 },
-
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/razorpay.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -689,17 +620,14 @@ class SelectPaymentState extends State<SelectPayment>
       width: double.infinity,
       height: double.infinity,
       color: primaryColor,
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             swipeDownRow(),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key("$indexPer"),
@@ -711,13 +639,11 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   if (_coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            PaytmPaymentPage(index: indexPer)
-                    )
-                    );
-                  }
-                  else {
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PaytmPaymentPage(index: indexPer)));
+                  } else {
                     Future.delayed(Duration(seconds: 1)).then((_) {
                       Fluttertoast.showToast(
                           msg: "Coupan is only applicable to Stripe");
@@ -725,13 +651,10 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   return null;
                 },
-
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/paytm.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -744,17 +667,14 @@ class SelectPaymentState extends State<SelectPayment>
       width: double.infinity,
       height: double.infinity,
       color: primaryColor,
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             swipeDownRow(),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key("$indexPer"),
@@ -766,13 +686,11 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   if (_coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            PayStackPage(index: indexPer)
-                    )
-                    );
-                  }
-                  else {
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PayStackPage(index: indexPer)));
+                  } else {
                     Future.delayed(Duration(seconds: 1)).then((_) {
                       Fluttertoast.showToast(
                           msg: "Coupan is only applicable to Stripe");
@@ -780,13 +698,10 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   return null;
                 },
-
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/paystackwallets.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -805,10 +720,8 @@ class SelectPaymentState extends State<SelectPayment>
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             swipeDownRow(),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key('$indexPer'),
@@ -822,24 +735,24 @@ class SelectPaymentState extends State<SelectPayment>
 
                   if (validCoupon != false || _coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            CardDetails(index1: indexPer,
-                              coupanCode: _coupanController.text,)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => CardDetails(
+                                  index1: indexPer,
+                                  coupanCode: _coupanController.text,
+                                )));
                   }
                   Future.delayed(Duration(seconds: 1)).then((_) {
-                    validCoupon == false ? Fluttertoast.showToast(
-                        msg: _couponMSG) : SizedBox.shrink();
+                    validCoupon == false
+                        ? Fluttertoast.showToast(msg: _couponMSG)
+                        : SizedBox.shrink();
                   });
                   return null;
                 },
-
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/stripe.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -852,15 +765,13 @@ class SelectPaymentState extends State<SelectPayment>
       width: double.infinity,
       height: double.infinity,
       color: primaryColor,
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -873,14 +784,11 @@ class SelectPaymentState extends State<SelectPayment>
                   width: 25.0,
                   decoration: BoxDecoration(
                       border: Border.all(
-                          width: 2.0,
-                          color: Color.fromRGBO(
-                              125, 183, 91, 1.0)),
+                          width: 2.0, color: Color.fromRGBO(125, 183, 91, 1.0)),
                       shape: BoxShape.circle,
                       color: primaryDarkColor),
                   child: Icon(Icons.keyboard_arrow_down,
-                      size: 21.0,
-                      color: Colors.white.withOpacity(0.7)),
+                      size: 21.0, color: Colors.white.withOpacity(0.7)),
                 ),
                 SizedBox(
                   width: 10.0,
@@ -888,12 +796,10 @@ class SelectPaymentState extends State<SelectPayment>
                 Text(
                   "Swipe down wallet to pay",
                   style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white.withOpacity(0.7)),
+                      fontSize: 16.0, color: Colors.white.withOpacity(0.7)),
                 ),
               ],
             ),
-
             Dismissible(
                 direction: DismissDirection.down,
                 key: Key('$indexPer'),
@@ -905,9 +811,10 @@ class SelectPaymentState extends State<SelectPayment>
                   }
                   if (_coupanController.text == '') {
                     Navigator.pushReplacement(
-                        context, MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            BraintreePaymentPage(index: indexPer)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                BraintreePaymentPage(index: indexPer)));
                   } else {
                     Future.delayed(Duration(seconds: 1)).then((_) {
                       Fluttertoast.showToast(
@@ -917,11 +824,9 @@ class SelectPaymentState extends State<SelectPayment>
                   return null;
                 },
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      120.0, 0.0, 100.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(120.0, 0.0, 100.0, 0.0),
                   child: Image.asset("assets/braintreewallet.png"),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -931,208 +836,183 @@ class SelectPaymentState extends State<SelectPayment>
 //  Sliver List
   Widget _sliverList(dailyAmountAp, afterDiscountAmount) {
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int j) {
-              return new Container(
-                  color: primaryColor,
-                  child: Column(
-                      children: <Widget>[
-                        new Container(
-                          color: primaryColor,
-                          child: Column(
-                            children: <Widget>[
-                              Stack(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int j) {
+      return new Container(
+          color: primaryColor,
+          child: Column(children: <Widget>[
+            new Container(
+              color: primaryColor,
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      appbarMaterialDesign(),
+                      Container(
+                        margin: EdgeInsets.only(top: 60.0),
+                        decoration: BoxDecoration(
+                          color: primaryDarkColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            AspectRatio(
+                              aspectRatio: validCoupon == true
+                                  ? 16.0 / 15.0
+                                  : 16.0 / 13.0,
+                              child: Column(
                                 children: <Widget>[
-                                  appbarMaterialDesign(),
-                                  Container(
-                                    margin: EdgeInsets.only(top: 60.0),
-                                    decoration: BoxDecoration(
-                                      color: primaryDarkColor,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.0),
-                                          topRight: Radius.circular(20.0)),
-                                    ),
-                                    child: Column(
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        0.0, 10.0, 0.0, 0.0),
+                                  ),
+                                  selectPaymentText(),
+                                  planAndUserName(widget.indexPer),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        0.0, 10.0, 0.0, 0.0),
+                                    child: Row(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       children: <Widget>[
-                                        AspectRatio(
-                                          aspectRatio: validCoupon == true
-                                              ? 16.0 / 15.0
-                                              : 16.0 / 13.0,
-                                          child: Column(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0.0, 10.0, 0.0, 0.0),
-                                              ),
-
-                                              selectPaymentText(),
-                                              planAndUserName(
-                                                  widget.indexPer),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0.0, 10.0, 0.0, 0.0),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding: EdgeInsets
-                                                          .only(
-                                                          left: 20.0),
-                                                    ),
-                                                    minDuration(
-                                                        widget.indexPer),
-                                                    planAmountText(
-                                                        widget.indexPer,
-                                                        dailyAmountAp),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 40.0)),
-
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 20.0, right: 20.0),
-                                                height: 50.0,
-                                                width: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .width,
-                                                child: InkWell(
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                          flex: 5,
-                                                          child: InkWell(
-                                                            child: Row(
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                giftIcon(),
-                                                                Padding(
-                                                                    padding: EdgeInsets
-                                                                        .only(
-                                                                        left: 10.0),
-                                                                    child: isCoupanApplied
-                                                                        ? Text(
-                                                                        "Apply Coupon")
-                                                                        : Text(
-                                                                      _coupanController
-                                                                          .text,
-                                                                      textAlign: TextAlign
-                                                                          .left,
-                                                                    )
-                                                                )
-                                                              ],
-                                                            ),
-
-                                                            onTap: _couponDialog,
-                                                          )
-                                                      ),
-                                                      applyCouponIcon(),
-                                                    ],
-                                                  ),
-                                                  onTap: _couponDialog,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    width: 2.0,
-                                                    color: primaryColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                  height: 30.0,
-                                                  child: isCoupanApplied
-                                                      ? SizedBox.shrink()
-                                                      : Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: 40.0),
-                                                    child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment
-                                                          .center,
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .start,
-                                                      children: <Widget>[
-                                                        validCoupon == true
-                                                            ? Icon(
-                                                          FontAwesomeIcons
-                                                              .solidCheckCircle,
-                                                          color: greenPrime,
-                                                          size: 13.0,)
-                                                            :
-                                                        Icon(FontAwesomeIcons
-                                                            .solidTimesCircle,
-                                                          color: Colors.red,
-                                                          size: 13.0,),
-                                                        SizedBox(
-                                                          width: 10.0,),
-                                                        Text(_couponMSG,
-                                                          style: TextStyle(
-                                                              color: validCoupon ==
-                                                                  true
-                                                                  ? greenPrime
-                                                                  : Colors
-                                                                  .red,
-                                                              fontSize: 12.0,
-                                                              letterSpacing: 0.7
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),)
-                                              ),
-                                              validCoupon == true
-                                                  ? couponProcessing(
-                                                  afterDiscountAmount,
-                                                  widget.indexPer)
-                                                  : SizedBox.shrink(),
-                                            ],
-                                          ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20.0),
                                         ),
-                                        Container(
-                                          height: 2.0,
-                                          color: primaryColor,
-                                        ),
+                                        minDuration(widget.indexPer),
+                                        planAmountText(
+                                            widget.indexPer, dailyAmountAp),
                                       ],
                                     ),
                                   ),
-                                  new Positioned(
-                                    top: 8.0,
-                                    left: 4.0,
-                                    child: new BackButton(
-                                        color: Colors.white),
+                                  Padding(padding: EdgeInsets.only(top: 40.0)),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    height: 50.0,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: InkWell(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                              flex: 5,
+                                              child: InkWell(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    giftIcon(),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 10.0),
+                                                        child: isCoupanApplied
+                                                            ? Text(
+                                                                "Apply Coupon")
+                                                            : Text(
+                                                                _coupanController
+                                                                    .text,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .left,
+                                                              ))
+                                                  ],
+                                                ),
+                                                onTap: _couponDialog,
+                                              )),
+                                          applyCouponIcon(),
+                                        ],
+                                      ),
+                                      onTap: _couponDialog,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 2.0,
+                                        color: primaryColor,
+                                      ),
+                                    ),
                                   ),
-
-                                  logoRow(),
+                                  Container(
+                                      height: 30.0,
+                                      child: isCoupanApplied
+                                          ? SizedBox.shrink()
+                                          : Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 40.0),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  validCoupon == true
+                                                      ? Icon(
+                                                          FontAwesomeIcons
+                                                              .solidCheckCircle,
+                                                          color: redPrime,
+                                                          size: 13.0,
+                                                        )
+                                                      : Icon(
+                                                          FontAwesomeIcons
+                                                              .solidTimesCircle,
+                                                          color: Colors.red,
+                                                          size: 13.0,
+                                                        ),
+                                                  SizedBox(
+                                                    width: 10.0,
+                                                  ),
+                                                  Text(
+                                                    _couponMSG,
+                                                    style: TextStyle(
+                                                        color:
+                                                            validCoupon == true
+                                                                ? redPrime
+                                                                : Colors.red,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.7),
+                                                  ),
+                                                ],
+                                              ),
+                                            )),
+                                  validCoupon == true
+                                      ? couponProcessing(
+                                          afterDiscountAmount, widget.indexPer)
+                                      : SizedBox.shrink(),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Container(
+                              height: 2.0,
+                              color: primaryColor,
+                            ),
+                          ],
                         ),
-                      ]));
-            },
+                      ),
+                      new Positioned(
+                        top: 8.0,
+                        left: 4.0,
+                        child: new BackButton(color: Colors.white),
+                      ),
+                      logoRow(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ]));
+    },
             addAutomaticKeepAlives: true,
             addRepaintBoundaries: true,
             addSemanticIndexes: true,
-            childCount: 1
-        )
-    );
+            childCount: 1));
   }
 
 //  Scaffold body
@@ -1140,26 +1020,27 @@ class SelectPaymentState extends State<SelectPayment>
     return NestedScrollView(
       physics: ClampingScrollPhysics(),
       controller: _scrollViewController,
-      headerSliverBuilder:
-          (BuildContext context, bool innerBoxIsScrolled) {
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           _sliverList(dailyAmountAp, afterDiscountAmount),
           paymentMethodTabs(),
         ];
       },
       body: _nestedScrollViewBody(),
-
     );
   }
 
 //  NestedScrollView body
   Widget _nestedScrollViewBody() {
-    return listPaymentGateways.length == 0 ? Center(
-      child: Text("No payment method available"),) : TabBarView(
-        controller: _paymentTabController,
-        physics: PageScrollPhysics(),
-        children: List<Widget>.generate(
-            listPaymentGateways == null ? 0 : listPaymentGateways.length,
+    return listPaymentGateways.length == 0
+        ? Center(
+            child: Text("No payment method available"),
+          )
+        : TabBarView(
+            controller: _paymentTabController,
+            physics: PageScrollPhysics(),
+            children: List<Widget>.generate(
+                listPaymentGateways == null ? 0 : listPaymentGateways.length,
                 (int index) {
               if (listPaymentGateways[index].title == 'btree') {
                 return InkWell(
@@ -1192,96 +1073,95 @@ class SelectPaymentState extends State<SelectPayment>
                 );
               }
               return null;
-            })
-    );
+            }));
   }
 
 //  Coupon Dialog
-  _couponDialog(){
+  _couponDialog() {
     return showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) =>
-        new GestureDetector(
-          child: Container(
-            color: Colors.black.withOpacity(0.6),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  content: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            controller: _coupanController,
-                            decoration: InputDecoration(
-                              hintText: "Enter Coupon Code",
-                              errorText: _validate? "Enter Coupon": null,
+        builder: (context) => new GestureDetector(
+              child: Container(
+                color: Colors.black.withOpacity(0.6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
+                      content: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                controller: _coupanController,
+                                decoration: InputDecoration(
+                                  hintText: "Enter Coupon Code",
+                                  errorText: _validate ? "Enter Coupon" : null,
+                                ),
+                                validator: (val) {
+                                  if (val.length == 0) {
+                                    return 'Please Enter Coupon Code';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onSaved: (val) => _coupanController.text = val,
+                              ),
                             ),
-                            validator: (val) {
-                              if (val.length == 0) {
-                                return 'Please Enter Coupon Code';
-                              } else {
-                                return null;
-                              }
-                            },
-                            onSaved: (val) => _coupanController.text = val,
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: isDataAvailable
+                                  ? CircularProgressIndicator()
+                                  : RaisedButton(
+                                      child: Text("Apply"),
+                                      onPressed: () {
+                                        final form = _formKey.currentState;
+                                        form.save();
+                                        if (form.validate() == true) {
+                                          SystemChannels.textInput
+                                              .invokeMethod('TextInput.hide');
+                                          _applyCoupan();
+                                          isDataAvailable = true;
+                                        }
+                                      },
+                                    ),
+                            )
+                          ],
                         ),
-
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: isDataAvailable ? CircularProgressIndicator() : RaisedButton(
-                            child: Text("Apply"),
-                            onPressed: () {
-                              final form = _formKey.currentState;
-                              form.save();
-                              if(form.validate()==true){
-                                SystemChannels.textInput.invokeMethod('TextInput.hide');
-                                _applyCoupan();
-                                isDataAvailable=true;
-                              }
-                            },
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.black87,
+                      ),
+                      onPressed: () {
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
+                        setState(() {
+                          isCoupanApplied = true;
+                          _couponMSG = '';
+                          _coupanController.text = '';
+                          validCoupon = '';
+                          isDataAvailable = false;
+                        });
+                        Future.delayed(Duration(seconds: 1))
+                            .then((_) => Navigator.pop(context));
+                      },
+                    )
+                  ],
                 ),
-
-                SizedBox(
-                  height: 10.0,
-                ),
-                FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.clear,
-                    color: Colors.black87,
-                  ),
-                  onPressed: () {
-                    SystemChannels.textInput.invokeMethod('TextInput.hide');
-                    setState(() {
-                      isCoupanApplied=true;
-                      _couponMSG='';
-                      _coupanController.text='';
-                      validCoupon='';
-                      isDataAvailable=false;
-                    });
-                    Future.delayed(Duration(seconds: 1)).then((_) => Navigator.pop(context));
-                  },
-                )
-              ],
-            ),
-          ),
-        )
-    );
+              ),
+            ));
   }
 
 //  Build method
@@ -1310,12 +1190,14 @@ class SelectPaymentState extends State<SelectPayment>
         intervalCount = int.parse(interCount);
         break;
     }
-    var dailyAmount = dailyAmount1/intervalCount;
+    var dailyAmount = dailyAmount1 / intervalCount;
     String dailyAmountAp = dailyAmount.toStringAsFixed(2);
-    var amountOff = validCoupon == true ? (percent_off / 100) *
-        plan_details[widget.indexPer]['amount'] : 0;
-    var afterDiscountAmount = validCoupon == true ? plan_details[widget
-        .indexPer]['amount'] - amountOff : 0;
+    var amountOff = validCoupon == true
+        ? (percent_off / 100) * plan_details[widget.indexPer]['amount']
+        : 0;
+    var afterDiscountAmount = validCoupon == true
+        ? plan_details[widget.indexPer]['amount'] - amountOff
+        : 0;
 
     return SafeArea(
       child: WillPopScope(
@@ -1328,8 +1210,7 @@ class SelectPaymentState extends State<SelectPayment>
           ),
           onWillPop: () async {
             return true;
-          }
-      ),
+          }),
     );
   }
 }
@@ -1338,34 +1219,5 @@ class PaymentGateInfo {
   String title;
   int status;
 
-  PaymentGateInfo({
-    this.title,
-    this.status
-  });
+  PaymentGateInfo({this.title, this.status});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

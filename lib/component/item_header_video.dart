@@ -357,7 +357,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     Widget cancelButton = FlatButton(
       child: Text(
         "Cancel",
-        style: TextStyle(color: greenPrime, fontSize: 16.0),
+        style: TextStyle(color: redPrime, fontSize: 16.0),
       ),
       onPressed: () {
         Navigator.pop(context);
@@ -367,7 +367,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     Widget subscribeButton = FlatButton(
       child: Text(
         "Subscribe",
-        style: TextStyle(color: greenPrime, fontSize: 16.0),
+        style: TextStyle(color: redPrime, fontSize: 16.0),
       ),
       onPressed: () {
         Navigator.pop(context);
@@ -539,7 +539,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                            color: greenPrime,
+                            color: redPrime,
                             child: Container(
                               alignment: Alignment.center,
                               width: 100.0,
@@ -564,7 +564,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       : Padding(
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
-                            color: greenPrime,
+                            color: redPrime,
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
@@ -592,7 +592,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       : Padding(
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
-                            color: greenPrime,
+                            color: redPrime,
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
@@ -620,7 +620,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       : Padding(
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
-                            color: greenPrime,
+                            color: redPrime,
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),

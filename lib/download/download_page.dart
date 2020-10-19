@@ -284,7 +284,7 @@ class _DownloadPageState extends State<DownloadPage>
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                            color: greenPrime,
+                            color: redPrime,
                             child: Container(
                               alignment: Alignment.center,
                               width: 100.0,
@@ -310,7 +310,7 @@ class _DownloadPageState extends State<DownloadPage>
                       : Padding(
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
-                            color: greenPrime,
+                            color: redPrime,
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
@@ -337,7 +337,7 @@ class _DownloadPageState extends State<DownloadPage>
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                            color: greenPrime,
+                            color: redPrime,
                             child: Container(
                               alignment: Alignment.center,
                               width: 100.0,
@@ -361,7 +361,7 @@ class _DownloadPageState extends State<DownloadPage>
                             hoverColor: Colors.red,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
-                            color: greenPrime,
+                            color: redPrime,
                             child: Container(
                               alignment: Alignment.center,
                               width: 100.0,
@@ -528,7 +528,7 @@ class _DownloadPageState extends State<DownloadPage>
             },
             child: Icon(
               Icons.file_download,
-              color: greenPrime,
+              color: redPrime,
               size: 30.0,
             ),
             shape: CircleBorder(),
@@ -620,7 +620,7 @@ class _DownloadPageState extends State<DownloadPage>
             new FlatButton(
               child: new Text(
                 "Yes",
-                style: TextStyle(color: greenPrime, fontSize: 16.0),
+                style: TextStyle(color: redPrime, fontSize: 16.0),
               ),
               onPressed: () {
                 _delete(task);
@@ -630,7 +630,7 @@ class _DownloadPageState extends State<DownloadPage>
             new FlatButton(
               child: new Text(
                 "No",
-                style: TextStyle(color: greenPrime, fontSize: 16.0),
+                style: TextStyle(color: redPrime, fontSize: 16.0),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -668,7 +668,7 @@ class _DownloadPageState extends State<DownloadPage>
             new FlatButton(
               child: new Text(
                 "Yes",
-                style: TextStyle(color: greenPrime, fontSize: 16.0),
+                style: TextStyle(color: redPrime, fontSize: 16.0),
               ),
               onPressed: () {
                 _delete(task);
@@ -678,7 +678,7 @@ class _DownloadPageState extends State<DownloadPage>
             new FlatButton(
               child: new Text(
                 "No",
-                style: TextStyle(color: greenPrime, fontSize: 16.0),
+                style: TextStyle(color: redPrime, fontSize: 16.0),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -938,7 +938,7 @@ class _DownloadPageState extends State<DownloadPage>
                 fontSize: 12.0,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.0,
-                color: greenPrime
+                color: redPrime
                 // color: Colors.white
                 ),
           )
@@ -967,7 +967,7 @@ class _DownloadPageState extends State<DownloadPage>
     Widget cancelButton = FlatButton(
       child: Text(
         "Cancel",
-        style: TextStyle(color: greenPrime, fontSize: 16.0),
+        style: TextStyle(color: redPrime, fontSize: 16.0),
       ),
       onPressed: () {
         Navigator.pop(context);
@@ -977,7 +977,7 @@ class _DownloadPageState extends State<DownloadPage>
     Widget subscribeButton = FlatButton(
       child: Text(
         "Subscribe",
-        style: TextStyle(color: greenPrime, fontSize: 16.0),
+        style: TextStyle(color: redPrime, fontSize: 16.0),
       ),
       onPressed: () {
         Navigator.pop(context);

@@ -25,8 +25,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController _editNameController = new TextEditingController();
   TextEditingController _editDOBController = new TextEditingController();
   TextEditingController _editMobileController = new TextEditingController();
-  DateTime _dateTime= new DateTime.now();
-  String pickedDate='';
+  DateTime _dateTime = new DateTime.now();
+  String pickedDate = '';
   var sEmail;
   var sPass;
   var files;
@@ -35,10 +35,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   File tmpFile;
   String errMessage = 'Error Uploading Image';
   var currentPassword, newPassword, newDob, newMobile, newName;
-  bool isShowIndicator=false;
+  bool isShowIndicator = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
-
 
 //  Show a dialog after updating password
   Future<void> _profileUpdated(BuildContext context) {
@@ -48,14 +47,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return WillPopScope(
           child: Center(
             child: Container(
-              decoration: BoxDecoration(
-              ),
+              decoration: BoxDecoration(),
               child: AlertDialog(
                 backgroundColor: Colors.white,
                 contentPadding: const EdgeInsets.all(5.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                title: Text('Profile Saved!',style: TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),),
+                title: Text(
+                  'Profile Saved!',
+                  style: TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),
+                ),
                 content: Container(
                   height: 70.0,
                   child: Column(
@@ -63,21 +64,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       SizedBox(
                         height: 2.0,
                       ),
-                      Icon(FontAwesomeIcons.checkCircle, size: 40.0, color: greenPrime),
+                      Icon(FontAwesomeIcons.checkCircle,
+                          size: 40.0, color: redPrime),
                       SizedBox(
                         height: 8.0,
                       ),
-                      Text('Your profile updated.',style: TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),),
+                      Text(
+                        'Your profile updated.',
+                        style:
+                            TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),
+                      ),
                     ],
-                  ) ,
+                  ),
                 ),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text('Ok',style: TextStyle(fontSize: 16.0,color: greenPrime),),
+                    child: Text(
+                      'Ok',
+                      style: TextStyle(fontSize: 16.0, color: redPrime),
+                    ),
                     onPressed: () {
                       var router = new MaterialPageRoute(
-                          builder: (BuildContext context) => new LoadingScreen()
-                      );
+                          builder: (BuildContext context) =>
+                              new LoadingScreen());
                       Navigator.of(context).push(router);
                     },
                   ),
@@ -91,61 +100,56 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-
 //  This future process the profile update and save details to the server.
-  Future <String> updateProfile() async{
-    newDob  = DateFormat("y-MM-dd").format(_dateTime);
-    newMobile=_editMobileController.text;
+  Future<String> updateProfile() async {
+    newDob = DateFormat("y-MM-dd").format(_dateTime);
+    newMobile = _editMobileController.text;
     print("dek: $newMobile");
-    newName=_editNameController.text;
-    String imagefileName = tmpFile != null ? tmpFile.path.split('/').last: '';
-    try{
-      if(imagefileName != '') {
+    newName = _editNameController.text;
+    String imagefileName = tmpFile != null ? tmpFile.path.split('/').last : '';
+    try {
+      if (imagefileName != '') {
         formdata = FormData.fromMap({
           "email": sEmail,
           "current_password": sPass,
           "new_password": sPass,
-          "dob":  newDob,
+          "dob": newDob,
           "mobile": newMobile,
           "name": newName,
-          "image": await MultipartFile.fromFile(
-              tmpFile.path, filename: imagefileName),
+          "image": await MultipartFile.fromFile(tmpFile.path,
+              filename: imagefileName),
         });
-      }else{
+      } else {
         formdata = FormData.fromMap({
           "email": sEmail,
           "current_password": sPass,
           "new_password": sPass,
-          "dob":  newDob,
+          "dob": newDob,
           "mobile": newMobile,
           "name": newName,
         });
       }
 
-      await dio.post(APIData.userProfileUpdate, data: formdata, options: Options(
-          method: 'POST',
-          headers: {
-            // ignore: deprecated_member_use
-            HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
-          }
-      )).then(
-              (response) {
-            setState(() {
-              isShowIndicator = false;
-            });
-            _profileUpdated(context);
-          }
-      )
-          .catchError((error) {
+      await dio
+          .post(APIData.userProfileUpdate,
+              data: formdata,
+              options: Options(method: 'POST', headers: {
+                // ignore: deprecated_member_use
+                HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
+              }))
+          .then((response) {
+        setState(() {
+          isShowIndicator = false;
+        });
+        _profileUpdated(context);
+      }).catchError((error) {
         setState(() {
           isShowIndicator = false;
         });
         Fluttertoast.showToast(msg: error.toString());
         print(error.toString());
       });
-
-    }
-    catch(e){
+    } catch (e) {
       setState(() {
         isShowIndicator = false;
       });
@@ -153,7 +157,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
     return null;
   }
-
 
 //  For selecting image from camera
   chooseImageFromCamera() {
@@ -170,35 +173,42 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
 //  This Future picks date using material date picker
-  Future<Null> _selectDate() async{
-    final DateTime picked= await showDatePicker(
+  Future<Null> _selectDate() async {
+    final DateTime picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: new DateTime(1970),
       lastDate: new DateTime.now(),
     );
-    if(picked !=null)
-    {
+    if (picked != null) {
       setState(() {
-        _editDOBController.text=pickedDate;
-        _dateTime=picked;
+        _editDOBController.text = pickedDate;
+        _dateTime = picked;
       });
       // ignore: unrelated_type_equality_checks
-      String formattedDate = _dateTime != '' ? DateFormat.yMMMd().format(_dateTime) : '';
-      pickedDate= formattedDate;
-
+      String formattedDate =
+          _dateTime != '' ? DateFormat.yMMMd().format(_dateTime) : '';
+      pickedDate = formattedDate;
     }
   }
 
 //  Appbar
 
-  Widget appbar(){
+  Widget appbar() {
     return AppBar(
-      title: Text("Edit Profile",style: TextStyle(fontSize: 16.0, color: whiteColor),),
+      title: Text(
+        "Edit Profile",
+        style: TextStyle(fontSize: 16.0, color: whiteColor),
+      ),
       centerTitle: true,
-      leading: IconButton(icon: Icon(Icons.arrow_back, color: whiteColor,), onPressed: (){
-        Navigator.pop(context);
-      }),
+      leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: whiteColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          }),
       backgroundColor: primaryDarkColor,
     );
   }
@@ -213,31 +223,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
       fileExists = jsonFile.existsSync();
       if (fileExists)
         this.setState(
-                () => fileContent = json.decode(jsonFile.readAsStringSync()));
-      sEmail= fileContent['user'];
-      sPass= fileContent['pass'];
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
+      sEmail = fileContent['user'];
+      sPass = fileContent['pass'];
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    newName=_editNameController.text;
-    newDob=_editDOBController.text;
-    newMobile=_editMobileController.text;
-    _editNameController.text = newName != '' ? newName : name == 'N/A' ? '' : name;
-    _editDOBController.text= pickedDate != '' ? pickedDate : dob == 'N/A' ? '' : dob;
-    _editMobileController.text = newMobile!=''? newMobile: mobile == 'N/A' ? '' : mobile;
+    newName = _editNameController.text;
+    newDob = _editDOBController.text;
+    newMobile = _editMobileController.text;
+    _editNameController.text = newName != ''
+        ? newName
+        : name == 'N/A'
+            ? ''
+            : name;
+    _editDOBController.text = pickedDate != ''
+        ? pickedDate
+        : dob == 'N/A'
+            ? ''
+            : dob;
+    _editMobileController.text = newMobile != ''
+        ? newMobile
+        : mobile == 'N/A'
+            ? ''
+            : mobile;
 
     return SafeArea(
       child: Theme(
         data: ThemeData(
-          primaryColor: greenPrime,
-          primaryColorDark: greenPrime,
+          primaryColor: redPrime,
+          primaryColorDark: redPrime,
           scaffoldBackgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
           backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
           brightness: Brightness.dark,
-          accentColor: greenPrime,
-          canvasColor: greenPrime,
-
+          accentColor: redPrime,
+          canvasColor: redPrime,
         ),
         child: Scaffold(
           key: _scaffoldKey,
@@ -249,43 +271,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
 //  Scaffold body
-  Widget scaffoldBody(){
+  Widget scaffoldBody() {
     return SingleChildScrollView(
         child: Column(
+      children: <Widget>[
+        Stack(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                showImage(),
-                browseImageButton(),
-              ],
-            ),
-            form(),
+            showImage(),
+            browseImageButton(),
           ],
-        )
-    );
+        ),
+        form(),
+      ],
+    ));
   }
 
 //  Browse button container
-  Widget browseImageButton(){
+  Widget browseImageButton() {
     return Container(
       height: 45.0,
-      width:45.0,
+      width: 45.0,
       margin: EdgeInsets.fromLTRB(125.0, 170.0, 0.0, 0.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: greenPrime,
+        color: redPrime,
       ),
-      child: IconButton(icon: Icon(Icons.add_a_photo),
+      child: IconButton(
+        icon: Icon(Icons.add_a_photo),
         onPressed: _onButtonPressed,
       ),
     );
   }
 
 //  Form that containing text fields to update profile
-  Widget form(){
+  Widget form() {
     return Container(
-      padding: EdgeInsets.only(
-          top: 10.0, right: 20.0, left: 20.0, bottom: 20.0),
+      padding:
+          EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0, bottom: 20.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -294,7 +316,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               height: 30.0,
             ),
-
             buildNameTextField("Name"),
             SizedBox(
               height: 20.0,
@@ -398,8 +419,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         height: 56.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius:
-          new BorderRadius.circular(5.0),
+          borderRadius: new BorderRadius.circular(5.0),
           // Box decoration takes a gradient
           gradient: LinearGradient(
             // Where the linear gradient begins and ends
@@ -409,18 +429,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Color.fromRGBO(
-                  72, 163, 198, 0.4)
-                  .withOpacity(0.4),
-              Color.fromRGBO(
-                  72, 163, 198, 0.3)
-                  .withOpacity(0.5),
-              Color.fromRGBO(
-                  72, 163, 198, 0.2)
-                  .withOpacity(0.6),
-              Color.fromRGBO(
-                  72, 163, 198, 0.1)
-                  .withOpacity(0.7),
+              Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
+              Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
+              Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
+              Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
             ],
           ),
           boxShadow: <BoxShadow>[
@@ -432,18 +444,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ],
         ),
         child: Center(
-          child: isShowIndicator==true? CircularProgressIndicator(
-            backgroundColor: Colors.white,
-          ) : Text(
-            "Update Profile",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-            ),
-          ),
+          child: isShowIndicator == true
+              ? CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                )
+              : Text(
+                  "Update Profile",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                ),
         ),
       ),
-      onTap: (){
+      onTap: () {
 //     To remove keypad on tapping button
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         setState(() {
@@ -453,7 +467,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         form.save();
         if (form.validate() == true) {
           updateProfile();
-        }else{
+        } else {
           setState(() {
             isShowIndicator = false;
           });
@@ -482,18 +496,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         bottomRight: Radius.circular(25.0)),
                   ),
                   child: Container(
-
                       margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       height: 190.0,
                       width: 150.0,
-                      decoration:new BoxDecoration(
-                          color:  Colors.white.withOpacity(0.2),
-                          border: new Border.all(color: Colors.white.withOpacity(0.0), width: 10.0),
+                      decoration: new BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          border: new Border.all(
+                              color: Colors.white.withOpacity(0.0),
+                              width: 10.0),
                           borderRadius: new BorderRadius.only(
                               bottomLeft: Radius.circular(25.0),
-                              bottomRight: Radius.circular(25.0))
-
-                      ),
+                              bottomRight: Radius.circular(25.0))),
                       child: Card(
                         margin: EdgeInsets.all(0.0),
                         shape: RoundedRectangleBorder(
@@ -501,28 +514,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               bottomLeft: Radius.circular(25.0),
                               bottomRight: Radius.circular(25.0)),
                         ),
-                        child:   ClipRRect(
+                        child: ClipRRect(
                           borderRadius: new BorderRadius.only(
                               bottomLeft: Radius.circular(25.0),
                               bottomRight: Radius.circular(25.0)),
-                          child: tmpFile == null ? userImage == null ? Image.asset(
-                            "assets/avatar.png",
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ): Image.network(
-                            "${APIData.profileImageUri}"+"$userImage",
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ) : Image.file(
-                            tmpFile,
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ),
+                          child: tmpFile == null
+                              ? userImage == null
+                                  ? Image.asset(
+                                      "assets/avatar.png",
+                                      fit: BoxFit.cover,
+                                      scale: 1.7,
+                                    )
+                                  : Image.network(
+                                      "${APIData.profileImageUri}" +
+                                          "$userImage",
+                                      fit: BoxFit.cover,
+                                      scale: 1.7,
+                                    )
+                              : Image.file(
+                                  tmpFile,
+                                  fit: BoxFit.cover,
+                                  scale: 1.7,
+                                ),
                         ),
-                      )
-                  )
-              )
-          );
+                      ))));
         } else if (null != snapshot.error) {
           return const Text(
             'Error Picking Image',
@@ -538,19 +553,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         bottomLeft: Radius.circular(25.0),
                         bottomRight: Radius.circular(25.0)),
                   ),
-                  child:Container(
-
+                  child: Container(
                       margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       height: 190.0,
                       width: 150.0,
-                      decoration:new BoxDecoration(
-                          color:  Colors.white.withOpacity(0.2),
-                          border: new Border.all(color: Colors.white.withOpacity(0.0), width: 10.0),
+                      decoration: new BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          border: new Border.all(
+                              color: Colors.white.withOpacity(0.0),
+                              width: 10.0),
                           borderRadius: new BorderRadius.only(
                               bottomLeft: Radius.circular(25.0),
-                              bottomRight: Radius.circular(25.0))
-
-                      ),
+                              bottomRight: Radius.circular(25.0))),
                       child: Card(
                         margin: EdgeInsets.all(0.0),
                         shape: RoundedRectangleBorder(
@@ -558,28 +572,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               bottomLeft: Radius.circular(25.0),
                               bottomRight: Radius.circular(25.0)),
                         ),
-                        child:   ClipRRect(
+                        child: ClipRRect(
                           borderRadius: new BorderRadius.only(
                               bottomLeft: Radius.circular(25.0),
                               bottomRight: Radius.circular(25.0)),
-                          child: tmpFile == null ? userImage == null ? Image.asset(
-                            "assets/avatar.png",
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ): Image.network(
-                            "${APIData.profileImageUri}"+"$userImage",
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ) : Image.file(
-                            tmpFile,
-                            fit: BoxFit.cover,
-                            scale: 1.7,
-                          ),
+                          child: tmpFile == null
+                              ? userImage == null
+                                  ? Image.asset(
+                                      "assets/avatar.png",
+                                      fit: BoxFit.cover,
+                                      scale: 1.7,
+                                    )
+                                  : Image.network(
+                                      "${APIData.profileImageUri}" +
+                                          "$userImage",
+                                      fit: BoxFit.cover,
+                                      scale: 1.7,
+                                    )
+                              : Image.file(
+                                  tmpFile,
+                                  fit: BoxFit.cover,
+                                  scale: 1.7,
+                                ),
                         ),
-                      )
-                  )
-              )
-          );
+                      ))));
         }
       },
     );
@@ -591,50 +607,73 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Column(
         children: <Widget>[
           InkWell(
-              onTap: (){
+              onTap: () {
                 chooseImageFromCamera();
               },
-              child: Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(Icons.camera, color: Color.fromRGBO(34,34,34,1.0), size: 35,),
+                    Icon(
+                      Icons.camera,
+                      color: Color.fromRGBO(34, 34, 34, 1.0),
+                      size: 35,
+                    ),
                     Container(
                       width: 250.0,
 //                  height: 15.0,
-                      child:  ListTile(
-                        title: Text('Camera',style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
-                        subtitle: Text("Click profile picture from camera.",style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
+                      child: ListTile(
+                        title: Text(
+                          'Camera',
+                          style:
+                              TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                        ),
+                        subtitle: Text(
+                          "Click profile picture from camera.",
+                          style:
+                              TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                        ),
                       ),
                     )
                   ],
                 ),
-              )
-          ),
+              )),
           InkWell(
-              onTap: (){
+              onTap: () {
                 chooseImageFromGallery();
                 Navigator.pop(context);
               },
-              child: Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 0.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Icon(Icons.photo, color: Color.fromRGBO(34,34,34,1.0), size: 35,),
+                    Icon(
+                      Icons.photo,
+                      color: Color.fromRGBO(34, 34, 34, 1.0),
+                      size: 35,
+                    ),
                     Container(
                       width: 260.0,
-                      child:  ListTile(
-                        title: Text('Gallery',style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
-                        subtitle: Text("Choose profile picture from gallery.",style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
+                      child: ListTile(
+                        title: Text(
+                          'Gallery',
+                          style:
+                              TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                        ),
+                        subtitle: Text(
+                          "Choose profile picture from gallery.",
+                          style:
+                              TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                        ),
                       ),
                     )
-
                   ],
                 ),
-              )
-          ),
+              )),
         ],
       ),
       decoration: BoxDecoration(

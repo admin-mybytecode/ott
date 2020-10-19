@@ -12,23 +12,22 @@ class ResetAlertBoxContainer extends StatefulWidget {
 
 class _ResetAlertBoxContainerState extends State<ResetAlertBoxContainer> {
   final formKey1 = new GlobalKey<FormState>();
-  final TextEditingController _resetEmailController = new TextEditingController();
+  final TextEditingController _resetEmailController =
+      new TextEditingController();
   final TextEditingController _otpController = new TextEditingController();
   bool hiddenOTP = true;
   bool hiddenEmail = false;
 
-  Widget emailField(){
+  Widget emailField() {
     return Padding(
       padding: EdgeInsets.only(left: 30.0, right: 30.0),
       child: TextFormField(
         controller: _resetEmailController,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(top: 12.0, bottom: 5.0, left: 2.0, right: 2.0),
+            contentPadding:
+                EdgeInsets.only(top: 12.0, bottom: 5.0, left: 2.0, right: 2.0),
             hintText: "Enter Email",
-            hintStyle: TextStyle(
-                fontSize: 12.0
-            )
-        ),
+            hintStyle: TextStyle(fontSize: 12.0)),
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         validator: (val) {
@@ -47,39 +46,35 @@ class _ResetAlertBoxContainerState extends State<ResetAlertBoxContainer> {
     );
   }
 
-  Widget otpField(){
+  Widget otpField() {
     return Padding(
       padding: EdgeInsets.only(left: 30.0, right: 30.0),
       child: TextFormField(
         controller: _otpController,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(top: 14.0, bottom: 0.0, left: 2.0, right: 2.0),
-            hintText: "Enter OTP",
-            suffixIcon: IconButton(
-              splashColor: Color.fromRGBO(72, 163, 198, 1.0),
-              padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-              icon: Text("Resend",
-                style: TextStyle(
-                    color: greenPrime,
-                    fontSize: 10
-                ),
-              ),
-              onPressed: (){
-                Fluttertoast.showToast(msg: "OTP Sent");
-              },
+          contentPadding:
+              EdgeInsets.only(top: 14.0, bottom: 0.0, left: 2.0, right: 2.0),
+          hintText: "Enter OTP",
+          suffixIcon: IconButton(
+            splashColor: Color.fromRGBO(72, 163, 198, 1.0),
+            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+            icon: Text(
+              "Resend",
+              style: TextStyle(color: redPrime, fontSize: 10),
             ),
-            hintStyle: TextStyle(
-                fontSize: 12.0
-            ),
+            onPressed: () {
+              Fluttertoast.showToast(msg: "OTP Sent");
+            },
+          ),
+          hintStyle: TextStyle(fontSize: 12.0),
         ),
-        style: TextStyle(
-            color: Colors.white, fontSize: 14),
+        style: TextStyle(color: Colors.white, fontSize: 14),
       ),
     );
   }
 
 // Verify OTP code
-  Future <String> verifyOtp() async {
+  Future<String> verifyOtp() async {
     final sendOtpResponse = await http.post(APIData.verifyOTPApi, body: {
       "email": _resetEmailController.text,
       "code": _otpController.text,
@@ -88,36 +83,33 @@ class _ResetAlertBoxContainerState extends State<ResetAlertBoxContainer> {
 //    var route = MaterialPageRoute(
 //        builder: (context) => ForgotPassword(_resetEmailController.text));
 //    Navigator.push(context, route);
-    if(sendOtpResponse.statusCode == 200){
+    if (sendOtpResponse.statusCode == 200) {
       var route = MaterialPageRoute(
           builder: (context) => ForgotPassword(_resetEmailController.text));
       Navigator.push(context, route);
-    }
-    else {
+    } else {
       Fluttertoast.showToast(msg: "Invalid OTP");
     }
     return null;
   }
 
 // Send OTP code
-  Future <String> sendOtp() async {
+  Future<String> sendOtp() async {
     final sendOtpResponse = await http.post(APIData.forgotPasswordApi, body: {
       "email": _resetEmailController.text,
     });
     print(sendOtpResponse.statusCode);
-    if(sendOtpResponse.statusCode == 200){
+    if (sendOtpResponse.statusCode == 200) {
       _otpVisibility();
-    } else if(sendOtpResponse.statusCode == 401){
+    } else if (sendOtpResponse.statusCode == 401) {
       _emailVisibility();
       Fluttertoast.showToast(msg: "Email address doesn't exist.");
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "Error in sending OTP");
       _emailVisibility();
     }
     return null;
   }
-
-
 
   @override
   void initState() {
@@ -130,13 +122,13 @@ class _ResetAlertBoxContainerState extends State<ResetAlertBoxContainer> {
   }
 
 // Toggle for visibility
-  void _otpVisibility(){
+  void _otpVisibility() {
     setState(() {
       hiddenOTP = !hiddenOTP;
     });
   }
 
-  void _emailVisibility(){
+  void _emailVisibility() {
     setState(() {
       hiddenEmail = !hiddenEmail;
     });
@@ -149,80 +141,75 @@ class _ResetAlertBoxContainerState extends State<ResetAlertBoxContainer> {
       child: Form(
         key: formKey1,
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "Reset Password",
-                      style: TextStyle(fontSize: 24.0),
-                    ),
-                  ],
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  "Reset Password",
+                  style: TextStyle(fontSize: 24.0),
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Divider(
-                  color: Colors.grey,
-                  height: 4.0,
-                ),
-                hiddenEmail ? SizedBox.shrink() : emailField(),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Divider(
+              color: Colors.grey,
+              height: 4.0,
+            ),
+            hiddenEmail ? SizedBox.shrink() : emailField(),
 //                SizedBox(
 //                  height: 5.0,
 //                ),
-                hiddenOTP ?  SizedBox.shrink() : otpField(),
-                SizedBox(
-                  height: 5.0,
-                ),
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                    decoration: BoxDecoration(
-                      //                        color: greenPrime,
-                      gradient: LinearGradient(
-                        colors: [
-                          // Colors are easy thanks to Flutter's Colors class.
-                          Colors.redAccent
-                              .withOpacity(0.4),
-                          Colors.redAccent
-                              .withOpacity(0.5),
-                          Colors.redAccent
-                              .withOpacity(0.6),
-                          Colors.redAccent
-                              .withOpacity(0.7),
-                        ],),
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20.0),
-                          bottomRight: Radius.circular(20.0)),
-                    ),
-                    child: Text(
-                      hiddenOTP == true ? "Send OTP" : "Reset Password",
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
+            hiddenOTP ? SizedBox.shrink() : otpField(),
+            SizedBox(
+              height: 5.0,
+            ),
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                decoration: BoxDecoration(
+                  //                        color: greenPrime,
+                  gradient: LinearGradient(
+                    colors: [
+                      // Colors are easy thanks to Flutter's Colors class.
+                      Colors.redAccent.withOpacity(0.4),
+                      Colors.redAccent.withOpacity(0.5),
+                      Colors.redAccent.withOpacity(0.6),
+                      Colors.redAccent.withOpacity(0.7),
+                    ],
                   ),
-                  onTap: (){
-                    if(hiddenOTP == true){
-                      final form = formKey1.currentState;
-                      form.save();
-                      if (form.validate() == true) {
-                        sendOtp();
-                        _emailVisibility();
-                      }
-                    }
-                    else{
-                     verifyOtp();
-                    }
-                  },
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0)),
                 ),
-
-            ],
-          ),
-          ),
-        );
-      }
+                child: Text(
+                  hiddenOTP == true ? "Send OTP" : "Reset Password",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              onTap: () {
+                if (hiddenOTP == true) {
+                  final form = formKey1.currentState;
+                  form.save();
+                  if (form.validate() == true) {
+                    sendOtp();
+                    _emailVisibility();
+                  }
+                } else {
+                  verifyOtp();
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

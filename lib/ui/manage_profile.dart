@@ -135,7 +135,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
     return RadialSeekBar(
       trackColor: Color.fromRGBO(20, 20, 20, 1.0),
       trackWidth: 8.0,
-      progressColor: difference == null ? Colors.red : greenPrime,
+      progressColor: difference == null ? Colors.red : redPrime,
       progressWidth: 8.0,
       progress: difference == null ? 1.0 : progressWidth,
       centerContent: Column(
@@ -346,7 +346,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
     return Expanded(
       flex: 1,
       child: Card(
-        color: greenPrime,
+        color: redPrime,
         borderOnForeground: true,
         child: Container(
           margin: EdgeInsets.only(top: 0.0),
@@ -385,7 +385,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
       flex: 1,
       child: Card(
         borderOnForeground: true,
-        color: greenPrime,
+        color: redPrime,
         child: Container(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -549,7 +549,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             ),
             Divider(
               height: 30,
-              color: greenPrime,
+              color: redPrime,
               thickness: 2,
               indent: 20,
               endIndent: 20,
@@ -558,7 +558,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             nameAndJoinedDateContainer(),
             Divider(
               height: 30,
-              color: greenPrime,
+              color: redPrime,
               thickness: 2,
               indent: 20,
               endIndent: 20,

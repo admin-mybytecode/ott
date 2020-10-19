@@ -7,15 +7,21 @@ class WishListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Column(
-      mainAxisAlignment:
-      MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        isAdded == 1? Icon(Icons.check, size: 30.0, color: greenPrime,): Icon(Icons.add, size: 30.0, color: Colors.white,),
-
+        isAdded == 1
+            ? Icon(
+                Icons.check,
+                size: 30.0,
+                color: redPrime,
+              )
+            : Icon(
+                Icons.add,
+                size: 30.0,
+                color: Colors.white,
+              ),
         new Padding(
-          padding:
-          const EdgeInsets.fromLTRB(
-              0.0, 0.0, 0.0, 10.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
         ),
         new Text(
           "My List",
@@ -25,8 +31,8 @@ class WishListContainer extends StatelessWidget {
               fontWeight: FontWeight.w600,
               letterSpacing: 0.0,
               color: Colors.white
-            // color: Colors.white
-          ),
+              // color: Colors.white
+              ),
         ),
       ],
     );

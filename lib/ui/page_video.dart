@@ -145,7 +145,7 @@ class _VideosPageState extends State<VideosPage>
                   child: new SizedBox(
                     child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                      highlightColor: greenPrime
+                      highlightColor: redPrime
                           .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
@@ -188,7 +188,7 @@ class _VideosPageState extends State<VideosPage>
                   child: new SizedBox(
                     child: Shimmer.fromColors(
                       baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                      highlightColor: greenPrime
+                      highlightColor: redPrime
                           .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
@@ -238,7 +238,7 @@ class _VideosPageState extends State<VideosPage>
                             child: new SizedBox(
                               child: Shimmer.fromColors(
                                 baseColor: Color.fromRGBO(45, 45, 45, 1.0),
-                                highlightColor: greenPrime.withOpacity(
+                                highlightColor: redPrime.withOpacity(
                                     0.5), //Color.fromRGBO(50, 50, 50, 1.0),
                                 child: Card(
                                   elevation: 0.0,
@@ -496,7 +496,7 @@ class _VideosPageState extends State<VideosPage>
                                   fontFamily: 'Lato',
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w600,
-                                  color: greenPrime),
+                                  color: redPrime),
                             ),
                             onTap: () {
                               var router = new MaterialPageRoute(
@@ -756,7 +756,7 @@ class _VideosPageState extends State<VideosPage>
                                     fontFamily: 'Lato',
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w600,
-                                    color: greenPrime),
+                                    color: redPrime),
                               ),
                               onTap: () {
                                 var router = new MaterialPageRoute(

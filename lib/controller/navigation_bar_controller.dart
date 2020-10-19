@@ -144,7 +144,7 @@ class _BottomNavigationBarControllerState
                             ),
                           ],
                           currentIndex: _selectedIndex,
-                          selectedItemColor: greenPrime,
+                          selectedItemColor: redPrime,
                           unselectedLabelStyle: TextStyle(color: Colors.white),
                           unselectedItemColor: Colors.grey[400],
                           onTap: _onItemTapped,

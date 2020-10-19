@@ -180,7 +180,7 @@ List searchIds2 = new List();
 //  Used for watchlist page
 List userWatchList = new List();
 
-Color greenPrime = const Color.fromRGBO(125, 183, 91, 1.0);
+Color redPrime = Colors.red;
 Color bluePrime = const Color.fromRGBO(72, 163, 198, 1.0);
 Color primaryColor = Colors.black;
 Color primaryDarkColor = const Color.fromRGBO(0, 0, 0, 1.0);

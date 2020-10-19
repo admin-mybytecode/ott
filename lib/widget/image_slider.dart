@@ -8,7 +8,6 @@ import 'package:nexthour/ui/deatiledViewPage.dart';
 
 //  Image slider showed on home page used this widget
 class ImageSlider extends StatelessWidget {
-
   List showsMoviesList;
 //  Image swiper
   Widget imageSwiper() {
@@ -105,77 +104,20 @@ class ImageSlider extends StatelessWidget {
                 "${APIData.silderImageUri}" + "shows/" + "null") {
               return null;
             } else {
-              showsMoviesList = List<VideoDataModel>.generate(userWatchListOld == null ? 0 : userWatchListOld.length, (int mIndex){
-                  var s = userWatchListOld[mIndex].seasons;
-                  String genres =  userWatchListOld[mIndex].genres.toString();
-                  genres = genres.replaceAll("[", "").replaceAll("]", "");
-                  userWatchListOld[mIndex].genres.removeWhere((value) => value == null);
-                  for(var k=0; k<s.length; k++){
-                    for(var i = 0; i<sliderData.length; i++){
-                      if(userWatchListOld[mIndex].id == sliderData[i]['tv_series_id']){
-                        return VideoDataModel(
-                          id: userWatchListOld[mIndex].id,
-                          name: userWatchListOld[mIndex].name,
-                          box: userWatchListOld[mIndex].box,
-                          cover: userWatchListOld[mIndex].cover,
-                          description: userWatchListOld[mIndex].description,
-                          datatype: userWatchListOld[mIndex].datatype,
-                          rating: userWatchListOld[mIndex].rating,
-                          screenshots: userWatchListOld[mIndex].screenshots,
-                          url: userWatchListOld[mIndex].url,
-                          iFrameLink: userWatchListOld[mIndex].iFrameLink,
-                          readyUrl: userWatchListOld[mIndex].readyUrl,
-                          url360: userWatchListOld[mIndex].url360,
-                          url480: userWatchListOld[mIndex].url480,
-                          url720: userWatchListOld[mIndex].url720,
-                          url1080: userWatchListOld[mIndex].url1080,
-                          menuId: userWatchListOld[mIndex].menuId,
-                          genre: userWatchListOld[mIndex].genre,
-                          genres: userWatchListOld[mIndex].genres,
-                          seasons: userWatchListOld[mIndex].seasons,
-                          maturityRating: userWatchListOld[mIndex].maturityRating,
-                          duration: userWatchListOld[mIndex].duration,
-                          released: userWatchListOld[mIndex].released,
-                        );
-                      }
-                    }
-                  }
-                return null;
-              });
-              showsMoviesList.removeWhere((value) => value == null);
-              return GestureDetector(
-                onTap: () {
-                  var router = new MaterialPageRoute(
-                      builder: (BuildContext context) => DetailedViewPage(showsMoviesList[index])
-                  );
-                  Navigator.of(context).push(router);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0.0, bottom: 0.0, left: 5.0, right: 5.0),
-                  child: new Image.network(
-                    "${APIData.silderImageUri}" +
-                        "shows/" +
-                        "${sliderData[index]['slide_image']}",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            }
-          } else {
-            if ("${APIData.silderImageUri}" +
-                    "movies/" +
-                    "${sliderData[index]['slide_image']}" ==
-                "${APIData.silderImageUri}" + "movies/" + "null") {
-              return null;
-            } else {
-              showsMoviesList = List<VideoDataModel>.generate(userWatchListOld == null ? 0 : userWatchListOld.length, (int mIndex){
-                  String genres =  userWatchListOld[mIndex].genres.toString();
-                  genres = genres.replaceAll("[", "").replaceAll("]", "");
-                  userWatchListOld[mIndex].genres.removeWhere((value) => value == null);
-                  for(var i = 0; i<sliderData.length; i++){
-                    if(userWatchListOld[mIndex].id == sliderData[i]['movie_id']){
-                      return new VideoDataModel(
+              showsMoviesList = List<VideoDataModel>.generate(
+                  userWatchListOld == null ? 0 : userWatchListOld.length,
+                  (int mIndex) {
+                var s = userWatchListOld[mIndex].seasons;
+                String genres = userWatchListOld[mIndex].genres.toString();
+                genres = genres.replaceAll("[", "").replaceAll("]", "");
+                userWatchListOld[mIndex]
+                    .genres
+                    .removeWhere((value) => value == null);
+                for (var k = 0; k < s.length; k++) {
+                  for (var i = 0; i < sliderData.length; i++) {
+                    if (userWatchListOld[mIndex].id ==
+                        sliderData[i]['tv_series_id']) {
+                      return VideoDataModel(
                         id: userWatchListOld[mIndex].id,
                         name: userWatchListOld[mIndex].name,
                         box: userWatchListOld[mIndex].box,
@@ -201,6 +143,73 @@ class ImageSlider extends StatelessWidget {
                       );
                     }
                   }
+                }
+                return null;
+              });
+              showsMoviesList.removeWhere((value) => value == null);
+              return GestureDetector(
+                onTap: () {
+                  var router = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          DetailedViewPage(showsMoviesList[index]));
+                  Navigator.of(context).push(router);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0.0, bottom: 0.0, left: 5.0, right: 5.0),
+                  child: new Image.network(
+                    "${APIData.silderImageUri}" +
+                        "shows/" +
+                        "${sliderData[index]['slide_image']}",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            }
+          } else {
+            if ("${APIData.silderImageUri}" +
+                    "movies/" +
+                    "${sliderData[index]['slide_image']}" ==
+                "${APIData.silderImageUri}" + "movies/" + "null") {
+              return null;
+            } else {
+              showsMoviesList = List<VideoDataModel>.generate(
+                  userWatchListOld == null ? 0 : userWatchListOld.length,
+                  (int mIndex) {
+                String genres = userWatchListOld[mIndex].genres.toString();
+                genres = genres.replaceAll("[", "").replaceAll("]", "");
+                userWatchListOld[mIndex]
+                    .genres
+                    .removeWhere((value) => value == null);
+                for (var i = 0; i < sliderData.length; i++) {
+                  if (userWatchListOld[mIndex].id ==
+                      sliderData[i]['movie_id']) {
+                    return new VideoDataModel(
+                      id: userWatchListOld[mIndex].id,
+                      name: userWatchListOld[mIndex].name,
+                      box: userWatchListOld[mIndex].box,
+                      cover: userWatchListOld[mIndex].cover,
+                      description: userWatchListOld[mIndex].description,
+                      datatype: userWatchListOld[mIndex].datatype,
+                      rating: userWatchListOld[mIndex].rating,
+                      screenshots: userWatchListOld[mIndex].screenshots,
+                      url: userWatchListOld[mIndex].url,
+                      iFrameLink: userWatchListOld[mIndex].iFrameLink,
+                      readyUrl: userWatchListOld[mIndex].readyUrl,
+                      url360: userWatchListOld[mIndex].url360,
+                      url480: userWatchListOld[mIndex].url480,
+                      url720: userWatchListOld[mIndex].url720,
+                      url1080: userWatchListOld[mIndex].url1080,
+                      menuId: userWatchListOld[mIndex].menuId,
+                      genre: userWatchListOld[mIndex].genre,
+                      genres: userWatchListOld[mIndex].genres,
+                      seasons: userWatchListOld[mIndex].seasons,
+                      maturityRating: userWatchListOld[mIndex].maturityRating,
+                      duration: userWatchListOld[mIndex].duration,
+                      released: userWatchListOld[mIndex].released,
+                    );
+                  }
+                }
                 return null;
               });
               showsMoviesList.removeWhere((value) => value == null);
@@ -208,8 +217,8 @@ class ImageSlider extends StatelessWidget {
                   onTap: () {
                     print(showsMoviesList[index].id);
                     var router = new MaterialPageRoute(
-                        builder: (BuildContext context) => DetailedViewPage(showsMoviesList[index])
-                    );
+                        builder: (BuildContext context) =>
+                            DetailedViewPage(showsMoviesList[index]));
                     Navigator.of(context).push(router);
                   },
                   child: Padding(
@@ -233,7 +242,7 @@ class ImageSlider extends StatelessWidget {
         ),
         builder: new DotSwiperPaginationBuilder(
           color: Colors.white,
-          activeColor: Color.fromRGBO(125, 183, 91, 1.0),
+          activeColor: redPrime, //Color.fromRGBO(125, 183, 91, 1.0),
         ),
       ),
     );
