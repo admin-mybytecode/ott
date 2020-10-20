@@ -152,9 +152,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "User Name",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -174,9 +172,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Email",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           )
         ],
@@ -196,9 +192,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Password",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -218,9 +212,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Confirm Password",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -281,55 +273,41 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
 // Content of StickyHeader widget
   Widget stickyHeaderContent() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         //signUpHeading(),
-        SizedBox(height: 40,),
         Container(
-          child: Image.network(APIData.logoImageUri+loginConfigData['logo']),
-          ),
-        SizedBox(
-          height: 30.0,
+          child: Image.network(APIData.logoImageUri + loginConfigData['logo']),
         ),
         Container(
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 10.0,
+                height: 30.0,
               ),
-              userNameLabelText(),
+              //userNameLabelText(),
               Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: NameField(_nameController),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              emailLabelText(),
+              //emailLabelText(),
               Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: EmailField(_emailController),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              passwordLabelText(),
+              //passwordLabelText(),
               Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: HiddenPasswordField(
                     _passwordController, 'Enter your password'),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              confirmPasswordLabelText(),
+              //confirmPasswordLabelText(),
               Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: ConfirmPasswordField(_passwordController,
                     _repeatPasswordController, "Confirm password"),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+
               Padding(padding: EdgeInsets.only(top: 10.0)),
               registerButtonTile(),
               Padding(padding: EdgeInsets.only(bottom: 20.0)),
@@ -357,7 +335,6 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               ),
               alignment: Alignment.center,
             ),
-
             imageBackDropFilter(),
             stickyHeaderContent()
           ],
@@ -394,10 +371,10 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 stops: [0.3, 0.5, 0.7, 0.9],
                 colors: [
                   // Colors are easy thanks to Flutter's Colors class.
-                  Colors.red.withOpacity(0.4),
-                  Colors.red.withOpacity(0.5),
-                  Colors.red..withOpacity(0.6),
-                  Colors.red.withOpacity(0.7),
+                  redPrime.withOpacity(0.7),
+                  redPrime.withOpacity(0.6),
+                  redPrime.withOpacity(0.5),
+                  redPrime.withOpacity(0.4),
                 ],
               ),
               boxShadow: <BoxShadow>[

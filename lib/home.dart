@@ -164,7 +164,7 @@ class _HomeState extends State<Home> {
           fontSize: 16.0,
           fontWeight: FontWeight.bold,
           fontFamily: "AvenirNext",
-          color: Colors.white),
+          color: textColor),
     );
   }
 
@@ -172,10 +172,11 @@ class _HomeState extends State<Home> {
   Widget registerButton() {
     return ListTile(
         title: MaterialButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
             height: 50.0,
-            color: Colors.white,
-            textColor: Colors.black,
+            color: whiteColor,
+            textColor: textColor,
             child: new Text("Register"),
             onPressed: () {
               var router = new MaterialPageRoute(
@@ -188,7 +189,7 @@ class _HomeState extends State<Home> {
   Widget loginButton() {
     return MaterialButton(
         height: 50.0,
-        textColor: Colors.white,
+        textColor: whiteColor,
         child: new Text("Login"),
         onPressed: () {
           var router = new MaterialPageRoute(
@@ -201,23 +202,22 @@ class _HomeState extends State<Home> {
     return ListTile(
         title: Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40.0),
-        // gradient: LinearGradient(
-        //   // Where the linear gradient begins and ends
-        //   begin: Alignment.topCenter,
-        //   end: Alignment.bottomRight,
-        //   // Add one stop for each color. Stops should increase from 0 to 1
-        //   stops: [0.1, 0.5, 0.7, 0.9],
-        //   colors: [
-        //     // Colors are easy thanks to Flutter's Colors class.
-        //     Color(0xffeb4334).withOpacity(0.5),
-        //     Color(0xffeb4334).withOpacity(0.5),
-        //     Color(0xffeb4334).withOpacity(0.6),
-        //     Color(0xffeb4334).withOpacity(0.6),
-        //   ],
-        // ),
-        color: Colors.red
-      ),
+          borderRadius: BorderRadius.circular(40.0),
+          // gradient: LinearGradient(
+          //   // Where the linear gradient begins and ends
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomRight,
+          //   // Add one stop for each color. Stops should increase from 0 to 1
+          //   stops: [0.1, 0.5, 0.7, 0.9],
+          //   colors: [
+          //     // Colors are easy thanks to Flutter's Colors class.
+          //     Color(0xffeb4334).withOpacity(0.5),
+          //     Color(0xffeb4334).withOpacity(0.5),
+          //     Color(0xffeb4334).withOpacity(0.6),
+          //     Color(0xffeb4334).withOpacity(0.6),
+          //   ],
+          // ),
+          color: redPrime),
       child: loginButton(),
     ));
   }
@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
       title: new MaterialButton(
           height: 50.0,
           color: Color.fromRGBO(60, 90, 153, 1.0),
-          textColor: Colors.white,
+          textColor: textColor,
           child: new Text("Login with Facebook"),
           onPressed: () {
             initiateFacebookLogin();
@@ -277,7 +277,7 @@ class _HomeState extends State<Home> {
                       : Container(
                           width: 300,
                           child: Html(
-                            customTextAlign: (ele){
+                            customTextAlign: (ele) {
                               return TextAlign.center;
                             },
                             data: loginConfigData['copyright'],
@@ -352,7 +352,7 @@ You can change logo by server
         Text(
           "Sign in to continue",
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: textColor),
         ),
         SizedBox(
           height: 50.0,
@@ -375,7 +375,7 @@ You can change logo by server
             ? Column(
                 children: <Widget>[
                   Container(
-                    color: primaryColor.withOpacity(0.48),
+                    color: primaryDarkColor.withOpacity(0.48),
                   )
                 ],
               )
@@ -384,20 +384,19 @@ You can change logo by server
 /*
    For setting background color of loading screen.
 */
-                  color: primaryColor.withOpacity(0.48),
+                  color: primaryDarkColor.withOpacity(0.48),
                   image: new DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(
-                        Colors.black.withOpacity(0.4), BlendMode.dstATop),
+                      fit: BoxFit.cover,
+                      colorFilter: new ColorFilter.mode(
+                          Colors.black.withOpacity(0.4), BlendMode.dstATop),
 /*
   For setting logo image that is accessed from the server using API.
   You can change logo by server
 */
-                    // image: NetworkImage(
-                    //   '${APIData.loginImageUri}${loginImageData['image']}',
-                    // ),
-                    image: AssetImage('assets/bg.jpg')
-                  ),
+                      // image: NetworkImage(
+                      //   '${APIData.loginImageUri}${loginImageData['image']}',
+                      // ),
+                      image: AssetImage('assets/bg.jpg')),
                 ),
                 child: imageBackDropFilter(),
               ),

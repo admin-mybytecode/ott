@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 
 class NameField extends StatelessWidget {
   NameField(this._nameController);
@@ -13,10 +14,9 @@ class NameField extends StatelessWidget {
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: "User Name",
-        hintStyle:
-            TextStyle(color: Color.fromRGBO(34, 34, 34, 0.4), fontSize: 18),
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
       ),
-      style: TextStyle(color: Color.fromRGBO(34, 34, 34, 0.7), fontSize: 18),
+      style: TextStyle(color: textColor, fontSize: 18),
       validator: (val) {
         if (val.length == 0) {
           return 'Name can not be empty';
@@ -35,12 +35,10 @@ class NameField extends StatelessWidget {
 //  Name field container
   Widget nameFieldContainer() {
     return Container(
-        height: 50,
         child: Padding(
-          padding:
-              EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
-          child: nameTextField(),
-        ));
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: nameTextField(),
+    ));
   }
 
   @override

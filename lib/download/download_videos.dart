@@ -104,13 +104,14 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage>
 
   Widget appBar() {
     return AppBar(
+      elevation: 0.0,
       title: Text(
         "Download Videos",
         style: TextStyle(fontSize: 16.0),
       ),
       centerTitle: true,
       automaticallyImplyLeading: false,
-      backgroundColor: primaryDarkColor.withOpacity(0.98),
+      backgroundColor: primaryColor,
     );
   }
 
@@ -141,10 +142,10 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage>
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),
         child: FloatingActionButton(
-            backgroundColor: Colors.black,
+            backgroundColor: primaryDarkColor,
             child: Icon(
               Icons.refresh,
-              color: Colors.white,
+              color: primaryColor,
               size: 25.0,
             ),
             onPressed: () {
@@ -157,11 +158,10 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage>
                 child: new CircularProgressIndicator(),
               )
             : new Container(
+                color: primaryColor,
                 child: new ListView(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   children: _items.map((item) {
-//                    print("MyId1: ${_items}");
-//                    print("MyId2: ${item.name}");
                     return item.task == null
                         ? new Container(
                             padding: const EdgeInsets.symmetric(
@@ -170,7 +170,7 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage>
                               item.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
+                                  color: redPrime,
                                   fontSize: 18.0),
                             ),
                           )

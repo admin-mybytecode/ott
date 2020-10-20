@@ -149,9 +149,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Sign In..!",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
             textAlign: TextAlign.start,
           )
         ],
@@ -295,9 +293,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Email",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.start,
           )
         ],
@@ -316,9 +312,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Password",
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -394,9 +388,8 @@ class LoginFormState extends State<LoginForm> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         //signInHeadingText(),
-        SizedBox(height: 40,),
         Container(
-          child: Image.network(APIData.logoImageUri+loginConfigData['logo']),
+          child: Image.network(APIData.logoImageUri + loginConfigData['logo']),
         ),
         SizedBox(
           height: 40,
@@ -445,7 +438,8 @@ class LoginFormState extends State<LoginForm> {
       children: [
         Container(
           decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage('assets/bg.jpg'),fit: BoxFit.cover),
+            image: DecorationImage(
+                image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
             color: Colors.white.withOpacity(0.95),
           ),
           alignment: Alignment.center,

@@ -379,7 +379,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       contentPadding:
           EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0, bottom: 0.0),
@@ -388,7 +388,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         children: <Widget>[
           Text(
             "Subscribe Plans",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: textColor),
           ),
         ],
       ),
@@ -400,7 +400,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             child: Text(
               "$dMsg",
               style: TextStyle(
-                color: Colors.black,
+                color: textColor,
               ),
             ),
           )
@@ -526,7 +526,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                   Text(
                     "Available video Format in which you want to play video.",
                     style: TextStyle(
-                        color: Colors.black.withOpacity(0.7), fontSize: 12.0),
+                        color: textColor.withOpacity(0.7), fontSize: 12.0),
                   ),
                   SizedBox(
                     height: 5.0,
@@ -536,7 +536,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       : Padding(
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
-                            hoverColor: Colors.red,
+                            hoverColor: redPrime,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
                             color: redPrime,
@@ -565,7 +565,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
                             color: redPrime,
-                            hoverColor: Colors.red,
+                            hoverColor: redPrime,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
                             child: Container(
@@ -593,7 +593,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
                             color: redPrime,
-                            hoverColor: Colors.red,
+                            hoverColor: redPrime,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
                             child: Container(
@@ -621,7 +621,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                           padding: EdgeInsets.only(left: 50.0, right: 50.0),
                           child: RaisedButton(
                             color: redPrime,
-                            hoverColor: Colors.red,
+                            hoverColor: redPrime,
                             splashColor: Color.fromRGBO(49, 131, 41, 1.0),
                             highlightColor: Color.fromRGBO(72, 163, 198, 1.0),
                             child: Container(
@@ -694,7 +694,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         new Positioned(
           top: 26.0,
           left: 4.0,
-          child: new BackButton(color: Colors.white),
+          child: new BackButton(color: primaryColor),
         ),
         new Positioned(
           top: 180.0,
@@ -727,7 +727,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
               children: [
                 new Text(
                   widget.game.name,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: TextStyle(color: whiteColor, fontSize: 15),
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
@@ -783,8 +783,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       children: <Widget>[
                         Expanded(
                           flex: 0,
-                          child: Icon(Icons.play_arrow,
-                              color: Color.fromRGBO(72, 163, 198, 1.0)),
+                          child: Icon(Icons.play_arrow, color: redPrime),
                         ),
                         new Padding(
                           padding:
@@ -796,13 +795,12 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                             "Play",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontFamily: 'Lato',
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 0.9,
-                                color: Colors.white
-                                // color: Colors.white
-                                ),
+                              fontFamily: 'Lato',
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.9,
+                              color: textColor,
+                            ),
                           ),
                         ),
                       ],
@@ -811,11 +809,13 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(10.0)),
                     borderSide: new BorderSide(
-                        color: Color.fromRGBO(72, 163, 198, 1.0), width: 2.0),
-                    color: Color.fromRGBO(72, 163, 198, 1.0),
+                      color: redPrime,
+                      width: 2.0,
+                    ),
+                    color: redPrime,
                     highlightColor: theme.accentColor,
                     highlightedBorderColor: theme.accentColor,
-                    splashColor: Colors.black12,
+                    splashColor: primaryColor,
                     highlightElevation: 0.0,
                   )
                 : SizedBox.shrink(),
@@ -830,7 +830,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                             Expanded(
                               flex: 0,
                               child: new Icon(playOutlineIcon,
-                                  color: Colors.white70),
+                                  color: primaryDarkColor),
                             ),
                             new Padding(
                               padding:
@@ -846,8 +846,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: 0.9,
-                                  color: Colors.white,
-                                  // color: Colors.white
+                                  color: textColor,
                                 ),
                               ),
                             ),

@@ -87,10 +87,19 @@ class _PageHomeState extends State<PageHome>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            logoImage(),
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              color: whiteColor.withOpacity(0.3),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
+                child: logoImage(),
+              ),
+            ),
           ],
         ),
-        backgroundColor: primaryDarkColor.withOpacity(0.98),
+        backgroundColor: primaryColor,
         pinned: true,
         floating: true,
         forceElevated: innerBoxIsScrolled,
@@ -116,7 +125,7 @@ class _PageHomeState extends State<PageHome>
                         fontSize: 13.0,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.9,
-                        color: Colors.white),
+                        color: redPrime),
                   ),
                 ),
               );

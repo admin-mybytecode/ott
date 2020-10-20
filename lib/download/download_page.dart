@@ -1050,9 +1050,7 @@ class _DownloadPageState extends State<DownloadPage>
                 fontSize: 12.0,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.0,
-                color: Colors.white
-                // color: Colors.white
-                ),
+                color: textColor),
           ),
         ],
       );
@@ -1078,9 +1076,7 @@ class _DownloadPageState extends State<DownloadPage>
                           fontSize: 12.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.0,
-                          color: Colors.white
-                          // color: Colors.white
-                          ),
+                          color: textColor),
                     ),
                   ],
                 )
@@ -1102,7 +1098,7 @@ class _DownloadPageState extends State<DownloadPage>
                                             item.name,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.blue,
+                                                color: textColor,
                                                 fontSize: 18.0),
                                           ),
                                         )

@@ -178,7 +178,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 child: Text(name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: whiteColor,
+                        color: textColor,
                         fontSize: 25.0,
                         fontWeight: FontWeight.w400)),
               ),
@@ -194,7 +194,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.person, size: 15, color: whiteColor),
+                      Icon(Icons.person, size: 20, color: textColor),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -202,8 +202,8 @@ class CustomDrawerState extends State<CustomDrawer> {
                         "Manage Profile",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: whiteColor,
-                            fontSize: 10.0,
+                            color: textColor,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w400),
                       ),
                     ],
@@ -220,6 +220,7 @@ class CustomDrawerState extends State<CustomDrawer> {
 //  Drawer Header
   Widget drawerHeader(width) {
     return Container(
+        color: primaryColor,
         width: width,
         height: 110,
         child: DrawerHeader(
@@ -337,6 +338,7 @@ class CustomDrawerState extends State<CustomDrawer> {
 //  Notification
   Widget notification() {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       color: Colors.transparent,
       child: InkWell(
           onTap: () {
@@ -369,6 +371,7 @@ class CustomDrawerState extends State<CustomDrawer> {
 //  My List
   Widget myList() {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       color: Colors.transparent,
       child: InkWell(
           onTap: () {
@@ -407,6 +410,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               var route =
@@ -419,7 +423,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 child: Text(
                   "App Settings",
                   style: TextStyle(
-                      color: Colors.white70,
+                      color: textColor,
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400),
                 ),
@@ -434,6 +438,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               _onButtonPressed();
@@ -444,7 +449,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 child: Text(
                   "Account",
                   style: TextStyle(
-                      color: Colors.white70,
+                      color: textColor,
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400),
                 ),
@@ -459,6 +464,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               _onSubscribe();
@@ -469,7 +475,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Subscribe",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -483,6 +489,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               var router = new MaterialPageRoute(
@@ -495,7 +502,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Help",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -509,6 +516,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               var route = MaterialPageRoute(builder: (context) => BlogPage());
@@ -520,7 +528,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Blog",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -534,6 +542,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               var route =
@@ -546,7 +555,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Donate",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -560,6 +569,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               String os = Platform.operatingSystem; //in your code
@@ -590,7 +600,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Rate Us",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -604,6 +614,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: InkWell(
             onTap: () {
               String os = Platform.operatingSystem; //in your code
@@ -627,7 +638,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                 "Share app",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400),
               ),
@@ -646,13 +657,13 @@ class CustomDrawerState extends State<CustomDrawer> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Icon(Icons.logout, size: 20, color: whiteColor),
+              child: Icon(Icons.logout, size: 20, color: primaryDarkColor),
             ),
             Text(
               "Sign Out",
               textAlign: TextAlign.left,
               style: TextStyle(
-                  color: whiteColor,
+                  color: textColor,
                   fontSize: 14.0,
                   fontWeight: FontWeight.w400),
             ),
@@ -705,6 +716,7 @@ class CustomDrawerState extends State<CustomDrawer> {
   Widget drawerBodyContainer(height2) {
     return SingleChildScrollView(
       child: Container(
+        color: primaryColor,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView(
@@ -750,32 +762,35 @@ class CustomDrawerState extends State<CustomDrawer> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Card(
-                  color: Colors.transparent,
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 20.0,
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25)),
+                    color: primaryColor,
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 20.0,
+                          ),
+                          child: Text(
+                            "Account",
+                            style: TextStyle(fontSize: 35, color: textColor),
+                          ),
                         ),
-                        child: Text(
-                          "Account",
-                          style: TextStyle(fontSize: 35),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100.0),
+                          child: signOut(),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 130.0),
-                        child: signOut(),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 drawerHeader(width),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: drawerBodyContainer(height2),
-                ),
+                drawerBodyContainer(height2),
               ]),
         ],
       ),
@@ -856,7 +871,8 @@ class CustomDrawerState extends State<CustomDrawer> {
                     children: <Widget>[
                       Text(
                         "Sign Out?",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, color: whiteColor),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,

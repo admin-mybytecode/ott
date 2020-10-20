@@ -144,9 +144,9 @@ class _VideosPageState extends State<VideosPage>
                   borderRadius: new BorderRadius.circular(8.0),
                   child: new SizedBox(
                     child: Shimmer.fromColors(
-                      baseColor: Color.fromRGBO(45, 45, 45, 1.0),
+                      baseColor: primaryColor,
                       highlightColor: redPrime
-                          .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
+                          .withOpacity(0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
                         color: Color.fromRGBO(45, 45, 45, 1.0),
@@ -187,9 +187,9 @@ class _VideosPageState extends State<VideosPage>
                   borderRadius: new BorderRadius.circular(0.0),
                   child: new SizedBox(
                     child: Shimmer.fromColors(
-                      baseColor: Color.fromRGBO(45, 45, 45, 1.0),
+                      baseColor: primaryColor,
                       highlightColor: redPrime
-                          .withOpacity(0.5), //Color.fromRGBO(50, 50, 50, 1.0),
+                          .withOpacity(0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
                         color: Color.fromRGBO(45, 45, 45, 1.0),
@@ -237,9 +237,9 @@ class _VideosPageState extends State<VideosPage>
                             borderRadius: new BorderRadius.circular(8.0),
                             child: new SizedBox(
                               child: Shimmer.fromColors(
-                                baseColor: Color.fromRGBO(45, 45, 45, 1.0),
+                                baseColor: primaryColor,
                                 highlightColor: redPrime.withOpacity(
-                                    0.5), //Color.fromRGBO(50, 50, 50, 1.0),
+                                    0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                                 child: Card(
                                   elevation: 0.0,
                                   color: Color.fromRGBO(45, 45, 45, 1.0),
@@ -747,7 +747,7 @@ class _VideosPageState extends State<VideosPage>
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: 0.9,
-                                  color: Colors.white),
+                                  color: redPrime),
                             ),
                             InkWell(
                               child: Text(
@@ -831,7 +831,7 @@ class _VideosPageState extends State<VideosPage>
           fontSize: 16.0,
           fontWeight: FontWeight.w800,
           letterSpacing: 0.9,
-          color: Colors.white),
+          color: redPrime),
     );
   }
 
@@ -852,18 +852,18 @@ class _VideosPageState extends State<VideosPage>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return new Container(
-      child: RefreshIndicator(
-        key: refreshKey,
-        child: menuDataListLength == 0 ||
-                menuDataArray == null ||
-                menuDataArray[0] == "No Data Found"
-            ?
+        child: RefreshIndicator(
+          key: refreshKey,
+          child: menuDataListLength == 0 ||
+                  menuDataArray == null ||
+                  menuDataArray[0] == "No Data Found"
+              ?
 //      For Shimmer
-            shimmer(width)
-            : tvAndMoviesColumn(),
-        onRefresh: refreshList,
-      ),
-      color: Color.fromRGBO(34, 34, 34, 1.0),
-    );
+              shimmer(width)
+              : tvAndMoviesColumn(),
+          onRefresh: refreshList,
+        ),
+        color: primaryColor //Color.fromRGBO(34, 34, 34, 1.0),
+        );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nexthour/custom_player/src/chewie_progress_colors.dart';
 import 'package:nexthour/custom_player/src/player_with_controls.dart';
+import 'package:nexthour/global.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -89,7 +90,7 @@ class ChewieState extends State<Chewie> {
       resizeToAvoidBottomPadding: false,
       body: Container(
         alignment: Alignment.center,
-        color: Colors.black,
+        color: primaryColor,
         child: controllerProvider,
       ),
     );

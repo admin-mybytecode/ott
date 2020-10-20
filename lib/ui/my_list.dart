@@ -8,16 +8,18 @@ import 'package:nexthour/widget/blank_watchlist_container.dart';
 
 //    This page shows the user watchlist
 var listSize;
-class MyListPage extends StatefulWidget{
+
+class MyListPage extends StatefulWidget {
   final int index;
-  const MyListPage({Key key,this.index}) : super(key: key);
+  const MyListPage({Key key, this.index}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return MyListPageState();
   }
 }
-class MyListPageState extends State<MyListPage>{
+
+class MyListPageState extends State<MyListPage> {
   List<VideoDataModel> itemList;
   var index1;
 
@@ -30,42 +32,48 @@ class MyListPageState extends State<MyListPage>{
 
 //  Nested scroll view body that shows watchlist page
   Widget _listView() {
-    return ListView(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      physics: ClampingScrollPhysics(),
-      padding: EdgeInsets.all(4.0),
-      children: itemList
-          .map(
-        // ignore: non_constant_identifier_names
-            (Video) => ItemList(
-          item: Video,
+    return Container(
+      color: primaryColor,
+      child: ListView(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: ClampingScrollPhysics(),
+        padding: EdgeInsets.all(4.0),
+        children: itemList
+            .map(
+              // ignore: non_constant_identifier_names
+              (Video) => ItemList(
+                item: Video,
 //              index: index1,
-        ),
-      ).toList(),
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 
 //  App bar title
-  Widget appBarTitle(){
-    return Text("My List",style: TextStyle(fontSize: 16.0),);
-  }
-
-//  Flexible space bar
-  Widget flexibleSpaceBar(){
-    return new FlexibleSpaceBar(
-        background:  Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            removeWatchHeaderContainer(),
-          ],
-        )
+  Widget appBarTitle() {
+    return Text(
+      "My List",
+      style: TextStyle(fontSize: 16.0),
     );
   }
 
+//  Flexible space bar
+  Widget flexibleSpaceBar() {
+    return new FlexibleSpaceBar(
+        background: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        removeWatchHeaderContainer(),
+      ],
+    ));
+  }
+
 //  Message on the the top of page to remove item
-  Widget removeWatchHeaderContainer(){
+  Widget removeWatchHeaderContainer() {
     return Container(
         margin: EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 10.0),
         child: Column(
@@ -74,32 +82,47 @@ class MyListPageState extends State<MyListPage>{
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(FontAwesomeIcons.longArrowAltLeft,  color: Colors.white10, size: 20,),
-
+                Icon(
+                  FontAwesomeIcons.longArrowAltLeft,
+                  color: textColor.withOpacity(0.5),
+                  size: 20,
+                ),
                 SizedBox(
                   width: 10.0,
                 ),
-                Text("Swipe right or left to remove from wishlist", style: TextStyle(letterSpacing: 0.7, color: Colors.white60),),
+                Text(
+                  "Swipe right or left to remove from wishlist",
+                  style: TextStyle(
+                      letterSpacing: 0.7, color: textColor.withOpacity(0.5)),
+                ),
                 SizedBox(
                   width: 10.0,
                 ),
-                Icon(FontAwesomeIcons.longArrowAltRight,  color: Colors.white10, size: 20,),
+                Icon(
+                  FontAwesomeIcons.longArrowAltRight,
+                  color: textColor.withOpacity(0.5),
+                  size: 20,
+                ),
               ],
             ),
             SizedBox(
               height: 10.0,
             ),
           ],
-        )
-    );
+        ));
   }
 
 //  Sliver app bar
-  Widget sliverAppBar(){
+  Widget sliverAppBar() {
     return SliverAppBar(
-      leading: IconButton(icon: Icon(Icons.arrow_back),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context) => BottomNavigationBarController()),);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavigationBarController()),
+          );
         },
       ),
       title: appBarTitle(),
@@ -108,18 +131,16 @@ class MyListPageState extends State<MyListPage>{
       pinned: true,
       floating: true,
       expandedHeight: 120,
-      backgroundColor:
-      Color.fromRGBO(34,34,34, 1.0).withOpacity(0.98),
+      backgroundColor: primaryColor,
     );
   }
 
 //  Scaffold body
-  Widget _nestedScrollView(){
+  Widget _nestedScrollView() {
     return NestedScrollView(
       //        controller: _scrollViewController,
-      headerSliverBuilder:
-          (BuildContext context, bool innerBoxIsScrolled) {
-        return  <Widget>[
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
           sliverAppBar(),
         ];
       },
@@ -134,23 +155,23 @@ class MyListPageState extends State<MyListPage>{
     itemList.removeWhere((value) => value == null);
     return SafeArea(
       child: Scaffold(
-          body: userWatchList.length == 0 ? WatchlistContainer(): _nestedScrollView()
-      ),
+          body: userWatchList.length == 0
+              ? WatchlistContainer()
+              : _nestedScrollView()),
     );
   }
-  List<VideoDataModel> _itemList() {
-    return List<VideoDataModel>.generate(userWatchListOld == null ? 0 : userWatchListOld.length, (int index){
 
-      if(userWatchListOld[index].datatype == "T"){
+  List<VideoDataModel> _itemList() {
+    return List<VideoDataModel>.generate(
+        userWatchListOld == null ? 0 : userWatchListOld.length, (int index) {
+      if (userWatchListOld[index].datatype == "T") {
         var s = userWatchListOld[index].seasons;
-        String genres =  userWatchListOld[index].genres.toString();
+        String genres = userWatchListOld[index].genres.toString();
         genres = genres.replaceAll("[", "").replaceAll("]", "");
         userWatchListOld[index].genres.removeWhere((value) => value == null);
-        for(var k=0; k<s.length; k++){
-          for(var i = 0; i<userWatchList.length; i++){
-            if(s[k].id == userWatchList[i].season_id){
-
-
+        for (var k = 0; k < s.length; k++) {
+          for (var i = 0; i < userWatchList.length; i++) {
+            if (s[k].id == userWatchList[i].season_id) {
               return VideoDataModel(
                 id: userWatchListOld[index].id,
                 name: userWatchListOld[index].name,
@@ -170,9 +191,7 @@ class MyListPageState extends State<MyListPage>{
                 menuId: userWatchListOld[index].menuId,
                 genre: userWatchListOld[index].genre,
                 genres: userWatchListOld[index].genres,
-
                 seasons: userWatchListOld[index].seasons,
-
                 maturityRating: userWatchListOld[index].maturityRating,
                 duration: userWatchListOld[index].duration,
                 released: userWatchListOld[index].released,
@@ -180,13 +199,12 @@ class MyListPageState extends State<MyListPage>{
             }
           }
         }
-      }
-      else{
-        String genres =  userWatchListOld[index].genres.toString();
+      } else {
+        String genres = userWatchListOld[index].genres.toString();
         genres = genres.replaceAll("[", "").replaceAll("]", "");
         userWatchListOld[index].genres.removeWhere((value) => value == null);
-        for(var i = 0; i<userWatchList.length; i++){
-          if(userWatchListOld[index].id == userWatchList[i].wMovieId){
+        for (var i = 0; i < userWatchList.length; i++) {
+          if (userWatchListOld[index].id == userWatchList[i].wMovieId) {
             return new VideoDataModel(
               id: userWatchListOld[index].id,
               name: userWatchListOld[index].name,
@@ -217,7 +235,4 @@ class MyListPageState extends State<MyListPage>{
       return null;
     });
   }
-
 }
-
-

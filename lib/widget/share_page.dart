@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 import 'package:share/share.dart';
 
 // Share tab
@@ -7,34 +8,29 @@ class SharePage extends StatelessWidget {
   final shareType;
   final shareId;
 
-  Widget shareText(){
+  Widget shareText() {
     return Text(
       "Share",
       style: TextStyle(
-          fontFamily: 'Lato',
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.0,
-          color: Colors.white
-        // color: Colors.white
+        fontFamily: 'Lato',
+        fontSize: 12.0,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.0,
+        color: textColor,
       ),
     );
   }
 
-  Widget shareTabColumn(){
+  Widget shareTabColumn() {
     return Column(
-      mainAxisAlignment:
-      MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Icon(
           Icons.share,
           size: 30.0,
-          color: Colors.white,
         ),
         new Padding(
-          padding:
-          const EdgeInsets.fromLTRB(
-              0.0, 0.0, 0.0, 10.0),
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
         ),
         shareText(),
       ],
@@ -45,14 +41,13 @@ class SharePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: Material(
-          child:  new InkWell(
-            onTap: () {
-              Share.share('$shareType'+'$shareId');
-            },
-            child: shareTabColumn(),
-          ),
-          color: Colors.transparent,
-        )
-    );
+      child: new InkWell(
+        onTap: () {
+          Share.share('$shareType' + '$shareId');
+        },
+        child: shareTabColumn(),
+      ),
+      color: Colors.transparent,
+    ));
   }
 }

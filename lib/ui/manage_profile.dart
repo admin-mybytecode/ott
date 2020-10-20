@@ -88,7 +88,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         height: 130.0,
         width: 130.0,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: primaryColor,
           borderRadius: BorderRadius.all(
             Radius.circular(100.0),
           ),
@@ -122,7 +122,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         style: TextStyle(fontSize: 16.0),
       ),
       centerTitle: true,
-      backgroundColor: primaryDarkColor,
+      backgroundColor: primaryColor,
       actions: [
         _selectPopup(),
       ],
@@ -181,7 +181,11 @@ class ManageProfileFormState extends State<ManageProfileForm> {
       child: Text(
         'Account status:',
         textAlign: TextAlign.left,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.0),
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 14.0,
+          color: textColor,
+        ),
       ),
     );
   }
@@ -192,9 +196,12 @@ class ManageProfileFormState extends State<ManageProfileForm> {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                  color: Color.fromRGBO(125, 183, 91, 1.0), width: 1.0)),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Color.fromRGBO(125, 183, 91, 1.0),
+              width: 1.0,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -217,7 +224,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             child: Text(
               'Active',
               style: TextStyle(
-                color: Colors.white70,
+                color: textColor,
                 fontSize: 12.0,
               ),
             ),
@@ -260,7 +267,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
               child: Text(
                 'Inactive',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: textColor,
                   fontSize: 12.0,
                 ),
               ),
@@ -294,7 +301,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
           Text(
             expiryDate == '' ? '' : 'Subscription will end on',
             style: TextStyle(
-              color: Colors.white70,
+              color: textColor,
               fontSize: 12.0,
             ),
             textAlign: TextAlign.right,
@@ -303,7 +310,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
               ? Text(
                   expiryDate == '' ? sw : '${DateFormat.yMMMd().format(_date)}',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 12.0,
                   ),
                   textAlign: TextAlign.right,
@@ -311,7 +318,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
               : Text(
                   sw,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 12.0,
                   ),
                   textAlign: TextAlign.right,
@@ -332,7 +339,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
           border: Border(
             right: BorderSide(
               //                    <--- top side
-              color: Colors.white10,
+              color: primaryColor.withOpacity(0.1),
               width: 2.0,
             ),
           ),
@@ -357,7 +364,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   'Mobile Number',
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 12.0,
                   ),
                   textAlign: TextAlign.right,
@@ -368,7 +375,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   mobile,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
@@ -394,7 +401,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   'Date of Birth',
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: textColor,
                     fontSize: 12.0,
                   ),
                   textAlign: TextAlign.right,
@@ -405,7 +412,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   dob,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
@@ -438,7 +445,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         return Text(
           i,
           style: TextStyle(
-            color: Colors.white70,
+            color: textColor,
             fontSize: 14.0,
           ),
           textAlign: TextAlign.left,
@@ -449,12 +456,13 @@ class ManageProfileFormState extends State<ManageProfileForm> {
     return Expanded(
       flex: 1,
       child: Card(
+        color: primaryColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
             Text(
               "Joined on",
-              style: TextStyle(color: Colors.white, fontSize: 24.0),
+              style: TextStyle(color: textColor, fontSize: 24.0),
               textAlign: TextAlign.left,
             ),
             SizedBox(
@@ -480,6 +488,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
           Expanded(
             flex: 1,
             child: Card(
+              color: primaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -488,7 +497,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                     children: <Widget>[
                       Text(
                         name,
-                        style: TextStyle(color: Colors.white, fontSize: 24.0),
+                        style: TextStyle(color: textColor, fontSize: 24.0),
                         textAlign: TextAlign.left,
                       ),
                       SizedBox(
@@ -498,7 +507,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                         child: Text(
                           email,
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: textColor,
                             fontSize: 14.0,
                           ),
                           textAlign: TextAlign.left,
@@ -532,6 +541,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
   Widget scaffoldBody() {
     return SingleChildScrollView(
       child: Container(
+        color: primaryColor,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 
 class DescriptionText extends StatefulWidget {
   DescriptionText(this.text);
@@ -12,7 +13,7 @@ class DescriptionText extends StatefulWidget {
 class _DescriptionTextState extends State<DescriptionText> {
   bool descTextShowFlag = false;
 
-  Widget descriptionHeader(theme){
+  Widget descriptionHeader(theme) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: new Row(
@@ -30,38 +31,36 @@ class _DescriptionTextState extends State<DescriptionText> {
               children: <Widget>[
                 descTextShowFlag
                     ? Text(
-                  '',
-                  style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.9,
-                      color: theme.accentColor
-                    // color: Colors.white
-                  ),
-                )
+                        '',
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.9,
+                          color: theme.accentColor,
+                        ),
+                      )
                     : Text(
-                  '',
-                  style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.9,
-                      color: theme.accentColor
-                    // color: Colors.white
-                  ),
-                ),
+                        '',
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.9,
+                          color: theme.accentColor,
+                        ),
+                      ),
                 descTextShowFlag
                     ? Icon(
-                  Icons.keyboard_arrow_up,
-                  size: 18.0,
-                  color: theme.accentColor,
-                )
+                        Icons.keyboard_arrow_up,
+                        size: 18.0,
+                        color: theme.accentColor,
+                      )
                     : Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 18.0,
-                  color: theme.accentColor,
-                ),
+                        Icons.keyboard_arrow_down,
+                        size: 18.0,
+                        color: theme.accentColor,
+                      ),
               ],
             ),
           ),
@@ -90,17 +89,15 @@ class _DescriptionTextState extends State<DescriptionText> {
                 },
                 child: Text(widget.text,
                     style: TextStyle(
-                        fontFamily: 'Lato',
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.9,
-                        color: Colors.white
-                      // color: Colors.white
+                      fontFamily: 'Lato',
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.9,
+                      color: textColor,
                     ),
                     maxLines: descTextShowFlag ? 100 : 2,
                     textAlign: TextAlign.start),
               ),
-
             ],
           ),
         ),
@@ -108,7 +105,5 @@ class _DescriptionTextState extends State<DescriptionText> {
         descriptionHeader(theme),
       ],
     );
-
   }
-
 }

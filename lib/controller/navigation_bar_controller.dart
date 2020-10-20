@@ -126,7 +126,7 @@ class _BottomNavigationBarControllerState
                         ),
                         child: BottomNavigationBar(
                           type: BottomNavigationBarType.fixed,
-                          backgroundColor: Colors.white.withOpacity(0.1),
+                          backgroundColor: primaryColor.withOpacity(0.5),
                           items: const <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
@@ -145,8 +145,8 @@ class _BottomNavigationBarControllerState
                           ],
                           currentIndex: _selectedIndex,
                           selectedItemColor: redPrime,
-                          unselectedLabelStyle: TextStyle(color: Colors.white),
-                          unselectedItemColor: Colors.grey[400],
+                          unselectedLabelStyle: TextStyle(color: primaryColor),
+                          unselectedItemColor: textColor,
                           onTap: _onItemTapped,
                         ),
                       ),

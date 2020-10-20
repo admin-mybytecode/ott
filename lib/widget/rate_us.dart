@@ -31,7 +31,7 @@ class _RateUsState extends State<RateUs> {
           fontSize: 12.0,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.0,
-          color: Colors.white
+          color: textColor
           // color: Colors.white
           ),
     );
@@ -44,7 +44,7 @@ class _RateUsState extends State<RateUs> {
         Icon(
           Icons.star_border,
           size: 30.0,
-          color: Colors.white,
+          color: textColor,
         ),
         new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),

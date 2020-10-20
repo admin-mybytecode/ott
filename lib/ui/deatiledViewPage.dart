@@ -314,8 +314,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                   });
                 },
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                      color: Color.fromRGBO(125, 183, 91, 1.0), width: 2.5),
+                  borderSide: BorderSide(color: primaryColor, width: 2.5),
                   insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 46.0),
                 ),
                 indicatorColor: Colors.orangeAccent,
@@ -329,7 +328,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 ]),
           ],
         ),
-        backgroundColor: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(1.0),
+        backgroundColor: primaryColor,
         pinned: true,
         floating: true,
         forceElevated: innerBoxIsScrolled,
@@ -368,7 +367,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   "$genres",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -385,7 +384,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           children: <Widget>[
             Text(
               "About",
-              style: TextStyle(color: Colors.white, fontSize: 16.0),
+              style: TextStyle(color: textColor, fontSize: 16.0),
             ),
             Container(
               height: 8.0,
@@ -403,8 +402,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                           flex: 2,
                           child: Text(
                             'Details:',
-                            style:
-                                TextStyle(color: Colors.grey, fontSize: 13.0),
+                            style: TextStyle(color: textColor, fontSize: 13.0),
                           ),
                         ),
                         genreDetailsText(game),
@@ -417,7 +415,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           ],
         ),
       ),
-      color: Color.fromRGBO(45, 45, 45, 1.0),
+      color: primaryColor,
     );
   }
 
@@ -441,7 +439,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   "${game.name}",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -554,7 +552,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   game.datatype == "M" ? "$aLangFinalM" : "$aLangFinalS",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -858,12 +856,12 @@ class _DetailedViewPageState extends State<DetailedViewPage>
             ? Icon(
                 Icons.check,
                 size: 30.0,
-                color: redPrime,
+                color: textColor,
               )
             : Icon(
                 Icons.add,
                 size: 30.0,
-                color: Colors.white,
+                color: textColor,
               ),
         new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
@@ -950,7 +948,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 delegate:
                     SliverChildBuilderDelegate((BuildContext context, int j) {
               return Container(
-                color: Color.fromRGBO(34, 34, 34, 1.0),
+                color: primaryColor,
                 child: Column(
                   children: <Widget>[
                     new VideoDetailHeader(widget.game),
@@ -1854,7 +1852,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           fontSize: 12.0,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.0,
-          color: Colors.white
+          color: textColor
           // color: Colors.white
           ),
     );
@@ -1935,13 +1933,13 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                       });
                     },
                     indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide(color: Colors.white70, width: 2.5),
+                      borderSide: BorderSide(color: primaryColor, width: 2.5),
                       insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     ),
                     indicatorColor: Colors.orangeAccent,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorWeight: 3.0,
-                    unselectedLabelColor: Color.fromRGBO(95, 95, 95, 1.0),
+                    unselectedLabelColor: primaryDarkColor,
                     tabs: [
                         TabWidget('EPISODES'),
                         TabWidget('MORE DETAILS'),
@@ -1988,7 +1986,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           ],
         ),
       ),
-      color: Color.fromRGBO(34, 34, 34, 1.0),
+      color: primaryColor,
     );
   }
 
@@ -1999,7 +1997,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
       body: widget.game.datatype == "T"
           ? _seasonsScrollView(isAdded)
           : _movieScrollview(isMovieAdded, moreLikeThis),
-      backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
+      backgroundColor: primaryColor,
     );
   }
 }

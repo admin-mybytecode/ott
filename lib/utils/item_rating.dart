@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 
 import 'package:nexthour/model/video_data.dart';
 
@@ -7,29 +8,26 @@ class RatingInformation extends StatelessWidget {
 
   final VideoDataModel mVideo;
 
-  _buildRatingBar(ThemeData theme) {
+  _buildRatingBar() {
     var stars = <Widget>[];
 
     for (var i = 1; i <= 5; i++) {
       var star;
       if (i + 1 <= mVideo.rating + 1) {
-        var color = theme.accentColor;
         star = new Icon(
           Icons.star,
-          color: color,
+          color: redPrime,
         );
       } else {
         if (i + 0.5 <= mVideo.rating + 1) {
-          var color = theme.accentColor;
           star = new Icon(
             Icons.star_half,
-            color: color,
+            color: redPrime,
           );
         } else {
-          var color = theme.accentColor;
           star = new Icon(
             Icons.star_border,
-            color: color,
+            color: redPrime,
           );
         }
       }
@@ -54,7 +52,7 @@ class RatingInformation extends StatelessWidget {
           mVideo.rating.toString(),
           style: textTheme.headline6.copyWith(
             fontWeight: FontWeight.w400,
-            color: theme.accentColor,
+            color: redPrime,
           ),
         ),
         new Padding(
@@ -71,7 +69,7 @@ class RatingInformation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildRatingBar(theme),
+        _buildRatingBar(),
       ],
     );
 

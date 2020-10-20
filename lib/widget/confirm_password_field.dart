@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 //  For confirm password this widget  will called.
 class ConfirmPasswordField extends StatefulWidget {
   final _passwordController;
   final _repeatPasswordController;
   final hintText;
-  ConfirmPasswordField(this._passwordController,this._repeatPasswordController, this.hintText);
+  ConfirmPasswordField(
+      this._passwordController, this._repeatPasswordController, this.hintText);
   @override
   _ConfirmPasswordFieldState createState() => _ConfirmPasswordFieldState();
 }
@@ -15,27 +15,35 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
   bool _isHidden = true;
 
 // Toggle for visibility
-  void _toggleVisibility(){
+  void _toggleVisibility() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
 
 //  TextFormField
-  Widget textField(){
+  Widget textField() {
     return TextFormField(
       decoration: new InputDecoration(
         border: InputBorder.none,
         hintText: "Confirm password",
-        suffixIcon: widget.hintText == "Confirm password" ? IconButton(
-          onPressed: _toggleVisibility,
-          icon: _isHidden ? Text("Show",style: TextStyle(fontSize: 10.0, color: Colors.black),) : Text("Hide",style: TextStyle(fontSize: 10.0, color: Colors.black),),
-        ) : null,
-        hintStyle: TextStyle(
-            color: Color.fromRGBO(34, 34, 34, 0.4), fontSize: 18),
+        suffixIcon: widget.hintText == "Confirm password"
+            ? IconButton(
+                onPressed: _toggleVisibility,
+                icon: _isHidden
+                    ? Text(
+                        "Show",
+                        style: TextStyle(fontSize: 10.0, color: Colors.black),
+                      )
+                    : Text(
+                        "Hide",
+                        style: TextStyle(fontSize: 10.0, color: Colors.black),
+                      ),
+              )
+            : null,
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
       ),
-      style: TextStyle(
-          color: Color.fromRGBO(34, 34, 34, 0.7), fontSize: 18),
+      style: TextStyle(color: Colors.black, fontSize: 18),
       validator: (val) {
         if (val.length < 6) {
           if (val.length == 0) {
@@ -44,12 +52,11 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
             return 'Password too short';
           }
         } else {
-          if(widget._passwordController.text == val){
+          if (widget._passwordController.text == val) {
             return null;
-          }else{
+          } else {
             return 'Password & Confirm Password does not match';
           }
-
         }
       },
       onSaved: (val) => widget._repeatPasswordController.text = val,
@@ -58,18 +65,15 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
   }
 
 //  TextField Container
-  Widget fieldContainer(){
+  Widget fieldContainer() {
     return Container(
-      height: 50,
       child: Padding(
-          padding: EdgeInsets.only(
-              left: 15.0, right: 15.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: <Widget>[
               textField(),
             ],
-          )
-      ),
+          )),
     );
   }
 

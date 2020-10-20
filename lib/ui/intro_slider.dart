@@ -34,7 +34,7 @@ class IntroScreenState extends State<IntroScreen> {
               fontFamily: 'RobotoMono'),
           description: "${homeDataBlocks[i]['detail']}",
           styleDescription: TextStyle(
-              color: Colors.white.withOpacity(0.7),
+              color: textColor.withOpacity(0.7),
               fontSize: 16.0,
               fontStyle: FontStyle.normal,
               fontFamily: 'Raleway'),
@@ -193,7 +193,7 @@ class IntroScreenState extends State<IntroScreen> {
         highlightColorDoneBtn: Colors.transparent,
 
         // Dot indicator
-        colorDot: Colors.white.withOpacity(0.5),
+        colorDot: primaryDarkColor.withOpacity(0.5),
         colorActiveDot: redPrime.withOpacity(0.7),
         sizeDot: 8.0,
         typeDotAnimation: dotSliderAnimation.DOT_MOVEMENT,

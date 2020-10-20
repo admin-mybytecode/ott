@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
+
 class EmailField extends StatelessWidget {
   EmailField(this._emailController);
   final _emailController;
 
 // Email textFormField
-  Widget emailTextField(){
+  Widget emailTextField() {
     return TextFormField(
       maxLines: 1,
       controller: _emailController,
@@ -12,11 +14,9 @@ class EmailField extends StatelessWidget {
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: "Enter your email",
-        hintStyle: TextStyle(
-            color: Color.fromRGBO(34, 34, 34, 0.4), fontSize: 18),
+        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
       ),
-      style: TextStyle(
-          color: Color.fromRGBO(34, 34, 34, 0.7), fontSize: 18),
+      style: TextStyle(color: Colors.black, fontSize: 20),
       validator: (val) {
         if (val.length == 0) {
           return 'Email can not be empty';
@@ -32,16 +32,14 @@ class EmailField extends StatelessWidget {
     );
   }
 
-  Widget emailTextFieldContainer(){
+  Widget emailTextFieldContainer() {
     return Container(
-        height: 50,
         child: Padding(
-          padding: EdgeInsets.only(
-              left: 15.0, right: 15.0, top: 10.0, bottom: 10.0),
-          child: emailTextField(),
-        )
-    );
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: emailTextField(),
+    ));
   }
+
   @override
   Widget build(BuildContext context) {
     return Material(
