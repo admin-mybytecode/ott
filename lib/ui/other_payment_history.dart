@@ -6,7 +6,7 @@ import 'package:nexthour/widget/blank_history.dart';
 
 class OtherPaymentHistory extends StatefulWidget {
   final int index;
-  OtherPaymentHistory({Key key,this.index}) : super(key: key);
+  OtherPaymentHistory({Key key, this.index}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -26,17 +26,20 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //  App bar
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Other Payment History",style: TextStyle(fontSize: 16.0),),
+      elevation: 0.0,
+      title: Text(
+        "Other Payment History",
+        style: TextStyle(fontSize: 16.0),
+      ),
       centerTitle: true,
-      backgroundColor:
-      primaryDarkColor.withOpacity(0.98),
+      backgroundColor: primaryColor,
     );
   }
 
 //  Subscription start date and end date
-  Widget subscriptionFromTo(i){
+  Widget subscriptionFromTo(i) {
     return Container(
       child: Text(
         'From' +
@@ -57,59 +60,63 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //    Payment amount
-  Widget amount(i){
-    return itemList[i].currency.length == 0 ?  Container(
-      child: Text(
-        'Free',
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.w600),
-      ),
-    ): Container(
-      child: itemList[i].currency[0] != null ? Text(
-        itemList[i].price.toString() +' '+ itemList[i].currency[0].toString(),
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.w600),
-      ) : Text(
-        itemList[i].price.toString() +' '+ itemList[i].currency[0].toString(),
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.w600),
-      ),
-    );
+  Widget amount(i) {
+    return itemList[i].currency.length == 0
+        ? Container(
+            child: Text(
+              'Free',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w600),
+            ),
+          )
+        : Container(
+            child: itemList[i].currency[0] != null
+                ? Text(
+                    itemList[i].price.toString() +
+                        ' ' +
+                        itemList[i].currency[0].toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600),
+                  )
+                : Text(
+                    itemList[i].price.toString() +
+                        ' ' +
+                        itemList[i].currency[0].toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600),
+                  ),
+          );
   }
 
 //   Payment created date
-  Widget createdDate(i){
+  Widget createdDate(i) {
     return Expanded(
       flex: 2,
       child: Text(
         itemList[i].createdDate + ' via ' + '\n' + itemList[i].paymentMethod,
-        style:
-        TextStyle(color: Colors.white, fontSize: 12.0),
+        style: TextStyle(color: Colors.white, fontSize: 12.0),
       ),
     );
   }
 
 //    Row transaction id
-  Widget transactionId(i){
+  Widget transactionId(i) {
     return Expanded(
       child: Text(
         'Transaction ID:' + '\n' + itemList[i].paymentId,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 12.0,
-            height: 1.3),
+        style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
       ),
     );
   }
 
 //    Row plan name
-  Widget planNameRow(i){
+  Widget planNameRow(i) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -118,24 +125,27 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
           padding: EdgeInsets.only(left: 20.0),
         ),
         Expanded(
-            child: itemList[i].planName.length == 0 ? Text('Free Trial',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600),
-            ): Text(itemList[i].planName[0].toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600),
-            )
-        ),
+            child: itemList[i].planName.length == 0
+                ? Text(
+                    'Free Trial',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600),
+                  )
+                : Text(
+                    itemList[i].planName[0].toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600),
+                  )),
       ],
     );
   }
 
 //    Row separator
-  Widget rowSeparator(){
+  Widget rowSeparator() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +159,7 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //    Row created date
-  Widget rowCreatedDate(i){
+  Widget rowCreatedDate(i) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       child: Row(
@@ -180,7 +190,7 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //    Row transaction id
-  Widget rowTransactionId(i){
+  Widget rowTransactionId(i) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       child: Row(
@@ -197,9 +207,10 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //   Cards that display history
-  Widget historyCard(i){
+  Widget historyCard(i) {
     return Card(
-      color: cardColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      color: primaryDarkColor,
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,16 +236,17 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
   }
 
 //  Scaffold body content
-  Widget scaffoldBody(){
+  Widget scaffoldBody() {
     return Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child:  SingleChildScrollView(
-          child: userPaypalHistory.length==0 ? BlankHistoryContainer() : Column(
-            children: _buildCards(itemList.length) ,
-          ),
-        )
-    );
+        child: SingleChildScrollView(
+          child: userPaypalHistory.length == 0
+              ? BlankHistoryContainer()
+              : Column(
+                  children: _buildCards(itemList.length),
+                ),
+        ));
   }
 
 //  Build method
@@ -243,22 +255,22 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
     itemList = _historyList();
     // TODO: implement build
     return SafeArea(
-      child: userPaypalHistory.length==0 ? BlankHistoryContainer()
+      child: userPaypalHistory.length == 0
+          ? BlankHistoryContainer()
           : Scaffold(
-        appBar: appBar(),
-        backgroundColor: primaryColor,
-        body: scaffoldBody(),
-      ),
+              appBar: appBar(),
+              backgroundColor: primaryColor,
+              body: scaffoldBody(),
+            ),
     );
   }
 
 //  Cards that shows history
-  List <Card> _buildCards(int count) {
-
-    for(var i=0; i<itemList.length; i++){
+  List<Card> _buildCards(int count) {
+    for (var i = 0; i < itemList.length; i++) {
       List<Card> cards = List.generate(
         count,
-            (i) => historyCard(i),
+        (i) => historyCard(i),
       );
       return cards;
     }
@@ -267,7 +279,8 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
 
 //  List of payment history excepting stripe payment
   List<HistoryModel> _historyList() {
-    return List<HistoryModel>.generate(userPaypalHistory == null ? 0 : userPaypalHistory.length, (int index){
+    return List<HistoryModel>.generate(
+        userPaypalHistory == null ? 0 : userPaypalHistory.length, (int index) {
       return new HistoryModel(
         id: userPaypalHistory[index]['id'],
         userId: userPaypalHistory[index]['user_id'],
@@ -279,11 +292,17 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
         packageId: userPaypalHistory[index]['package_id'],
         paymentMethod: userPaypalHistory[index]['method'],
         createdDate: userPaypalHistory[index]['created_at'],
-        planName: List.generate(userPaypalHistory[index]['plan'] != null? userPaypalHistory[index]['plan'].length : 0, (int index1){
+        planName: List.generate(
+            userPaypalHistory[index]['plan'] != null
+                ? userPaypalHistory[index]['plan'].length
+                : 0, (int index1) {
           //          print("plans ${userPaypalHistory[index]['plan']['name']}");
           return userPaypalHistory[index]['plan']['name'];
         }),
-        currency: List.generate(userPaypalHistory[index]['plan'] != null? userPaypalHistory[index]['plan'].length : 0, (int index1){
+        currency: List.generate(
+            userPaypalHistory[index]['plan'] != null
+                ? userPaypalHistory[index]['plan'].length
+                : 0, (int index1) {
           //          print("plans ${userPaypalHistory[index]['plan']['name']}");
           return userPaypalHistory[index]['plan']['currency'];
         }),
@@ -291,12 +310,3 @@ class OtherPaymentHistoryState extends State<OtherPaymentHistory> {
     });
   }
 }
-
-
-
-
-
-
-
-
-

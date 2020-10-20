@@ -78,7 +78,7 @@ class RatingInformation extends StatelessWidget {
       children: [
         numericRating,
         new Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 8.0, bottom: 14.0),
           child: starRating,
         ),
       ],

@@ -28,6 +28,7 @@ class SharePage extends StatelessWidget {
         Icon(
           Icons.share,
           size: 30.0,
+          color: primaryDarkColor,
         ),
         new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),

@@ -1063,6 +1063,7 @@ class _DownloadPageState extends State<DownloadPage>
                         icon: Icon(
                           Icons.file_download,
                           size: 30,
+                          color: primaryDarkColor,
                         ),
                         onPressed: () {
                           Fluttertoast.showToast(

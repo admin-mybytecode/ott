@@ -144,7 +144,10 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(15.0),
-            child: Text(diff),
+            child: Text(
+              diff,
+              style: TextStyle(color: textColor),
+            ),
           )
         ],
       ),

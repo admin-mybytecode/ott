@@ -10,19 +10,20 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
 //  App bar
-    Widget appBar() {
+  Widget appBar() {
     return AppBar(
+      elevation: 0.0,
       title: Text(
         "Payment History",
         style: TextStyle(fontSize: 16.0),
       ),
       centerTitle: true,
-      backgroundColor: primaryDarkColor.withOpacity(0.98),
+      backgroundColor: primaryColor.withOpacity(0.98),
     );
   }
 
 //  Text on container to select stripe history
-    Widget stripeText(){
+  Widget stripeText() {
     return Expanded(
       flex: 4,
       child: Text("Stripe Payment History"),
@@ -30,11 +31,12 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
 //  Container to select stripe payment history
-    Widget goToStripeHistory(){
+  Widget goToStripeHistory() {
     return InkWell(
       child: Container(
         height: 80.0,
         child: Card(
+            color: primaryDarkColor.withOpacity(0.3),
             child: Padding(
               padding: EdgeInsets.fromLTRB(35.0, 0.0, 10.0, 0.0),
               child: Row(
@@ -47,7 +49,10 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Icon(Icons.arrow_forward_ios, size: 15.0,),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
                   )
                 ],
               ),
@@ -55,7 +60,7 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
 
 //              This onTap take you to the next screen that contains stripe payment history.
-      onTap: (){
+      onTap: () {
         var router = new MaterialPageRoute(
             builder: (BuildContext context) => new StripePaymentHistory());
         Navigator.of(context).push(router);
@@ -64,11 +69,12 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
 //  Container to choose other payment history
-    Widget goToOtherHistory(){
+  Widget goToOtherHistory() {
     return InkWell(
       child: Container(
         height: 80.0,
         child: Card(
+            color: primaryDarkColor.withOpacity(0.3),
             child: Padding(
               padding: EdgeInsets.fromLTRB(35.0, 0.0, 10.0, 0.0),
               child: Row(
@@ -81,16 +87,18 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Icon(Icons.arrow_forward_ios, size: 15.0,),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    ),
                   )
                 ],
               ),
-            )
-        ),
+            )),
       ),
 
       //              This onTap take you to the next screen that contains payment history except stripe.
-      onTap: (){
+      onTap: () {
         var router = new MaterialPageRoute(
             builder: (BuildContext context) => new OtherPaymentHistory());
         Navigator.of(context).push(router);
@@ -99,27 +107,28 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
 //  Scaffold body contains overall UI of this page
-    Widget scaffoldBody(){
-      return Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            goToStripeHistory(),
-            Container(
-              height: 2.0,
-            ),
-            goToOtherHistory(),
-          ],
-        ),
-      );
+  Widget scaffoldBody() {
+    return Container(
+      color: primaryColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          goToStripeHistory(),
+          Container(
+            height: 2.0,
+          ),
+          goToOtherHistory(),
+        ],
+      ),
+    );
   }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: appBar(),
-        body: scaffoldBody(),
-      );
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: appBar(),
+      body: scaffoldBody(),
+    );
+  }
 }

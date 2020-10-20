@@ -677,7 +677,12 @@ class CustomDrawerState extends State<CustomDrawer> {
       child: Column(
         children: <Widget>[
           ListTile(
-            title: Text('Membership'),
+            title: Text(
+              'Membership',
+              style: TextStyle(
+                color: textColor,
+              ),
+            ),
             onTap: () {
               var router = new MaterialPageRoute(
                   builder: (BuildContext context) => new MembershipPlan());
@@ -686,13 +691,20 @@ class CustomDrawerState extends State<CustomDrawer> {
             trailing: Icon(
               Icons.arrow_forward_ios,
               size: 15.0,
+              color: primaryDarkColor,
             ),
           ),
           ListTile(
-            title: Text('Payment History'),
+            title: Text(
+              'Payment History',
+              style: TextStyle(
+                color: textColor,
+              ),
+            ),
             trailing: Icon(
               Icons.arrow_forward_ios,
               size: 15.0,
+              color: primaryDarkColor,
             ),
             onTap: () {
               var router = new MaterialPageRoute(
@@ -836,11 +848,10 @@ class CustomDrawerState extends State<CustomDrawer> {
         builder: (builder) {
           return new Container(
             height: 150.0,
-            color: Colors.transparent, //could change this to Color(0xFF737373),
+            color: Colors.white, //could change this to Color(0xFF737373),
             //so you don't have to change MaterialApp canvasColor
             child: new Container(
                 decoration: new BoxDecoration(
-                    color: Color.fromRGBO(34, 34, 34, 1.0),
                     borderRadius: new BorderRadius.only(
                         topLeft: const Radius.circular(10.0),
                         topRight: const Radius.circular(10.0))),
@@ -929,10 +940,10 @@ class CustomDrawerState extends State<CustomDrawer> {
                           end: Alignment.bottomRight,
                           stops: [0.1, 0.5, 0.7, 0.9],
                           colors: [
-                            Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
-                            Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
-                            Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
-                            Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
+                            redPrime.withOpacity(0.4),
+                            redPrime.withOpacity(0.5),
+                            redPrime.withOpacity(0.6),
+                            redPrime.withOpacity(0.7),
                           ],
                         ),
                       ),

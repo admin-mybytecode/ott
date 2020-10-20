@@ -164,7 +164,7 @@ class _HomeState extends State<Home> {
           fontSize: 16.0,
           fontWeight: FontWeight.bold,
           fontFamily: "AvenirNext",
-          color: textColor),
+          color: whiteColor),
     );
   }
 
@@ -352,7 +352,7 @@ You can change logo by server
         Text(
           "Sign in to continue",
           textAlign: TextAlign.center,
-          style: TextStyle(color: textColor),
+          style: TextStyle(color: whiteColor),
         ),
         SizedBox(
           height: 50.0,

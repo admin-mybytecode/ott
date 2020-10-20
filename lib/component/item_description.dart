@@ -54,12 +54,12 @@ class _DescriptionTextState extends State<DescriptionText> {
                     ? Icon(
                         Icons.keyboard_arrow_up,
                         size: 18.0,
-                        color: theme.accentColor,
+                        color: primaryDarkColor,
                       )
                     : Icon(
                         Icons.keyboard_arrow_down,
                         size: 18.0,
-                        color: theme.accentColor,
+                        color: primaryDarkColor,
                       ),
               ],
             ),

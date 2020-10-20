@@ -13,17 +13,21 @@ class BlogPage extends StatefulWidget {
 class _BlogPageState extends State<BlogPage> {
   var blogId;
 
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Blog", style: TextStyle(fontSize: 16.0),),
+      elevation: 0.0,
+      title: Text(
+        "Blog",
+        style: TextStyle(fontSize: 16.0),
+      ),
       centerTitle: true,
-      backgroundColor: primaryDarkColor.withOpacity(0.98),
+      backgroundColor: primaryColor.withOpacity(0.98),
     );
   }
 
   Widget blogDetails(index) {
-   String str = "${blogResponse[index]['detail']}";
-   String matches = str.replaceAll(new RegExp(r'[<p>\/]+'),'');
+    String str = "${blogResponse[index]['detail']}";
+    String matches = str.replaceAll(new RegExp(r'[<p>\/]+'), '');
     return Row(
       children: <Widget>[
         Flexible(
@@ -33,7 +37,10 @@ class _BlogPageState extends State<BlogPage> {
               '$matches',
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: whiteColor.withOpacity(0.6)),
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: whiteColor.withOpacity(0.6)),
             ),
           ),
         ),
@@ -41,15 +48,16 @@ class _BlogPageState extends State<BlogPage> {
     );
   }
 
-  List buildCards(int count){
-    List<InkWell> cards = List.generate(count, (index){
+  List buildCards(int count) {
+    List<InkWell> cards = List.generate(count, (index) {
       blogId = blogResponse[index]['id'];
       return InkWell(
         child: Card(
-          color: primaryDarkColor,
+          color: primaryColor,
           child: Container(
             height: 100.0,
-            padding: EdgeInsets.only(left: 10.0, right: 5.0, top: 10.0, bottom: 10.0),
+            padding: EdgeInsets.only(
+                left: 10.0, right: 5.0, top: 10.0, bottom: 10.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -62,12 +70,15 @@ class _BlogPageState extends State<BlogPage> {
                       Container(
                         child: AutoSizeText(
                           blogResponse[index]['title'],
-                          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
                       ),
-                      SizedBox(height: 8.0,),
+                      SizedBox(
+                        height: 8.0,
+                      ),
                       blogDetails(index),
                     ],
                   ),
@@ -82,10 +93,10 @@ class _BlogPageState extends State<BlogPage> {
                     width: 100.0,
                     alignment: FractionalOffset.topCenter,
                     child: ClipRRect(
-                      borderRadius:
-                      new BorderRadius.circular(1.0),
+                      borderRadius: new BorderRadius.circular(1.0),
                       child: new FadeInImage.assetNetwork(
-                        image: APIData.blogImageUri+"${blogResponse[index]['image']}",
+                        image: APIData.blogImageUri +
+                            "${blogResponse[index]['image']}",
                         placeholder: "assets/placeholder_box.jpg",
                         height: 100.0,
                         width: 100.0,
@@ -98,12 +109,13 @@ class _BlogPageState extends State<BlogPage> {
                   width: 10.0,
                 ),
               ],
-            ),),
+            ),
+          ),
         ),
-        onTap: (){
+        onTap: () {
           var router = new MaterialPageRoute(
               builder: (BuildContext context) =>
-              new BlogDetailsPage(index, blogResponse[index]['id']));
+                  new BlogDetailsPage(index, blogResponse[index]['id']));
           Navigator.of(context).push(router);
         },
       );
@@ -111,29 +123,23 @@ class _BlogPageState extends State<BlogPage> {
     return cards;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: appBar(),
-      body: blogResponse == null ?
-      Container(
-        child: Center(
-          child: Text("No Blog Available"),
-        ),
-      ) : ListView(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        children: buildCards(blogResponse.length),
-      ),
+      body: blogResponse == null
+          ? Container(
+              child: Center(
+                child: Text("No Blog Available"),
+              ),
+            )
+          : ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              children: buildCards(blogResponse.length),
+            ),
     );
   }
 }
-
-
-
-
-
-
-

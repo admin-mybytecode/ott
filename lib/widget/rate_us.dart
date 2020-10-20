@@ -44,7 +44,7 @@ class _RateUsState extends State<RateUs> {
         Icon(
           Icons.star_border,
           size: 30.0,
-          color: textColor,
+          color: primaryDarkColor,
         ),
         new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
@@ -105,7 +105,7 @@ class _RateUsState extends State<RateUs> {
               halfFilledIcon: Icons.star_half,
               isHalfAllowed: true,
               filledColor: redPrime,
-              emptyColor: bluePrime,
+              emptyColor: primaryDarkColor,
               halfFilledColor: Colors.amberAccent,
               size: 40,
             ),

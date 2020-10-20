@@ -314,7 +314,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                   });
                 },
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: primaryColor, width: 2.5),
+                  borderSide: BorderSide(color: redPrime, width: 2.5),
                   insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 46.0),
                 ),
                 indicatorColor: Colors.orangeAccent,

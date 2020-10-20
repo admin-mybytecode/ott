@@ -8,7 +8,6 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSettingsPage extends StatefulWidget {
-
   @override
   _AppSettingsState createState() => _AppSettingsState();
 }
@@ -20,7 +19,7 @@ class _AppSettingsState extends State<AppSettingsPage> {
   var _connectionStatus = 'Unknown';
 //  bool _value1 = false;
 
-  void _onChanged1(bool value){
+  void _onChanged1(bool value) {
     setState(() {
       boolValue = value;
       addBoolToSF(value);
@@ -30,10 +29,13 @@ class _AppSettingsState extends State<AppSettingsPage> {
 
   Widget appBar() {
     return AppBar(
-      title: Text("App Settings",style: TextStyle(fontSize: 16.0),),
+      elevation: 0.0,
+      title: Text(
+        "App Settings",
+        style: TextStyle(fontSize: 16.0, color: textColor),
+      ),
       centerTitle: true,
-
-      backgroundColor: primaryDarkColor,
+      backgroundColor: primaryColor,
     );
   }
 
@@ -51,7 +53,11 @@ class _AppSettingsState extends State<AppSettingsPage> {
       decoration: new BoxDecoration(
           border: new Border(
               right: new BorderSide(width: 1.0, color: Colors.white24))),
-      child: Icon(FontAwesomeIcons.signal, color: Colors.white, size: 20.0,),
+      child: Icon(
+        FontAwesomeIcons.signal,
+        color: Colors.white,
+        size: 20.0,
+      ),
     );
   }
 
@@ -92,7 +98,7 @@ class _AppSettingsState extends State<AppSettingsPage> {
     );
   }
 
-  Widget _listTile4(){
+  Widget _listTile4() {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
@@ -100,16 +106,20 @@ class _AppSettingsState extends State<AppSettingsPage> {
         decoration: new BoxDecoration(
             border: new Border(
                 right: new BorderSide(width: 1.0, color: Colors.white24))),
-        child: Icon(FontAwesomeIcons.mobile, color: Colors.white, size: 20.0,),
+        child: Icon(
+          FontAwesomeIcons.mobile,
+          color: Colors.white,
+          size: 20.0,
+        ),
       ),
       title: Text(
         "About Phone",
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
       ),
-      subtitle:
-      Container(
+      subtitle: Container(
         height: 40.0,
-        child:  Column(
+        child: Column(
           children: <Widget>[
             SizedBox(
               height: 8.0,
@@ -118,17 +128,21 @@ class _AppSettingsState extends State<AppSettingsPage> {
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: Text("Phone info, version, build number", style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                  child: Text("Phone info, version, build number",
+                      style: TextStyle(color: Colors.white, fontSize: 12.0)),
                 ),
               ],
             ),
           ],
         ),
       ),
-      trailing: Icon(Icons.arrow_forward_ios, size: 15.0, color: Color.fromRGBO(237, 237, 237, 1.0),),
-      onTap: (){
-        var route = MaterialPageRoute(
-            builder: (context) => AboutPhone());
+      trailing: Icon(
+        Icons.arrow_forward_ios,
+        size: 15.0,
+        color: Color.fromRGBO(237, 237, 237, 1.0),
+      ),
+      onTap: () {
+        var route = MaterialPageRoute(builder: (context) => AboutPhone());
         Navigator.push(context, route);
       },
     );
@@ -136,33 +150,29 @@ class _AppSettingsState extends State<AppSettingsPage> {
 
   Widget scaffold() {
     return Scaffold(
+        backgroundColor: primaryColor,
         appBar: appBar(),
         body: Container(
             child: Card(
-              elevation: 8.0,
-              margin: new EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 6.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: primaryDarkColor.withOpacity(0.9)
+          elevation: 8.0,
+          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Container(
+            decoration: BoxDecoration(color: primaryDarkColor.withOpacity(0.9)),
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: ClampingScrollPhysics(),
+              children: <Widget>[
+                makeListTile1(),
+                Container(
+                  color: primaryColor,
+                  height: 15.0,
                 ),
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    makeListTile1(),
-                    Container(
-                      color: primaryColor,
-                      height: 15.0,
-                    ),
-                    _listTile4()
-                  ],
-                ),
-              ),
-            )
-        )
-    );
+                _listTile4()
+              ],
+            ),
+          ),
+        )));
   }
 
 //  Used to save value to shared preference of wi-fi switch
@@ -178,8 +188,8 @@ class _AppSettingsState extends State<AppSettingsPage> {
     setState(() {
       boolValue = prefs.getBool('boolValue');
     });
-
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -188,22 +198,21 @@ class _AppSettingsState extends State<AppSettingsPage> {
 
 //    Used to check connection status of use device
     connectivity = new Connectivity();
-    subscription = connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+    subscription =
+        connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
       _connectionStatus = result.toString();
       print(_connectionStatus);
 
       checkConnectionStatus = result.toString();
       if (result == ConnectivityResult.wifi) {
         setState(() {
-          _connectionStatus='Wi-Fi';
+          _connectionStatus = 'Wi-Fi';
         });
-
-      }else if( result == ConnectivityResult.mobile){
+      } else if (result == ConnectivityResult.mobile) {
         setState(() {
-          _connectionStatus='Mobile';
+          _connectionStatus = 'Mobile';
         });
-      }
-      else if( result == ConnectivityResult.none){
+      } else if (result == ConnectivityResult.none) {
         var router = new MaterialPageRoute(
             builder: (BuildContext context) => new NoNetwork());
         Navigator.of(context).push(router);
@@ -213,10 +222,9 @@ class _AppSettingsState extends State<AppSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(boolValue == null){
+    if (boolValue == null) {
       boolValue = false;
     }
     return scaffold();
   }
 }
-

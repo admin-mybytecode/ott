@@ -194,7 +194,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                 onTap: () {},
                 child: Text(
                   "${game.name}",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -223,7 +223,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                 onTap: () {},
                 child: Text(
                   "$genres",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -426,7 +426,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                 : Text(
                     ls[position].cComment,
                     style: TextStyle(
-                        fontSize: 12.0, color: whiteColor.withOpacity(0.6)),
+                        fontSize: 12.0, color: textColor.withOpacity(0.6)),
                   ),
           ],
         ),
@@ -482,7 +482,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                 onTap: () {},
                 child: Text(
                   game.datatype == "M" ? "$aLangFinalM" : "$aLangFinalS",
-                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 13.0),
                 ),
               ),
             ),
@@ -500,7 +500,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
           children: <Widget>[
             Text(
               "About",
-              style: TextStyle(color: Colors.white, fontSize: 16.0),
+              style: TextStyle(color: textColor, fontSize: 16.0),
             ),
             Container(
               height: 8.0,
@@ -532,7 +532,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
           ],
         ),
       ),
-      color: Color.fromRGBO(45, 45, 45, 1.0),
+      color: primaryColor,
     );
   }
 
@@ -792,7 +792,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                     : Icon(
                         Icons.add,
                         size: 30.0,
-                        color: Colors.white,
+                        color: primaryDarkColor,
                       ),
                 new Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
@@ -800,13 +800,12 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                 new Text(
                   "My List",
                   style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.0,
-                      color: Colors.white
-                      // color: Colors.white
-                      ),
+                    fontFamily: 'Lato',
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.0,
+                    color: textColor,
+                  ),
                 ),
               ],
             ),
@@ -824,7 +823,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
               delegate:
                   SliverChildBuilderDelegate((BuildContext context, int j) {
             return new Container(
-              color: Color.fromRGBO(34, 34, 34, 1.0),
+              color: primaryColor,
               child: Column(
                 children: <Widget>[
                   new VideoDetailHeader(widget.game),
@@ -865,8 +864,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                       });
                     },
                     indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide(
-                          color: Color.fromRGBO(125, 183, 91, 1.0), width: 2.5),
+                      borderSide: BorderSide(color: redPrime, width: 2.5),
                       insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 46.0),
                     ),
                     indicatorColor: Colors.orangeAccent,
@@ -880,7 +878,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
                     ]),
               ],
             ),
-            backgroundColor: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(1.0),
+            backgroundColor: primaryColor,
             pinned: true,
             floating: true,
             forceElevated: innerBoxIsScrolled,
@@ -894,6 +892,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
           physics: ClampingScrollPhysics(),
           children: <Widget>[
             Container(
+              color: primaryColor,
               height: 300.0,
               child: GridView.count(
                 shrinkWrap: true,
@@ -1871,7 +1870,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
           ],
         ),
       ),
-      color: Color.fromRGBO(34, 34, 34, 1.0),
+      color: primaryColor,
     );
   }
 

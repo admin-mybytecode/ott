@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 import 'package:nexthour/model/video_data.dart';
 
 class VideoBoxItem extends StatelessWidget {
@@ -14,6 +15,7 @@ class VideoBoxItem extends StatelessWidget {
   Widget build(BuildContext context) {
 //    print('image url test ${game.box}');
     return Material(
+      color: primaryColor,
       borderRadius: new BorderRadius.circular(8.0),
       child: new ClipRRect(
         borderRadius: new BorderRadius.circular(8.0),
