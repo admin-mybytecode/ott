@@ -115,6 +115,7 @@ class MyListPageState extends State<MyListPage> {
 //  Sliver app bar
   Widget sliverAppBar() {
     return SliverAppBar(
+      elevation: 0.0,
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () {

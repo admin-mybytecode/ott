@@ -25,7 +25,7 @@ void main() async {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: primaryColor,
-        accentColor: Color.fromRGBO(125, 183, 91, 1.0),
+        accentColor: redPrime,
       ),
     ),
   );

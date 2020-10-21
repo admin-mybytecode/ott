@@ -144,7 +144,7 @@ class SelectPaymentState extends State<SelectPayment>
         padding: EdgeInsets.only(left: 0.0),
         child: Icon(
           Icons.keyboard_arrow_right,
-          color: Colors.white70,
+          color: redPrime,
         ),
       ),
     );
@@ -156,7 +156,7 @@ class SelectPaymentState extends State<SelectPayment>
       padding: EdgeInsets.only(left: 10.0),
       child: Icon(
         Icons.card_giftcard,
-        color: Color.fromRGBO(125, 183, 91, 1.0),
+        color: redPrime,
       ),
     );
   }
@@ -208,7 +208,7 @@ class SelectPaymentState extends State<SelectPayment>
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: primaryDarkColor.withOpacity(1.0),
+        backgroundColor: primaryColor.withOpacity(1.0),
         pinned: true,
         floating: true,
       ),
@@ -251,9 +251,7 @@ class SelectPaymentState extends State<SelectPayment>
           child: Text(
             'Select Payment',
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w800),
+                color: textColor, fontSize: 18.0, fontWeight: FontWeight.w800),
           ),
         ),
       ],
@@ -280,7 +278,7 @@ class SelectPaymentState extends State<SelectPayment>
                   Text(
                     "${plan_details[indexPer]['name']}",
                     style: TextStyle(
-                        color: Color.fromRGBO(72, 163, 198, 1.0),
+                        color: textColor,
                         fontSize: 14.0,
                         fontWeight: FontWeight.w600),
                   ),
@@ -290,7 +288,7 @@ class SelectPaymentState extends State<SelectPayment>
                   Text(
                     name,
                     style: TextStyle(
-                        color: Colors.white, fontSize: 12.0, height: 1.3),
+                        color: textColor, fontSize: 12.0, height: 1.3),
                   ),
                 ],
               )),
@@ -311,16 +309,14 @@ class SelectPaymentState extends State<SelectPayment>
               'Min duration ' +
                   '${plan_details[indexPer]['interval_count']}' +
                   ' days',
-              style:
-                  TextStyle(color: Colors.white, fontSize: 12.0, height: 1.3),
+              style: TextStyle(color: textColor, fontSize: 12.0, height: 1.3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0),
             ),
             Text(
               new DateFormat.yMMMd().format(new DateTime.now()),
-              style:
-                  TextStyle(color: Colors.white70, fontSize: 12.0, height: 1.5),
+              style: TextStyle(color: textColor, fontSize: 12.0, height: 1.5),
             ),
           ],
         ));
@@ -389,7 +385,7 @@ class SelectPaymentState extends State<SelectPayment>
               "${plan_details[indexPer]['amount']}" +
                   " ${plan_details[indexPer]['currency']}".toUpperCase(),
               style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.w600),
             ),
@@ -402,7 +398,7 @@ class SelectPaymentState extends State<SelectPayment>
               '( $dailyAmountAp' +
                   ' ${plan_details[indexPer]['currency']} / ${plan_details[indexPer]['interval']} )',
               style: TextStyle(
-                  color: Colors.white,
+                  color: textColor,
                   fontSize: 10.0,
                   letterSpacing: 0.8,
                   height: 1.3,
@@ -850,7 +846,7 @@ class SelectPaymentState extends State<SelectPayment>
                       Container(
                         margin: EdgeInsets.only(top: 60.0),
                         decoration: BoxDecoration(
-                          color: primaryDarkColor,
+                          color: primaryColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20.0),
                               topRight: Radius.circular(20.0)),
@@ -916,13 +912,20 @@ class SelectPaymentState extends State<SelectPayment>
                                                                 left: 10.0),
                                                         child: isCoupanApplied
                                                             ? Text(
-                                                                "Apply Coupon")
+                                                                "Apply Coupon",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        textColor),
+                                                              )
                                                             : Text(
                                                                 _coupanController
                                                                     .text,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .left,
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        textColor),
                                                               ))
                                                   ],
                                                 ),
@@ -975,7 +978,7 @@ class SelectPaymentState extends State<SelectPayment>
                                                         color:
                                                             validCoupon == true
                                                                 ? redPrime
-                                                                : Colors.red,
+                                                                : Colors.grey,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.7),
                                                   ),
@@ -1034,7 +1037,10 @@ class SelectPaymentState extends State<SelectPayment>
   Widget _nestedScrollViewBody() {
     return listPaymentGateways.length == 0
         ? Center(
-            child: Text("No payment method available"),
+            child: Text(
+              "No payment method available",
+              style: TextStyle(color: textColor),
+            ),
           )
         : TabBarView(
             controller: _paymentTabController,
@@ -1088,6 +1094,7 @@ class SelectPaymentState extends State<SelectPayment>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     AlertDialog(
+                      backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(20.0))),
@@ -1099,8 +1106,11 @@ class SelectPaymentState extends State<SelectPayment>
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: TextFormField(
+                                style: TextStyle(color: textColor),
                                 controller: _coupanController,
                                 decoration: InputDecoration(
+                                  focusColor: textColor,
+                                  hintStyle: TextStyle(color: textColor),
                                   hintText: "Enter Coupon Code",
                                   errorText: _validate ? "Enter Coupon" : null,
                                 ),
@@ -1119,7 +1129,11 @@ class SelectPaymentState extends State<SelectPayment>
                               child: isDataAvailable
                                   ? CircularProgressIndicator()
                                   : RaisedButton(
-                                      child: Text("Apply"),
+                                      color: redPrime,
+                                      child: Text(
+                                        "Apply",
+                                        style: TextStyle(color: textColor),
+                                      ),
                                       onPressed: () {
                                         final form = _formKey.currentState;
                                         form.save();
@@ -1140,7 +1154,7 @@ class SelectPaymentState extends State<SelectPayment>
                       height: 10.0,
                     ),
                     FloatingActionButton(
-                      backgroundColor: Colors.white,
+                      backgroundColor: primaryColor,
                       child: Icon(
                         Icons.clear,
                         color: Colors.black87,
@@ -1204,6 +1218,7 @@ class SelectPaymentState extends State<SelectPayment>
           child: DefaultTabController(
             length: 2,
             child: Scaffold(
+              backgroundColor: primaryColor,
               key: _scaffoldKey,
               body: _scaffoldBody(dailyAmountAp, afterDiscountAmount),
             ),

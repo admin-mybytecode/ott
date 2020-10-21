@@ -12,7 +12,6 @@ class AboutPhone extends StatefulWidget {
 }
 
 class _AboutPhoneState extends State<AboutPhone> {
-
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   Map<String, dynamic> _deviceData = <String, dynamic>{};
 
@@ -85,6 +84,7 @@ class _AboutPhoneState extends State<AboutPhone> {
       'utsname.machine:': data.utsname.machine,
     };
   }
+
   @override
   void initState() {
     super.initState();
@@ -94,12 +94,15 @@ class _AboutPhoneState extends State<AboutPhone> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
-        title: Text("Device Info",style: TextStyle(fontSize: 16.0),),
+        elevation: 0.0,
+        title: Text(
+          "Device Info",
+          style: TextStyle(fontSize: 16.0),
+        ),
         centerTitle: true,
-
-        backgroundColor:
-        primaryColor.withOpacity(0.98),
+        backgroundColor: primaryColor.withOpacity(0.98),
       ),
       body: ListView(
         shrinkWrap: true,
@@ -115,9 +118,10 @@ class _AboutPhoneState extends State<AboutPhone> {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         property,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.0,
                         ),
                       ),
                     ),
@@ -125,19 +129,19 @@ class _AboutPhoneState extends State<AboutPhone> {
                   Expanded(
                       flex: 1,
                       child: Container(
-                        padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                         child: Text(
                           '${_deviceData[property]}',
-                          style: TextStyle(color: Colors.white.withOpacity(0.5)),
+                          style: TextStyle(color: textColor.withOpacity(0.5)),
                           overflow: TextOverflow.ellipsis,
                         ),
-                      )
-                  ),
+                      )),
                 ],
               ),
               Container(
                 height: 0.3,
-                color: Colors.white.withOpacity(0.2),
+                color: primaryColor.withOpacity(0.2),
               )
             ],
           );

@@ -784,17 +784,14 @@ class CustomDrawerState extends State<CustomDrawer> {
                     child: Row(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8.0,
-                            horizontal: 20.0,
-                          ),
+                          padding: EdgeInsets.fromLTRB(30, 10, 90, 10),
                           child: Text(
                             "Account",
                             style: TextStyle(fontSize: 35, color: textColor),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 100.0),
+                        Expanded(
+                          flex: 2,
                           child: signOut(),
                         ),
                       ],

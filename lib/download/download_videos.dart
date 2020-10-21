@@ -142,7 +142,6 @@ class _OfflineDownloadPageState extends State<OfflineDownloadPage>
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),
         child: FloatingActionButton(
-            backgroundColor: primaryDarkColor,
             child: Icon(
               Icons.refresh,
               color: primaryColor,

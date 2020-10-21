@@ -84,7 +84,11 @@ class _AppSettingsState extends State<AppSettingsPage> {
   }
 
   Widget wifiSwitch() {
-    return Switch(value: boolValue, onChanged: _onChanged1);
+    return Switch(
+      activeColor: redPrime,
+      value: boolValue,
+      onChanged: _onChanged1,
+    );
   }
 
 //    Widget used to create ListTile to show wi-fi status

@@ -109,13 +109,13 @@ class SubscriptionPlanState extends State<SubscriptionPlan> {
 
 //  App bar
   Widget appBar() => AppBar(
+        backgroundColor: primaryColor,
         elevation: 0.0,
         title: Text(
           "Subscription Plans",
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(fontSize: 16.0, color: textColor),
         ),
         centerTitle: true,
-        backgroundColor: primaryColor.withOpacity(0.98),
       );
 
 //  Subscribe button
