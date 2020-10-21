@@ -789,9 +789,10 @@ class _LoadingScreenState extends State<LoadingScreen>
           : AnimatedOpacity(
               opacity: _visible2 == true ? 1.0 : 0.0,
               duration: Duration(milliseconds: 1000),
-              child: new Image.network(
-                '${APIData.logoImageUri}${loginConfigData['logo']}',
-                scale: 0.9,
+              child: new FadeInImage.assetNetwork(
+                image: '${APIData.logoImageUri}${loginConfigData['logo']}',
+                placeholder: 'assets/placeholder_box.jpg',
+                imageScale: 0.9,
               ),
             ),
     );

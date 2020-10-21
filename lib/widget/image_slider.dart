@@ -213,24 +213,27 @@ class ImageSlider extends StatelessWidget {
                 return null;
               });
               showsMoviesList.removeWhere((value) => value == null);
-              return InkWell(
-                  onTap: () {
-                    print(showsMoviesList[index].id);
-                    var router = new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            DetailedViewPage(showsMoviesList[index]));
-                    Navigator.of(context).push(router);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0.0, bottom: 0.0, left: 5.0, right: 5.0),
-                    child: new Image.network(
-                      "${APIData.silderImageUri}" +
-                          "movies/" +
-                          "${sliderData[index]['slide_image']}",
-                      fit: BoxFit.cover,
-                    ),
-                  ));
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: InkWell(
+                      onTap: () {
+                        print(showsMoviesList[index].id);
+                        var router = new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DetailedViewPage(showsMoviesList[index]));
+                        Navigator.of(context).push(router);
+                      },
+                      child: new FadeInImage.assetNetwork(
+                        image: "${APIData.silderImageUri}" +
+                            "movies/" +
+                            "${sliderData[index]['slide_image']}",
+                        fit: BoxFit.cover,
+                        placeholder: 'assets/placeholder_cover.jpg',
+                      )),
+                ),
+              );
             }
           }
         }

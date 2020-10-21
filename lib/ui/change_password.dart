@@ -30,18 +30,19 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   Widget appBar() {
     return AppBar(
+      elevation: 0.0,
       title: Text(
         "Change Password",
         style: TextStyle(
-            fontWeight: FontWeight.w600, fontSize: 16.0, color: whiteColor),
+            fontWeight: FontWeight.w600, fontSize: 16.0, color: textColor),
       ),
       centerTitle: true,
       leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: whiteColor),
+          icon: Icon(Icons.arrow_back, color: primaryDarkColor),
           onPressed: () {
             Navigator.pop(context);
           }),
-      backgroundColor: Color.fromRGBO(20, 20, 20, 1.0),
+      backgroundColor: primaryColor,
     );
   }
 
@@ -71,6 +72,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     return TextFormField(
       controller: _editNewPasswordController,
       keyboardType: TextInputType.text,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
@@ -81,13 +83,22 @@ class _ChangePasswordState extends State<ChangePassword> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         contentPadding: EdgeInsets.all(5.0),
-        prefixIcon: Icon(Icons.lock_outline),
+        prefixIcon: Icon(
+          Icons.lock_outline,
+          color: primaryDarkColor,
+        ),
         suffixIcon: hintText == "New Password"
             ? IconButton(
                 onPressed: _toggleVisibility2,
                 icon: _isNewHidden
-                    ? Icon(Icons.visibility_off)
-                    : Icon(Icons.visibility),
+                    ? Icon(
+                        Icons.visibility_off,
+                        color: primaryDarkColor,
+                      )
+                    : Icon(
+                        Icons.visibility,
+                        color: primaryDarkColor,
+                      ),
               )
             : null,
       ),
@@ -112,6 +123,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     return TextFormField(
       controller: _editNewConfirmPasswordController,
       keyboardType: TextInputType.text,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
@@ -122,13 +134,22 @@ class _ChangePasswordState extends State<ChangePassword> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         contentPadding: EdgeInsets.all(5.0),
-        prefixIcon: Icon(Icons.lock),
+        prefixIcon: Icon(
+          Icons.lock,
+          color: primaryDarkColor,
+        ),
         suffixIcon: hintText == "Confirm New Password"
             ? IconButton(
                 onPressed: _toggleVisibility3,
                 icon: _isConfirmNewHidden
-                    ? Icon(Icons.visibility_off)
-                    : Icon(Icons.visibility),
+                    ? Icon(
+                        Icons.visibility_off,
+                        color: primaryDarkColor,
+                      )
+                    : Icon(
+                        Icons.visibility,
+                        color: primaryDarkColor,
+                      ),
               )
             : null,
       ),
@@ -203,10 +224,10 @@ class _ChangePasswordState extends State<ChangePassword> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
-              Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
-              Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
-              Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
+              redPrime.withOpacity(0.4),
+              redPrime.withOpacity(0.5),
+              redPrime.withOpacity(0.6),
+              redPrime.withOpacity(0.7),
             ],
           ),
           boxShadow: <BoxShadow>[
@@ -355,8 +376,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         data: ThemeData(
           primaryColor: redPrime,
           primaryColorDark: redPrime,
-          scaffoldBackgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
-          backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
+          scaffoldBackgroundColor: primaryColor,
           brightness: Brightness.dark,
           accentColor: redPrime,
           canvasColor: redPrime,

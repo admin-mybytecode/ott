@@ -196,20 +196,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Widget appbar() {
     return AppBar(
+      elevation: 0.0,
       title: Text(
         "Edit Profile",
-        style: TextStyle(fontSize: 16.0, color: whiteColor),
+        style: TextStyle(fontSize: 16.0, color: textColor),
       ),
       centerTitle: true,
       leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: whiteColor,
+            color: primaryDarkColor,
           ),
           onPressed: () {
             Navigator.pop(context);
           }),
-      backgroundColor: primaryDarkColor,
+      backgroundColor: primaryColor,
     );
   }
 
@@ -254,9 +255,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Theme(
         data: ThemeData(
           primaryColor: redPrime,
-          primaryColorDark: redPrime,
-          scaffoldBackgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
-          backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
+          primaryColorDark: primaryDarkColor,
+          scaffoldBackgroundColor: primaryColor,
           brightness: Brightness.dark,
           accentColor: redPrime,
           canvasColor: redPrime,
@@ -298,6 +298,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       child: IconButton(
         icon: Icon(Icons.add_a_photo),
+        color: primaryDarkColor,
         onPressed: _onButtonPressed,
       ),
     );
@@ -344,6 +345,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return TextFormField(
       controller: _editNameController,
       keyboardType: TextInputType.text,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(5.0),
         hintText: hintText,
@@ -354,7 +356,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        prefixIcon: Icon(Icons.account_box),
+        prefixIcon: Icon(
+          Icons.account_box,
+          color: primaryDarkColor,
+        ),
       ),
       validator: (val) {
         if (val.length == 0) {
@@ -377,6 +382,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       controller: _editDOBController,
       focusNode: AlwaysDisabledFocusNode(),
       onTap: _selectDate,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(5.0),
         hintText: hintText,
@@ -387,7 +393,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        prefixIcon: Icon(Icons.calendar_today),
+        prefixIcon: Icon(
+          Icons.calendar_today,
+          color: primaryDarkColor,
+        ),
       ),
     );
   }
@@ -397,6 +406,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return TextField(
       controller: _editMobileController,
       keyboardType: TextInputType.phone,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(5.0),
         hintText: hintText,
@@ -407,7 +417,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        prefixIcon: Icon(Icons.phone),
+        prefixIcon: Icon(
+          Icons.phone,
+          color: primaryDarkColor,
+        ),
       ),
     );
   }
@@ -451,7 +464,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               : Text(
                   "Update Profile",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: textColor,
                     fontSize: 18.0,
                   ),
                 ),

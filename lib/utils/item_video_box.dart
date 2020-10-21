@@ -19,8 +19,9 @@ class VideoBoxItem extends StatelessWidget {
       borderRadius: new BorderRadius.circular(8.0),
       child: new ClipRRect(
         borderRadius: new BorderRadius.circular(8.0),
-        child: new Image.network(
-          game.box,
+        child: new FadeInImage.assetNetwork(
+          image: game.box,
+          placeholder: 'assets/placeholder_box.jpg',
           height: 160.0,
           width: 110.0,
           fit: BoxFit.cover,

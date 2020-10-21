@@ -871,9 +871,10 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     var screenWidth = MediaQuery.of(context).size.width;
 
     return new DiagonallyCutColoredImage(
-      new Image.network(
-        widget.game.cover,
+      FadeInImage.assetNetwork(
+        image: widget.game.cover,
         width: screenWidth,
+        placeholder: 'assets/placeholder_cover.jpg',
         height: 260.0,
         fit: BoxFit.cover,
       ),

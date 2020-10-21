@@ -34,7 +34,7 @@ class IntroScreenState extends State<IntroScreen> {
               fontFamily: 'RobotoMono'),
           description: "${homeDataBlocks[i]['detail']}",
           styleDescription: TextStyle(
-              color: textColor.withOpacity(0.7),
+              color: Colors.grey.withOpacity(0.8),
               fontSize: 16.0,
               fontStyle: FontStyle.normal,
               fontFamily: 'Raleway'),
