@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
@@ -15,7 +13,6 @@ import 'package:nexthour/widget/password_field.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:nexthour/utils/wavy_header_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 File jsonFile;
 Directory dir;
@@ -270,18 +267,31 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     ));
   }
 
-// Content of StickyHeader widget
-  Widget stickyHeaderContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        //signUpHeading(),
-        Container(
-          child: Image.network(APIData.logoImageUri + loginConfigData['logo']),
-        ),
-        Container(
-          child: Column(
-            children: <Widget>[
+// SignUp form
+  Widget signUpForm() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+      ),
+      child: Form(
+        onWillPop: () async {
+          return true;
+        },
+        key: formKey,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5.0,
+            sigmaY: 5.0,
+          ),
+          child: ListView(
+            padding: EdgeInsets.only(top: 80),
+            children: [
+              //stickyHeaderContent(),
+              Container(
+                child: Image.network(
+                    APIData.logoImageUri + loginConfigData['logo']),
+              ),
               SizedBox(
                 height: 30.0,
               ),
@@ -309,35 +319,11 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               ),
               Padding(padding: EdgeInsets.only(top: 30.0)),
               registerButtonTile(),
-              Padding(padding: EdgeInsets.only(bottom: 20.0)),
+              Padding(padding: EdgeInsets.only(bottom: 20.0))
             ],
           ),
-        )
-      ],
-    );
-  }
-
-// SignUp form
-  Widget signUpForm() {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+        ),
       ),
-      child: Form(
-          onWillPop: () async {
-            return true;
-          },
-          key: formKey,
-          child: ListView(
-            padding: EdgeInsets.only(top: 100),
-            children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                child: stickyHeaderContent(),
-              ),
-            ],
-          )),
     );
   }
 

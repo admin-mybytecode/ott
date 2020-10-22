@@ -83,7 +83,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
 //  User profile image
   Widget userProfileImage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       child: Container(
         height: 130.0,
         width: 130.0,
@@ -98,9 +98,10 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             Radius.circular(100.0),
           ),
           child: userImage != null
-              ? Image.network(
-                  "${APIData.profileImageUri}" + "$userImage",
-                  scale: 1.0,
+              ? FadeInImage.assetNetwork(
+                  image: "${APIData.profileImageUri}" + "$userImage",
+                  placeholder: 'assets/placeholder_box.jpg',
+                  imageScale: 1.0,
                   fit: BoxFit.cover,
                 )
               : Image.asset(
@@ -283,8 +284,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
   Widget userAccountStatus() {
     print(status);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
         children: <Widget>[
           accountStatusText(),
           //    Radial progress bar is used to show the remaining days of user subscription
@@ -296,38 +297,35 @@ class ManageProfileFormState extends State<ManageProfileForm> {
 
 //  User subscription end date
   Widget subExpiryDate() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          //    This shows subscription end date on manage profile page and also show status of user subscription.
-          Text(
-            expiryDate == '' ? '' : 'Subscription will end on',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 12.0,
-            ),
-            textAlign: TextAlign.right,
+    return Column(
+      children: <Widget>[
+        //    This shows subscription end date on manage profile page and also show status of user subscription.
+        Text(
+          expiryDate == '' ? '' : 'Subscription will end on',
+          style: TextStyle(
+            color: textColor,
+            fontSize: 12.0,
           ),
-          status == "1"
-              ? Text(
-                  expiryDate == '' ? sw : '${DateFormat.yMMMd().format(_date)}',
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.right,
-                )
-              : Text(
-                  sw,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.right,
-                )
-        ],
-      ),
+          textAlign: TextAlign.right,
+        ),
+        status == "1"
+            ? Text(
+                expiryDate == '' ? sw : '${DateFormat.yMMMd().format(_date)}',
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 12.0,
+                ),
+                textAlign: TextAlign.right,
+              )
+            : Text(
+                sw,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 12.0,
+                ),
+                textAlign: TextAlign.right,
+              )
+      ],
     );
   }
 
@@ -548,6 +546,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           children: <Widget>[
             Row(
               children: [
@@ -564,8 +563,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
               height: 30,
               color: redPrime,
               thickness: 2,
-              indent: 20,
-              endIndent: 20,
+              indent: 5,
+              endIndent: 5,
             ),
             dobAndMobile(),
             nameAndJoinedDateContainer(),
@@ -573,8 +572,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
               height: 30,
               color: redPrime,
               thickness: 2,
-              indent: 20,
-              endIndent: 20,
+              indent: 5,
+              endIndent: 5,
             ),
             roundedSeekBarContainer(),
           ],

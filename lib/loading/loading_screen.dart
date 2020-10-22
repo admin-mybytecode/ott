@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/download/download_videos.dart';
@@ -791,7 +790,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               duration: Duration(milliseconds: 1000),
               child: new FadeInImage.assetNetwork(
                 image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-                placeholder: 'assets/placeholder_box.jpg',
+                placeholder: 'assets/placeholder_box_dark.jpg',
                 imageScale: 0.9,
               ),
             ),
@@ -819,7 +818,7 @@ class _LoadingScreenState extends State<LoadingScreen>
         children: <Widget>[
           Container(
               decoration: BoxDecoration(
-            color: Color.fromRGBO(34, 34, 34, 1.0),
+            color: primaryDarkColor,
           )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

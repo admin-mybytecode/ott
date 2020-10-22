@@ -13,10 +13,12 @@ import 'package:nexthour/download/download_videos.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/page_home.dart';
 import 'package:nexthour/ui/custom_drawer.dart';
+import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
 import 'package:nexthour/ui/my_list.dart';
 import 'package:nexthour/ui/search.dart';
 import 'package:http/http.dart' as http;
+import 'package:nexthour/ui/store_page_dummy.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   BottomNavigationBarController({this.pageInd});
@@ -66,8 +68,8 @@ class _BottomNavigationBarControllerState
   static List<Widget> _widgetOptions = <Widget>[
     PageHome(),
     SearchResultList(),
-    MyListPage(),
-    OfflineDownloadPage(),
+    StorePage(),
+    DonationPage(),
     CustomDrawer()
   ];
 
@@ -133,11 +135,11 @@ class _BottomNavigationBarControllerState
                             BottomNavigationBarItem(
                                 label: "Search", icon: Icon(Icons.search)),
                             BottomNavigationBarItem(
-                                label: "Wishlist",
-                                icon: Icon(Icons.favorite_border)),
+                                label: "Store",
+                                icon: Icon(Icons.store_outlined)),
                             BottomNavigationBarItem(
-                                label: "Download",
-                                icon: Icon(Icons.file_download)),
+                                label: "Donation",
+                                icon: Icon(Icons.money_rounded)),
                             BottomNavigationBarItem(
                               label: 'Menu',
                               icon: Icon(Icons.menu),

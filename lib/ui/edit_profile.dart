@@ -12,7 +12,6 @@ import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
 import 'package:dio/dio.dart';
 import 'package:nexthour/loading/loading_screen.dart';
-import 'package:http/http.dart' as http;
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -187,7 +186,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
       // ignore: unrelated_type_equality_checks
       String formattedDate =
-          _dateTime != '' ? DateFormat.yMMMd().format(_dateTime) : '';
+          "_dateTime" != '' ? DateFormat.yMMMd().format(_dateTime) : '';
       pickedDate = formattedDate;
     }
   }
@@ -442,10 +441,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
-              Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
-              Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
-              Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
+              redPrime.withOpacity(0.7),
+              redPrime.withOpacity(0.6),
+              redPrime.withOpacity(0.5),
+              redPrime.withOpacity(0.4),
             ],
           ),
           boxShadow: <BoxShadow>[

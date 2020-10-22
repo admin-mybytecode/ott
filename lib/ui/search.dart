@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/controller/navigation_bar_controller.dart';
@@ -139,28 +140,36 @@ class _SearchResultState extends State<SearchResultList> {
         horizontal: 15.0,
       ),
       child: InkWell(
-        child: Stack(
+        child: ListView(
           children: <Widget>[
             Padding(
-                padding: EdgeInsets.all(10.0),
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Find what to watch next.",
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
-                    ),
-                    new Padding(padding: EdgeInsets.only(top: 10.0)),
-                    Text(
-                      "Search for shows for the commute, movies to help unwind, or your go-to genres.",
-                      style: TextStyle(fontSize: 14.0, color: textColor),
-                      textAlign: TextAlign.left,
-                    )
-                  ],
-                )),
+              padding: EdgeInsets.all(10.0),
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Find what to watch next.",
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  ),
+                  new Padding(padding: EdgeInsets.only(top: 10.0)),
+                  Text(
+                    "Search for shows for the commute, movies to help unwind, or your go-to genres.",
+                    style: TextStyle(fontSize: 14.0, color: textColor),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 30,
+              color: redPrime,
+              thickness: 2,
+              indent: 5,
+              endIndent: 5,
+            ),
           ],
         ),
       ),
@@ -226,6 +235,10 @@ class _SearchResultState extends State<SearchResultList> {
       ],
     );
   }
+
+  // Widget gridView(genreList) {
+  //   return ListView.builder(itemBuilder: ,);
+  // }
 
 // List container
   Widget listContainer(index) {

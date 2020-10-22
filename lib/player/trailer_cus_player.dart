@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:http/http.dart' as http;
 import '../custom_player/src/chewie_player.dart';
 import '../custom_player/src/chewie_progress_colors.dart';
 import '../global.dart';

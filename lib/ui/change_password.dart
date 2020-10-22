@@ -224,10 +224,10 @@ class _ChangePasswordState extends State<ChangePassword> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
-              redPrime.withOpacity(0.4),
-              redPrime.withOpacity(0.5),
-              redPrime.withOpacity(0.6),
               redPrime.withOpacity(0.7),
+              redPrime.withOpacity(0.6),
+              redPrime.withOpacity(0.5),
+              redPrime.withOpacity(0.4),
             ],
           ),
           boxShadow: <BoxShadow>[

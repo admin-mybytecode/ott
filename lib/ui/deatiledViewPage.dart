@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -1948,41 +1947,6 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                     width: 0.0,
                   ),
             genresDetailsContainer(widget.game, genres),
-//              Container(
-//                color: primaryDarkColor,
-//                height: 8.0,
-//              ),
-//              Padding(
-//                padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 15.0),
-//                child: Column(
-//                  crossAxisAlignment: CrossAxisAlignment.start,
-//                  mainAxisAlignment: MainAxisAlignment.start,
-//                  children: <Widget>[
-//                    Row(
-//                      crossAxisAlignment: CrossAxisAlignment.center,
-//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                      children: <Widget>[
-//                        Text("Comments", textAlign: TextAlign.center,
-//                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-//                        ),
-//                        ButtonTheme(
-//                          minWidth: 60.0,
-//                          height: 25.0,
-//                          child: RaisedButton(
-//                              elevation: 10.0,
-//                              color: greenPrime,
-//                              padding: EdgeInsets.only(left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
-//                              child: Text("Add"),
-//                              onPressed: (){
-//                                addComment(context);
-//                              }),
-//                        ),
-//                      ],
-//                    ),
-//                    comments(),
-//                  ],
-//                ),
-//              )
           ],
         ),
       ),

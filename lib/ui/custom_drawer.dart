@@ -143,21 +143,22 @@ class CustomDrawerState extends State<CustomDrawer> {
 
   Widget profileImage(width) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(right: 15.0),
+            padding: const EdgeInsets.only(right: 0.0),
             child: Container(
               height: 80.0,
               width: 80.0,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(100.0)),
                 child: userImage != null
-                    ? Image.network(
-                        "${APIData.profileImageUri}" + "$userImage",
-                        scale: 1.7,
+                    ? FadeInImage.assetNetwork(
+                        image: "${APIData.profileImageUri}" + "$userImage",
+                        placeholder: 'assets/placeholder_box.jpg',
+                        imageScale: 1.7,
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
@@ -194,7 +195,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.person, size: 20, color: textColor),
+                      Icon(Icons.edit, size: 20, color: textColor),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -222,7 +223,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     return Container(
         color: primaryColor,
         width: width,
-        height: 110,
+        height: 100,
         child: DrawerHeader(
           margin: EdgeInsets.fromLTRB(0, 0.0, 0, 0),
           padding: EdgeInsets.all(0.0),
@@ -654,18 +655,22 @@ class CustomDrawerState extends State<CustomDrawer> {
           _signOutDialog();
         },
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Icon(Icons.logout, size: 20, color: primaryDarkColor),
             ),
-            Text(
-              "Sign Out",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  color: textColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400),
+            Padding(
+              padding: const EdgeInsets.only(right: 30.0),
+              child: Text(
+                "Sign Out",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: textColor,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
           ],
         ));
@@ -728,6 +733,7 @@ class CustomDrawerState extends State<CustomDrawer> {
   Widget drawerBodyContainer(height2) {
     return SingleChildScrollView(
       child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
         color: primaryColor,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -778,13 +784,14 @@ class CustomDrawerState extends State<CustomDrawer> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Card(
+                    elevation: 6.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     color: primaryColor,
                     child: Row(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.fromLTRB(30, 10, 90, 10),
+                          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                           child: Text(
                             "Account",
                             style: TextStyle(fontSize: 35, color: textColor),

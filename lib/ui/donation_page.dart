@@ -8,33 +8,35 @@ class DonationPage extends StatefulWidget {
 }
 
 class _DonationPageState extends State<DonationPage> {
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Donate", style: TextStyle(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w600,
-        color: whiteColor,
-      ),
+      elevation: 0.0,
+      title: Text(
+        "Donate",
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: textColor,
+        ),
       ),
       centerTitle: true,
       backgroundColor: primaryColor,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-        body: Container(
-//          width: width,
-//          height: height,
-          child: WebView(
-            initialUrl: '$donationUrl',
-            javascriptMode: JavascriptMode.unrestricted,
+      body: Container(
+        child: WebView(
+          initialUrl: '$donationUrl',
+          javascriptMode: JavascriptMode.unrestricted,
 //            onWebViewCreated: (WebViewController webViewController) {
 //              _controller1 = webViewController;
 //            },
-          ),
-        )
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nexthour/global.dart';
 
 class EmailField extends StatelessWidget {
   EmailField(this._emailController);

@@ -23,7 +23,7 @@ void main() async {
       title: 'Next Hour',
       home: LoadingScreen(),
       theme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primaryColor: primaryColor,
         accentColor: redPrime,
       ),

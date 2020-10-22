@@ -32,7 +32,6 @@ import 'package:nexthour/widget/seasons_tab.dart';
 import 'package:nexthour/widget/share_page.dart';
 import 'package:nexthour/widget/tab_widget.dart';
 import 'package:nexthour/widget/watchlist_container.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../global.dart';
 
 var seasonId;
@@ -886,36 +885,39 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
           ),
         ];
       },
-      body: TabBarView(children: <Widget>[
-        new ListView(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            Container(
-              color: primaryColor,
-              height: 300.0,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                childAspectRatio: 1.5,
-                scrollDirection: Axis.horizontal,
-                children: List<Padding>.generate(
-                    moreLikeThis == null ? 0 : moreLikeThis.length,
-                    (int index) {
-                  return new Padding(
-                    padding:
-                        EdgeInsets.only(right: 2.5, left: 2.5, bottom: 5.0),
-                    child: moreLikeThis[index] == null
-                        ? Container()
-                        : tapOnMoreLike(moreLikeThis, index),
-                  );
-                }),
-              ),
-            )
-          ],
-        ),
-        MoreDetails()
-      ]));
+      body: Container(
+        color: primaryColor,
+        child: TabBarView(children: <Widget>[
+          new ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            children: <Widget>[
+              Container(
+                color: primaryColor,
+                height: 300.0,
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                  scrollDirection: Axis.horizontal,
+                  children: List<Padding>.generate(
+                      moreLikeThis == null ? 0 : moreLikeThis.length,
+                      (int index) {
+                    return new Padding(
+                      padding:
+                          EdgeInsets.only(right: 2.5, left: 2.5, bottom: 5.0),
+                      child: moreLikeThis[index] == null
+                          ? Container()
+                          : tapOnMoreLike(moreLikeThis, index),
+                    );
+                  }),
+                ),
+              )
+            ],
+          ),
+          MoreDetails()
+        ]),
+      ));
 
 //  Tab bar for seasons page and episodes and more details tabs
   Widget tabBar() {
@@ -932,7 +934,7 @@ class _VideoGenreDetailsPageState extends State<VideoGenreDetailsPage>
         indicatorColor: Colors.orangeAccent,
         indicatorSize: TabBarIndicatorSize.tab,
         indicatorWeight: 3.0,
-        unselectedLabelColor: Color.fromRGBO(95, 95, 95, 1.0),
+        unselectedLabelColor: primaryColor,
         tabs: [
           TabWidget('EPISODES'),
           TabWidget('MORE DETAILS'),

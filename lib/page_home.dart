@@ -85,7 +85,7 @@ class _PageHomeState extends State<PageHome>
         elevation: 10.0,
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Card(
               shape: RoundedRectangleBorder(
@@ -93,7 +93,7 @@ class _PageHomeState extends State<PageHome>
               color: whiteColor.withOpacity(0.3),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
                 child: logoImage(),
               ),
             ),

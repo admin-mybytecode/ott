@@ -29,20 +29,23 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
   var razorResponse;
   var msgResponse;
   var razorSubscriptionResponse;
-  String createdDatePaystack ='';
+  String createdDatePaystack = '';
   String createdTimePaystack = '';
   var ind;
 //  int price=plan_details[widget.index]['amount'];
 
-  Widget appBar(){
+  Widget appBar() {
     return AppBar(
-      title: Text("Razorpay Payment", style: TextStyle(fontSize: 16.0),),
+      title: Text(
+        "Razorpay Payment",
+        style: TextStyle(fontSize: 16.0),
+      ),
       centerTitle: true,
       backgroundColor: primaryDarkColor.withOpacity(0.98),
     );
   }
 
-  Widget makeListTile1(){
+  Widget makeListTile1() {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
@@ -50,20 +53,23 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
         decoration: new BoxDecoration(
             border: new Border(
                 right: new BorderSide(width: 1.0, color: Colors.white24))),
-        child: Icon(FontAwesomeIcons.sortAmountDownAlt, color: Colors.white, size: 20.0,),
+        child: Icon(
+          FontAwesomeIcons.sortAmountDownAlt,
+          color: Colors.white,
+          size: 20.0,
+        ),
       ),
-      title: Padding(padding: EdgeInsets.only(top: 10.0),
+      title: Padding(
+        padding: EdgeInsets.only(top: 10.0),
         child: Text(
           '${plan_details[widget.index]['name']}',
-
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
         ),
-
       ),
-      subtitle:
-      Container(
+      subtitle: Container(
         height: 40.0,
-        child:  Column(
+        child: Column(
           children: <Widget>[
             SizedBox(
               height: 8.0,
@@ -72,43 +78,50 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
               children: <Widget>[
                 Expanded(
                   flex: 1,
-                  child: Text('Min duration '+ '${plan_details[widget.index]['interval_count']}'+' days', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                  child: Text(
+                      'Min duration ' +
+                          '${plan_details[widget.index]['interval_count']}' +
+                          ' days',
+                      style: TextStyle(color: Colors.white, fontSize: 12.0)),
                 ),
               ],
             ),
           ],
         ),
       ),
-      trailing:
-      Column(
-          children:<Widget>[
-            Text("Amount: "+'\n' +
-                '${plan_details[widget.index]['amount']} ' + '${plan_details[widget.index]['currency']}'),
-          ]
-      ),
+      trailing: Column(children: <Widget>[
+        Text("Amount: " +
+            '\n' +
+            '${plan_details[widget.index]['amount']} ' +
+            '${plan_details[widget.index]['currency']}'),
+      ]),
     );
   }
 
-  Widget razorLogoContainer(){
+  Widget razorLogoContainer() {
     return Container(
       decoration: BoxDecoration(
           color: primaryDarkColor.withOpacity(0.9),
-          borderRadius: BorderRadius.circular(10.0)
-      ),
+          borderRadius: BorderRadius.circular(10.0)),
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(50.0),
-            child: Image.asset("assets/razorlogo.png", scale: 1.0, width: 150.0,),
+          Padding(
+            padding: EdgeInsets.all(50.0),
+            child: Image.asset(
+              "assets/razorlogo.png",
+              scale: 1.0,
+              width: 150.0,
+            ),
           )
         ],
       ),
     );
   }
 
-  Widget paymentDetailsCard(){
+  Widget paymentDetailsCard() {
     return Card(
       elevation: 0.0,
       shape: RoundedRectangleBorder(
@@ -118,21 +131,18 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
       child: Container(
         decoration: BoxDecoration(
             color: primaryDarkColor.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(10.0)
-        ),
+            borderRadius: BorderRadius.circular(10.0)),
         child: ListView(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            makeListTile1()
-          ],
+          children: <Widget>[makeListTile1()],
         ),
       ),
     );
   }
 
-  Widget _body(){
+  Widget _body() {
     return Container(
       alignment: Alignment.center,
       child: Column(
@@ -150,16 +160,15 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
             margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
             child: razorLogoContainer(),
           ),
-
           SizedBox(
             height: 30.0,
           ),
           paymentDetailsCard(),
-
           SizedBox(
             height: 20.0,
           ),
-          Padding(padding: EdgeInsets.only(left: 15.0, right: 15.0),
+          Padding(
+            padding: EdgeInsets.only(left: 15.0, right: 15.0),
             child: payButtonRow(),
           )
         ],
@@ -167,7 +176,7 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
     );
   }
 
-  Widget payButtonRow(){
+  Widget payButtonRow() {
     return Row(
       children: <Widget>[
         Expanded(
@@ -176,11 +185,11 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            onPressed: (){
-              if(razorPayKey == null){
+            onPressed: () {
+              if (razorPayKey == null) {
                 Fluttertoast.showToast(msg: "Razorpay key not entered.");
                 return;
-              }else{
+              } else {
                 openCheckout();
               }
             },
@@ -197,7 +206,7 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    ind=widget.index;
+    ind = widget.index;
     return Scaffold(
       appBar: appBar(),
       body: _body(),
@@ -222,32 +231,34 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
     _razorpay.clear();
   }
 
-
   void openCheckout() async {
-  int price;
-  double cost;
-  dynamic amountdata=plan_details[widget.index]['amount'];
-  switch(amountdata.runtimeType){
-    case int:{
-      setState(() {
-        price=amountdata;
-      });
+    int price;
+    double cost;
+    dynamic amountdata = plan_details[widget.index]['amount'];
+    switch (amountdata.runtimeType) {
+      case int:
+        {
+          setState(() {
+            price = amountdata;
+          });
+        }
+        break;
+      case String:
+        {
+          setState(() {
+            cost = amountdata == null ? 0 : double.parse(amountdata);
+            price = cost.round();
+          });
+        }
+        break;
+      case double:
+        {
+          setState(() {
+            cost = amountdata == null ? 0 : amountdata;
+            price = cost.round();
+          });
+        }
     }
-    break;
-    case String:{
-      setState(() {
-        cost=amountdata==null ? 0 : double.parse(amountdata);
-        price=cost.round();
-      });
-    }
-    break;
-    case double:{
-      setState(() {
-        cost=amountdata==null ? 0 : amountdata;
-        price=cost.round();
-      });
-    }
-  }
 //  dynamic pcRuntime=cost;
 //  switch(cost.runtimeType){
 //    case int:{
@@ -283,39 +294,40 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
       _razorpay.open(options);
     } catch (e) {
       debugPrint(e);
-}
-}
-
+    }
+  }
 
   goToDialog2() {
-    if(isShowing == true) {
+    if (isShowing == true) {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) =>
-              WillPopScope(
-                  child: AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                    backgroundColor: Colors.white,
-                    title: Text("Saving Payment Info", style: TextStyle(color: primaryColor),),
-                    content: Container(
-                      height: 70.0,
-                      width: 150.0,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  ), onWillPop: () async => isBack)
-      );
-    }else{
+          builder: (context) => WillPopScope(
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                backgroundColor: Colors.white,
+                title: Text(
+                  "Saving Payment Info",
+                  style: TextStyle(color: primaryColor),
+                ),
+                content: Container(
+                  height: 70.0,
+                  width: 150.0,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              onWillPop: () async => isBack));
+    } else {
       Navigator.pop(context);
     }
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     Fluttertoast.showToast(
-        msg: "SUCCESS: " + response.paymentId, timeInSecForIos: 4);
+        msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
     setState(() {
       isShowing = true;
       isBack = false;
@@ -326,51 +338,51 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
   void _handlePaymentError(PaymentFailureResponse response) {
     Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message,
-        timeInSecForIos: 4);
-
+        timeInSecForIosWeb: 4);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     Fluttertoast.showToast(
-        msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIos: 4);
+        msg: "EXTERNAL_WALLET: " + response.walletName, timeInSecForIosWeb: 4);
   }
 
   goToDialog(subdate, time) {
     showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) =>
-        new GestureDetector(
-          child: Container(
-            color: Colors.white.withOpacity(0.05),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SuccessTicket(msgResponse, subdate, name, time, ind),
-                SizedBox(
-                  height: 10.0,
+        builder: (context) => new GestureDetector(
+              child: Container(
+                color: Colors.white.withOpacity(0.05),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SuccessTicket(msgResponse, subdate, name, time, ind),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoadingScreen()));
+                      },
+                    )
+                  ],
                 ),
-                FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.clear,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoadingScreen()));
-                  },
-                )
-              ],
-            ),
-          ),
-        )
-    );
+              ),
+            ));
   }
 
-  Future <String> sendRazorDetails(payId) async{
+  Future<String> sendRazorDetails(payId) async {
     goToDialog2();
-    var am= plan_details[widget.index]['amount'];
-    var plan1= plan_details[widget.index]['id'];
+    var am = plan_details[widget.index]['amount'];
+    var plan1 = plan_details[widget.index]['id'];
 
     final sendResponse = await http.post(APIData.sendRazorDetails, body: {
       "reference": "$payId",
@@ -378,29 +390,27 @@ class _MyRazorPaymentPageState extends State<MyRazorPaymentPage> {
       "plan_id": "$plan1",
       "status": "1",
       "method": "RazorPay",
-    }
-        , headers: {
-          // ignore: deprecated_member_use
-          HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-          // ignore: deprecated_member_use
-        }
-    );
+    }, headers: {
+      // ignore: deprecated_member_use
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
+      // ignore: deprecated_member_use
+    });
     print(sendResponse.statusCode);
     print(sendResponse.body);
     razorResponse = json.decode(sendResponse.body);
     msgResponse = razorResponse['message'];
     razorSubscriptionResponse = razorResponse['subscription'];
-    var date  = razorSubscriptionResponse['created_at'];
+    var date = razorSubscriptionResponse['created_at'];
     var time = razorSubscriptionResponse['created_at'];
     createdDatePaystack = DateFormat('d MMM y').format(DateTime.parse(date));
     createdTimePaystack = DateFormat('HH:mm a').format(DateTime.parse(time));
 
-    if(sendResponse.statusCode == 200){
+    if (sendResponse.statusCode == 200) {
       setState(() {
         isShowing = false;
       });
       goToDialog(createdDatePaystack, createdTimePaystack);
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "Your transaction failed contact to Admin.");
       setState(() {
         isShowing = false;

@@ -10,9 +10,7 @@ import 'package:nexthour/ui/signup.dart';
 import 'package:nexthour/widget/email_field.dart';
 import 'package:nexthour/widget/password_field.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:nexthour/utils/wavy_header_image.dart';
 import 'package:nexthour/widget/reset_alert_container.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 File jsonFile;
 Directory dir;
@@ -382,84 +380,6 @@ class LoginFormState extends State<LoginForm> {
     ));
   }
 
-//    Content of StickyHeader widget
-  Widget content() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        //signInHeadingText(),
-        Container(
-          child: Image.network(APIData.logoImageUri + loginConfigData['logo']),
-        ),
-        SizedBox(
-          height: 40,
-        ),
-        new Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              emailText(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                child: EmailField(_emailController),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              passwordText(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                child: HiddenPasswordField(
-                    _passwordController, "Enter your password"),
-              ),
-              forgotPasswordField(),
-              SizedBox(
-                height: 5.0,
-              ),
-              signInButtonListRow(),
-              SizedBox(
-                height: 15.0,
-              ),
-              registerHereText(),
-              SizedBox(
-                height: 30.0,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-//    Container under login form
-  Widget loginFormContainer() {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
-            color: Colors.white.withOpacity(0.95),
-          ),
-          alignment: Alignment.center,
-        ),
-        imageBackDropFilter(),
-        content()
-      ],
-    );
-  }
-
-  // Background image filter
-  Widget imageBackDropFilter() {
-    return BackdropFilter(
-      filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-      child: new Container(
-        decoration: new BoxDecoration(color: Colors.black.withOpacity(0.0)),
-      ),
-    );
-  }
-
 //    Forgot password field
   Widget forgotPasswordField() {
     return ListTile(
@@ -497,7 +417,58 @@ class LoginFormState extends State<LoginForm> {
         return true;
       },
       key: formKey,
-      child: loginFormContainer(),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+          color: Colors.white.withOpacity(0.95),
+        ),
+        alignment: Alignment.center,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5.0,
+            sigmaY: 5.0,
+          ),
+          child: ListView(
+            padding: EdgeInsets.only(top: 80),
+            children: [
+              Container(
+                child: Image.network(
+                    APIData.logoImageUri + loginConfigData['logo']),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              emailText(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                child: EmailField(_emailController),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              passwordText(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                child: HiddenPasswordField(
+                    _passwordController, "Enter your password"),
+              ),
+              forgotPasswordField(),
+              SizedBox(
+                height: 5.0,
+              ),
+              signInButtonListRow(),
+              SizedBox(
+                height: 15.0,
+              ),
+              registerHereText(),
+              SizedBox(
+                height: 30.0,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
