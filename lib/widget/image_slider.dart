@@ -214,7 +214,8 @@ class ImageSlider extends StatelessWidget {
               });
               showsMoviesList.removeWhere((value) => value == null);
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 3.0, vertical: 10.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
