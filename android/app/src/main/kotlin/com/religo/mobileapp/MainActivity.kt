@@ -1,4 +1,4 @@
-package com.mediacity.nexthour
+package com.religo.mobileapp
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
