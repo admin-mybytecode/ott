@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexthour/global.dart';
 
 class HiddenPasswordField extends StatefulWidget {
   final _passwordController;
@@ -19,76 +20,68 @@ class _HiddenPasswordFieldState extends State<HiddenPasswordField> {
   }
 
 //  Password TextFormField
-  Widget passwordTextFormField() {
-    return TextFormField(
-      controller: widget._passwordController,
-      decoration: new InputDecoration(
-        border: InputBorder.none,
-        hintText: widget.hintText,
-        hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-        suffixIcon: widget.hintText == "Enter your password"
-            ? IconButton(
-                onPressed: _toggleVisibility,
-                icon: _isHidden
-                    ? Text(
-                        "Show",
-                        style: TextStyle(fontSize: 10.0, color: Colors.black),
-                      )
-                    : Text(
-                        "Hide",
-                        style: TextStyle(fontSize: 10.0, color: Colors.black),
-                      ),
-              )
-            : null,
-      ),
-      style: TextStyle(color: Color.fromRGBO(34, 34, 34, 0.7), fontSize: 18),
-      validator: (val) {
-        if (val.length < 6) {
-          if (val.length == 0) {
-            return 'Password can not be empty';
+  Widget textField() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: TextFormField(
+        controller: widget._passwordController,
+        decoration: new InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(color: whiteColor, width: 2.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(color: redPrime, width: 2.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(color: whiteColor, width: 2.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide(color: redPrime, width: 2.0),
+          ),
+          hintText: widget.hintText,
+          hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+          suffixIcon: widget.hintText == "Enter your password"
+              ? IconButton(
+                  splashColor: Colors.transparent,
+                  onPressed: _toggleVisibility,
+                  icon: _isHidden
+                      ? Text("Show",
+                          style: TextStyle(fontSize: 10.0, color: whiteColor))
+                      : Text(
+                          "Hide",
+                          style: TextStyle(fontSize: 10.0, color: whiteColor),
+                        ),
+                )
+              : null,
+        ),
+        style: TextStyle(color: whiteColor, fontSize: 18),
+        validator: (val) {
+          if (val.length < 6) {
+            if (val.length == 0) {
+              return 'Password can not be empty';
+            } else {
+              return 'Password too short';
+            }
           } else {
-            return 'Password too short';
+            return null;
           }
-        } else {
-          return null;
-        }
-      },
-      onSaved: (val) => widget._passwordController.text = val,
-      obscureText: true,
+        },
+        onSaved: (val) => widget._passwordController.text = val,
+        obscureText: _isHidden == true ? true : false,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-        elevation: 0.0,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(40.0))),
-        child: Container(
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                children: <Widget>[
-                  passwordTextFormField(),
-                  _isHidden == false
-                      ? Container(
-                          height: 12.0,
-                          child: TextField(
-                              controller: widget._passwordController,
-                              readOnly: true,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(34, 34, 34, 0.8),
-                                  fontSize: 12.0),
-                              decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.amber,
-                              )))
-                      : SizedBox(
-                          height: 0.0,
-                        ),
-                ],
-              )),
-        ));
+      elevation: 0.0,
+      color: Colors.transparent,
+      child: textField(),
+    );
   }
 }

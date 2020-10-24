@@ -331,9 +331,10 @@ For setting logo image that is accessed from the server using API.
 You can change logo by server
 */
 
-                child: Image.network(
-                  '${APIData.logoImageUri}${loginConfigData['logo']}',
-                  scale: 1.0,
+                child: FadeInImage.assetNetwork(
+                  image: '${APIData.logoImageUri}${loginConfigData['logo']}',
+                  placeholder: 'assets/placeholder_box_trans.png',
+                  imageScale: 1.5,
                   width: 150.0,
                   height: 150.0,
                 ),

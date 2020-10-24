@@ -63,9 +63,10 @@ class _PageHomeState extends State<PageHome>
 
 //  Setting logo image
   Widget logoImage() {
-    return Image.network(
-      '${APIData.logoImageUri}${loginConfigData['logo']}',
-      scale: 1.7,
+    return FadeInImage.assetNetwork(
+      image: '${APIData.logoImageUri}${loginConfigData['logo']}',
+      placeholder: 'assets/placeholder_box_small.jpg',
+      imageScale: 3.0,
     );
   }
 
@@ -87,15 +88,10 @@ class _PageHomeState extends State<PageHome>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              color: whiteColor.withOpacity(0.3),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                child: logoImage(),
-              ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              child: logoImage(),
             ),
           ],
         ),

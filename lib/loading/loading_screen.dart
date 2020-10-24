@@ -791,7 +791,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               child: new FadeInImage.assetNetwork(
                 image: '${APIData.logoImageUri}${loginConfigData['logo']}',
                 placeholder: 'assets/placeholder_box_dark.jpg',
-                imageScale: 0.9,
+                imageScale: 1.5,
               ),
             ),
     );

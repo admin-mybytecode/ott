@@ -650,9 +650,10 @@ class _LoadingPageState extends State<LoadingPage>
               'assets/logo.png',
               scale: 0.9,
             )
-          : new Image.network(
-              '${APIData.logoImageUri}${loginConfigData['logo']}',
-              scale: 0.9,
+          : new FadeInImage.assetNetwork(
+              image: '${APIData.logoImageUri}${loginConfigData['logo']}',
+              placeholder: 'assets/placeholder_box_trans.png',
+              imageScale: 1.5,
             ),
     );
   }

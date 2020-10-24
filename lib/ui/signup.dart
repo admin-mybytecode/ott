@@ -149,7 +149,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "User Name",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -169,7 +169,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Email",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           )
         ],
@@ -189,7 +189,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Password",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -209,7 +209,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Confirm Password",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -279,48 +279,58 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           return true;
         },
         key: formKey,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5.0,
-            sigmaY: 5.0,
-          ),
-          child: ListView(
-            padding: EdgeInsets.only(top: 80),
-            children: [
-              //stickyHeaderContent(),
-              Container(
-                child: Image.network(
-                    APIData.logoImageUri + loginConfigData['logo']),
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              userNameLabelText(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: NameField(_nameController),
-              ),
-              emailLabelText(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: EmailField(_emailController),
-              ),
-              passwordLabelText(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: HiddenPasswordField(
-                    _passwordController, 'Enter your password'),
-              ),
-              confirmPasswordLabelText(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: ConfirmPasswordField(_passwordController,
-                    _repeatPasswordController, "Confirm password"),
-              ),
-              Padding(padding: EdgeInsets.only(top: 30.0)),
-              registerButtonTile(),
-              Padding(padding: EdgeInsets.only(bottom: 20.0))
-            ],
+        child: Container(
+          color: primaryDarkColor.withOpacity(0.5),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 5.0,
+              sigmaY: 5.0,
+            ),
+            child: ListView(
+              padding: EdgeInsets.only(top: 80),
+              children: [
+                //stickyHeaderContent(),
+                Container(
+                  child: FadeInImage.assetNetwork(
+                    image: APIData.logoImageUri + loginConfigData['logo'],
+                    placeholder: 'assets/placeholder_box_trans.png',
+                    imageScale: 1.5,
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                userNameLabelText(),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  child: NameField(_nameController),
+                ),
+                emailLabelText(),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  child: EmailField(_emailController),
+                ),
+                passwordLabelText(),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  child: HiddenPasswordField(
+                      _passwordController, 'Enter your password'),
+                ),
+                confirmPasswordLabelText(),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  child: ConfirmPasswordField(_passwordController,
+                      _repeatPasswordController, "Confirm password"),
+                ),
+                Padding(padding: EdgeInsets.only(top: 30.0)),
+                registerButtonTile(),
+                Padding(padding: EdgeInsets.only(bottom: 20.0))
+              ],
+            ),
           ),
         ),
       ),

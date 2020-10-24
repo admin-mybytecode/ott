@@ -32,7 +32,6 @@ class LoadingRegister extends StatefulWidget {
 }
 
 class _LoadingRegisterState extends State<LoadingRegister> {
-
   saveNewToken() async {
     // obtain shared preferences
     prefs = await SharedPreferences.getInstance();
@@ -41,31 +40,31 @@ class _LoadingRegisterState extends State<LoadingRegister> {
   }
 
 // Registration
-  Future<String> registration() async{
-    try{
-      var url=APIData.registerApi;
-      final register= await http.post(url, body: {
+  Future<String> registration() async {
+    try {
+      var url = APIData.registerApi;
+      final register = await http.post(url, body: {
         "name": widget.nameController.text,
         "email": widget.emailController.text,
         "password": widget.passwordController.text,
       });
-      if(register.statusCode == 200){
+      if (register.statusCode == 200) {
         print(register.statusCode);
         writeToFile("user", widget.emailController.text);
         writeToFile("pass", widget.passwordController.text);
         loginFromFIle();
         saveNewToken();
-      }else{
-        if(register.statusCode == 302){
+      } else {
+        if (register.statusCode == 302) {
           registrationError();
           print(register.statusCode);
-        }else{
+        } else {
           wentWrong();
           print(register.statusCode);
         }
       }
       return null;
-    }catch(e){
+    } catch (e) {
       noNetwork();
       return null;
     }
@@ -175,29 +174,29 @@ class _LoadingRegisterState extends State<LoadingRegister> {
           showPaymentGateway = homeApiResponseData['config'];
 
           stripePayment = showPaymentGateway['stripe_payment'];
-          if(stripePayment == "1"){
+          if (stripePayment == "1") {
             stripePayment = 1;
           }
           btreePayment = showPaymentGateway['braintree'];
-          if(btreePayment == "1"){
+          if (btreePayment == "1") {
             btreePayment = 1;
           }
           paystackPayment = showPaymentGateway['paystack'];
-          if(paystackPayment == "1"){
+          if (paystackPayment == "1") {
             paystackPayment = 1;
           }
           bankPayment = showPaymentGateway['bankdetails'];
-          if(bankPayment == "1"){
+          if (bankPayment == "1") {
             bankPayment = 1;
           }
           download = showPaymentGateway['download'];
-          if(download == "1"){
+          if (download == "1") {
             download = 1;
           }
 //          paytmPaymentStatus=showPaymentGateway['paytm_payment'];
           paytmPaymentStatus = 0;
-          razorPayPaymentStatus=showPaymentGateway['razorpay_payment'];
-          if(razorPayPaymentStatus == "1"){
+          razorPayPaymentStatus = showPaymentGateway['razorpay_payment'];
+          if (razorPayPaymentStatus == "1") {
             razorPayPaymentStatus = 1;
           }
 
@@ -212,10 +211,11 @@ class _LoadingRegisterState extends State<LoadingRegister> {
           blogStatus = showPaymentGateway['blog'];
           fbLoginStatus = showPaymentGateway['fb_login'];
           videoCommentsStatus = showPaymentGateway['comments'];
-          if(fbLoginStatus == "1"){
+          if (fbLoginStatus == "1") {
             fbLoginStatus = 1;
           }
-          final compData = await http.get(Uri.encodeFull(APIData.movieTvApi), headers: {
+          final compData =
+              await http.get(Uri.encodeFull(APIData.movieTvApi), headers: {
             // ignore: deprecated_member_use
             HttpHeaders.AUTHORIZATION: "Bearer ${user['access_token']}!"
           });
@@ -279,21 +279,30 @@ class _LoadingRegisterState extends State<LoadingRegister> {
             double convrInStart;
             dynamic vRating = searchIds2[index]['rating'];
             switch (vRating.runtimeType) {
-              case double: {
-                double tmdbrating =  searchIds2[index]['rating'] == null ? 0 : searchIds2[index]['rating'];
-                convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
-              }
-              break;
-              case int: {
-                var tmdbrating =  searchIds2[index]['rating'] == null ? 0 : searchIds2[index]['rating'];
-                convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
-              }
-              break;
-              case String:{
-                var tmdbrating =  searchIds2[index]['rating'] == null ? 0 : double.parse(searchIds2[index]['rating']);
-                convrInStart = tmdbrating != null ? tmdbrating / 2 : 0 ;
-              }
-              break;
+              case double:
+                {
+                  double tmdbrating = searchIds2[index]['rating'] == null
+                      ? 0
+                      : searchIds2[index]['rating'];
+                  convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                }
+                break;
+              case int:
+                {
+                  var tmdbrating = searchIds2[index]['rating'] == null
+                      ? 0
+                      : searchIds2[index]['rating'];
+                  convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                }
+                break;
+              case String:
+                {
+                  var tmdbrating = searchIds2[index]['rating'] == null
+                      ? 0
+                      : double.parse(searchIds2[index]['rating']);
+                  convrInStart = tmdbrating != null ? tmdbrating / 2 : 0;
+                }
+                break;
             }
 
             var idTM;
@@ -440,8 +449,8 @@ class _LoadingRegisterState extends State<LoadingRegister> {
             userActivePlan = dataUser['current_subscription'];
             userExpiryDate = dataUser['end'];
             status = dataUser['active'];
-            downloadLimit=dataUser['limit'];
-            mScreenCount=dataUser['screen'];
+            downloadLimit = dataUser['limit'];
+            mScreenCount = dataUser['screen'];
             userPaymentType = dataUser['payment'];
             userPaypalHistory = dataUser['paypal'];
             userStripeHistory = userDetail['subscriptions'];
@@ -473,13 +482,13 @@ class _LoadingRegisterState extends State<LoadingRegister> {
                 mScreenCount = int.parse(scCount);
                 break;
             }
-            if(blogStatus == "1"){
+            if (blogStatus == "1") {
               blogStatus = 1;
             }
-            if(isAdmin == "1"){
+            if (isAdmin == "1") {
               isAdmin = 1;
             }
-            if(donationStatus == "1"){
+            if (donationStatus == "1") {
               donationStatus = 1;
             }
           });
@@ -575,6 +584,7 @@ class _LoadingRegisterState extends State<LoadingRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryDarkColor,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -585,10 +595,12 @@ class _LoadingRegisterState extends State<LoadingRegister> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              loginConfigData == null? Image.asset("assets/logo.png") : Image.network(
-                '${APIData.logoImageUri}${loginConfigData['logo']}',
-                scale: 0.9,
-              ),
+              loginConfigData == null
+                  ? Image.asset("assets/logo.png")
+                  : Image.network(
+                      '${APIData.logoImageUri}${loginConfigData['logo']}',
+                      scale: 0.9,
+                    ),
               SizedBox(
                 height: 20.0,
               ),

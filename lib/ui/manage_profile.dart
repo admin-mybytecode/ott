@@ -240,58 +240,52 @@ class ManageProfileFormState extends State<ManageProfileForm> {
 
 //  When user is inactive
   Widget inactiveStatus() {
-    return Padding(
-        padding: EdgeInsets.only(right: 70.0),
-        child: Row(
-          children: <Widget>[
-            new Container(
-              margin: EdgeInsets.only(top: 10.0),
-              width: 20.0,
-              height: 20.0,
-              decoration: new BoxDecoration(
-                  //                    color: Colors.orange,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.red, width: 1.0)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  new Container(
-                    width: 12.0,
-                    height: 12.0,
-                    decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.red, width: 2.5)),
-                  )
-                ],
-              ),
+    return Row(
+      children: <Widget>[
+        new Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: new BoxDecoration(
+              //                    color: Colors.orange,
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.red, width: 1.0)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Container(
+                width: 12.0,
+                height: 12.0,
+                decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.red, width: 2.5)),
+              )
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 5.0),
+          child: Text(
+            'Inactive',
+            style: TextStyle(
+              color: textColor,
+              fontSize: 12.0,
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10.0, left: 5.0),
-              child: Text(
-                'Inactive',
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 12.0,
-                ),
-              ),
-            ),
-          ],
-        ));
+          ),
+        ),
+      ],
+    );
   }
 
 //  When user account status
   Widget userAccountStatus() {
     print(status);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: <Widget>[
-          accountStatusText(),
-          //    Radial progress bar is used to show the remaining days of user subscription
-          status == "0" ? inactiveStatus() : activeStatus(),
-        ],
-      ),
+    return Row(
+      children: <Widget>[
+        accountStatusText(),
+        //    Radial progress bar is used to show the remaining days of user subscription
+        status == "0" ? inactiveStatus() : activeStatus(),
+      ],
     );
   }
 
@@ -546,7 +540,6 @@ class ManageProfileFormState extends State<ManageProfileForm> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
           children: <Widget>[
             Row(
               children: [

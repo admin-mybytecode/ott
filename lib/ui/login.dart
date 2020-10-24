@@ -291,7 +291,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Email",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.start,
           )
         ],
@@ -310,7 +310,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Password",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -429,43 +429,49 @@ class LoginFormState extends State<LoginForm> {
             sigmaX: 5.0,
             sigmaY: 5.0,
           ),
-          child: ListView(
-            padding: EdgeInsets.only(top: 80),
-            children: [
-              Container(
-                child: Image.network(
-                    APIData.logoImageUri + loginConfigData['logo']),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              emailText(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                child: EmailField(_emailController),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              passwordText(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                child: HiddenPasswordField(
-                    _passwordController, "Enter your password"),
-              ),
-              forgotPasswordField(),
-              SizedBox(
-                height: 5.0,
-              ),
-              signInButtonListRow(),
-              SizedBox(
-                height: 15.0,
-              ),
-              registerHereText(),
-              SizedBox(
-                height: 30.0,
-              ),
-            ],
+          child: Container(
+            color: primaryDarkColor.withOpacity(0.5),
+            child: ListView(
+              padding: EdgeInsets.only(top: 80),
+              children: [
+                Container(
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/placeholder_box_trans.png',
+                    image: APIData.logoImageUri + loginConfigData['logo'],
+                    imageScale: 1.5,
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                emailText(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                  child: EmailField(_emailController),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                passwordText(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                  child: HiddenPasswordField(
+                      _passwordController, "Enter your password"),
+                ),
+                forgotPasswordField(),
+                SizedBox(
+                  height: 5.0,
+                ),
+                signInButtonListRow(),
+                SizedBox(
+                  height: 15.0,
+                ),
+                registerHereText(),
+                SizedBox(
+                  height: 30.0,
+                ),
+              ],
+            ),
           ),
         ),
       ),

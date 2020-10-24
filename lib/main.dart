@@ -12,10 +12,12 @@ void main() async {
   await FlutterDownloader.initialize();
   await DatabaseCreator().initDatabase();
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: primaryColor, // navigation bar color
-    statusBarColor: primaryColor, // status bar color
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+        //systemNavigationBarColor: primaryColor, // navigation bar color
+        //statusBarColor: primaryColor, // status bar color
+        ),
+  );
 
   runApp(
     MaterialApp(
