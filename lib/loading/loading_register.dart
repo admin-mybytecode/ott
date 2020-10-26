@@ -48,7 +48,7 @@ class _LoadingRegisterState extends State<LoadingRegister> {
         "email": widget.emailController.text,
         "password": widget.passwordController.text,
       });
-      if (register.statusCode == 200) {
+      if (register.statusCode == 400) {
         print(register.statusCode);
         writeToFile("user", widget.emailController.text);
         writeToFile("pass", widget.passwordController.text);
@@ -597,9 +597,11 @@ class _LoadingRegisterState extends State<LoadingRegister> {
             children: <Widget>[
               loginConfigData == null
                   ? Image.asset("assets/logo.png")
-                  : Image.network(
-                      '${APIData.logoImageUri}${loginConfigData['logo']}',
-                      scale: 0.9,
+                  : FadeInImage.assetNetwork(
+                      image:
+                          '${APIData.logoImageUri}${loginConfigData['logo']}',
+                      placeholder: 'assets/placeholder_box_dark.jpg',
+                      imageScale: 2.5,
                     ),
               SizedBox(
                 height: 20.0,
