@@ -66,7 +66,7 @@ class _PageHomeState extends State<PageHome>
     return FadeInImage.assetNetwork(
       image: '${APIData.logoImageUri}${loginConfigData['logo']}',
       placeholder: 'assets/placeholder_box_small.jpg',
-      imageScale: 3.0,
+      imageScale: 4.0,
     );
   }
 
@@ -84,17 +84,7 @@ class _PageHomeState extends State<PageHome>
   Widget _sliverAppBar(innerBoxIsScrolled) {
     return SliverAppBar(
         elevation: 10.0,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              child: logoImage(),
-            ),
-          ],
-        ),
+        title: logoImage(),
         backgroundColor: primaryColor,
         pinned: true,
         floating: true,

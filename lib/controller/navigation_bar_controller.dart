@@ -15,10 +15,9 @@ import 'package:nexthour/page_home.dart';
 import 'package:nexthour/ui/custom_drawer.dart';
 import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
-import 'package:nexthour/ui/my_list.dart';
 import 'package:nexthour/ui/search.dart';
 import 'package:http/http.dart' as http;
-import 'package:nexthour/ui/store_page_dummy.dart';
+import 'package:nexthour/ui/store_page.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   BottomNavigationBarController({this.pageInd});

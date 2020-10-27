@@ -333,7 +333,7 @@ You can change logo by server
 
                 child: FadeInImage.assetNetwork(
                   image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-                  placeholder: 'assets/placeholder_box_trans.png',
+                  placeholder: 'assets/placeholder_box_dark.jpg',
                   imageScale: 1.5,
                   width: 150.0,
                   height: 150.0,
