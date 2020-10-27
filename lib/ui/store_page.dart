@@ -33,12 +33,15 @@ class _StorePageState extends State<StorePage> {
         children: List.generate(
           100,
           (index) {
-            return Center(
+            return Card(
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/avatar.png',
-                    scale: 30.0,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset(
+                      'assets/store_item_placeholder.jpg',
+                      scale: 2.5,
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -49,23 +52,29 @@ class _StorePageState extends State<StorePage> {
                           'Item $index',
                         ),
                       ),
-                      FlatButton(
-                        color: redPrime,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Buy",
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                            color: primaryColor,
-                          ),
+                          '₹ 1000',
                         ),
-                        onPressed: () {},
                       ),
                     ],
+                  ),
+                  FlatButton(
+                    color: redPrime,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text(
+                      "ADD",
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                      ),
+                    ),
+                    onPressed: () {},
                   ),
                 ],
               ),

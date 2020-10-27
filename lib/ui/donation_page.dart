@@ -47,66 +47,50 @@ class _DonationPageState extends State<DonationPage> {
             return new Padding(
               padding: const EdgeInsets.only(
                   top: 0.0, bottom: 0.0, left: 0.0, right: 0.0),
-              child: new Card(
-                elevation: 3.0,
-                color: primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    20.0,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: new ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      'assets/temple_placeholder.jpg',
+                      scale: 2.0,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 10.0,
+                  title: Text(
+                    "$genreName",
+                    style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.9,
+                        color: redPrime),
                   ),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'assets/avatar.png',
-                          scale: 30.0,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              "$genreName",
-                              style: TextStyle(
-                                  fontFamily: 'Lato',
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 0.9,
-                                  color: redPrime),
-                            ),
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontFamily: 'Lato',
-                                  fontSize: 10.0,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 0.9,
-                                  color: textColor),
-                            ),
-                          ],
-                        ),
-                        FlatButton(
-                          color: redPrime,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Text(
-                            "Donate",
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
-                              color: primaryColor,
-                            ),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ]),
+                  subtitle: Text(
+                    "Description",
+                    style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.9,
+                        color: textColor),
+                  ),
+                  trailing: FlatButton(
+                    color: redPrime,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Text(
+                      "Donate",
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),
                 ),
               ),
             );
