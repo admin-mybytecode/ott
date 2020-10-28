@@ -397,7 +397,7 @@ You can change logo by server
                       // image: NetworkImage(
                       //   '${APIData.loginImageUri}${loginImageData['image']}',
                       // ),
-                      image: AssetImage('assets/bg.jpg')),
+                      image: AssetImage('assets/bg1.jpeg')),
                 ),
                 child: imageBackDropFilter(),
               ),

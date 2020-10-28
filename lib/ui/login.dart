@@ -421,7 +421,7 @@ class LoginFormState extends State<LoginForm> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+              image: AssetImage('assets/bg1.jpeg'), fit: BoxFit.cover),
           color: Colors.white.withOpacity(0.95),
         ),
         alignment: Alignment.center,

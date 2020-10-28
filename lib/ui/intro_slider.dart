@@ -169,47 +169,40 @@ class IntroScreenState extends State<IntroScreen> {
 
 // Intro slider
   Widget introSlider() {
-    return BackdropFilter(
-      filter: ImageFilter.blur(
-        sigmaX: 10,
-        sigmaY: 10,
-      ),
-      child: IntroSlider(
-        // List slides
-        slides: this.slides,
-
-        // Skip button
-        renderSkipBtn: this.renderSkipBtn(),
-        //colorSkipBtn: Color(0x33000000),
-        highlightColorSkipBtn: Colors.transparent,
-
-        // Next button
-        renderNextBtn: this.renderNextBtn(),
-
-        // Done button
-        renderDoneBtn: this.renderDoneBtn(),
-        onDonePress: this.onDonePress,
-        //colorDoneBtn: Color(0x33000000),
-        highlightColorDoneBtn: Colors.transparent,
-
-        // Dot indicator
-        colorDot: primaryDarkColor.withOpacity(0.5),
-        colorActiveDot: redPrime.withOpacity(0.7),
-        sizeDot: 8.0,
-        typeDotAnimation: dotSliderAnimation.DOT_MOVEMENT,
-
-        // Tabs
-        listCustomTabs: this.renderListCustomTabs(),
-        backgroundColorAllSlides: primaryColor,
-        refFuncGoToTab: (refFunc) {
-          this.goToTab = refFunc;
-        },
-
-        // Show or hide status bar
-        shouldHideStatusBar: true,
-
-        // On tab change completed
-        onTabChangeCompleted: this.onTabChangeCompleted,
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/bg.jpeg')),
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: Stack(
+            children: [
+              Positioned(
+                child: Image.asset(
+                  'assets/logo.png',
+                  width: 250,
+                ),
+                top: 30,
+                left: 15,
+              ),
+              Positioned(
+                child: RaisedButton(
+                  color: Colors.red,
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (ctx) => Home()));
+                  },
+                  child: Text('Start',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                bottom: 30,
+                left: 50,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

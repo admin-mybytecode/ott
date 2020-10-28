@@ -272,7 +272,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+            image: AssetImage('assets/bg1.jpeg'), fit: BoxFit.cover),
       ),
       child: Form(
         onWillPop: () async {

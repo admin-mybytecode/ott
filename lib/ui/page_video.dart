@@ -144,8 +144,8 @@ class _VideosPageState extends State<VideosPage>
                   borderRadius: new BorderRadius.circular(8.0),
                   child: new SizedBox(
                     child: Shimmer.fromColors(
-                      baseColor: primaryColor,
-                      highlightColor: redPrime
+                      baseColor: Colors.white,
+                      highlightColor: Colors.grey
                           .withOpacity(0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
@@ -187,8 +187,8 @@ class _VideosPageState extends State<VideosPage>
                   borderRadius: new BorderRadius.circular(0.0),
                   child: new SizedBox(
                     child: Shimmer.fromColors(
-                      baseColor: primaryColor,
-                      highlightColor: redPrime
+                      baseColor: Colors.white,
+                      highlightColor: Colors.grey
                           .withOpacity(0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                       child: Card(
                         elevation: 0.0,
@@ -237,8 +237,8 @@ class _VideosPageState extends State<VideosPage>
                             borderRadius: new BorderRadius.circular(8.0),
                             child: new SizedBox(
                               child: Shimmer.fromColors(
-                                baseColor: primaryColor,
-                                highlightColor: redPrime.withOpacity(
+                                baseColor: Colors.white,
+                                highlightColor: Colors.grey.withOpacity(
                                     0.3), //Color.fromRGBO(50, 50, 50, 1.0),
                                 child: Card(
                                   elevation: 0.0,

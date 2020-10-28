@@ -1251,7 +1251,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
         size: 35.0,
       ),
       onTap: () {
-        if (status == "1") {
+
           mReadyUrl = seasonEpisodeData[i]['video_link']['ready_url'];
           mUrl360 = seasonEpisodeData[i]['video_link']['url_360'];
           mUrl480 = seasonEpisodeData[i]['video_link']['url_480'];
@@ -1364,9 +1364,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           } else {
             Fluttertoast.showToast(msg: "Video URL doesn't exist");
           }
-        } else {
-          _showMsg();
-        }
+
       },
     );
   }

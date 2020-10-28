@@ -84,7 +84,8 @@ class _PageHomeState extends State<PageHome>
   Widget _sliverAppBar(innerBoxIsScrolled) {
     return SliverAppBar(
         elevation: 10.0,
-        title: logoImage(),
+        title: Image.asset('assets/logo.png',height: 100,width: 100,),
+        centerTitle: true,
         backgroundColor: primaryColor,
         pinned: true,
         floating: true,

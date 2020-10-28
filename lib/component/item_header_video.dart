@@ -778,7 +778,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           children: <Widget>[
             widget.game.datatype == 'M'
                 ? OutlineButton(
-                    onPressed: status == "1" ? _onTapPlay : _showMsg,
+                    onPressed:  _onTapPlay ,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
