@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
@@ -21,77 +22,75 @@ class ItemList extends StatefulWidget {
 }
 
 class ItemListState extends State<ItemList> {
-
 //Handle watchlist item on dismiss or display watch list.
-  Future <String> watchlistResponse() async {
-  try {
-    var testID = widget.item.id;
+  Future<String> watchlistResponse() async {
+    try {
+      var testID = widget.item.id;
 
-    if (widget.item.datatype == "T") {
-      for (var j = 0; j < widget.item.seasons.length; j++) {
-        for (var k = 0; k < userWatchList.length; k++) {
-          if(userWatchList[k].season_id == widget.item.seasons[j].id){
-
-            // ignore: unused_local_variable
-            final response1 = await http.get(Uri.encodeFull(
-                APIData.removeWatchlistSeason + "${widget.item.seasons[j].id}"),
-                headers: {
-                  // ignore: deprecated_member_use
-                  HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-                }
-            );
-            userWatchList.removeWhere((item) =>
-                              item.season_id == widget.item.seasons[j].id);
-          }else{
+      if (widget.item.datatype == "T") {
+        for (var j = 0; j < widget.item.seasons.length; j++) {
+          for (var k = 0; k < userWatchList.length; k++) {
+            if (userWatchList[k].season_id == widget.item.seasons[j].id) {
+              // ignore: unused_local_variable
+              final response1 = await http.get(
+                  Uri.encodeFull(APIData.removeWatchlistSeason +
+                      "${widget.item.seasons[j].id}"),
+                  headers: {
+                    // ignore: deprecated_member_use
+                    HttpHeaders.AUTHORIZATION:
+                        nToken == null ? fullData : nToken
+                  });
+              userWatchList.removeWhere(
+                  (item) => item.season_id == widget.item.seasons[j].id);
+            } else {
 //            print('not avl');
+            }
           }
         }
-      }
-    }
-    else {
-      userWatchList.removeWhere((item) => item.wMovieId == testID);
+      } else {
+        userWatchList.removeWhere((item) => item.wMovieId == testID);
 
-      final checkResponseMovie = await http.get(
-          Uri.encodeFull(APIData.checkWatchlistMovie + "$testID"),
-          headers: {
-            // ignore: deprecated_member_use
-            HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
-
-          });
-      var res2 = jsonDecode(checkResponseMovie.body);
-      if (res2['wishlist'] == 1) {
-        final response2 = await http.get(
-            Uri.encodeFull(APIData.removeWatchlistMovie + "$testID"),
+        final checkResponseMovie = await http.get(
+            Uri.encodeFull(APIData.checkWatchlistMovie + "$testID"),
             headers: {
               // ignore: deprecated_member_use
               HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
             });
-        int statusCode2 = response2.statusCode;
-        print(statusCode2);
-        if (statusCode2 == 200) {
+        var res2 = jsonDecode(checkResponseMovie.body);
+        if (res2['wishlist'] == 1) {
+          final response2 = await http.get(
+              Uri.encodeFull(APIData.removeWatchlistMovie + "$testID"),
+              headers: {
+                // ignore: deprecated_member_use
+                HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
+              });
+          int statusCode2 = response2.statusCode;
+          print(statusCode2);
+          if (statusCode2 == 200) {}
         }
       }
-    }
-    return null;
-  }
-  catch (e) {
+      return null;
+    } catch (e) {
 //    print(e);
-    return null;
+      return null;
+    }
   }
-}
 
 //Swipe left to remove from watchlist
-  Widget swipeRightContainer(){
+  Widget swipeRightContainer() {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Icon(FontAwesomeIcons.longArrowAltRight,  color: Colors.white60),
+          Icon(FontAwesomeIcons.longArrowAltRight, color: Colors.white60),
           SizedBox(
             width: 10.0,
           ),
-          Text("Swipe right to remove", style: TextStyle(letterSpacing: 1.0, color: Colors.white60),),
+          Text(
+            "Swipe right to remove",
+            style: TextStyle(letterSpacing: 1.0, color: Colors.white60),
+          ),
         ],
       ),
       alignment: Alignment.centerRight,
@@ -99,17 +98,20 @@ class ItemListState extends State<ItemList> {
   }
 
 //Swipe right to remove form watchlist
-  Widget swipeLeftContainer(){
+  Widget swipeLeftContainer() {
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Text("Swipe left to remove", style: TextStyle(letterSpacing: 1.0, color: Colors.white60),),
+          Text(
+            "Swipe left to remove",
+            style: TextStyle(letterSpacing: 1.0, color: Colors.white60),
+          ),
           SizedBox(
             width: 10.0,
           ),
-          Icon(FontAwesomeIcons.longArrowAltLeft,  color: Colors.white60),
+          Icon(FontAwesomeIcons.longArrowAltLeft, color: Colors.white60),
         ],
       ),
       alignment: Alignment.centerRight,
@@ -117,20 +119,15 @@ class ItemListState extends State<ItemList> {
   }
 
 // PlaceHolder image displayed on the watchlist item.
-  Widget placeHolderImage(){
+  Widget placeHolderImage() {
     return Expanded(
       flex: 3,
       child: Container(
         child: new ClipRRect(
-          borderRadius:
-          new BorderRadius.circular(8.0),
-          child: new FadeInImage.assetNetwork(
-            image:widget.item.box,
-            //imageScale: 1.0,
-            placeholder:
-            "assets/placeholder_box.jpg",
+          borderRadius: new BorderRadius.circular(8.0),
+          child: new CachedNetworkImage(
+            imageUrl: widget.item.box,
             height: 140.0,
-            // width: 220.0,
             fit: BoxFit.cover,
           ),
         ),
@@ -139,7 +136,7 @@ class ItemListState extends State<ItemList> {
   }
 
 //Details displayed on watchlist item
-  Widget watchlistItemDetails(genres){
+  Widget watchlistItemDetails(genres) {
     return Expanded(
       flex: 7,
       child: Column(
@@ -236,27 +233,23 @@ class ItemListState extends State<ItemList> {
     );
   }
 
-//  Watchlist item all details like image, name, 
-  Widget watchlistItemContainer(genres){
+//  Watchlist item all details like image, name,
+  Widget watchlistItemContainer(genres) {
     return Container(
       color: Colors.transparent,
-      margin: new EdgeInsets.fromLTRB(
-          0.0,8.0,0.0,8.0),
+      margin: new EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 8.0),
       child: InkWell(
-        onTap: (){
+        onTap: () {
           var router = new MaterialPageRoute(
               builder: (BuildContext context) =>
-              new DetailedViewPage(widget.item)
-          );
+                  new DetailedViewPage(widget.item));
           Navigator.of(context).push(router);
         },
         child: Container(
-
           decoration: new BoxDecoration(
             color: Color.fromRGBO(20, 20, 20, 1.0),
             shape: BoxShape.rectangle,
-            borderRadius:
-            new BorderRadius.circular(8.0),
+            borderRadius: new BorderRadius.circular(8.0),
             boxShadow: <BoxShadow>[
               new BoxShadow(
                 color: Colors.black12,
@@ -282,13 +275,13 @@ class ItemListState extends State<ItemList> {
   }
 
 //  Dismiss watchlist item
-  Widget dismiss(){
+  Widget dismiss() {
     String genres = widget.item.genres.toString();
     genres = genres.replaceAll("[", "").replaceAll("]", "");
     widget.item.genres.removeWhere((value) => value == null);
     return Dismissible(
       key: Key("${widget.item.id}"),
-      confirmDismiss: (direction) async{
+      confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           watchlistResponse();
           return true;
@@ -307,6 +300,6 @@ class ItemListState extends State<ItemList> {
 
   @override
   Widget build(BuildContext context) {
-    return  dismiss();
+    return dismiss();
   }
 }

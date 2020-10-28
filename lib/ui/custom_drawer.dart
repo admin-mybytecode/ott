@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
@@ -50,9 +51,8 @@ class CustomDrawerState extends State<CustomDrawer> {
           height: 70.0,
           width: MediaQuery.of(context).size.width / 4,
           child: userImage != null
-              ? Image.network(
-                  "${APIData.profileImageUri}" + "$userImage",
-//            scale: 1.7,
+              ? CachedNetworkImage(
+                  imageUrl: "${APIData.profileImageUri}" + "$userImage",
                   fit: BoxFit.cover,
                 )
               : Image.asset(
@@ -77,14 +77,12 @@ class CustomDrawerState extends State<CustomDrawer> {
           height: 60.0,
           width: 60.0,
           child: userImage != null
-              ? Image.network(
-                  "${APIData.profileImageUri}" + "$userImage",
-//            scale: 1.7,
+              ? CachedNetworkImage(
+                  imageUrl: "${APIData.profileImageUri}" + "$userImage",
                   fit: BoxFit.cover,
                 )
               : Image.asset(
                   "assets/avatar.png",
-//            scale: 1.5,
                   width: MediaQuery.of(context).size.width / 4.5,
                   fit: BoxFit.cover,
                 ),
@@ -155,10 +153,8 @@ class CustomDrawerState extends State<CustomDrawer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(100.0)),
                 child: userImage != null
-                    ? FadeInImage.assetNetwork(
-                        image: "${APIData.profileImageUri}" + "$userImage",
-                        placeholder: 'assets/placeholder_box.jpg',
-                        imageScale: 1.7,
+                    ? CachedNetworkImage(
+                        imageUrl: "${APIData.profileImageUri}" + "$userImage",
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
@@ -250,9 +246,10 @@ class CustomDrawerState extends State<CustomDrawer> {
                                                   EdgeInsets.only(right: 10.0),
                                               width: 70.0,
                                               child: userImage != null
-                                                  ? Image.network(
-                                                      "${APIData.profileImageUri}" +
-                                                          "$userImage",
+                                                  ? CachedNetworkImage(
+                                                      imageUrl:
+                                                          "${APIData.profileImageUri}" +
+                                                              "$userImage",
                                                       fit: BoxFit.cover,
                                                     )
                                                   : Image.asset(
@@ -294,9 +291,10 @@ class CustomDrawerState extends State<CustomDrawer> {
                                               height: 60.0,
                                               width: 60.0,
                                               child: userImage != null
-                                                  ? Image.network(
-                                                      "${APIData.profileImageUri}" +
-                                                          "$userImage",
+                                                  ? CachedNetworkImage(
+                                                      imageUrl:
+                                                          "${APIData.profileImageUri}" +
+                                                              "$userImage",
                                                       fit: BoxFit.cover,
                                                     )
                                                   : Image.asset(

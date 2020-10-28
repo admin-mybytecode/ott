@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -597,11 +598,10 @@ class _LoadingRegisterState extends State<LoadingRegister> {
             children: <Widget>[
               loginConfigData == null
                   ? Image.asset("assets/logo.png")
-                  : FadeInImage.assetNetwork(
-                      image:
+                  : CachedNetworkImage(
+                      imageUrl:
                           '${APIData.logoImageUri}${loginConfigData['logo']}',
-                      placeholder: 'assets/placeholder_box_dark.jpg',
-                      imageScale: 2.5,
+                        width: 300,
                     ),
               SizedBox(
                 height: 20.0,

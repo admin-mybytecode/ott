@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
@@ -94,10 +95,9 @@ class _BlogPageState extends State<BlogPage> {
                     alignment: FractionalOffset.topCenter,
                     child: ClipRRect(
                       borderRadius: new BorderRadius.circular(1.0),
-                      child: new FadeInImage.assetNetwork(
-                        image: APIData.blogImageUri +
+                      child: new CachedNetworkImage(
+                        imageUrl: APIData.blogImageUri +
                             "${blogResponse[index]['image']}",
-                        placeholder: "assets/placeholder_box.jpg",
                         height: 100.0,
                         width: 100.0,
                         fit: BoxFit.cover,

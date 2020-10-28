@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -1006,9 +1007,8 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 child: moreLikeThis[index] == null
                     ? Container()
                     : InkWell(
-                        child: FadeInImage.assetNetwork(
-                          image: moreLikeThis[index].box,
-                          placeholder: 'assets/placeholder_box.jpg',
+                        child: CachedNetworkImage(
+                          imageUrl: moreLikeThis[index].box,
                           height: 150.0,
                           fit: BoxFit.cover,
                         ),
@@ -1874,9 +1874,8 @@ class _DetailedViewPageState extends State<DetailedViewPage>
 //  Customer also watched videos place holder
   Widget cusPlaceHolder(moreLikeThis, index) {
     return InkWell(
-      child: FadeInImage.assetNetwork(
-        image: moreLikeThis[index].box,
-        placeholder: 'assets/placeholder_box.jpg',
+      child: CachedNetworkImage(
+        imageUrl: moreLikeThis[index].box,
         height: 150.0,
         fit: BoxFit.cover,
       ),

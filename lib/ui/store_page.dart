@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nexthour/global.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class StorePage extends StatefulWidget {
   @override
@@ -31,7 +30,7 @@ class _StorePageState extends State<StorePage> {
       body: GridView.count(
         crossAxisCount: 2,
         children: List.generate(
-          100,
+          20,
           (index) {
             return Card(
               child: Column(
@@ -39,8 +38,8 @@ class _StorePageState extends State<StorePage> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      'assets/store_item_placeholder.jpg',
-                      scale: 2.5,
+                      'assets/shop_item_placeholder.jpg',
+                      scale: 6.0,
                     ),
                   ),
                   Row(
@@ -63,13 +62,13 @@ class _StorePageState extends State<StorePage> {
                   FlatButton(
                     color: redPrime,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
                       "ADD",
                       style: TextStyle(
                         fontFamily: 'Lato',
-                        fontSize: 15.0,
+                        fontSize: 13.0,
                         fontWeight: FontWeight.w600,
                         color: primaryColor,
                       ),

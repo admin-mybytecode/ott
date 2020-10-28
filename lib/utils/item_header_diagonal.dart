@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class DiagonallyCutColoredImage extends StatelessWidget {
   DiagonallyCutColoredImage(this.image, {@required this.color});
 
-  final FadeInImage image;
+  final CachedNetworkImage image;
   final Color color;
 
   @override

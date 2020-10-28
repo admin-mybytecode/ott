@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,8 +29,10 @@ class ForgotPassword extends StatefulWidget {
 
 class ForgotPasswordState extends State<ForgotPassword> {
   String pass;
-  final TextEditingController _newPasswordController = new TextEditingController();
-  final TextEditingController _confirmNewPasswordController = new TextEditingController();
+  final TextEditingController _newPasswordController =
+      new TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
+      new TextEditingController();
   bool _isButtonDisabled;
   String msg = '';
   final scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -45,12 +48,12 @@ class ForgotPasswordState extends State<ForgotPassword> {
       fileExists = jsonFile.existsSync();
       if (fileExists) {
         this.setState(
-                () => fileContent = json.decode(jsonFile.readAsStringSync()));
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
       }
     });
   }
 
-  Future <String> resetPassword() async {
+  Future<String> resetPassword() async {
     final sendOtpResponse = await http.post(APIData.resetPasswordApi, body: {
       "email": widget.email,
       "password": _newPasswordController.text,
@@ -58,33 +61,35 @@ class ForgotPasswordState extends State<ForgotPassword> {
     });
 
     print(sendOtpResponse.statusCode);
-    if(sendOtpResponse.statusCode == 200){
+    if (sendOtpResponse.statusCode == 200) {
       Fluttertoast.showToast(msg: "Your password has been updated.");
       var route = MaterialPageRoute(
-          builder: (context) => LoadingPage(isSelected: true, useremail: widget.email, userpass: _newPasswordController.text,));
+          builder: (context) => LoadingPage(
+                isSelected: true,
+                useremail: widget.email,
+                userpass: _newPasswordController.text,
+              ));
       Navigator.push(context, route);
-    }
-    else {
+    } else {
       Fluttertoast.showToast(msg: "Password update failed.");
     }
     return null;
   }
-  
+
 //  logo
-  Widget logoImage(){
+  Widget logoImage() {
     return Padding(
       padding: EdgeInsets.only(top: 15.0, left: 20.0),
       child: Container(
-        child: Image.network(
-          '${APIData.logoImageUri}${loginConfigData['logo']}',
-          scale: 0.9,
+        child: CachedNetworkImage(
+          imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
         ),
       ),
     );
   }
 
 //Reset password heading text
-  Widget resetPasswordHeadingText(){
+  Widget resetPasswordHeadingText() {
     return Padding(
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Row(
@@ -94,7 +99,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
           Text(
             "Reset Password!",
             style: TextStyle(
-                color: Color.fromRGBO( 34, 34, 34, 1.0),
+                color: Color.fromRGBO(34, 34, 34, 1.0),
                 fontSize: 22,
                 fontWeight: FontWeight.w800),
             textAlign: TextAlign.start,
@@ -105,7 +110,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 // Header reset password page
-  Widget headerResetPass(){
+  Widget headerResetPass() {
     return Stack(
       children: <Widget>[
         Container(
@@ -128,10 +133,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 // Label new password
-  Widget labelTextNewPassword(){
+  Widget labelTextNewPassword() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: 25.0, right: 10.0, bottom: 10.0),
+      padding: EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -139,7 +143,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
           Text(
             "Password",
             style: TextStyle(
-                color: Color.fromRGBO( 34, 34, 34, 1.0).withOpacity(0.5),
+                color: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.5),
                 fontSize: 18,
                 fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
@@ -150,10 +154,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 // Label confirm password
-  Widget labelTextConfirmNewPass(){
+  Widget labelTextConfirmNewPass() {
     return Padding(
-      padding: EdgeInsets.only(
-          left: 25.0, right: 10.0, bottom: 10.0),
+      padding: EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -161,7 +164,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
           Text(
             "Confirm Password",
             style: TextStyle(
-                color: Color.fromRGBO( 34, 34, 34, 1.0).withOpacity(0.5),
+                color: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.5),
                 fontSize: 18,
                 fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
@@ -172,7 +175,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 // Confirm new password
-  Widget confirmNewPassField(){
+  Widget confirmNewPassField() {
     return Material(
         elevation: 0.0,
         color: Colors.white.withOpacity(0.9),
@@ -196,10 +199,13 @@ class ForgotPasswordState extends State<ForgotPassword> {
                       border: InputBorder.none,
                       hintText: "Confirm password",
                       hintStyle: TextStyle(
-                          color: Color.fromRGBO( 34, 34, 34, 1.0).withOpacity(0.4), fontSize: 18),
+                          color:
+                              Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.4),
+                          fontSize: 18),
                     ),
                     style: TextStyle(
-                        color: Color.fromRGBO( 34, 34, 34, 1.0).withOpacity(0.7), fontSize: 18),
+                        color: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.7),
+                        fontSize: 18),
                     validator: (val) {
                       if (val.length < 6) {
                         if (val.length == 0) {
@@ -208,96 +214,78 @@ class ForgotPasswordState extends State<ForgotPassword> {
                           return 'Password too short';
                         }
                       } else {
-                        if(_newPasswordController.text == val){
+                        if (_newPasswordController.text == val) {
                           return null;
-                        }else{
+                        } else {
                           return 'Password & Confirm Password does not match';
                         }
-
                       }
                     },
                     onSaved: (val) => _confirmNewPasswordController.text = val,
                     obscureText: true,
                   ),
-
                 ],
-              )
-          ),
-        )
-    );
+              )),
+        ));
   }
 
 // Reset Button
-  Widget resetButton(){
+  Widget resetButton() {
     return ListTile(
         title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: new InkWell(
-
-
-                child: Material(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Container(
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                      new BorderRadius.circular(5.0),
-                      // Box decoration takes a gradient
-                      gradient: LinearGradient(
-                        // Where the linear gradient begins and ends
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomRight,
-                        // Add one stop for each color. Stops should increase from 0 to 1
-                        stops: [0.1, 0.5, 0.7, 0.9],
-                        colors: [
-                          // Colors are easy thanks to Flutter's Colors class.
-                          Color.fromRGBO(
-                              72, 163, 198, 0.4)
-                              .withOpacity(0.4),
-                          Color.fromRGBO(
-                              72, 163, 198, 0.3)
-                              .withOpacity(0.5),
-                          Color.fromRGBO(
-                              72, 163, 198, 0.2)
-                              .withOpacity(0.6),
-                          Color.fromRGBO(
-                              72, 163, 198, 0.1)
-                              .withOpacity(0.7),
-                        ],
-                      ),
-                      boxShadow: <BoxShadow>[
-                        new BoxShadow(
-                          color: Colors.black.withOpacity(0.20),
-                          blurRadius: 10.0,
-                          offset: new Offset(1.0, 10.0),
-                        ),
-                      ],
-                    ),
-
-                    child: new MaterialButton(
-                        height: 50.0,
-                        splashColor: Color.fromRGBO(125,183,91, 1.0),
-
-                        child: Text(
-                          "Reset Password",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          SystemChannels.textInput.invokeMethod('TextInput.hide');
-                          // ignore: unnecessary_statements
-                          _isButtonDisabled ? null : _submit();
-                        }
-                    ),
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: new InkWell(
+            child: Material(
+              borderRadius: BorderRadius.circular(5.0),
+              child: Container(
+                height: 50.0,
+                decoration: BoxDecoration(
+                  borderRadius: new BorderRadius.circular(5.0),
+                  // Box decoration takes a gradient
+                  gradient: LinearGradient(
+                    // Where the linear gradient begins and ends
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomRight,
+                    // Add one stop for each color. Stops should increase from 0 to 1
+                    stops: [0.1, 0.5, 0.7, 0.9],
+                    colors: [
+                      // Colors are easy thanks to Flutter's Colors class.
+                      Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
+                      Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
+                      Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
+                      Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
+                    ],
                   ),
+                  boxShadow: <BoxShadow>[
+                    new BoxShadow(
+                      color: Colors.black.withOpacity(0.20),
+                      blurRadius: 10.0,
+                      offset: new Offset(1.0, 10.0),
+                    ),
+                  ],
                 ),
+                child: new MaterialButton(
+                    height: 50.0,
+                    splashColor: Color.fromRGBO(125, 183, 91, 1.0),
+                    child: Text(
+                      "Reset Password",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
+                      // ignore: unnecessary_statements
+                      _isButtonDisabled ? null : _submit();
+                    }),
               ),
-            )
-          ],
-        ));
+            ),
+          ),
+        )
+      ],
+    ));
   }
 
 //    Validate the form and and start loading home page
@@ -310,7 +298,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 //  Sticky header content
-  Widget stickyHeaderContent(){
+  Widget stickyHeaderContent() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -328,24 +316,21 @@ class ForgotPasswordState extends State<ForgotPassword> {
                 height: 10.0,
               ),
               Padding(
-                padding:
-                EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                child: HiddenPasswordField(_newPasswordController,"Enter password"),
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                child: HiddenPasswordField(
+                    _newPasswordController, "Enter password"),
               ),
               SizedBox(
                 height: 20.0,
               ),
               labelTextConfirmNewPass(),
-
               Padding(
-                padding:
-                EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                 child: confirmNewPassField(),
               ),
               SizedBox(
                 height: 30.0,
               ),
-
               resetButton(),
               SizedBox(
                 height: 30.0,
@@ -358,7 +343,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
 //  Scaffold body
-  Widget scaffoldBody(){
+  Widget scaffoldBody() {
     return Form(
       onWillPop: () async {
         return true;
@@ -384,9 +369,8 @@ class ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: scaffoldBody(),
-      )
-    );
+        child: Scaffold(
+      body: scaffoldBody(),
+    ));
   }
 }

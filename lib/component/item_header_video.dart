@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_ip/get_ip.dart';
@@ -871,10 +872,9 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     var screenWidth = MediaQuery.of(context).size.width;
 
     return new DiagonallyCutColoredImage(
-      FadeInImage.assetNetwork(
-        image: widget.game.cover,
+      CachedNetworkImage(
+        imageUrl: widget.game.cover,
         width: screenWidth,
-        placeholder: 'assets/placeholder_cover.jpg',
         height: 260.0,
         fit: BoxFit.cover,
       ),

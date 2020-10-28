@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
@@ -236,9 +237,8 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             Padding(
               padding: EdgeInsets.only(top: 15.0, left: 20.0),
               child: Container(
-                  child: Image.network(
-                '${APIData.logoImageUri}${loginConfigData['logo']}',
-                scale: 0.9,
+                  child: CachedNetworkImage(
+                imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
               )),
             ),
           ],
@@ -291,10 +291,8 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               children: [
                 //stickyHeaderContent(),
                 Container(
-                  child: FadeInImage.assetNetwork(
-                    image: APIData.logoImageUri + loginConfigData['logo'],
-                    placeholder: 'assets/placeholder_box_trans.png',
-                    imageScale: 1.5,
+                  child: CachedNetworkImage(
+                    imageUrl: APIData.logoImageUri + loginConfigData['logo'],
                   ),
                 ),
                 SizedBox(

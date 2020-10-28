@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -788,10 +789,8 @@ class _LoadingScreenState extends State<LoadingScreen>
           : AnimatedOpacity(
               opacity: _visible2 == true ? 1.0 : 0.0,
               duration: Duration(milliseconds: 1000),
-              child: new FadeInImage.assetNetwork(
-                image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-                placeholder: 'assets/placeholder_box_dark.jpg',
-                imageScale: 1.5,
+              child: new CachedNetworkImage(
+                imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
               ),
             ),
     );

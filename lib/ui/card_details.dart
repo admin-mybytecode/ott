@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,7 +21,8 @@ import 'package:http/http.dart' as http;
 class CardDetails extends StatefulWidget {
   final int index1;
   final String coupanCode;
-  CardDetails({Key key, @required this.index1, @required this.coupanCode}) : super(key: key);
+  CardDetails({Key key, @required this.index1, @required this.coupanCode})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -45,23 +47,25 @@ class CardDetailsState extends State<CardDetails> {
 
   void initState() {
     super.initState();
-    if(stripeKey == null){
+    if (stripeKey == null) {
       Fluttertoast.showToast(msg: "Stripe key not entered.");
-    }else{
+    } else {
       Stripe.init(stripeKey);
     }
   }
 
 //  Customer is created on stripe for making payment.
   Future<String> _createCustomer() async {
-
     final menuResponse = await http.post(
-        Uri.encodeFull("https://api.stripe.com/v1/customers?name="+"$name"+"&email="+"$email"),
+        Uri.encodeFull("https://api.stripe.com/v1/customers?name=" +
+            "$name" +
+            "&email=" +
+            "$email"),
         headers: {
           // ignore: deprecated_member_use
           HttpHeaders.AUTHORIZATION: "Bearer $stripePass"
         });
-    if(menuResponse.statusCode == 200){
+    if (menuResponse.statusCode == 200) {
       var customerStripeDetails = json.decode(menuResponse.body);
       setState(() {
         customerStripeId = customerStripeDetails['id'];
@@ -79,35 +83,42 @@ class CardDetailsState extends State<CardDetails> {
     StripeCard card = new StripeCard(
         number: cardNumber, cvc: cvvCode, expMonth: x1, expYear: x2);
     card.name = cardHolderName;
-    Stripe.instance.createCardToken(card).then((c) {
-      _saveCardForCustomer(customerStripeId, c.id);
-    }).then((source) {
-    }).catchError((error) {
-      String message= '$error';
-      showErrorDialog(message);
-    });
+    Stripe.instance
+        .createCardToken(card)
+        .then((c) {
+          _saveCardForCustomer(customerStripeId, c.id);
+        })
+        .then((source) {})
+        .catchError((error) {
+          String message = '$error';
+          showErrorDialog(message);
+        });
   }
 
 //  Stripe card is automatically saved for customer for future payment.
 
   Future<String> _saveCardForCustomer(customerStripeId, cardid) async {
     final saveCardResponse = await http.post(
-        Uri.encodeFull("https://api.stripe.com/v1/customers/"+"$customerStripeId"+"/sources?source="+"$cardid"),
+        Uri.encodeFull("https://api.stripe.com/v1/customers/" +
+            "$customerStripeId" +
+            "/sources?source=" +
+            "$cardid"),
         headers: {
           // ignore: deprecated_member_use
           HttpHeaders.AUTHORIZATION: "Bearer $stripePass"
         });
     var cardDetails = json.decode(saveCardResponse.body);
-    if(saveCardResponse.statusCode == 200){
+    if (saveCardResponse.statusCode == 200) {
       cardid = cardDetails['id'];
-      cardtype=cardDetails['funding'];
+      cardtype = cardDetails['funding'];
       cardtype = capitalize(cardtype);
-      var cardBrand=cardDetails['brand'];
-      cardLast4=cardDetails['last4'];
-      _createSubscription(customerStripeId, cardid, cardtype, cardBrand, cardLast4);
-    }else{
+      var cardBrand = cardDetails['brand'];
+      cardLast4 = cardDetails['last4'];
+      _createSubscription(
+          customerStripeId, cardid, cardtype, cardBrand, cardLast4);
+    } else {
       var code = cardDetails['error']['code'];
-      if(code == 'card_declined'){
+      if (code == 'card_declined') {
         var message = 'Your card was declined!';
         showErrorDialog(message);
       }
@@ -120,20 +131,31 @@ class CardDetailsState extends State<CardDetails> {
   }
 
 //  Creating stripe subscription form the customer using customer Id and plan.
-  Future<String> _createSubscription(customerStripeId, cardid, cardtype, cardBrand, cardLast4) async {
+  Future<String> _createSubscription(
+      customerStripeId, cardid, cardtype, cardBrand, cardLast4) async {
     var subscriptionResponse;
-    if(widget.coupanCode != ''){
-      var stripeUri = "https://api.stripe.com/v1/customers/"+"$customerStripeId"+"/subscriptions?plan="+"${plan_details[widget.index1]['plan_id']}"+"&quantity=1&default_source="+"$cardid"+"&coupon="+"${widget.coupanCode}";
+    if (widget.coupanCode != '') {
+      var stripeUri = "https://api.stripe.com/v1/customers/" +
+          "$customerStripeId" +
+          "/subscriptions?plan=" +
+          "${plan_details[widget.index1]['plan_id']}" +
+          "&quantity=1&default_source=" +
+          "$cardid" +
+          "&coupon=" +
+          "${widget.coupanCode}";
+      subscriptionResponse =
+          await http.post(Uri.encodeFull("$stripeUri"), headers: {
+        // ignore: deprecated_member_use
+        HttpHeaders.AUTHORIZATION: "Bearer $stripePass"
+      });
+    } else {
       subscriptionResponse = await http.post(
-          Uri.encodeFull("$stripeUri"),
-          headers: {
-            // ignore: deprecated_member_use
-            HttpHeaders.AUTHORIZATION: "Bearer $stripePass"
-          });
-    }
-    else{
-      subscriptionResponse = await http.post(
-          Uri.encodeFull("https://api.stripe.com/v1/customers/"+"$customerStripeId"+"/subscriptions?plan="+"${plan_details[widget.index1]['plan_id']}"+"&quantity=1&default_source="+"$cardid"),
+          Uri.encodeFull("https://api.stripe.com/v1/customers/" +
+              "$customerStripeId" +
+              "/subscriptions?plan=" +
+              "${plan_details[widget.index1]['plan_id']}" +
+              "&quantity=1&default_source=" +
+              "$cardid"),
           headers: {
             // ignore: deprecated_member_use
             HttpHeaders.AUTHORIZATION: "Bearer $stripePass"
@@ -142,43 +164,41 @@ class CardDetailsState extends State<CardDetails> {
 
     var subscriptionDetail = json.decode(subscriptionResponse.body);
     var subscriptionDate = subscriptionDetail['created'];
-    var transResponse= subscriptionDetail['id'];
+    var transResponse = subscriptionDetail['id'];
 
-    if(subscriptionResponse.statusCode == 200){
-      readTimestamp(subscriptionDate,  cardtype, cardBrand, cardLast4);
+    if (subscriptionResponse.statusCode == 200) {
+      readTimestamp(subscriptionDate, cardtype, cardBrand, cardLast4);
       subId = transResponse;
       _sendStripeDetailsToServer();
-    }else{
+    } else {
       var code = subscriptionDetail['error']['code'];
-      if(code == 'customer_max_subscriptions'){
+      if (code == 'customer_max_subscriptions') {
         var message = 'Already has the maximum 25 current subscriptions!';
         showErrorDialog(message);
       }
 
       setState(() {
         isDataAvailable = true;
-
       });
-
     }
     return null;
   }
 
 //  Send stripe payment subscription to the next hour server
-  Future<String> _sendStripeDetailsToServer() async{
+  Future<String> _sendStripeDetailsToServer() async {
     // ignore: unused_local_variable
-    final response = await http.post( APIData.stripeProfileApi, body: {
+    final response = await http.post(APIData.stripeProfileApi, body: {
       "customer": customerStripeId,
       "type": cardtype,
       "card": cardLast4,
       "transaction": subId,
-    },
-        headers: {
-          // ignore: deprecated_member_use
-          HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
-        });
+    }, headers: {
+      // ignore: deprecated_member_use
+      HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken,
+    });
     return null;
   }
+
 //    Validation alert dialog
   Future<void> _ackAlert(BuildContext context) {
     return showDialog<void>(
@@ -196,7 +216,10 @@ class CardDetailsState extends State<CardDetails> {
               content: const Text('Please enter all fields!'),
               actions: <Widget>[
                 FlatButton(
-                  child: Text('Ok',style: TextStyle(fontSize: 16.0),),
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -218,14 +241,16 @@ class CardDetailsState extends State<CardDetails> {
       isCvvFocused = creditCardModel.isCvvFocused;
     });
   }
+
 //  Show success dialog
   void showSuccessDialog() {
     setState(() {
       isDataAvailable = false;
     });
   }
+
 //  Show error dialog
-  void showErrorDialog(message){
+  void showErrorDialog(message) {
     setState(() {
       isDataAvailable = true;
     });
@@ -233,29 +258,29 @@ class CardDetailsState extends State<CardDetails> {
         context: context,
         barrierDismissible: true,
         builder: (context) => Center(
-          child: Container(
-            color: Colors.black.withOpacity(0.6),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                errorTicket(message),
-                SizedBox(
-                  height: 10.0,
+              child: Container(
+                color: Colors.black.withOpacity(0.6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    errorTicket(message),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.black,
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
                 ),
-                FloatingActionButton(
-                  backgroundColor: Colors.black,
-                  child: Icon(
-                    Icons.clear,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            ),
-          ),
-        ));
+              ),
+            ));
   }
 
   String readTimestamp(int timestamp, cardtype, cardBrand, cardLast4) {
@@ -267,29 +292,27 @@ class CardDetailsState extends State<CardDetails> {
     var subdate = '';
     var time = '';
     subdate = format1.format(date);
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
-
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format2.format(date);
     } else if (diff.inDays > 0 && diff.inDays < 7) {
       if (diff.inDays == 1) {
-
         time = diff.inDays.toString() + ' DAY AGO';
       } else {
-
         time = diff.inDays.toString() + ' DAYS AGO';
       }
     } else {
       if (diff.inDays == 7) {
-
         time = (diff.inDays / 7).floor().toString() + ' WEEK AGO';
       } else {
-
-
         time = (diff.inDays / 7).floor().toString() + ' WEEKS AGO';
       }
     }
     setState(() {
-      Future.delayed(Duration(seconds: 1)).then((_) => goToDialog(subdate, time, cardtype, cardBrand, cardLast4));
+      Future.delayed(Duration(seconds: 1)).then(
+          (_) => goToDialog(subdate, time, cardtype, cardBrand, cardLast4));
     });
     return time;
   }
@@ -349,101 +372,85 @@ class CardDetailsState extends State<CardDetails> {
     return icon;
   }
 
-
   Widget appBar() => AppBar(
-      leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){
-
-      Navigator.pop(context);
-
-      }),
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment:  MainAxisAlignment.end,
-        children: <Widget>[
-
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
 //    Setting logo in the app bar from server
-          Image.network(
-          '${APIData.logoImageUri}${loginConfigData['logo']}',
-          scale: 1.7,
-              )
-            ],
-          ),
-      backgroundColor: Color.fromRGBO(34,34,34, 1.0).withOpacity(0.98),
-
+            CachedNetworkImage(
+              imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
+            )
+          ],
+        ),
+        backgroundColor: Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.98),
       );
 
 //  Payment Process on tapping button
   Widget floatingBar() {
     return Container(
-      child:
-      isDataAvailable
-          ?
-      Material(
-        borderRadius: BorderRadius.circular(25.0),
-        child:  Container(
-          decoration: ShapeDecoration(
-              shape: StadiumBorder(),
-              gradient: LinearGradient(
-                // Where the linear gradient begins and ends
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  Color.fromRGBO(
-                      72, 163, 198, 0.4)
-                      .withOpacity(0.4),
-                  Color.fromRGBO(
-                      72, 163, 198, 0.3)
-                      .withOpacity(0.5),
-                  Color.fromRGBO(
-                      72, 163, 198, 0.2)
-                      .withOpacity(0.6),
-                  Color.fromRGBO(
-                      72, 163, 198, 0.1)
-                      .withOpacity(0.7),
-                ],
-              )
-          ),
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              if(cardNumber.length==0|| expiryDate.length==0 || cardHolderName.length==0|| cvvCode.length==0)
-              {
-                _ackAlert(context);
-
-              }else
-              {
-                if(stripeKey == null){
-                  Fluttertoast.showToast(msg: "Stripe key not entered.");
-                }else{
-                  SystemChannels.textInput.invokeMethod('TextInput.hide');
-                  Fluttertoast.showToast(msg: "Don't press back button.");
-                  if(stripeCustomerId != null){
-                    setState(() {
-                      customerStripeId = stripeCustomerId;
-                    });
-                    _saveCard(stripeCustomerId);
-                  }else{
-                    _createCustomer();
-                  }
-                  showSuccessDialog();
-                }
-
-              }
-            },
-            backgroundColor: Colors.transparent,
-            icon: Icon(
-              FontAwesomeIcons.amazonPay,
-              color: Colors.white,
-            ),
-            label: Text(
-              "Continue",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      )
+      child: isDataAvailable
+          ? Material(
+              borderRadius: BorderRadius.circular(25.0),
+              child: Container(
+                decoration: ShapeDecoration(
+                    shape: StadiumBorder(),
+                    gradient: LinearGradient(
+                      // Where the linear gradient begins and ends
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomRight,
+                      // Add one stop for each color. Stops should increase from 0 to 1
+                      stops: [0.1, 0.5, 0.7, 0.9],
+                      colors: [
+                        // Colors are easy thanks to Flutter's Colors class.
+                        Color.fromRGBO(72, 163, 198, 0.4).withOpacity(0.4),
+                        Color.fromRGBO(72, 163, 198, 0.3).withOpacity(0.5),
+                        Color.fromRGBO(72, 163, 198, 0.2).withOpacity(0.6),
+                        Color.fromRGBO(72, 163, 198, 0.1).withOpacity(0.7),
+                      ],
+                    )),
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    if (cardNumber.length == 0 ||
+                        expiryDate.length == 0 ||
+                        cardHolderName.length == 0 ||
+                        cvvCode.length == 0) {
+                      _ackAlert(context);
+                    } else {
+                      if (stripeKey == null) {
+                        Fluttertoast.showToast(msg: "Stripe key not entered.");
+                      } else {
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
+                        Fluttertoast.showToast(msg: "Don't press back button.");
+                        if (stripeCustomerId != null) {
+                          setState(() {
+                            customerStripeId = stripeCustomerId;
+                          });
+                          _saveCard(stripeCustomerId);
+                        } else {
+                          _createCustomer();
+                        }
+                        showSuccessDialog();
+                      }
+                    }
+                  },
+                  backgroundColor: Colors.transparent,
+                  icon: Icon(
+                    FontAwesomeIcons.amazonPay,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    "Continue",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            )
           : CircularProgressIndicator(),
     );
   }
@@ -464,36 +471,53 @@ class CardDetailsState extends State<CardDetails> {
             children: <Widget>[
               ProfileTile(
                 title: "Thank You!",
-                textColor:  Color.fromRGBO(125, 183, 91, 1.0),
+                textColor: Color.fromRGBO(125, 183, 91, 1.0),
                 subtitle: "Your transaction was successful",
               ),
               ListTile(
-                title: Text("Date",style: TextStyle(color: Colors.black)),
-                subtitle: Text(subdate,style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
-                trailing: Text(time,style: TextStyle(color: Colors.black)),
+                title: Text("Date", style: TextStyle(color: Colors.black)),
+                subtitle: Text(
+                  subdate,
+                  style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                ),
+                trailing: Text(time, style: TextStyle(color: Colors.black)),
               ),
               ListTile(
-                title: Text(name,style: TextStyle(color: Colors.black),),
-                subtitle: Text(email,style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
-                trailing: userImage != null ? Image.network(
-                  "${APIData.profileImageUri}"+"$userImage",
-                  scale: 1.7,
-                  fit: BoxFit.cover,
-                ):
-                Image.asset(
-                  "assets/avatar.png",
-                  scale: 1.7,
-                  fit: BoxFit.cover,
+                title: Text(
+                  name,
+                  style: TextStyle(color: Colors.black),
+                ),
+                subtitle: Text(
+                  email,
+                  style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                ),
+                trailing: userImage != null
+                    ? CachedNetworkImage(
+                        imageUrl: "${APIData.profileImageUri}" + "$userImage",
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        "assets/avatar.png",
+                        scale: 1.7,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              ListTile(
+                title: Text(
+                  "Amount",
+                  style: TextStyle(color: Colors.black),
+                ),
+                subtitle: Text(
+                  "${plan_details[widget.index1]['amount']}" +
+                      " ${plan_details[widget.index1]['currency']}",
+                  style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),
+                ),
+                trailing: Text(
+                  "Completed",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
-              ListTile(
-                title: Text("Amount",style: TextStyle(color: Colors.black),),
-                subtitle: Text("${plan_details[widget.index1]['amount']}"+" ${plan_details[widget.index1]['currency']}",style: TextStyle(color: Color.fromRGBO(20, 20, 20, 1.0)),),
-                trailing: Text("Completed",style: TextStyle(color: Colors.black),),
-              ),
-
               Card(
-
                 clipBehavior: Clip.antiAlias,
                 elevation: 0.0,
 //              color: Color.fromRGBO(34, 34, 34, 1.0),
@@ -508,64 +532,64 @@ class CardDetailsState extends State<CardDetails> {
                   ),
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
   }
+
 //  Container for error message
   Widget errorTicket(message) {
     return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(16.0),
-    child: Material(
-      color: Color.fromRGBO(250, 250, 250, 1.0),
-      clipBehavior: Clip.antiAlias,
-      elevation: 2.0,
-      borderRadius: BorderRadius.circular(4.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            ProfileTile(
-              title: "Oops!",
-              textColor: Colors.red,
-              subtitle: "Your transaction was rejected",
-            ),
-            ListTile(
-              title: Text(message,style: TextStyle(color: Colors.black)),
-            ),
-          ],
+      width: double.infinity,
+      padding: const EdgeInsets.all(16.0),
+      child: Material(
+        color: Color.fromRGBO(250, 250, 250, 1.0),
+        clipBehavior: Clip.antiAlias,
+        elevation: 2.0,
+        borderRadius: BorderRadius.circular(4.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              ProfileTile(
+                title: "Oops!",
+                textColor: Colors.red,
+                subtitle: "Your transaction was rejected",
+              ),
+              ListTile(
+                title: Text(message, style: TextStyle(color: Colors.black)),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
   }
 
   Widget _scaffoldBody() {
     return SafeArea(
-    child: Column(
-      children: <Widget>[
-        CreditCardWidget(
-          cardNumber: cardNumber,
-          expiryDate: expiryDate,
-          cardHolderName: cardHolderName,
-          cvvCode: cvvCode,
-          showBackView: isCvvFocused,
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: CreditCardForm(
-              onCreditCardModelChange: onCreditCardModelChange,
-            ),
+      child: Column(
+        children: <Widget>[
+          CreditCardWidget(
+            cardNumber: cardNumber,
+            expiryDate: expiryDate,
+            cardHolderName: cardHolderName,
+            cvvCode: cvvCode,
+            showBackView: isCvvFocused,
           ),
-        )
-      ],
-    ),
-  );
+          Expanded(
+            child: SingleChildScrollView(
+              child: CreditCardForm(
+                onCreditCardModelChange: onCreditCardModelChange,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   goToDialog(subdate, time, cardtype, cardBrand, cardLast4) {
@@ -575,40 +599,38 @@ class CardDetailsState extends State<CardDetails> {
     showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) =>
-        new GestureDetector(
-          child: Container(
-            color: Colors.black.withOpacity(0.6),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-
-                successTicket(subdate, time, cardtype, cardBrand, cardLast4),
-                SizedBox(
-                  height: 10.0,
+        builder: (context) => new GestureDetector(
+              child: Container(
+                color: Colors.black.withOpacity(0.6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    successTicket(
+                        subdate, time, cardtype, cardBrand, cardLast4),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    FloatingActionButton(
+                      backgroundColor: Colors.black,
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        var router = new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new LoadingScreen());
+                        Navigator.of(context).push(router);
+                      },
+                    )
+                  ],
                 ),
-                FloatingActionButton(
-                  backgroundColor: Colors.black,
-                  child: Icon(
-                    Icons.clear,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    var router = new MaterialPageRoute(
-                        builder: (BuildContext context) => new LoadingScreen()
-                    );
-                    Navigator.of(context).push(router);
-                  },
-                )
-              ],
-            ),
-          ),
-        )
-    );
+              ),
+            ));
   }
 
   Map<CardType, Set<List<String>>> cardNumPatterns =
-  <CardType, Set<List<String>>>{
+      <CardType, Set<List<String>>>{
     CardType.visa: <List<String>>{
       <String>['4'],
     },
@@ -643,11 +665,11 @@ class CardDetailsState extends State<CardDetails> {
     }
 
     cardNumPatterns.forEach(
-          (CardType type, Set<List<String>> patterns) {
+      (CardType type, Set<List<String>> patterns) {
         for (List<String> patternRange in patterns) {
           // Remove any spaces
           String ccPatternStr =
-          cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
+              cardNumber.replaceAll(RegExp(r'\s+\b|\b\s'), '');
           final int rangeLen = patternRange[0].length;
           // Trim the Credit Card number string to match the pattern prefix length
           if (rangeLen < cardNumber.length) {
@@ -687,7 +709,6 @@ class CardDetailsState extends State<CardDetails> {
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Colors.white,
-
       body: _scaffoldBody(),
       floatingActionButton: floatingBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

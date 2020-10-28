@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:nexthour/global.dart';
@@ -418,9 +419,9 @@ class SelectPaymentState extends State<SelectPayment>
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 12.0, right: 10.0),
-          child: Image.network(
-            '${APIData.logoImageUri}${loginConfigData['logo']}',
-            scale: 1.7,
+          child: CachedNetworkImage(
+            imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
+            width: 150,
           ),
         ),
       ],

@@ -45,6 +45,7 @@ dependencies:
   flutter_downloader: ^1.5.1
   data_connection_checker: ^0.3.4
   floating_bottom_navigation_bar: ^1.4.1
+  cached_network_image: ^2.3.3
 
   cupertino_icons: ^1.0.0
   flutter_paystack: ^1.0.4+1

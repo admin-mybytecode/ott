@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/apidata/apidata.dart';
@@ -169,9 +170,9 @@ class LoginFormState extends State<LoginForm> {
                     'assets/logo.png',
                     scale: 0.9,
                   )
-                : Image.network(
-                    '${APIData.logoImageUri}${loginConfigData['logo']}',
-                    scale: 0.9,
+                : CachedNetworkImage(
+                    imageUrl:
+                        '${APIData.logoImageUri}${loginConfigData['logo']}',
                   ),
           ),
         ),
@@ -435,10 +436,8 @@ class LoginFormState extends State<LoginForm> {
               padding: EdgeInsets.only(top: 80),
               children: [
                 Container(
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/placeholder_box_trans.png',
-                    image: APIData.logoImageUri + loginConfigData['logo'],
-                    imageScale: 1.5,
+                  child: CachedNetworkImage(
+                    imageUrl: APIData.logoImageUri + loginConfigData['logo'],
                   ),
                 ),
                 SizedBox(

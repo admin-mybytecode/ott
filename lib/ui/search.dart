@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/controller/navigation_bar_controller.dart';
@@ -184,10 +185,8 @@ class _SearchResultState extends State<SearchResultList> {
         tag: "planet-hero-${userWatchListOld[index].name}",
         child: new ClipRRect(
           borderRadius: new BorderRadius.circular(8.0),
-          child: new FadeInImage.assetNetwork(
-            image: userWatchListOld[index].box,
-            //imageScale: 1.0,
-            placeholder: "assets/placeholder_box.jpg",
+          child: new CachedNetworkImage(
+            imageUrl: userWatchListOld[index].box,
             height: 140.0,
             width: 110.0,
             fit: BoxFit.cover,

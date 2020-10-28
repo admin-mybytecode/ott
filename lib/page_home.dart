@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -63,10 +64,9 @@ class _PageHomeState extends State<PageHome>
 
 //  Setting logo image
   Widget logoImage() {
-    return FadeInImage.assetNetwork(
-      image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-      placeholder: 'assets/placeholder_box_small.jpg',
-      imageScale: 4.0,
+    return CachedNetworkImage(
+      imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
+      width: 160,
     );
   }
 

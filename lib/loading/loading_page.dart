@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
@@ -650,10 +651,8 @@ class _LoadingPageState extends State<LoadingPage>
               'assets/logo.png',
               scale: 0.9,
             )
-          : new FadeInImage.assetNetwork(
-              image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-              placeholder: 'assets/placeholder_box_trans.png',
-              imageScale: 1.5,
+          : new CachedNetworkImage(
+              imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
             ),
     );
   }

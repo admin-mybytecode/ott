@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -17,17 +18,15 @@ var screen3;
 var screen4;
 var myActiveScreen;
 
-
 class MultiScreenPage extends StatefulWidget {
   @override
   _MultiScreenPageState createState() => _MultiScreenPageState();
 }
 
 class _MultiScreenPageState extends State<MultiScreenPage> {
-
   Future<String> getAllScreens() async {
     final getAllScreensResponse =
-    await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
+        await http.get(Uri.encodeFull(APIData.showScreensApi), headers: {
       // ignore: deprecated_member_use
       HttpHeaders.AUTHORIZATION: nToken == null ? fullData : nToken
     });
@@ -76,7 +75,7 @@ class _MultiScreenPageState extends State<MultiScreenPage> {
     Map<String, String> content = {key: value};
 
     Map<dynamic, dynamic> jsonFileContent =
-    json.decode(jsonFile.readAsStringSync());
+        json.decode(jsonFile.readAsStringSync());
     jsonFileContent.addAll(content);
     jsonFile.writeAsStringSync(json.encode(jsonFileContent));
 
@@ -85,9 +84,8 @@ class _MultiScreenPageState extends State<MultiScreenPage> {
 
   Widget appBar() {
     return AppBar(
-      title: Image.network(
-        '${APIData.logoImageUri}${loginConfigData['logo']}',
-        scale: 1.7,
+      title: CachedNetworkImage(
+        imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
       ),
       actions: <Widget>[
         IconButton(
@@ -114,83 +112,89 @@ class _MultiScreenPageState extends State<MultiScreenPage> {
     return WillPopScope(
         child: Scaffold(
           appBar: appBar(),
-          body: screenList.length == 0 ? Center(
-            child: CircularProgressIndicator(),
-          ) : Container(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 30.0, bottom: 30.0),
-                            child: Text(
-                              "Who's Watching?",
-                              style: TextStyle(fontSize: 16.0),
+          body: screenList.length == 0
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 30.0, bottom: 30.0),
+                                  child: Text(
+                                    "Who's Watching?",
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ),
+                              ],
                             ),
+                          ],
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+                        sliver: SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              return InkWell(
+                                child: Container(
+                                  width: 110.0,
+                                  height: 110.0,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'assets/avatar.png',
+                                        width: 100.0,
+                                        height: 80.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(
+                                        "${screenList[index]}",
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            color:
+                                                Colors.white.withOpacity(0.7)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onTap: () {
+                                  writeToFile(
+                                      "screenName", "${screenList[index]}");
+                                  writeToFile("screenStatus", "YES");
+                                  writeToFile("screenCount", "${index + 1}");
+                                  setState(() {
+                                    myActiveScreen = screenList[index];
+                                    screenCount = index + 1;
+                                  });
+                                  var router = MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          BottomNavigationBarController());
+                                  Navigator.of(context).push(router);
+                                },
+                              );
+                            },
+                            childCount:
+                                mScreenCount, // Your desired amount of children here
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.0),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2),
-                    delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                        return InkWell(
-                          child: Container(
-                            width: 110.0,
-                            height: 110.0,
-                            child: Column(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/avatar.png',
-                                  width: 100.0,
-                                  height: 80.0,
-                                  fit: BoxFit.cover,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  "${screenList[index]}",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.white.withOpacity(0.7)),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            writeToFile("screenName", "${screenList[index]}");
-                            writeToFile("screenStatus", "YES");
-                            writeToFile("screenCount", "${index+1}");
-                            setState(() {
-                              myActiveScreen = screenList[index];
-                              screenCount = index+1;
-                            });
-                            var router = MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    BottomNavigationBarController());
-                            Navigator.of(context).push(router);
-                          },
-                        );
-                      },
-                      childCount:
-                      mScreenCount, // Your desired amount of children here
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
         onWillPop: onWillPopS);
   }

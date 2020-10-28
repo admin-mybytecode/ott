@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -537,11 +538,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       fit: BoxFit.cover,
                                       scale: 1.7,
                                     )
-                                  : Image.network(
-                                      "${APIData.profileImageUri}" +
+                                  : CachedNetworkImage(
+                                      imageUrl: "${APIData.profileImageUri}" +
                                           "$userImage",
                                       fit: BoxFit.cover,
-                                      scale: 1.7,
                                     )
                               : Image.file(
                                   tmpFile,
@@ -595,11 +595,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       fit: BoxFit.cover,
                                       scale: 1.7,
                                     )
-                                  : Image.network(
-                                      "${APIData.profileImageUri}" +
+                                  : CachedNetworkImage(
+                                      imageUrl: "${APIData.profileImageUri}" +
                                           "$userImage",
                                       fit: BoxFit.cover,
-                                      scale: 1.7,
                                     )
                               : Image.file(
                                   tmpFile,

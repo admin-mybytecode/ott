@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -265,10 +266,9 @@ class _BlogDetailsPageState extends State<BlogDetailsPage> {
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius: new BorderRadius.circular(8.0),
-                      child: new FadeInImage.assetNetwork(
-                        image: APIData.blogImageUri +
+                      child: new CachedNetworkImage(
+                        imageUrl: APIData.blogImageUri +
                             "${blogResponse[widget.index]['image']}",
-                        placeholder: "assets/placeholder_box.jpg",
                         height: 60.0,
                         width: 60.0,
                         fit: BoxFit.cover,

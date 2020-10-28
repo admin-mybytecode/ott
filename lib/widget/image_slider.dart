@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:nexthour/apidata/apidata.dart';
@@ -156,8 +157,8 @@ class ImageSlider extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(
                       top: 0.0, bottom: 0.0, left: 5.0, right: 5.0),
-                  child: new Image.network(
-                    "${APIData.silderImageUri}" +
+                  child: new CachedNetworkImage(
+                    imageUrl: "${APIData.silderImageUri}" +
                         "shows/" +
                         "${sliderData[index]['slide_image']}",
                     fit: BoxFit.cover,
@@ -225,12 +226,11 @@ class ImageSlider extends StatelessWidget {
                                 DetailedViewPage(showsMoviesList[index]));
                         Navigator.of(context).push(router);
                       },
-                      child: new FadeInImage.assetNetwork(
-                        image: "${APIData.silderImageUri}" +
+                      child: new CachedNetworkImage(
+                        imageUrl: "${APIData.silderImageUri}" +
                             "movies/" +
                             "${sliderData[index]['slide_image']}",
                         fit: BoxFit.cover,
-                        placeholder: 'assets/placeholder_cover.jpg',
                       )),
                 ),
               );

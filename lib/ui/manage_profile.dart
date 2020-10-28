@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nexthour/apidata/apidata.dart';
@@ -98,10 +99,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
             Radius.circular(100.0),
           ),
           child: userImage != null
-              ? FadeInImage.assetNetwork(
-                  image: "${APIData.profileImageUri}" + "$userImage",
-                  placeholder: 'assets/placeholder_box.jpg',
-                  imageScale: 1.0,
+              ? CachedNetworkImage(
+                  imageUrl: "${APIData.profileImageUri}" + "$userImage",
                   fit: BoxFit.cover,
                 )
               : Image.asset(

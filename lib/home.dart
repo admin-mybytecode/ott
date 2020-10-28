@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -331,10 +332,9 @@ For setting logo image that is accessed from the server using API.
 You can change logo by server
 */
 
-                child: FadeInImage.assetNetwork(
-                  image: '${APIData.logoImageUri}${loginConfigData['logo']}',
-                  placeholder: 'assets/placeholder_box_dark.jpg',
-                  imageScale: 1.5,
+                child: CachedNetworkImage(
+                  imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
+                  //imageScale: 1.5,
                   width: 150.0,
                   height: 150.0,
                 ),
