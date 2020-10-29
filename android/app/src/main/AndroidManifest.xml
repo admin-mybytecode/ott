@@ -18,7 +18,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="OTT"
+        android:label="Religo"
         tools:replace="android:label"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
