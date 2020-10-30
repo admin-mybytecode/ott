@@ -142,7 +142,8 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
 // Username label text
   Widget userNameLabelText() {
     return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0),
+      padding:
+          EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0, top: 40.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -150,7 +151,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "User Name",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -170,7 +171,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Email",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           )
         ],
@@ -190,7 +191,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Password",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -210,7 +211,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
           Text(
             "Confirm Password",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -258,77 +259,54 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
 //Register button tile
   Widget registerButtonTile() {
     return ListTile(
-        title: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        goToSignUpButton(),
-      ],
+        title: Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: goToSignUpButton(),
     ));
   }
 
 // SignUp form
   Widget signUpForm() {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/bg1.jpeg'), fit: BoxFit.cover),
-      ),
       child: Form(
         onWillPop: () async {
           return true;
         },
         key: formKey,
         child: Container(
-          color: primaryDarkColor.withOpacity(0.5),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 5.0,
-              sigmaY: 5.0,
-            ),
-            child: ListView(
-              padding: EdgeInsets.only(top: 80),
-              children: [
-                //stickyHeaderContent(),
-                Container(
-                  child: CachedNetworkImage(
-                    imageUrl: APIData.logoImageUri + loginConfigData['logo'],
-                  ),
+          child: ListView(
+            padding: EdgeInsets.only(top: 50),
+            children: [
+              //stickyHeaderContent(),
+              Container(
+                child: CachedNetworkImage(
+                  imageUrl: APIData.logoImageUri + loginConfigData['logo'],
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                userNameLabelText(),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  child: NameField(_nameController),
-                ),
-                emailLabelText(),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  child: EmailField(_emailController),
-                ),
-                passwordLabelText(),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  child: HiddenPasswordField(
-                      _passwordController, 'Enter your password'),
-                ),
-                confirmPasswordLabelText(),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  child: ConfirmPasswordField(_passwordController,
-                      _repeatPasswordController, "Confirm password"),
-                ),
-                Padding(padding: EdgeInsets.only(top: 30.0)),
-                registerButtonTile(),
-                Padding(padding: EdgeInsets.only(bottom: 20.0))
-              ],
-            ),
+              ),
+              userNameLabelText(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                child: NameField(_nameController),
+              ),
+              emailLabelText(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                child: EmailField(_emailController),
+              ),
+              passwordLabelText(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                child: HiddenPasswordField(
+                    _passwordController, 'Enter your password'),
+              ),
+              confirmPasswordLabelText(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                child: ConfirmPasswordField(_passwordController,
+                    _repeatPasswordController, "Confirm password"),
+              ),
+              registerButtonTile(),
+            ],
           ),
         ),
       ),
@@ -340,47 +318,49 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     return Expanded(
       flex: 1,
       child: InkWell(
-        child: Material(
-          borderRadius: BorderRadius.circular(40.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: new BorderRadius.circular(40.0),
-              // Box decoration takes a gradient
-              gradient: LinearGradient(
-                // Where the linear gradient begins and ends
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [0.3, 0.5, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  redPrime.withOpacity(0.7),
-                  redPrime.withOpacity(0.6),
-                  redPrime.withOpacity(0.5),
-                  redPrime.withOpacity(0.4),
-                ],
-              ),
-              boxShadow: <BoxShadow>[
-                new BoxShadow(
-                  color: Colors.black.withOpacity(0.20),
-                  blurRadius: 10.0,
-                  offset: new Offset(1.0, 10.0),
-                ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: new BorderRadius.circular(10.0),
+            // Box decoration takes a gradient
+            gradient: LinearGradient(
+              // Where the linear gradient begins and ends
+              begin: Alignment.topCenter,
+              end: Alignment.bottomRight,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.3, 0.5, 0.7, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                redPrime.withOpacity(1.0),
+                redPrime.withOpacity(0.9),
+                redPrime.withOpacity(0.8),
+                redPrime.withOpacity(0.7),
               ],
             ),
-            child: new MaterialButton(
-                height: 50.0,
-                splashColor: Colors.red,
-                child: Text(
-                  "Sign Up",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  SystemChannels.textInput.invokeMethod('TextInput.hide');
-                  // ignore: unnecessary_statements
-                  _signUp();
-                }),
+            boxShadow: <BoxShadow>[
+              new BoxShadow(
+                color: Colors.black.withOpacity(0.20),
+                blurRadius: 10.0,
+                offset: new Offset(1.0, 10.0),
+              ),
+            ],
           ),
+          child: new InkWell(
+              borderRadius: BorderRadius.circular(10.0),
+              splashColor: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: Center(
+                  child: Text(
+                    "Register",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              onTap: () {
+                SystemChannels.textInput.invokeMethod('TextInput.hide');
+                // ignore: unnecessary_statements
+                _signUp();
+              }),
         ),
       ),
     );
@@ -392,7 +372,11 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
+        appBar: AppBar(
+          elevation: 0.0,
+        ),
         body: signUpForm(),
+        backgroundColor: primaryColor,
       ),
     );
   }

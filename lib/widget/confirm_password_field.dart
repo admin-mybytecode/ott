@@ -25,24 +25,13 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
 //  TextFormField
   Widget textField() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: TextFormField(
         decoration: new InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: primaryDarkColor,
+            ),
           ),
           hintText: "Confirm password",
           suffixIcon: widget.hintText == "Confirm password"
@@ -52,17 +41,17 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
                   icon: _isHidden
                       ? Text(
                           "Show",
-                          style: TextStyle(fontSize: 10.0, color: whiteColor),
+                          style: TextStyle(fontSize: 10.0, color: textColor),
                         )
                       : Text(
                           "Hide",
-                          style: TextStyle(fontSize: 10.0, color: whiteColor),
+                          style: TextStyle(fontSize: 10.0, color: textColor),
                         ),
                 )
               : null,
           hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
         ),
-        style: TextStyle(color: whiteColor, fontSize: 18),
+        style: TextStyle(color: textColor, fontSize: 18),
         validator: (val) {
           if (val.length < 6) {
             if (val.length == 0) {

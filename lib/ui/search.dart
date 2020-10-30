@@ -39,6 +39,93 @@ class _SearchResultState extends State<SearchResultList> {
     super.dispose();
   }
 
+  List<Map> data = [
+    {
+      "name": "Siddhivinayak temple",
+      "image":
+          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Dagadusheth halwai ganapati",
+      "image":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Iskon Temple",
+      "image":
+          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Siddhivinayak temple",
+      "image":
+          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Dagadusheth halwai ganapati",
+      "image":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Iskon Temple",
+      "image":
+          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Siddhivinayak temple",
+      "image":
+          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Dagadusheth halwai ganapati",
+      "image":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Iskon Temple",
+      "image":
+          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Siddhivinayak temple",
+      "image":
+          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Dagadusheth halwai ganapati",
+      "image":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+    {
+      "name": "Iskon Temple",
+      "image":
+          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
+      "Description":
+          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
+    },
+  ];
+
 //  App bar
   Widget appBar() {
     return AppBar(
@@ -135,44 +222,32 @@ class _SearchResultState extends State<SearchResultList> {
 
 // Default search page UI container
   Widget defaultSearchPage() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: 15.0,
-      ),
-      child: InkWell(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Find what to watch next.",
-                    style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.left,
-                  ),
-                  new Padding(padding: EdgeInsets.only(top: 10.0)),
-                  Text(
-                    "Search for shows for the commute, movies to help unwind, or your go-to genres.",
-                    style: TextStyle(fontSize: 14.0, color: textColor),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Find what to watch next.",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
             ),
-            Divider(
-              height: 30,
-              color: redPrime,
-              thickness: 2,
-              indent: 5,
-              endIndent: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Search for shows for the commute, movies to help unwind, or your go-to genres.",
+              style: TextStyle(fontSize: 14.0, color: textColor),
+              textAlign: TextAlign.left,
             ),
-          ],
-        ),
+          ),
+          Divider(
+            height: 30,
+            color: redPrime,
+            thickness: 2,
+          ),
+        ],
       ),
     );
   }

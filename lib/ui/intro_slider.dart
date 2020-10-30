@@ -3,12 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/home.dart';
+import 'package:nexthour/ui/login_page.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -55,47 +54,6 @@ class IntroScreenState extends State<IntroScreen> {
       return Future.value(false);
     }
     return SystemNavigator.pop();
-  }
-
-//  After done pressed on intro slider
-  void onDonePress() {
-    // Back to the first tab
-    var router =
-        new MaterialPageRoute(builder: (BuildContext context) => new Home());
-    Navigator.of(context).push(router);
-    //    this.goToTab(0);
-  }
-
-//  Counting index and changing UI page dynamically.
-  void onTabChangeCompleted(index) {
-    // Index of current tab is focused
-  }
-
-//  Next button
-  Widget renderNextBtn() {
-    return Icon(
-      Icons.navigate_next,
-      color: redPrime.withOpacity(0.7),
-      size: 35.0,
-    );
-  }
-
-//  Done button or last page of intro slider
-  Widget renderDoneBtn() {
-    return Icon(
-      Icons.done,
-      color: redPrime.withOpacity(0.7),
-      size: 35,
-    );
-  }
-
-//  Skip button to go directly on last page of intro slider
-  Widget renderSkipBtn() {
-    return Icon(
-      Icons.skip_next,
-      color: redPrime.withOpacity(0.7),
-      size: 35,
-    );
   }
 
 //  Custom tabs
@@ -190,8 +148,8 @@ class IntroScreenState extends State<IntroScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (ctx) => Home()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => LoginPage()));
                   },
                   child: Text('Start',
                       style: TextStyle(

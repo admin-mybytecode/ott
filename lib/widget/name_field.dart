@@ -8,32 +8,21 @@ class NameField extends StatelessWidget {
 //  Name TextFormField
   Widget nameTextField() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.text,
         controller: _nameController,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: primaryDarkColor,
+            ),
           ),
           hintText: "User Name",
           hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
         ),
-        style: TextStyle(color: whiteColor, fontSize: 18),
+        style: TextStyle(color: textColor, fontSize: 18),
         validator: (val) {
           if (val.length == 0) {
             return 'Name can not be empty';

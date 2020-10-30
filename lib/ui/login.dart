@@ -180,41 +180,13 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
-//    Header of StickHeader widget
-  Widget stickyHeader() {
-    // return Stack(
-    //   children: <Widget>[
-    //     Container(
-    //       margin: new EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
-    //       child: WavyHeaderImage2(),
-    //     ),
-    //     Container(
-    //       margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-    //       child: WavyHeaderImage(),
-    //     ),
-    //     logoImage(),
-    //     IconButton(icon: Icon(Icons.arrow_back_ios, size: 24,), onPressed: (){
-    //       Navigator.pop(context);
-    //     }),
-    //   ],
-    // );
-    return Container(
-      height: MediaQuery.of(context).size.height / 3,
-      width: MediaQuery.of(context).size.width,
-      child: Image.asset(
-        'assets/bg1.jpg',
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
 //    SignIn material button
   Widget signInMaterialButton() {
     return MaterialButton(
         height: 50.0,
         splashColor: Color.fromRGBO(125, 183, 91, 1.0),
         child: Text(
-          "Sign In",
+          "Login",
           style: TextStyle(color: Colors.white),
         ),
         onPressed: () {
@@ -224,67 +196,30 @@ class LoginFormState extends State<LoginForm> {
         });
   }
 
-////    Remember me radio button
-//      Widget rememberMeRadio(){
-//      return Flexible(
-//        flex: 1,
-//        fit: FlexFit.loose,
-//        child: InkWell(
-//            onTap: _radio,
-//            child:  new Text("Remember me",
-//                style: TextStyle(
-//                  fontSize: 14,
-//                  color: Colors.black87,
-//                )
-//            )
-//        ),
-//      );
-//    }
-
 //    Register here text line
   Widget registerHereText() {
-    return ListTile(
-        title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-          Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: InkWell(
-              child: new RichText(
-                textAlign: TextAlign.center,
-                text: new TextSpan(children: [
-                  new TextSpan(
-                    text: "If you don't have an account? ",
-                    style: new TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16.5,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  new TextSpan(
-                    text: 'Register Here. ',
-                    style: new TextStyle(
-                        color: Colors.blue,
-                        fontSize: 17.5,
-                        fontWeight: FontWeight.bold),
-                  )
-                ]),
-              ),
-              onTap: () {
-                var router = new MaterialPageRoute(
-                    builder: (BuildContext context) => new SignUpForm());
-                Navigator.of(context).push(router);
-              },
-            ),
-          ),
-        ]));
+    return InkWell(
+      child: new RichText(
+        textAlign: TextAlign.center,
+        text: new TextSpan(
+          text: 'Register',
+          style: new TextStyle(
+              color: redPrime, fontSize: 17.5, fontWeight: FontWeight.bold),
+        ),
+      ),
+      onTap: () {
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context) => new SignUpForm());
+        Navigator.of(context).push(router);
+      },
+    );
   }
 
 //    Email text
   Widget emailText() {
     return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0),
+      padding:
+          EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0, top: 50.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -292,7 +227,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Email",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.bold),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.start,
           )
         ],
@@ -303,7 +238,8 @@ class LoginFormState extends State<LoginForm> {
 //    Password text
   Widget passwordText() {
     return Padding(
-      padding: EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0),
+      padding:
+          EdgeInsets.only(left: 25.0, right: 10.0, bottom: 10.0, top: 10.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -311,7 +247,7 @@ class LoginFormState extends State<LoginForm> {
           Text(
             "Password",
             style: TextStyle(
-                color: whiteColor, fontSize: 18, fontWeight: FontWeight.w600),
+                color: textColor, fontSize: 18, fontWeight: FontWeight.w600),
             textAlign: TextAlign.start,
           ),
         ],
@@ -321,39 +257,34 @@ class LoginFormState extends State<LoginForm> {
 
 //    SignIn button container
   Widget signInButtonContainer() {
-    return Expanded(
-      flex: 2,
-      child: InkWell(
-        child: Material(
-          borderRadius: BorderRadius.circular(40.0),
-          child: Container(
-            height: 50.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40.0),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  Colors.red.withOpacity(0.5),
-                  Colors.red.withOpacity(0.5),
-                  Colors.red.withOpacity(0.6),
-                  Colors.red.withOpacity(0.8),
-                ],
-              ),
-              boxShadow: <BoxShadow>[
-                new BoxShadow(
-                  color: Colors.black.withOpacity(0.20),
-                  blurRadius: 10.0,
-                  offset: new Offset(1.0, 10.0),
-                ),
-              ],
-            ),
-            child: signInMaterialButton(),
+    return InkWell(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: 50.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomRight,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.red.withOpacity(1.0),
+              Colors.red.withOpacity(0.9),
+              Colors.red.withOpacity(0.8),
+              Colors.red.withOpacity(0.7),
+            ],
           ),
+          boxShadow: <BoxShadow>[
+            new BoxShadow(
+              color: Colors.black.withOpacity(0.20),
+              blurRadius: 10.0,
+              offset: new Offset(1.0, 10.0),
+            ),
+          ],
         ),
+        child: signInMaterialButton(),
       ),
     );
   }
@@ -365,17 +296,6 @@ class LoginFormState extends State<LoginForm> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-//              GestureDetector(
-//                onTap: _radio,
-//                child: RadioButtonField(_isSelected),
-//              ),
-//              SizedBox(
-//                width: 8.0,
-//              ),
-//              rememberMeRadio(),
-//              SizedBox(
-//                width: 10.0,
-//              ),
         signInButtonContainer(),
       ],
     ));
@@ -383,18 +303,15 @@ class LoginFormState extends State<LoginForm> {
 
 //    Forgot password field
   Widget forgotPasswordField() {
-    return ListTile(
-      trailing: Padding(
-        padding: EdgeInsets.only(left: 15.0),
-        child: Text(
-          'Forgot Password? ',
-          style: new TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-          ),
+    return FlatButton(
+      child: Text(
+        'Forgot Password? ',
+        style: new TextStyle(
+          color: textColor,
+          fontSize: 14.0,
         ),
       ),
-      onTap: resetPasswordAlertBox,
+      onPressed: resetPasswordAlertBox,
     );
   }
 
@@ -419,58 +336,30 @@ class LoginFormState extends State<LoginForm> {
       },
       key: formKey,
       child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/bg1.jpeg'), fit: BoxFit.cover),
-          color: Colors.white.withOpacity(0.95),
-        ),
         alignment: Alignment.center,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5.0,
-            sigmaY: 5.0,
-          ),
-          child: Container(
-            color: primaryDarkColor.withOpacity(0.5),
-            child: ListView(
-              padding: EdgeInsets.only(top: 80),
-              children: [
-                Container(
-                  child: CachedNetworkImage(
-                    imageUrl: APIData.logoImageUri + loginConfigData['logo'],
-                  ),
+        child: Container(
+          child: ListView(
+            padding: EdgeInsets.only(top: 50.0),
+            children: [
+              Container(
+                child: CachedNetworkImage(
+                  imageUrl: APIData.logoImageUri + loginConfigData['logo'],
                 ),
-                SizedBox(
-                  height: 40,
-                ),
-                emailText(),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  child: EmailField(_emailController),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                passwordText(),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-                  child: HiddenPasswordField(
-                      _passwordController, "Enter your password"),
-                ),
-                forgotPasswordField(),
-                SizedBox(
-                  height: 5.0,
-                ),
-                signInButtonListRow(),
-                SizedBox(
-                  height: 15.0,
-                ),
-                registerHereText(),
-                SizedBox(
-                  height: 30.0,
-                ),
-              ],
-            ),
+              ),
+              emailText(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: EmailField(_emailController),
+              ),
+              passwordText(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
+                child: HiddenPasswordField(
+                    _passwordController, "Enter your password"),
+              ),
+              signInButtonListRow(),
+              forgotPasswordField(),
+            ],
           ),
         ),
       ),
@@ -481,7 +370,18 @@ class LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        actions: [
+          Center(
+            widthFactor: 1.5,
+            child: registerHereText(),
+          ),
+        ],
+      ),
       body: Container(child: form()),
+      backgroundColor: primaryColor,
     );
   }
 }

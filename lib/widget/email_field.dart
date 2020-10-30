@@ -8,32 +8,21 @@ class EmailField extends StatelessWidget {
 // Email textFormField
   Widget emailTextField() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: TextFormField(
         maxLines: 1,
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: whiteColor, width: 2.0),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: redPrime, width: 2.0),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: primaryDarkColor,
+            ),
           ),
           hintText: "Enter your email",
           hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
         ),
-        style: TextStyle(color: whiteColor, fontSize: 20),
+        style: TextStyle(color: textColor, fontSize: 20),
         validator: (val) {
           if (val.length == 0) {
             return 'Email can not be empty';

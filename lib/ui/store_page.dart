@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nexthour/global.dart';
 
@@ -12,85 +13,70 @@ class _StorePageState extends State<StorePage> {
       "name": "Teej Puja",
       "image":
           "https://www.boldsky.com/img/2017/07/xshutterstock-83999845-12-1499865341.jpg.pagespeed.ic.Y3V94MIATh.jpg",
-      "price":
-          "200",
+      "price": "200",
     },
     {
       "name": "Puja Taat",
-      "image":
-      "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
-      "price":
-      "600",
+      "image": "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
+      "price": "600",
     },
     {
       "name": "Ganpati Puja",
       "image":
-      "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
-      "price":
-      "299",
+          "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
+      "price": "299",
     },
     {
       "name": "Puja Pack",
       "image":
-      "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
-      "price":
-      "1999",
+          "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
+      "price": "1999",
     },
     {
       "name": "Teej Puja",
       "image":
-      "https://www.boldsky.com/img/2017/07/xshutterstock-83999845-12-1499865341.jpg.pagespeed.ic.Y3V94MIATh.jpg",
-      "price":
-      "200",
+          "https://www.boldsky.com/img/2017/07/xshutterstock-83999845-12-1499865341.jpg.pagespeed.ic.Y3V94MIATh.jpg",
+      "price": "200",
     },
     {
       "name": "Puja Taat",
-      "image":
-      "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
-      "price":
-      "600",
+      "image": "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
+      "price": "600",
     },
     {
       "name": "Ganpati Puja",
       "image":
-      "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
-      "price":
-      "299",
+          "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
+      "price": "299",
     },
     {
       "name": "Puja Pack",
       "image":
-      "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
-      "price":
-      "1999",
+          "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
+      "price": "1999",
     },
     {
       "name": "Teej Puja",
       "image":
-      "https://www.boldsky.com/img/2017/07/xshutterstock-83999845-12-1499865341.jpg.pagespeed.ic.Y3V94MIATh.jpg",
-      "price":
-      "200",
+          "https://www.boldsky.com/img/2017/07/xshutterstock-83999845-12-1499865341.jpg.pagespeed.ic.Y3V94MIATh.jpg",
+      "price": "200",
     },
     {
       "name": "Puja Taat",
-      "image":
-      "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
-      "price":
-      "600",
+      "image": "https://miro.medium.com/max/2560/1*01sxpQl9BhNcgAQH-pNLaQ.jpeg",
+      "price": "600",
     },
     {
       "name": "Ganpati Puja",
       "image":
-      "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
-      "price":
-      "299",
+          "https://cdn.telanganatoday.com/wp-content/uploads/2018/09/ganesh.jpg",
+      "price": "299",
     },
     {
       "name": "Puja Pack",
       "image":
-      "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
-      "price":
-      "1999",
+          "https://3.bp.blogspot.com/-NrqQfNwqUnM/UJDvfpvC0tI/AAAAAAAABc4/UTfkktu1Jq4/s1600/Durga+Pooja+Materials.jpg",
+      "price": "1999",
     }
   ];
 
@@ -123,8 +109,8 @@ class _StorePageState extends State<StorePage> {
             return Card(
               child: Column(
                 children: [
-                  Image.network(
-                    data[index]["image"],
+                  CachedNetworkImage(
+                    imageUrl: data[index]["image"],
                     height: 90,
                     width: 100,
                   ),
@@ -134,14 +120,14 @@ class _StorePageState extends State<StorePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          data[index]["name"]??'',
+                          data[index]["name"] ?? '',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '₹'+data[index]["price"],
+                          '₹' + data[index]["price"],
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -166,8 +152,14 @@ class _StorePageState extends State<StorePage> {
                               color: primaryColor,
                             ),
                           ),
-                          SizedBox(width: 5,),
-                          Icon(Icons.shopping_cart,color: Colors.white,size: 18,),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ],
                       ),
                       onPressed: () {},
