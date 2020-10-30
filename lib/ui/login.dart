@@ -339,7 +339,7 @@ class LoginFormState extends State<LoginForm> {
         alignment: Alignment.center,
         child: Container(
           child: ListView(
-            padding: EdgeInsets.only(top: 50.0),
+            padding: EdgeInsets.only(top: 30.0),
             children: [
               Container(
                 child: CachedNetworkImage(

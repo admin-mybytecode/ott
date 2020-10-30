@@ -258,11 +258,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
 
 //Register button tile
   Widget registerButtonTile() {
-    return ListTile(
-        title: Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: goToSignUpButton(),
-    ));
+    return ListTile(title: goToSignUpButton());
   }
 
 // SignUp form
@@ -275,7 +271,7 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
         key: formKey,
         child: Container(
           child: ListView(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 30),
             children: [
               //stickyHeaderContent(),
               Container(
@@ -301,7 +297,8 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               ),
               confirmPasswordLabelText(),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                padding: EdgeInsets.only(
+                    top: 10.0, right: 10.0, left: 10.0, bottom: 30.0),
                 child: ConfirmPasswordField(_passwordController,
                     _repeatPasswordController, "Confirm password"),
               ),
@@ -315,53 +312,50 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
 
 // Go to sign up button
   Widget goToSignUpButton() {
-    return Expanded(
-      flex: 1,
-      child: InkWell(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: new BorderRadius.circular(10.0),
-            // Box decoration takes a gradient
-            gradient: LinearGradient(
-              // Where the linear gradient begins and ends
-              begin: Alignment.topCenter,
-              end: Alignment.bottomRight,
-              // Add one stop for each color. Stops should increase from 0 to 1
-              stops: [0.3, 0.5, 0.7, 0.9],
-              colors: [
-                // Colors are easy thanks to Flutter's Colors class.
-                redPrime.withOpacity(1.0),
-                redPrime.withOpacity(0.9),
-                redPrime.withOpacity(0.8),
-                redPrime.withOpacity(0.7),
-              ],
-            ),
-            boxShadow: <BoxShadow>[
-              new BoxShadow(
-                color: Colors.black.withOpacity(0.20),
-                blurRadius: 10.0,
-                offset: new Offset(1.0, 10.0),
-              ),
+    return InkWell(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: new BorderRadius.circular(10.0),
+          // Box decoration takes a gradient
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topCenter,
+            end: Alignment.bottomRight,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.3, 0.5, 0.7, 0.9],
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              redPrime.withOpacity(1.0),
+              redPrime.withOpacity(0.9),
+              redPrime.withOpacity(0.8),
+              redPrime.withOpacity(0.7),
             ],
           ),
-          child: new InkWell(
-              borderRadius: BorderRadius.circular(10.0),
-              splashColor: Colors.red,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Center(
-                  child: Text(
-                    "Register",
-                    style: TextStyle(color: Colors.white),
-                  ),
+          boxShadow: <BoxShadow>[
+            new BoxShadow(
+              color: Colors.black.withOpacity(0.20),
+              blurRadius: 10.0,
+              offset: new Offset(1.0, 10.0),
+            ),
+          ],
+        ),
+        child: new InkWell(
+            borderRadius: BorderRadius.circular(10.0),
+            splashColor: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: Center(
+                child: Text(
+                  "Register",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-              onTap: () {
-                SystemChannels.textInput.invokeMethod('TextInput.hide');
-                // ignore: unnecessary_statements
-                _signUp();
-              }),
-        ),
+            ),
+            onTap: () {
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
+              // ignore: unnecessary_statements
+              _signUp();
+            }),
       ),
     );
   }
