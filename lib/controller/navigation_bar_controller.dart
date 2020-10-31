@@ -107,6 +107,7 @@ class _BottomNavigationBarControllerState
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
+            backgroundColor: primaryColor,
             extendBody: true,
             body: Stack(
               children: <Widget>[

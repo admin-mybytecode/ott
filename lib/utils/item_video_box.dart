@@ -15,14 +15,15 @@ class VideoBoxItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    print('image url test ${game.box}');
-    return Material(
-      color: primaryColor,
-      borderRadius: new BorderRadius.circular(8.0),
-      child: new ClipRRect(
-        borderRadius: new BorderRadius.circular(8.0),
+    return Card(
+      elevation: 4.0,
+      shadowColor: redPrime.withOpacity(0.6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
         child: new CachedNetworkImage(
           imageUrl: game.box,
-          height: 160.0,
+          height: 150.0,
           width: 110.0,
           fit: BoxFit.cover,
         ),

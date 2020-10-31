@@ -101,74 +101,85 @@ class _StorePageState extends State<StorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(
-          data.length,
-          (index) {
-            return Card(
-              child: Column(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: data[index]["image"],
-                    height: 90,
-                    width: 100,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: primaryColor,
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 70),
+        child: GridView.count(
+          crossAxisCount: 2,
+          children: List.generate(
+            data.length,
+            (index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  shadowColor: redPrime.withOpacity(0.6),
+                  elevation: 6.0,
+                  child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          data[index]["name"] ?? '',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                      CachedNetworkImage(
+                        imageUrl: data[index]["image"],
+                        height: 90,
+                        width: 100,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '₹' + data[index]["price"],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              data[index]["name"] ?? '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '₹' + data[index]["price"],
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        width: 90,
+                        child: FlatButton(
+                          color: redPrime,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "ADD",
+                                style: TextStyle(
+                                  fontFamily: 'Lato',
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: primaryColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ],
+                          ),
+                          onPressed: () {},
                         ),
                       ),
                     ],
                   ),
-                  Container(
-                    width: 90,
-                    child: FlatButton(
-                      color: redPrime,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "ADD",
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.w600,
-                              color: primaryColor,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                            size: 18,
-                          ),
-                        ],
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
