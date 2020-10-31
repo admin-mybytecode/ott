@@ -671,8 +671,8 @@ class CustomDrawerState extends State<CustomDrawer> {
   Widget drawerBodyContainer(height2) {
     return SingleChildScrollView(
       child: Container(
-        color: primaryColor,
-        height: MediaQuery.of(context).size.height * 0.68,
+        color: primaryDarkColor.withOpacity(0.2),
+        height: MediaQuery.of(context).size.height * 0.67,
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: <Widget>[
@@ -724,28 +724,36 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  Navigation drawer
   Widget drawer(width, height2) {
-    return Container(
+    return Drawer(
       child: ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Card(
-              elevation: 6.0,
-              shadowColor: redPrime.withOpacity(0.6),
-              color: primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: ListTile(
-                leading: Text(
-                  "Account",
-                  style: TextStyle(fontSize: 35, color: textColor),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Card(
+                    elevation: 6.0,
+                    color: primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ListTile(
+                      leading: Text(
+                        "Account",
+                        style: TextStyle(fontSize: 35, color: textColor),
+                      ),
+                      trailing: signOut(),
+                    ),
+                  ),
                 ),
-                trailing: signOut(),
-              ),
-            ),
-          ),
-          drawerHeader(width),
-          drawerBodyContainer(height2),
+                drawerHeader(width),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: drawerBodyContainer(height2),
+                ),
+              ]),
         ],
       ),
     );
@@ -772,8 +780,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     double height = MediaQuery.of(context).size.height;
     double height2 = (height * 76.75) / 100;
     // TODO: implement build
-    return Container(
-      color: primaryColor,
+    return SizedBox(
       width: width,
       child: drawer(width, height2),
     );

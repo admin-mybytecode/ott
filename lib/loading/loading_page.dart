@@ -676,7 +676,7 @@ class _LoadingPageState extends State<LoadingPage>
         children: <Widget>[
           Container(
               decoration: BoxDecoration(
-            color: primaryColor,
+            color: Color.fromRGBO(34, 34, 34, 1.0),
           )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

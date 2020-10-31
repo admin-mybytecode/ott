@@ -216,28 +216,22 @@ class ImageSlider extends StatelessWidget {
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 3.0, vertical: 10.0),
-                child: Card(
-                  elevation: 6.0,
-                  shadowColor: redPrime.withOpacity(0.5),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: InkWell(
-                        onTap: () {
-                          print(showsMoviesList[index].id);
-                          var router = new MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  DetailedViewPage(showsMoviesList[index]));
-                          Navigator.of(context).push(router);
-                        },
-                        child: new CachedNetworkImage(
-                          imageUrl: "${APIData.silderImageUri}" +
-                              "movies/" +
-                              "${sliderData[index]['slide_image']}",
-                          fit: BoxFit.cover,
-                        )),
-                  ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: InkWell(
+                      onTap: () {
+                        print(showsMoviesList[index].id);
+                        var router = new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DetailedViewPage(showsMoviesList[index]));
+                        Navigator.of(context).push(router);
+                      },
+                      child: new CachedNetworkImage(
+                        imageUrl: "${APIData.silderImageUri}" +
+                            "movies/" +
+                            "${sliderData[index]['slide_image']}",
+                        fit: BoxFit.cover,
+                      )),
                 ),
               );
             }

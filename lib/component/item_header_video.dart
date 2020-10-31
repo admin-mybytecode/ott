@@ -698,7 +698,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: new BackButton(color: primaryColor),
         ),
         new Positioned(
-          top: 460.0,
+          top: 180.0,
           bottom: 0.0,
           left: 16.0,
           right: 16.0,
@@ -718,6 +718,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             child: new VideoBoxItem(
               context,
               widget.game,
+              height: 220.0,
             )),
         new Expanded(
           child: new Padding(
@@ -725,10 +726,9 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(theme),
                 new Text(
                   widget.game.name,
-                  style: TextStyle(color: textColor, fontSize: 15),
+                  style: TextStyle(color: whiteColor, fontSize: 15),
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
@@ -743,6 +743,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                     )
                   ],
                 ),
+                header(theme),
               ],
             ),
           ),
@@ -753,15 +754,15 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
   Widget headerDecorationContainer() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: 262.0,
       decoration: BoxDecoration(
           //                  color: Colors.white,
           gradient: LinearGradient(
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter,
               colors: [
-            primaryColor.withOpacity(0.1),
-            primaryColor.withOpacity(1.0),
+            Color.fromRGBO(34, 34, 34, 1.0).withOpacity(0.1),
+            Color.fromRGBO(34, 34, 34, 1.0),
           ],
               stops: [
             0.3,
@@ -775,6 +776,50 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         padding: const EdgeInsets.only(top: 12.0),
         child: new Column(
           children: <Widget>[
+            widget.game.datatype == 'M'
+                ? OutlineButton(
+                    onPressed:  _onTapPlay ,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 0,
+                          child: Icon(Icons.play_arrow, color: redPrime),
+                        ),
+                        new Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: new Text(
+                            "Play",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Lato',
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.9,
+                              color: textColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)),
+                    borderSide: new BorderSide(
+                      color: redPrime,
+                      width: 2.0,
+                    ),
+                    color: redPrime,
+                    highlightColor: theme.accentColor,
+                    highlightedBorderColor: theme.accentColor,
+                    splashColor: primaryColor,
+                    highlightElevation: 0.0,
+                  )
+                : SizedBox.shrink(),
             widget.game.datatype == 'M'
                 ? widget.game.url == null
                     ? SizedBox.shrink()
@@ -812,62 +857,28 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0)),
                         borderSide:
-                            new BorderSide(color: primaryDarkColor, width: 2.0),
+                            new BorderSide(color: Colors.white70, width: 2.0),
                         highlightColor: theme.accentColor,
                         highlightedBorderColor: theme.accentColor,
                         splashColor: Colors.black12,
                         highlightElevation: 0.0,
                       )
-                : SizedBox.shrink(),
-            widget.game.datatype == 'M'
-                ? FlatButton(
-                    onPressed: _onTapPlay,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 0,
-                          child: Icon(Icons.play_arrow, color: primaryColor),
-                        ),
-                        new Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: new Text(
-                            "Play",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 0.9,
-                              color: primaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)),
-                    color: redPrime,
-                    highlightColor: theme.accentColor,
-                    splashColor: primaryColor,
-                  )
-                : SizedBox.shrink(),
+                : SizedBox.shrink()
           ],
         ));
   }
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    return CachedNetworkImage(
-      imageUrl: widget.game.cover,
-      width: screenSize.width,
-      height: screenSize.height * 0.6,
-      fit: BoxFit.cover,
+    var screenWidth = MediaQuery.of(context).size.width;
+
+    return new DiagonallyCutColoredImage(
+      CachedNetworkImage(
+        imageUrl: widget.game.cover,
+        width: screenWidth,
+        height: 260.0,
+        fit: BoxFit.cover,
+      ),
+      color: const Color(0x00FFFFFF),
     );
   }
 }
