@@ -280,7 +280,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
 
   Widget tapOnMoreLikeThis(moreLikeThis) {
     return Container(
-      height: 300.0,
+      height: 400.0,
       child: GridView.count(
         shrinkWrap: true,
         crossAxisCount: 2,
@@ -339,7 +339,6 @@ class _DetailedViewPageState extends State<DetailedViewPage>
   Widget _tabBarView(moreLikeThis) => TabBarView(children: <Widget>[
         new ListView(
           shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
           children: <Widget>[
             tapOnMoreLikeThis(moreLikeThis),
           ],
@@ -354,21 +353,18 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                "$genres",
+                style: TextStyle(color: textColor, fontSize: 13.0),
+              ),
+            ),
             Expanded(
               flex: 2,
               child: Text(
                 'Genres:',
                 style: TextStyle(color: Colors.grey, fontSize: 13.0),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: GestureDetector(
-                onTap: () {},
-                child: Text(
-                  "$genres",
-                  style: TextStyle(color: textColor, fontSize: 13.0),
-                ),
               ),
             ),
           ],
@@ -947,39 +943,30 @@ class _DetailedViewPageState extends State<DetailedViewPage>
             SliverList(
                 delegate:
                     SliverChildBuilderDelegate((BuildContext context, int j) {
-              return Container(
-                color: primaryColor,
-                child: Column(
-                  children: <Widget>[
-                    new VideoDetailHeader(widget.game),
-                    new Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
-                        child: new DescriptionText(widget.game.description)),
-                    new Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 26.0, 16.0, 0.0),
-                    ),
-                    new Row(
-                      children: [
-                        _watchListMovie(isMovieAdded),
-                        RateUs(widget.game.datatype, widget.game.id),
-                        SharePage(APIData.shareMovieUri, widget.game.id),
-                        widget.game.datatype == 'M'
-                            ? DownloadPage(widget.game)
-                            : SizedBox.shrink()
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
-                    )
-                  ],
-                ),
+              return Column(
+                children: <Widget>[
+                  new VideoDetailHeader(widget.game),
+                  new DescriptionText(widget.game.description),
+                  new Row(
+                    children: [
+                      _watchListMovie(isMovieAdded),
+                      RateUs(widget.game.datatype, widget.game.id),
+                      SharePage(APIData.shareMovieUri, widget.game.id),
+                      widget.game.datatype == 'M'
+                          ? DownloadPage(widget.game)
+                          : SizedBox.shrink()
+                    ],
+                  ),
+                ],
               );
             }, childCount: 1)),
             _sliverAppBar(innerBoxIsScrolled),
           ];
         },
-        body: _tabBarView(moreLikeThis),
+        body: Container(
+          height: 200,
+          child: _tabBarView(moreLikeThis),
+        ),
       );
 
 //  More like this video for seasons
@@ -1251,96 +1238,95 @@ class _DetailedViewPageState extends State<DetailedViewPage>
         size: 35.0,
       ),
       onTap: () {
+        mReadyUrl = seasonEpisodeData[i]['video_link']['ready_url'];
+        mUrl360 = seasonEpisodeData[i]['video_link']['url_360'];
+        mUrl480 = seasonEpisodeData[i]['video_link']['url_480'];
+        mUrl720 = seasonEpisodeData[i]['video_link']['url_720'];
+        mUrl1080 = seasonEpisodeData[i]['video_link']['url_1080'];
+        mIFrameUrl = seasonEpisodeData[i]['video_link']['iframeurl'];
+        var title = seasonEpisodeData[i]['title'];
 
-          mReadyUrl = seasonEpisodeData[i]['video_link']['ready_url'];
-          mUrl360 = seasonEpisodeData[i]['video_link']['url_360'];
-          mUrl480 = seasonEpisodeData[i]['video_link']['url_480'];
-          mUrl720 = seasonEpisodeData[i]['video_link']['url_720'];
-          mUrl1080 = seasonEpisodeData[i]['video_link']['url_1080'];
-          mIFrameUrl = seasonEpisodeData[i]['video_link']['iframeurl'];
-          var title = seasonEpisodeData[i]['title'];
-
-          if (mIFrameUrl != null ||
-              mReadyUrl != null ||
-              mUrl360 != null ||
-              mUrl480 != null ||
-              mUrl720 != null ||
-              mUrl1080 != null) {
-            if (mIFrameUrl != null) {
-              var matchIFrameUrl = mIFrameUrl.substring(0, 24);
-              if (matchIFrameUrl == 'https://drive.google.com'
+        if (mIFrameUrl != null ||
+            mReadyUrl != null ||
+            mUrl360 != null ||
+            mUrl480 != null ||
+            mUrl720 != null ||
+            mUrl1080 != null) {
+          if (mIFrameUrl != null) {
+            var matchIFrameUrl = mIFrameUrl.substring(0, 24);
+            if (matchIFrameUrl == 'https://drive.google.com'
 //                  mIFrameUrl.substring(mReadyUrl.length - 4) == ".mp4"
-                  ) {
-                var ind = mIFrameUrl.lastIndexOf('d/');
-                var t = "$mIFrameUrl".trim().substring(ind + 2);
-                var rep = t.replaceAll('/preview', '');
-                var newurl =
-                    "https://www.googleapis.com/drive/v3/files/$rep?alt=media&key=${APIData.googleDriveApi}";
-                if (userPaymentType == "Free") {
-                  freeTrial(newurl, "CUSTOM", title);
-                } else {
-                  getAllScreens(newurl, "CUSTOM", title);
-                }
+                ) {
+              var ind = mIFrameUrl.lastIndexOf('d/');
+              var t = "$mIFrameUrl".trim().substring(ind + 2);
+              var rep = t.replaceAll('/preview', '');
+              var newurl =
+                  "https://www.googleapis.com/drive/v3/files/$rep?alt=media&key=${APIData.googleDriveApi}";
+              if (userPaymentType == "Free") {
+                freeTrial(newurl, "CUSTOM", title);
               } else {
-                if (userPaymentType == "Free") {
-                  freeTrial(mIFrameUrl, "EMD", title);
-                } else {
-                  getAllScreens(mIFrameUrl, "EMD", title);
-                }
+                getAllScreens(newurl, "CUSTOM", title);
               }
-            } else if (mReadyUrl != null) {
-              var checkMp4 = seasonEpisodeData[i]['video_link']['ready_url']
-                  .substring(mReadyUrl.length - 4);
-              var checkMpd = seasonEpisodeData[i]['video_link']['ready_url']
-                  .substring(mReadyUrl.length - 4);
-              var checkWebm = seasonEpisodeData[i]['video_link']['ready_url']
-                  .substring(mReadyUrl.length - 5);
-              var checkMkv = seasonEpisodeData[i]['video_link']['ready_url']
-                  .substring(mReadyUrl.length - 4);
-              var checkM3u8 = seasonEpisodeData[i]['video_link']['ready_url']
-                  .substring(mReadyUrl.length - 5);
-
-              if (seasonEpisodeData[i]['video_link']['ready_url']
-                      .substring(0, 18) ==
-                  "https://vimeo.com/") {
-                if (userPaymentType == "Free") {
-                  freeTrial(seasonEpisodeData[i]['id'], "JS", title);
-                } else {
-                  getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
-                }
-              } else if (seasonEpisodeData[i]['video_link']['ready_url']
-                      .substring(0, 29) ==
-                  'https://www.youtube.com/embed') {
-                if (userPaymentType == "Free") {
-                  freeTrial(mReadyUrl, "EMD", title);
-                } else {
-                  getAllScreens(mReadyUrl, "EMD", title);
-                }
-              } else if (seasonEpisodeData[i]['video_link']['ready_url']
-                      .substring(0, 23) ==
-                  'https://www.youtube.com') {
-                if (userPaymentType == "Free") {
-                  freeTrial(seasonEpisodeData[i]['id'], "JS", title);
-                } else {
-                  getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
-                }
-              } else if (checkMp4 == ".mp4" ||
-                  checkMpd == ".mpd" ||
-                  checkWebm == ".webm" ||
-                  checkMkv == ".mkv" ||
-                  checkM3u8 == ".m3u8") {
-                if (userPaymentType == "Free") {
-                  freeTrial(mReadyUrl, "CUSTOM", title);
-                } else {
-                  getAllScreens(mReadyUrl, "CUSTOM", title);
-                }
+            } else {
+              if (userPaymentType == "Free") {
+                freeTrial(mIFrameUrl, "EMD", title);
               } else {
+                getAllScreens(mIFrameUrl, "EMD", title);
+              }
+            }
+          } else if (mReadyUrl != null) {
+            var checkMp4 = seasonEpisodeData[i]['video_link']['ready_url']
+                .substring(mReadyUrl.length - 4);
+            var checkMpd = seasonEpisodeData[i]['video_link']['ready_url']
+                .substring(mReadyUrl.length - 4);
+            var checkWebm = seasonEpisodeData[i]['video_link']['ready_url']
+                .substring(mReadyUrl.length - 5);
+            var checkMkv = seasonEpisodeData[i]['video_link']['ready_url']
+                .substring(mReadyUrl.length - 4);
+            var checkM3u8 = seasonEpisodeData[i]['video_link']['ready_url']
+                .substring(mReadyUrl.length - 5);
+
+            if (seasonEpisodeData[i]['video_link']['ready_url']
+                    .substring(0, 18) ==
+                "https://vimeo.com/") {
+              if (userPaymentType == "Free") {
+                freeTrial(seasonEpisodeData[i]['id'], "JS", title);
+              } else {
+                getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
+              }
+            } else if (seasonEpisodeData[i]['video_link']['ready_url']
+                    .substring(0, 29) ==
+                'https://www.youtube.com/embed') {
+              if (userPaymentType == "Free") {
+                freeTrial(mReadyUrl, "EMD", title);
+              } else {
+                getAllScreens(mReadyUrl, "EMD", title);
+              }
+            } else if (seasonEpisodeData[i]['video_link']['ready_url']
+                    .substring(0, 23) ==
+                'https://www.youtube.com') {
+              if (userPaymentType == "Free") {
+                freeTrial(seasonEpisodeData[i]['id'], "JS", title);
+              } else {
+                getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
+              }
+            } else if (checkMp4 == ".mp4" ||
+                checkMpd == ".mpd" ||
+                checkWebm == ".webm" ||
+                checkMkv == ".mkv" ||
+                checkM3u8 == ".m3u8") {
+              if (userPaymentType == "Free") {
+                freeTrial(mReadyUrl, "CUSTOM", title);
+              } else {
+                getAllScreens(mReadyUrl, "CUSTOM", title);
+              }
+            } else {
 //                print("Ep1 URL: ${seasonEpisodeData[i]['video_link']['ready_url']}");
-                if (userPaymentType == "Free") {
-                  freeTrial(seasonEpisodeData[i]['id'], "JS", title);
-                } else {
-                  getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
-                }
+              if (userPaymentType == "Free") {
+                freeTrial(seasonEpisodeData[i]['id'], "JS", title);
+              } else {
+                getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
+              }
 
 //                var router = new MaterialPageRoute(
 //                  builder: (BuildContext context) =>  PlayerEpisode(
@@ -1348,23 +1334,22 @@ class _DetailedViewPageState extends State<DetailedViewPage>
 //                  ),
 //                );
 //                Navigator.of(context).push(router);
-              }
-            } else if (mUrl360 != "null" ||
-                mUrl480 != "null" ||
-                mUrl720 != "null" ||
-                mUrl1080 != "null") {
-              _showDialog(i);
-            } else {
-              if (userPaymentType == "Free") {
-                freeTrial(seasonEpisodeData[i]['id'], "JS", title);
-              } else {
-                getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
-              }
             }
+          } else if (mUrl360 != "null" ||
+              mUrl480 != "null" ||
+              mUrl720 != "null" ||
+              mUrl1080 != "null") {
+            _showDialog(i);
           } else {
-            Fluttertoast.showToast(msg: "Video URL doesn't exist");
+            if (userPaymentType == "Free") {
+              freeTrial(seasonEpisodeData[i]['id'], "JS", title);
+            } else {
+              getAllScreens(seasonEpisodeData[i]['id'], "JS", title);
+            }
           }
-
+        } else {
+          Fluttertoast.showToast(msg: "Video URL doesn't exist");
+        }
       },
     );
   }
@@ -1871,18 +1856,26 @@ class _DetailedViewPageState extends State<DetailedViewPage>
 
 //  Customer also watched videos place holder
   Widget cusPlaceHolder(moreLikeThis, index) {
-    return InkWell(
-      child: CachedNetworkImage(
-        imageUrl: moreLikeThis[index].box,
-        height: 150.0,
-        fit: BoxFit.cover,
+    return Card(
+      elevation: 4.0,
+      shadowColor: redPrime.withOpacity(0.6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: InkWell(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: CachedNetworkImage(
+            imageUrl: moreLikeThis[index].box,
+            height: 150.0,
+            fit: BoxFit.cover,
+          ),
+        ),
+        onTap: () {
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  new DetailedViewPage(moreLikeThis[index]));
+          Navigator.of(context).push(router);
+        },
       ),
-      onTap: () {
-        var router = new MaterialPageRoute(
-            builder: (BuildContext context) =>
-                new DetailedViewPage(moreLikeThis[index]));
-        Navigator.of(context).push(router);
-      },
     );
   }
 

@@ -817,7 +817,7 @@ class _LoadingScreenState extends State<LoadingScreen>
         children: <Widget>[
           Container(
               decoration: BoxDecoration(
-            color: primaryDarkColor,
+            color: primaryColor,
           )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

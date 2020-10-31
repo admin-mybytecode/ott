@@ -87,16 +87,19 @@ class _DescriptionTextState extends State<DescriptionText> {
                     descTextShowFlag = !descTextShowFlag;
                   });
                 },
-                child: Text(widget.text,
-                    style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.9,
-                      color: textColor,
-                    ),
-                    maxLines: descTextShowFlag ? 100 : 2,
-                    textAlign: TextAlign.start),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(widget.text,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.9,
+                        color: textColor,
+                      ),
+                      maxLines: descTextShowFlag ? 100 : 2,
+                      textAlign: TextAlign.start),
+                ),
               ),
             ],
           ),
