@@ -15,7 +15,11 @@ import 'package:nexthour/model/video_data.dart';
 import 'package:nexthour/player/iframe_player.dart';
 import 'package:nexthour/player/player.dart';
 import 'package:nexthour/player/m_player.dart';
+import 'package:nexthour/player/playerMovieTrailer.dart';
+import 'package:nexthour/player/trailer_cus_player.dart';
 import 'package:nexthour/ui/subscription.dart';
+import 'package:nexthour/utils/icons.dart';
+import 'package:nexthour/utils/item_header_diagonal.dart';
 import 'package:nexthour/utils/item_rating.dart';
 import 'package:nexthour/utils/item_video_box.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -647,6 +651,37 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     );
   }
 
+  void _onTapTrailer() {
+    var checkMp4 = widget.game.url.substring(widget.game.url.length - 4);
+    var checkMpd = widget.game.url.substring(widget.game.url.length - 4);
+    var checkWebm = widget.game.url.substring(widget.game.url.length - 5);
+    var checkMkv = widget.game.url.substring(widget.game.url.length - 4);
+    var checkM3u8 = widget.game.url.substring(widget.game.url.length - 5);
+    if (widget.game.url.substring(0, 23) == 'https://www.youtube.com') {
+      var router = new MaterialPageRoute(
+          builder: (BuildContext context) => new PlayerMovieTrailer(
+              id: widget.game.id, type: widget.game.datatype));
+      Navigator.of(context).push(router);
+    } else if (checkMp4 == ".mp4" ||
+        checkMpd == ".mpd" ||
+        checkWebm == ".webm" ||
+        checkMkv == ".mkv" ||
+        checkM3u8 == ".m3u8") {
+      var router = new MaterialPageRoute(
+          builder: (BuildContext context) => new TrailerCustomPlayer(
+                url: widget.game.url,
+                title: widget.game.name,
+                downloadStatus: 1,
+              ));
+      Navigator.of(context).push(router);
+    } else {
+      var router = new MaterialPageRoute(
+          builder: (BuildContext context) => new PlayerMovieTrailer(
+              id: widget.game.id, type: widget.game.datatype));
+      Navigator.of(context).push(router);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -660,7 +695,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         new Positioned(
           top: 26.0,
           left: 4.0,
-          child: new BackButton(color: Colors.grey),
+          child: new BackButton(color: primaryColor),
         ),
         new Positioned(
           top: 460.0,
@@ -737,9 +772,53 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
   Widget header(theme) {
     return Padding(
-        padding: const EdgeInsets.only(top: 40.0),
+        padding: const EdgeInsets.only(top: 12.0),
         child: new Column(
           children: <Widget>[
+            widget.game.datatype == 'M'
+                ? widget.game.url == null
+                    ? SizedBox.shrink()
+                    : OutlineButton(
+                        onPressed: _onTapTrailer,
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 0,
+                              child: new Icon(playOutlineIcon,
+                                  color: primaryDarkColor),
+                            ),
+                            new Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: new Text(
+                                "Trailer",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Lato',
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 0.9,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(10.0)),
+                        borderSide:
+                            new BorderSide(color: primaryDarkColor, width: 2.0),
+                        highlightColor: theme.accentColor,
+                        highlightedBorderColor: theme.accentColor,
+                        splashColor: Colors.black12,
+                        highlightElevation: 0.0,
+                      )
+                : SizedBox.shrink(),
             widget.game.datatype == 'M'
                 ? FlatButton(
                     onPressed: _onTapPlay,
