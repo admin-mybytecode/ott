@@ -120,16 +120,15 @@ class _BottomNavigationBarControllerState
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
                     child: ClipRRect(
-                      clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(
-                          sigmaX: 5.0,
-                          sigmaY: 5.0,
+                          sigmaX: 10.0,
+                          sigmaY: 10.0,
                         ),
                         child: BottomNavigationBar(
                           type: BottomNavigationBarType.fixed,
-                          backgroundColor: primaryColor.withOpacity(0.6),
+                          backgroundColor: primaryColor.withOpacity(0.5),
                           items: const <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
