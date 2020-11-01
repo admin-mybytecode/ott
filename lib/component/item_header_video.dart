@@ -18,8 +18,6 @@ import 'package:nexthour/player/m_player.dart';
 import 'package:nexthour/player/playerMovieTrailer.dart';
 import 'package:nexthour/player/trailer_cus_player.dart';
 import 'package:nexthour/ui/subscription.dart';
-import 'package:nexthour/utils/icons.dart';
-import 'package:nexthour/utils/item_header_diagonal.dart';
 import 'package:nexthour/utils/item_rating.dart';
 import 'package:nexthour/utils/item_video_box.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -695,10 +693,10 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         new Positioned(
           top: 26.0,
           left: 4.0,
-          child: new BackButton(color: primaryColor),
+          child: new BackButton(color: Colors.grey),
         ),
         new Positioned(
-          top: 460.0,
+          top: 440.0,
           bottom: 0.0,
           left: 16.0,
           right: 16.0,
@@ -723,7 +721,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: new Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 header(theme),
                 new Text(
@@ -775,50 +773,50 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         padding: const EdgeInsets.only(top: 12.0),
         child: new Column(
           children: <Widget>[
-            widget.game.datatype == 'M'
-                ? widget.game.url == null
-                    ? SizedBox.shrink()
-                    : OutlineButton(
-                        onPressed: _onTapTrailer,
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 0,
-                              child: new Icon(playOutlineIcon,
-                                  color: primaryDarkColor),
-                            ),
-                            new Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: new Text(
-                                "Trailer",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Lato',
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 0.9,
-                                  color: textColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)),
-                        borderSide:
-                            new BorderSide(color: primaryDarkColor, width: 2.0),
-                        highlightColor: theme.accentColor,
-                        highlightedBorderColor: theme.accentColor,
-                        splashColor: Colors.black12,
-                        highlightElevation: 0.0,
-                      )
-                : SizedBox.shrink(),
+            // widget.game.datatype == 'M'
+            //     ? widget.game.url == null
+            //         ? SizedBox.shrink()
+            //         : OutlineButton(
+            //             onPressed: _onTapTrailer,
+            //             child: new Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: <Widget>[
+            //                 Expanded(
+            //                   flex: 0,
+            //                   child: new Icon(playOutlineIcon,
+            //                       color: primaryDarkColor),
+            //                 ),
+            //                 new Padding(
+            //                   padding:
+            //                       const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+            //                 ),
+            //                 Expanded(
+            //                   flex: 1,
+            //                   child: new Text(
+            //                     "Trailer",
+            //                     textAlign: TextAlign.center,
+            //                     style: TextStyle(
+            //                       fontFamily: 'Lato',
+            //                       fontSize: 15.0,
+            //                       fontWeight: FontWeight.w800,
+            //                       letterSpacing: 0.9,
+            //                       color: textColor,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //             padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+            //             shape: new RoundedRectangleBorder(
+            //                 borderRadius: new BorderRadius.circular(10.0)),
+            //             borderSide:
+            //                 new BorderSide(color: primaryDarkColor, width: 2.0),
+            //             highlightColor: theme.accentColor,
+            //             highlightedBorderColor: theme.accentColor,
+            //             splashColor: Colors.black12,
+            //             highlightElevation: 0.0,
+            //           )
+            //     : SizedBox.shrink(),
             widget.game.datatype == 'M'
                 ? FlatButton(
                     onPressed: _onTapPlay,
@@ -866,7 +864,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     return CachedNetworkImage(
       imageUrl: widget.game.cover,
       width: screenSize.width,
-      height: screenSize.height * 0.6,
+      height: screenSize.height * 0.58,
       fit: BoxFit.cover,
     );
   }
