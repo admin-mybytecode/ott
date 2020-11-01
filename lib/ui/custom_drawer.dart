@@ -141,7 +141,7 @@ class CustomDrawerState extends State<CustomDrawer> {
 
   Widget profileImage(width) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -729,19 +729,12 @@ class CustomDrawerState extends State<CustomDrawer> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Card(
-              elevation: 6.0,
-              shadowColor: redPrime.withOpacity(0.6),
-              color: primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: ListTile(
-                leading: Text(
-                  "Account",
-                  style: TextStyle(fontSize: 35, color: textColor),
-                ),
-                trailing: signOut(),
+            child: ListTile(
+              leading: Text(
+                "Account",
+                style: TextStyle(fontSize: 35, color: textColor),
               ),
+              trailing: signOut(),
             ),
           ),
           drawerHeader(width),
