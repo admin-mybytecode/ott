@@ -14,9 +14,9 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-        //systemNavigationBarColor: primaryColor, // navigation bar color
-        //statusBarColor: primaryColor, // status bar color
-        ),
+      systemNavigationBarColor: primaryColor, // navigation bar color
+      statusBarColor: primaryColor, // status bar color
+    ),
   );
 
   runApp(
