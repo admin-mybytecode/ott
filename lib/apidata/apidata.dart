@@ -3,7 +3,7 @@ class APIData {
 
 // Replace with your domain link : http://example.com/public/
 
- static const String domainLink = "http://datigo.in/public/";
+ static const String domainLink = "http://religo.in/public/";
  static const String domainApiLink = domainLink+"api/";
 
  // API Links

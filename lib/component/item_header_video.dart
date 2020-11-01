@@ -693,15 +693,29 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
         new Positioned(
           top: 26.0,
           left: 4.0,
-          child: new BackButton(color: Colors.grey),
+          child: new BackButton(color: primaryColor),
         ),
         new Positioned(
-          top: 440.0,
+          top: 270.0,
           bottom: 0.0,
           left: 16.0,
           right: 16.0,
           child: headerRow(theme),
         ),
+        Positioned(
+          top:130,
+          left: MediaQuery.of(context).size.width/2.4,
+          child: GestureDetector(
+            onTap: _onTapPlay,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white
+              ),
+              child: Icon(Icons.play_arrow,size: 50,color:Colors.red),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -721,7 +735,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: new Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 header(theme),
                 new Text(
@@ -751,14 +765,14 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
   Widget headerDecorationContainer() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: 350,
       decoration: BoxDecoration(
           //                  color: Colors.white,
           gradient: LinearGradient(
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter,
               colors: [
-            primaryColor.withOpacity(0.1),
+            primaryColor.withOpacity(0.3),
             primaryColor.withOpacity(1.0),
           ],
               stops: [
@@ -864,8 +878,9 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     return CachedNetworkImage(
       imageUrl: widget.game.cover,
       width: screenSize.width,
-      height: screenSize.height * 0.58,
+      height: 350,
       fit: BoxFit.cover,
+      errorWidget:  (context, url, error) => Image.asset('assets/bg.jpeg',fit: BoxFit.cover,),
     );
   }
 }

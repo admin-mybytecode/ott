@@ -275,8 +275,11 @@ class SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             children: [
               //stickyHeaderContent(),
               Container(
-                child: CachedNetworkImage(
-                  imageUrl: APIData.logoImageUri + loginConfigData['logo'],
+                child: Padding(
+                  padding: const EdgeInsets.only(left:30.0,right: 30),
+                  child: Image.asset(
+                    'assets/logo.png',
+                  ),
                 ),
               ),
               userNameLabelText(),

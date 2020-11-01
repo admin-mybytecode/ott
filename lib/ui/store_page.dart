@@ -128,17 +128,22 @@ class _StorePageState extends State<StorePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                data[index]["name"] ?? '',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              padding: const EdgeInsets.all(0.0),
+                              child: Container(
+                                width: 60,
+                                child: Text(
+                                  data[index]["name"] ?? '',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 '₹' + data[index]["price"],
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold,),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],

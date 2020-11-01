@@ -336,260 +336,237 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  Notification
   Widget notification() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: primaryColor,
-      child: ListTile(
-        leading: Text(
-          "Notifications",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            var route =
-                MaterialPageRoute(builder: (context) => NotificationsPage());
-            Navigator.push(context, route);
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Notifications",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Turn on or off notifications.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var route =
+              MaterialPageRoute(builder: (context) => NotificationsPage());
+          Navigator.push(context, route);
+        },
       ),
     );
   }
 
 //  My List
   Widget myList() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: primaryColor,
-      child: ListTile(
-        leading: Text(
-          "My List",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BottomNavigationBarController(
-                        pageInd: 2,
-                      )),
-            );
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "My List",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Video you wished to watch!',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BottomNavigationBarController(
+                      pageInd: 2,
+                    )),
+          );
+        },
       ),
     );
   }
 
 //  App settings
   Widget appSettings() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "App Settings",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            var route =
-                MaterialPageRoute(builder: (context) => AppSettingsPage());
-            Navigator.push(context, route);
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "App Settings",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Change app behaviour as per your choice.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var route =
+              MaterialPageRoute(builder: (context) => AppSettingsPage());
+          Navigator.push(context, route);
+        },
       ),
     );
   }
 
 //  Account
   Widget account() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Account",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            _onButtonPressed();
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Account",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Personise your account.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          _onButtonPressed();
+        },
       ),
     );
   }
 
 //  Subscribe
   Widget subscribe() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Subscribe",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            _onSubscribe();
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Subscribe",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Subscribe to videos.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          _onSubscribe();
+        },
       ),
     );
   }
 
 //  Help
   Widget help() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Help",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) => new HelpPage());
-            Navigator.of(context).push(router);
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Help!!",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Need help? Connect us.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context) => new HelpPage());
+          Navigator.of(context).push(router);
+        },
       ),
     );
   }
 
   // Blog
   Widget blog() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Blog",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            var route = MaterialPageRoute(builder: (context) => BlogPage());
-            Navigator.push(context, route);
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Blogs",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Check our latest blogs.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var route = MaterialPageRoute(builder: (context) => BlogPage());
+          Navigator.push(context, route);
+        },
       ),
     );
   }
 
   // Donate
   Widget donate() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Donate",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            var route = MaterialPageRoute(builder: (context) => DonationPage());
-            Navigator.push(context, route);
-          },
-        ),
+    return ListTile(
+      title: Text(
+        "Donate",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Donate to temples.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var route = MaterialPageRoute(builder: (context) => DonationPage());
+          Navigator.push(context, route);
+        },
       ),
     );
   }
 
 //  Rate Us
   Widget rateUs() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Rate Us",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            String os = Platform.operatingSystem; //in your code
-            if (os == 'android') {
-              if (APIData.androidAppId != '') {
-                LaunchReview.launch(
-                  androidAppId: APIData.androidAppId,
-                );
-              } else {
-                Fluttertoast.showToast(msg: 'PlayStore id not available');
-              }
+    return ListTile(
+      title: Text(
+        "Rate Us.",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Give us your valuable feedback.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          String os = Platform.operatingSystem; //in your code
+          if (os == 'android') {
+            if (APIData.androidAppId != '') {
+              LaunchReview.launch(
+                androidAppId: APIData.androidAppId,
+              );
             } else {
-              if (APIData.iosAppId != '') {
-                LaunchReview.launch(
-                    androidAppId: APIData.androidAppId,
-                    iOSAppId: APIData.iosAppId);
-
-                LaunchReview.launch(
-                    writeReview: false, iOSAppId: APIData.iosAppId);
-              } else {
-                Fluttertoast.showToast(msg: 'AppStore id not available');
-              }
+              Fluttertoast.showToast(msg: 'PlayStore id not available');
             }
-          },
-        ),
+          } else {
+            if (APIData.iosAppId != '') {
+              LaunchReview.launch(
+                  androidAppId: APIData.androidAppId,
+                  iOSAppId: APIData.iosAppId);
+
+              LaunchReview.launch(
+                  writeReview: false, iOSAppId: APIData.iosAppId);
+            } else {
+              Fluttertoast.showToast(msg: 'AppStore id not available');
+            }
+          }
+        },
       ),
     );
   }
 
 //  Share app
   Widget shareApp() {
-    return Card(
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        leading: Text(
-          "Share app",
-          style: TextStyle(
-              color: textColor, fontSize: 20.0, fontWeight: FontWeight.w400),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          onPressed: () {
-            String os = Platform.operatingSystem; //in your code
-            if (os == 'android') {
-              if (APIData.androidAppId != '') {
-                Share.share(APIData.shareAndroidAppUrl);
-              } else {
-                Fluttertoast.showToast(msg: 'PlayStore id not available');
-              }
+    return ListTile(
+      title: Text(
+        "Share App",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text('Share app with friends and family.',  style: TextStyle(
+          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          String os = Platform.operatingSystem; //in your code
+          if (os == 'android') {
+            if (APIData.androidAppId != '') {
+              Share.share(APIData.shareAndroidAppUrl);
             } else {
-              if (APIData.iosAppId != '') {
-                Share.share(APIData.iosAppId);
-              } else {
-                Fluttertoast.showToast(msg: 'AppStore id not available');
-              }
+              Fluttertoast.showToast(msg: 'PlayStore id not available');
             }
-          },
-        ),
+          } else {
+            if (APIData.iosAppId != '') {
+              Share.share(APIData.iosAppId);
+            } else {
+              Fluttertoast.showToast(msg: 'AppStore id not available');
+            }
+          }
+        },
       ),
     );
   }
@@ -676,46 +653,25 @@ class CustomDrawerState extends State<CustomDrawer> {
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-              child: notification(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: myList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: appSettings(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: account(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: isAdmin == 1 ? SizedBox.shrink() : subscribe(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: help(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: blogStatus == 1 ? blog() : SizedBox.shrink(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: rateUs(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: shareApp(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: donationStatus == 1 ? donate() : SizedBox.shrink(),
-            ),
+            notification(),
+            Divider(),
+            myList(),
+            Divider(),
+            appSettings(),
+            Divider(),
+            account(),
+            Divider(),
+            isAdmin == 1 ? SizedBox.shrink() : subscribe(),
+            Divider(),
+            help(),
+            Divider(),
+            blogStatus == 1 ? blog() : SizedBox.shrink(),
+            Divider(),
+            rateUs(),
+            Divider(),
+            shareApp(),
+            Divider(),
+            donationStatus == 1 ? donate() : SizedBox.shrink(),
           ],
         ),
       ),
@@ -724,22 +680,27 @@ class CustomDrawerState extends State<CustomDrawer> {
 
 //  Navigation drawer
   Widget drawer(width, height2) {
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: ListTile(
-              leading: Text(
-                "Account",
-                style: TextStyle(fontSize: 35, color: textColor),
-              ),
-              trailing: signOut(),
-            ),
-          ),
-          drawerHeader(width),
-          drawerBodyContainer(height2),
+    return Scaffold(
+      appBar: AppBar(
+        leading: SizedBox(),
+        title: Text('Settings'),
+        elevation: 0,
+        centerTitle: true,
+        actions: [
+          Padding(padding:EdgeInsets.only(right: 10),child: IconButton(icon:Icon(Icons.login_outlined),onPressed:() {
+            var router = new MaterialPageRoute(
+                builder: (BuildContext context) => new MembershipPlan());
+            Navigator.of(context).push(router);
+          },))
         ],
+      ),
+      body: Container(
+        child: ListView(
+          children: <Widget>[
+            drawerHeader(width),
+            drawerBodyContainer(height2),
+          ],
+        ),
       ),
     );
   }
@@ -764,7 +725,6 @@ class CustomDrawerState extends State<CustomDrawer> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double height2 = (height * 76.75) / 100;
-    // TODO: implement build
     return Container(
       color: primaryColor,
       width: width,
