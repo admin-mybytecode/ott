@@ -133,7 +133,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
   Widget roundedSeekBar() {
     diff = difference == null ? sw : '$difference' + ' Days Remaining';
     return RadialSeekBar(
-      trackColor: Color.fromRGBO(20, 20, 20, 1.0),
+      trackColor: Colors.grey,
       trackWidth: 8.0,
       progressColor: difference == null ? Colors.red : redPrime,
       progressWidth: 8.0,
@@ -358,8 +358,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   'Mobile Number',
                   style: TextStyle(
-                    color: textColor,
-                    fontSize: 12.0,
+                    color: primaryColor,
+                    fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
                 ),
@@ -369,7 +369,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   mobile,
                   style: TextStyle(
-                    color: textColor,
+                    color: primaryColor,
                     fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
@@ -395,8 +395,8 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   'Date of Birth',
                   style: TextStyle(
-                    color: textColor,
-                    fontSize: 12.0,
+                    color: primaryColor,
+                    fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
                 ),
@@ -406,7 +406,7 @@ class ManageProfileFormState extends State<ManageProfileForm> {
                 Text(
                   dob,
                   style: TextStyle(
-                    color: textColor,
+                    color: primaryColor,
                     fontSize: 14.0,
                   ),
                   textAlign: TextAlign.right,
