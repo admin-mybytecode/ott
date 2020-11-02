@@ -825,21 +825,21 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return Image.asset(
-      'assets/bg.jpeg',
-      height: 350,
-      width: screenSize.width,
-      fit: BoxFit.cover,
-    );
-    // return CachedNetworkImage(
-    //   imageUrl: widget.game.cover,
-    //   width: screenSize.width,
+    // return Image.asset(
+    //   'assets/bg.jpeg',
     //   height: 350,
+    //   width: screenSize.width,
     //   fit: BoxFit.cover,
-    //   errorWidget: (context, url, error) => Image.asset(
-    //     'assets/bg.jpeg',
-    //     fit: BoxFit.cover,
-    //   ),
     // );
+    return CachedNetworkImage(
+      imageUrl: widget.game.cover,
+      width: screenSize.width,
+      height: 350,
+      fit: BoxFit.cover,
+      errorWidget: (context, url, error) => Image.asset(
+        'assets/bg.jpeg',
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }
