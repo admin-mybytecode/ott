@@ -688,9 +688,7 @@ class CustomDrawerState extends State<CustomDrawer> {
         centerTitle: true,
         actions: [
           Padding(padding:EdgeInsets.only(right: 10),child: IconButton(icon:Icon(Icons.login_outlined),onPressed:() {
-            var router = new MaterialPageRoute(
-                builder: (BuildContext context) => new MembershipPlan());
-            Navigator.of(context).push(router);
+            _signOutDialog();
           },))
         ],
       ),
