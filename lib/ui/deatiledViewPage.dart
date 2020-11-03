@@ -353,18 +353,18 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {},
+            Expanded(
+              flex: 3,
               child: Text(
-                "$genres",
-                style: TextStyle(color: textColor, fontSize: 13.0),
+                'Genres:',
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 5,
               child: Text(
-                'Genres:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                "$genres",
+                style: TextStyle(color: textColor, fontSize: 15.0),
               ),
             ),
           ],
@@ -374,13 +374,13 @@ class _DetailedViewPageState extends State<DetailedViewPage>
   Widget genresDetailsContainer(game, genres) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               "About",
-              style: TextStyle(color: textColor, fontSize: 16.0),
+              style: TextStyle(color: textColor, fontSize: 18.0),
             ),
             Container(
               height: 8.0,
@@ -423,10 +423,10 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 'Name:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
@@ -435,7 +435,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   "${game.name}",
-                  style: TextStyle(color: textColor, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 15.0),
                 ),
               ),
             ),
@@ -536,10 +536,10 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 'Audio Language:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
@@ -548,7 +548,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   game.datatype == "M" ? "$aLangFinalM" : "$aLangFinalS",
-                  style: TextStyle(color: textColor, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 15.0),
                 ),
               ),
             ),
