@@ -41,13 +41,22 @@ class _RateUsState extends State<RateUs> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          Icons.star_border,
-          size: 30.0,
-          color: primaryDarkColor,
-        ),
-        new Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Ink(
+            decoration: ShapeDecoration(
+              color: redPrime,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.star_border,
+                size: 30.0,
+                color: primaryColor,
+              ),
+              onPressed: () => checkRating(),
+            ),
+          ),
         ),
         rateText(),
       ],
@@ -58,12 +67,7 @@ class _RateUsState extends State<RateUs> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Material(
-        child: new InkWell(
-          onTap: () {
-            checkRating();
-          },
-          child: rateUsTabColumn(),
-        ),
+        child: rateUsTabColumn(),
         color: Colors.transparent,
       ),
     );
