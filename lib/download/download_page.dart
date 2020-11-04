@@ -1035,24 +1035,14 @@ class _DownloadPageState extends State<DownloadPage>
     if (download == 0) {
       return Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: Ink(
-              decoration: ShapeDecoration(
-                color: redPrime,
-                shape: CircleBorder(),
+          IconButton(
+              icon: Icon(
+                Icons.file_download,
+                size: 30,
               ),
-              child: IconButton(
-                  icon: Icon(
-                    Icons.file_download,
-                    size: 30,
-                    color: primaryColor,
-                  ),
-                  onPressed: () {
-                    Fluttertoast.showToast(msg: "Downloading is OFF.");
-                  }),
-            ),
-          ),
+              onPressed: () {
+                Fluttertoast.showToast(msg: "Downloading is OFF.");
+              }),
           Text(
             "Download",
             style: TextStyle(
@@ -1069,26 +1059,17 @@ class _DownloadPageState extends State<DownloadPage>
           ? userPaymentType == "Free"
               ? Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Ink(
-                        decoration: ShapeDecoration(
-                          color: redPrime,
-                          shape: CircleBorder(),
+                    IconButton(
+                        icon: Icon(
+                          Icons.file_download,
+                          size: 30,
+                          color: primaryDarkColor,
                         ),
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.download_outlined,
-                              size: 30,
-                              color: primaryColor,
-                            ),
-                            onPressed: () {
-                              Fluttertoast.showToast(
-                                  msg:
-                                      "You can not download video using free trial.");
-                            }),
-                      ),
-                    ),
+                        onPressed: () {
+                          Fluttertoast.showToast(
+                              msg:
+                                  "You can not download video using free trial.");
+                        }),
                     Text(
                       "Download",
                       style: TextStyle(
@@ -1289,7 +1270,7 @@ class _DownloadPageState extends State<DownloadPage>
     return Expanded(
       child: Material(
         child: column(),
-        color: primaryColor,
+        color: Colors.transparent,
       ),
     );
   }

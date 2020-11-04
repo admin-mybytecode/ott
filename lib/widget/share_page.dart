@@ -25,19 +25,13 @@ class SharePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Ink(
-            decoration: ShapeDecoration(
-              color: redPrime,
-              shape: CircleBorder(),
-            ),
-            child: IconButton(
-              color: primaryColor,
-              icon: Icon(Icons.share_outlined),
-              onPressed: () => Share.share('$shareType' + '$shareId'),
-            ),
-          ),
+        Icon(
+          Icons.share,
+          size: 30.0,
+          color: primaryDarkColor,
+        ),
+        new Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
         ),
         shareText(),
       ],
@@ -48,8 +42,13 @@ class SharePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: Material(
-      child: shareTabColumn(),
-      color: primaryColor,
+      child: new InkWell(
+        onTap: () {
+          Share.share('$shareType' + '$shareId');
+        },
+        child: shareTabColumn(),
+      ),
+      color: Colors.transparent,
     ));
   }
 }
