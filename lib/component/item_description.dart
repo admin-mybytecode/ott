@@ -15,7 +15,7 @@ class _DescriptionTextState extends State<DescriptionText> {
 
   Widget descriptionHeader(theme) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 4.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,33 +76,30 @@ class _DescriptionTextState extends State<DescriptionText> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        new Padding(
-          padding: const EdgeInsets.only(top: 0.0),
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    descTextShowFlag = !descTextShowFlag;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(widget.text,
-                      style: TextStyle(
-                        fontFamily: 'Lato',
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.9,
-                        color: textColor,
-                      ),
-                      maxLines: descTextShowFlag ? 100 : 2,
-                      textAlign: TextAlign.start),
-                ),
+        new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            InkWell(
+              onTap: () {
+                setState(() {
+                  descTextShowFlag = !descTextShowFlag;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+                child: Text(widget.text,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.9,
+                      color: textColor,
+                    ),
+                    maxLines: descTextShowFlag ? 100 : 2,
+                    textAlign: TextAlign.start),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         // No expand-collapse in this tutorial, we just slap the "more"
         descriptionHeader(theme),

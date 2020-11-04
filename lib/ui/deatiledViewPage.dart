@@ -353,18 +353,18 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            GestureDetector(
-              onTap: () {},
+            Expanded(
+              flex: 3,
               child: Text(
-                "$genres",
-                style: TextStyle(color: textColor, fontSize: 13.0),
+                'Genres:',
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 5,
               child: Text(
-                'Genres:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                "$genres",
+                style: TextStyle(color: textColor, fontSize: 15.0),
               ),
             ),
           ],
@@ -374,13 +374,13 @@ class _DetailedViewPageState extends State<DetailedViewPage>
   Widget genresDetailsContainer(game, genres) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               "About",
-              style: TextStyle(color: textColor, fontSize: 16.0),
+              style: TextStyle(color: textColor, fontSize: 18.0),
             ),
             Container(
               height: 8.0,
@@ -423,10 +423,10 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 'Name:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
@@ -435,7 +435,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   "${game.name}",
-                  style: TextStyle(color: textColor, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 15.0),
                 ),
               ),
             ),
@@ -536,10 +536,10 @@ class _DetailedViewPageState extends State<DetailedViewPage>
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 'Audio Language:',
-                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                style: TextStyle(color: Colors.grey, fontSize: 15.0),
               ),
             ),
             Expanded(
@@ -548,7 +548,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                 onTap: () {},
                 child: Text(
                   game.datatype == "M" ? "$aLangFinalM" : "$aLangFinalS",
-                  style: TextStyle(color: textColor, fontSize: 13.0),
+                  style: TextStyle(color: textColor, fontSize: 15.0),
                 ),
               ),
             ),
@@ -848,19 +848,61 @@ class _DetailedViewPageState extends State<DetailedViewPage>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        isMovieAdded == 1
-            ? Icon(
-                Icons.check,
-                size: 30.0,
-                color: textColor,
-              )
-            : Icon(
-                Icons.add,
-                size: 30.0,
-                color: textColor,
-              ),
-        new Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Ink(
+            decoration: ShapeDecoration(
+              color: redPrime,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              icon: isMovieAdded == 1
+                  ? Icon(
+                      Icons.check,
+                      size: 30.0,
+                      color: primaryColor,
+                    )
+                  : Icon(
+                      Icons.add,
+                      size: 30.0,
+                      color: primaryColor,
+                    ),
+              onPressed: () {
+                var isMovieAdded = 0;
+                var motype, moid, movalue;
+                var avId;
+                for (var i = 0; i < userWatchList.length; i++) {
+                  if (userWatchList[i].wMovieId == widget.game.id) {
+                    isMovieAdded = 1;
+                    avId = widget.game.id;
+                    break;
+                  }
+                }
+                if (isMovieAdded != 1) {
+                  userWatchList.add(WatchlistModel(
+                    wMovieId: widget.game.id,
+                  ));
+
+                  motype = 'M';
+                  moid = widget.game.id;
+                  movalue = 1;
+                  setState(() {
+                    isMovieAdded = 1;
+                  });
+                  addWishlist(motype, moid, movalue);
+                } else {
+                  motype = 'M';
+                  moid = widget.game.id;
+                  movalue = 0;
+                  setState(() {
+                    isMovieAdded = 0;
+                  });
+                  addWishlist(motype, moid, movalue);
+                  userWatchList.removeWhere((item) => item.wMovieId == avId);
+                }
+              },
+            ),
+          ),
         ),
         myListText(),
       ],
@@ -871,45 +913,8 @@ class _DetailedViewPageState extends State<DetailedViewPage>
   Widget _watchListMovie(isMovieAdded) {
     return Expanded(
       child: Material(
-        child: new InkWell(
-//     Add and remove movies and tv shows in watchlist
-          onTap: () {
-            var isMovieAdded = 0;
-            var motype, moid, movalue;
-            var avId;
-            for (var i = 0; i < userWatchList.length; i++) {
-              if (userWatchList[i].wMovieId == widget.game.id) {
-                isMovieAdded = 1;
-                avId = widget.game.id;
-                break;
-              }
-            }
-            if (isMovieAdded != 1) {
-              userWatchList.add(WatchlistModel(
-                wMovieId: widget.game.id,
-              ));
-
-              motype = 'M';
-              moid = widget.game.id;
-              movalue = 1;
-              setState(() {
-                isMovieAdded = 1;
-              });
-              addWishlist(motype, moid, movalue);
-            } else {
-              motype = 'M';
-              moid = widget.game.id;
-              movalue = 0;
-              setState(() {
-                isMovieAdded = 0;
-              });
-              addWishlist(motype, moid, movalue);
-              userWatchList.removeWhere((item) => item.wMovieId == avId);
-            }
-          },
-          child: watchlistColumn(isMovieAdded),
-        ),
-        color: Colors.transparent,
+        child: watchlistColumn(isMovieAdded),
+        color: primaryColor,
       ),
     );
   }
@@ -946,7 +951,6 @@ class _DetailedViewPageState extends State<DetailedViewPage>
               return Column(
                 children: <Widget>[
                   new VideoDetailHeader(widget.game),
-                  new DescriptionText(widget.game.description),
                   new Row(
                     children: [
                       _watchListMovie(isMovieAdded),
@@ -957,6 +961,7 @@ class _DetailedViewPageState extends State<DetailedViewPage>
                           : SizedBox.shrink()
                     ],
                   ),
+                  new DescriptionText(widget.game.description),
                 ],
               );
             }, childCount: 1)),
