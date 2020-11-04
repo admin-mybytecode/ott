@@ -119,7 +119,7 @@ class _StorePageState extends State<StorePage> {
                   child: ListTile(
                     title: CachedNetworkImage(
                       imageUrl: data[index]["image"],
-                      height: MediaQuery.of(context).size.height * 0.1,
+                      height: 90,
                       width: 100,
                     ),
                     subtitle: Column(

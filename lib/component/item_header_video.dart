@@ -696,21 +696,23 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: new BackButton(color: primaryColor),
         ),
         new Positioned(
-          top: 300.0,
+          top: 270.0,
           bottom: 0.0,
-          left: 18.0,
-          right: 18.0,
+          left: 16.0,
+          right: 16.0,
           child: headerRow(theme),
         ),
         Positioned(
-          top: 130,
-          left: MediaQuery.of(context).size.width / 2.4,
+          top:130,
+          left: MediaQuery.of(context).size.width/2.4,
           child: GestureDetector(
             onTap: _onTapPlay,
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50), color: Colors.white),
-              child: Icon(Icons.play_arrow, size: 50, color: Colors.red),
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white
+              ),
+              child: Icon(Icons.play_arrow,size: 50,color:Colors.red),
             ),
           ),
         )
@@ -733,17 +735,14 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: new Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: new Text(
-                    widget.game.name,
-                    style: TextStyle(color: textColor, fontSize: 15),
-                    maxLines: 3,
-                    overflow: TextOverflow.fade,
-                  ),
+                header(theme),
+                new Text(
+                  widget.game.name,
+                  style: TextStyle(color: textColor, fontSize: 15),
+                  maxLines: 3,
+                  overflow: TextOverflow.fade,
                 ),
                 Flex(
                   direction: Axis.horizontal,
@@ -752,15 +751,10 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                       flex: 1,
                       child: widget.game.rating == null
                           ? SizedBox.shrink()
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 3.0),
-                              child: RatingInformation(widget.game),
-                            ),
+                          : RatingInformation(widget.game),
                     )
                   ],
                 ),
-                header(theme),
               ],
             ),
           ),
@@ -789,43 +783,94 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
   }
 
   Widget header(theme) {
-    return widget.game.datatype == 'M'
-        ? FlatButton(
-            onPressed: _onTapPlay,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: Icon(Icons.play_arrow, color: primaryColor),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: new Text(
-                    "Play",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.9,
-                      color: primaryColor,
+    return Padding(
+        padding: const EdgeInsets.only(top: 12.0),
+        child: new Column(
+          children: <Widget>[
+            // widget.game.datatype == 'M'
+            //     ? widget.game.url == null
+            //         ? SizedBox.shrink()
+            //         : OutlineButton(
+            //             onPressed: _onTapTrailer,
+            //             child: new Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: <Widget>[
+            //                 Expanded(
+            //                   flex: 0,
+            //                   child: new Icon(playOutlineIcon,
+            //                       color: primaryDarkColor),
+            //                 ),
+            //                 new Padding(
+            //                   padding:
+            //                       const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+            //                 ),
+            //                 Expanded(
+            //                   flex: 1,
+            //                   child: new Text(
+            //                     "Trailer",
+            //                     textAlign: TextAlign.center,
+            //                     style: TextStyle(
+            //                       fontFamily: 'Lato',
+            //                       fontSize: 15.0,
+            //                       fontWeight: FontWeight.w800,
+            //                       letterSpacing: 0.9,
+            //                       color: textColor,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //             padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+            //             shape: new RoundedRectangleBorder(
+            //                 borderRadius: new BorderRadius.circular(10.0)),
+            //             borderSide:
+            //                 new BorderSide(color: primaryDarkColor, width: 2.0),
+            //             highlightColor: theme.accentColor,
+            //             highlightedBorderColor: theme.accentColor,
+            //             splashColor: Colors.black12,
+            //             highlightElevation: 0.0,
+            //           )
+            //     : SizedBox.shrink(),
+            widget.game.datatype == 'M'
+                ? FlatButton(
+                    onPressed: _onTapPlay,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 0,
+                          child: Icon(Icons.play_arrow, color: primaryColor),
+                        ),
+                        new Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: new Text(
+                            "Play",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Lato',
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.9,
+                              color: primaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10.0)),
-            color: redPrime,
-            highlightColor: theme.accentColor,
-            splashColor: primaryColor,
-          )
-        : SizedBox.shrink();
+                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)),
+                    color: redPrime,
+                    highlightColor: theme.accentColor,
+                    splashColor: primaryColor,
+                  )
+                : SizedBox.shrink(),
+          ],
+        ));
   }
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
@@ -835,10 +880,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
       width: screenSize.width,
       height: 350,
       fit: BoxFit.cover,
-      errorWidget: (context, url, error) => Image.asset(
-        'assets/bg.jpeg',
-        fit: BoxFit.cover,
-      ),
+      errorWidget:  (context, url, error) => Image.asset('assets/bg.jpeg',fit: BoxFit.cover,),
     );
   }
 }
