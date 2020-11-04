@@ -130,7 +130,8 @@ class IntroScreenState extends State<IntroScreen> {
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/bg.jpeg')),
+          image: DecorationImage(
+              image: AssetImage('assets/bg.jpeg'), fit: BoxFit.cover),
         ),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
