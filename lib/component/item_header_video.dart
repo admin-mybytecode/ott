@@ -703,16 +703,16 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
           child: headerRow(theme),
         ),
         Positioned(
-          top:130,
-          left: MediaQuery.of(context).size.width/2.4,
+          top: 130,
+          left: MediaQuery.of(context).size.width / 2.4,
           child: GestureDetector(
             onTap: _onTapPlay,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: Colors.white
+                color: Colors.white70,
               ),
-              child: Icon(Icons.play_arrow,size: 50,color:Colors.red),
+              child: Icon(Icons.play_arrow, size: 50, color: Colors.red),
             ),
           ),
         )
@@ -733,28 +733,26 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             )),
         new Expanded(
           child: new Padding(
-            padding: const EdgeInsets.only(left: 16.0),
+            padding: const EdgeInsets.only(left: 16.0, top: 25),
             child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                header(theme),
                 new Text(
                   widget.game.name,
-                  style: TextStyle(color: textColor, fontSize: 15),
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600),
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
-                Flex(
-                  direction: Axis.horizontal,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: widget.game.rating == null
-                          ? SizedBox.shrink()
-                          : RatingInformation(widget.game),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: widget.game.rating == null
+                      ? SizedBox.shrink()
+                      : RatingInformation(widget.game),
                 ),
+                header(theme),
               ],
             ),
           ),
@@ -767,120 +765,81 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
     return Container(
       height: 350,
       decoration: BoxDecoration(
-          //                  color: Colors.white,
           gradient: LinearGradient(
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter,
               colors: [
-            primaryColor.withOpacity(0.3),
+            primaryColor.withOpacity(0.1),
             primaryColor.withOpacity(1.0),
           ],
               stops: [
             0.3,
-            0.8
+            0.9
           ])),
     );
   }
 
   Widget header(theme) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 12.0),
-        child: new Column(
-          children: <Widget>[
-            // widget.game.datatype == 'M'
-            //     ? widget.game.url == null
-            //         ? SizedBox.shrink()
-            //         : OutlineButton(
-            //             onPressed: _onTapTrailer,
-            //             child: new Row(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: <Widget>[
-            //                 Expanded(
-            //                   flex: 0,
-            //                   child: new Icon(playOutlineIcon,
-            //                       color: primaryDarkColor),
-            //                 ),
-            //                 new Padding(
-            //                   padding:
-            //                       const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-            //                 ),
-            //                 Expanded(
-            //                   flex: 1,
-            //                   child: new Text(
-            //                     "Trailer",
-            //                     textAlign: TextAlign.center,
-            //                     style: TextStyle(
-            //                       fontFamily: 'Lato',
-            //                       fontSize: 15.0,
-            //                       fontWeight: FontWeight.w800,
-            //                       letterSpacing: 0.9,
-            //                       color: textColor,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-            //             shape: new RoundedRectangleBorder(
-            //                 borderRadius: new BorderRadius.circular(10.0)),
-            //             borderSide:
-            //                 new BorderSide(color: primaryDarkColor, width: 2.0),
-            //             highlightColor: theme.accentColor,
-            //             highlightedBorderColor: theme.accentColor,
-            //             splashColor: Colors.black12,
-            //             highlightElevation: 0.0,
-            //           )
-            //     : SizedBox.shrink(),
-            widget.game.datatype == 'M'
-                ? FlatButton(
-                    onPressed: _onTapPlay,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 0,
-                          child: Icon(Icons.play_arrow, color: primaryColor),
-                        ),
-                        new Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: new Text(
-                            "Play",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 0.9,
-                              color: primaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
+    return new Column(
+      children: <Widget>[
+        widget.game.datatype == 'M'
+            ? FlatButton(
+                onPressed: _onTapPlay,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 0,
+                      child: Icon(Icons.play_arrow, color: primaryColor),
                     ),
-                    padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0)),
-                    color: redPrime,
-                    highlightColor: theme.accentColor,
-                    splashColor: primaryColor,
-                  )
-                : SizedBox.shrink(),
-          ],
-        ));
+                    new Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: new Text(
+                        "Play",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.9,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0)),
+                color: redPrime,
+                highlightColor: theme.accentColor,
+                splashColor: primaryColor,
+              )
+            : SizedBox.shrink(),
+      ],
+    );
   }
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    // return Image.asset(
+    //   'assets/bg.jpeg',
+    //   height: 350,
+    //   width: screenSize.width,
+    //   fit: BoxFit.cover,
+    // );
     return CachedNetworkImage(
       imageUrl: widget.game.cover,
       width: screenSize.width,
       height: 350,
       fit: BoxFit.cover,
-      errorWidget:  (context, url, error) => Image.asset('assets/bg.jpeg',fit: BoxFit.cover,),
+      errorWidget: (context, url, error) => Image.asset(
+        'assets/bg.jpeg',
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

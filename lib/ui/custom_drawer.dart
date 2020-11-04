@@ -342,8 +342,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Turn on or off notifications.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Turn on or off notifications.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -363,8 +366,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Video you wished to watch!',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Video you wished to watch!',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -388,8 +394,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Change app behaviour as per your choice.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Change app behaviour as per your choice.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -409,8 +418,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Personise your account.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Personise your account.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -428,8 +440,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Subscribe to videos.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Subscribe to videos.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -447,8 +462,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Need help? Connect us.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Need help? Connect us.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -468,8 +486,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Check our latest blogs.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Check our latest blogs.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -488,8 +509,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Donate to temples.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Donate to temples.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -508,8 +532,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Give us your valuable feedback.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Give us your valuable feedback.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -547,8 +574,11 @@ class CustomDrawerState extends State<CustomDrawer> {
         style: TextStyle(
             color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text('Share app with friends and family.',  style: TextStyle(
-          color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),),
+      subtitle: Text(
+        'Share app with friends and family.',
+        style: TextStyle(
+            color: textColor, fontSize: 12.0, fontWeight: FontWeight.w400),
+      ),
       trailing: IconButton(
         icon: Icon(Icons.arrow_forward_ios),
         onPressed: () {
@@ -687,12 +717,18 @@ class CustomDrawerState extends State<CustomDrawer> {
         elevation: 0,
         centerTitle: true,
         actions: [
-          Padding(padding:EdgeInsets.only(right: 10),child: IconButton(icon:Icon(Icons.login_outlined),onPressed:() {
-            _signOutDialog();
-          },))
+          Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: IconButton(
+                icon: Icon(Icons.login_outlined),
+                onPressed: () {
+                  _signOutDialog();
+                },
+              ))
         ],
       ),
       body: Container(
+        color: primaryColor,
         child: ListView(
           children: <Widget>[
             drawerHeader(width),
@@ -759,7 +795,7 @@ class CustomDrawerState extends State<CustomDrawer> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Color.fromRGBO(34, 34, 34, 1.0),
+            backgroundColor: primaryColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25.0))),
             contentPadding: EdgeInsets.only(top: 10.0),
@@ -777,7 +813,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                       Text(
                         "Sign Out?",
                         style: TextStyle(
-                            fontWeight: FontWeight.w600, color: whiteColor),
+                            fontWeight: FontWeight.w600, color: textColor),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -797,8 +833,7 @@ class CustomDrawerState extends State<CustomDrawer> {
                         left: 30.0, right: 30.0, top: 15.0, bottom: 15.0),
                     child: Text(
                       "Are you sure that you want to logout?",
-                      style:
-                          TextStyle(color: Color.fromRGBO(155, 155, 155, 1.0)),
+                      style: TextStyle(color: textColor.withOpacity(0.7)),
                     ),
                   ),
                   InkWell(
@@ -806,12 +841,11 @@ class CustomDrawerState extends State<CustomDrawer> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      color: Colors.white70,
+                      color: Colors.grey,
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: Text(
                         "Cancel",
-                        style:
-                            TextStyle(color: Color.fromRGBO(34, 34, 34, 1.0)),
+                        style: TextStyle(color: textColor),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -834,10 +868,10 @@ class CustomDrawerState extends State<CustomDrawer> {
                           end: Alignment.bottomRight,
                           stops: [0.1, 0.5, 0.7, 0.9],
                           colors: [
-                            redPrime.withOpacity(0.4),
-                            redPrime.withOpacity(0.5),
-                            redPrime.withOpacity(0.6),
+                            redPrime.withOpacity(0.9),
+                            redPrime.withOpacity(0.8),
                             redPrime.withOpacity(0.7),
+                            redPrime.withOpacity(0.6),
                           ],
                         ),
                       ),

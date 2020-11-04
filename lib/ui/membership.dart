@@ -177,10 +177,10 @@ class MembershipPlanState extends State<MembershipPlan> {
                   end: Alignment.bottomRight,
                   stops: [0.1, 0.5, 0.7, 0.9],
                   colors: [
-                    redPrime.withOpacity(0.4),
-                    redPrime.withOpacity(0.5),
-                    redPrime.withOpacity(0.6),
+                    redPrime.withOpacity(0.9),
+                    redPrime.withOpacity(0.8),
                     redPrime.withOpacity(0.7),
+                    redPrime.withOpacity(0.6),
                   ],
                 ),
               ),
@@ -188,7 +188,7 @@ class MembershipPlanState extends State<MembershipPlan> {
 //    This will change the user status after tapping on button and it will also change button
               child: status == "1"
                   ? new MaterialButton(
-                      splashColor: Color.fromRGBO(72, 163, 198, 0.9),
+                      splashColor: redPrime,
                       child: Text(
                         "Stop Subscription",
                         style: TextStyle(color: Colors.white),
@@ -197,7 +197,7 @@ class MembershipPlanState extends State<MembershipPlan> {
                     )
                   : userActivePlan != null
                       ? new MaterialButton(
-                          splashColor: Color.fromRGBO(72, 163, 198, 0.9),
+                          splashColor: redPrime,
                           child: Text(
                             "Resume Subscription",
                             style: TextStyle(color: Colors.white),
@@ -205,7 +205,7 @@ class MembershipPlanState extends State<MembershipPlan> {
                           onPressed: _onTap,
                         )
                       : new MaterialButton(
-                          splashColor: Color.fromRGBO(34, 34, 34, 1.0),
+                          splashColor: redPrime,
                           child: Text(
                             "Resume Subscription",
                             style: TextStyle(color: Colors.white),

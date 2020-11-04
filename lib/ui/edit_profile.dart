@@ -257,7 +257,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           primaryColor: redPrime,
           primaryColorDark: primaryDarkColor,
           scaffoldBackgroundColor: primaryColor,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           accentColor: redPrime,
           canvasColor: redPrime,
         ),
@@ -442,10 +442,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
               // Colors are easy thanks to Flutter's Colors class.
+              redPrime.withOpacity(0.9),
+              redPrime.withOpacity(0.8),
               redPrime.withOpacity(0.7),
               redPrime.withOpacity(0.6),
-              redPrime.withOpacity(0.5),
-              redPrime.withOpacity(0.4),
             ],
           ),
           boxShadow: <BoxShadow>[
@@ -560,6 +560,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               height: 210.0,
               width: 170.0,
               child: Card(
+                  color: primaryDarkColor.withOpacity(0.1),
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.only(
                         bottomLeft: Radius.circular(25.0),
@@ -570,9 +571,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       height: 190.0,
                       width: 150.0,
                       decoration: new BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: primaryDarkColor.withOpacity(0.4),
                           border: new Border.all(
-                              color: Colors.white.withOpacity(0.0),
+                              color: primaryDarkColor.withOpacity(0.0),
                               width: 10.0),
                           borderRadius: new BorderRadius.only(
                               bottomLeft: Radius.circular(25.0),

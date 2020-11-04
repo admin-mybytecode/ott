@@ -192,8 +192,7 @@ class _DonationPageState extends State<DonationPage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    backgroundColor:
-                                        Color.fromRGBO(34, 34, 34, 1.0),
+                                    backgroundColor: primaryColor,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(25.0))),
@@ -220,7 +219,7 @@ class _DonationPageState extends State<DonationPage> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: whiteColor),
+                                                      color: textColor),
                                                 ),
                                               ),
                                               Row(
@@ -266,10 +265,10 @@ class _DonationPageState extends State<DonationPage> {
                                                   end: Alignment.bottomRight,
                                                   stops: [0.1, 0.5, 0.7, 0.9],
                                                   colors: [
-                                                    redPrime.withOpacity(0.4),
-                                                    redPrime.withOpacity(0.5),
-                                                    redPrime.withOpacity(0.6),
+                                                    redPrime.withOpacity(0.9),
+                                                    redPrime.withOpacity(0.8),
                                                     redPrime.withOpacity(0.7),
+                                                    redPrime.withOpacity(0.6),
                                                   ],
                                                 ),
                                               ),
