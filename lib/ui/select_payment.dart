@@ -173,33 +173,33 @@ class SelectPaymentState extends State<SelectPayment>
           tabs: List<Tab>.generate(
             listPaymentGateways == null ? 0 : listPaymentGateways.length,
             (int index) {
-              if (listPaymentGateways[index].title == 'stripe') {
+              if (listPaymentGateways[index].appbarTitle == 'stripe') {
                 return Tab(
                   child: tabLabelText('Stripe'),
                 );
               }
-              if (listPaymentGateways[index].title == 'btree') {
+              if (listPaymentGateways[index].appbarTitle == 'btree') {
                 return Tab(
                   child: tabLabelText('Braintree'),
                 );
               }
 
-              if (listPaymentGateways[index].title == 'paystack') {
+              if (listPaymentGateways[index].appbarTitle == 'paystack') {
                 return Tab(
                   child: tabLabelText('Paystack'),
                 );
               }
-              if (listPaymentGateways[index].title == 'bankPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'bankPayment') {
                 return Tab(
                   child: tabLabelText('Bank Payment'),
                 );
               }
-              if (listPaymentGateways[index].title == 'razorPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'razorPayment') {
                 return Tab(
                   child: tabLabelText('RazorPay'),
                 );
               }
-              if (listPaymentGateways[index].title == 'paytmPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'paytmPayment') {
                 return Tab(
                   child: tabLabelText('Paytm'),
                 );
@@ -1049,32 +1049,32 @@ class SelectPaymentState extends State<SelectPayment>
             children: List<Widget>.generate(
                 listPaymentGateways == null ? 0 : listPaymentGateways.length,
                 (int index) {
-              if (listPaymentGateways[index].title == 'btree') {
+              if (listPaymentGateways[index].appbarTitle == 'btree') {
                 return InkWell(
                   child: braintreePayment(widget.indexPer),
                 );
               }
-              if (listPaymentGateways[index].title == 'stripe') {
+              if (listPaymentGateways[index].appbarTitle == 'stripe') {
                 return InkWell(
                   child: stripePaymentWallet(widget.indexPer),
                 );
               }
-              if (listPaymentGateways[index].title == 'paystack') {
+              if (listPaymentGateways[index].appbarTitle == 'paystack') {
                 return InkWell(
                   child: paystackPaymentWallet(widget.indexPer),
                 );
               }
-              if (listPaymentGateways[index].title == 'bankPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'bankPayment') {
                 return InkWell(
                   child: bankPaymentWallet(widget.indexPer),
                 );
               }
-              if (listPaymentGateways[index].title == 'razorPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'razorPayment') {
                 return InkWell(
                   child: razorPaymentWallet(widget.indexPer),
                 );
               }
-              if (listPaymentGateways[index].title == 'paytmPayment') {
+              if (listPaymentGateways[index].appbarTitle == 'paytmPayment') {
                 return InkWell(
                   child: paytmPaymentWallet(widget.indexPer),
                 );
