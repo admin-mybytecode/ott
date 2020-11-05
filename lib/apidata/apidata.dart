@@ -6,6 +6,10 @@ class APIData {
  static const String domainLink = "http://religo.in/public/";
  static const String domainApiLink = domainLink+"api/";
 
+ //privacy policy and terms and conditions
+ static const String privacyandpolicy = domainLink + "/privacy_policy";
+ static const String termsandcondition = domainLink + "/terms_condition";
+
  // API Links
  static const String tokenApi = domainApiLink+"login";
  static const String fbLoginApi = domainApiLink+"fblogin";

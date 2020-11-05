@@ -8,6 +8,7 @@ import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/loading/loading_page.dart';
 import 'package:nexthour/ui/signup.dart';
+import 'package:nexthour/ui/webview.dart';
 import 'package:nexthour/widget/email_field.dart';
 import 'package:nexthour/widget/password_field.dart';
 import 'package:path_provider/path_provider.dart';
@@ -315,6 +316,24 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
+  Widget termsandcoditions() {
+    return FlatButton(
+      child: Text(
+        'By tapping Login you agreed to our Terms and Conditions.',
+        textAlign: TextAlign.center,
+        style: new TextStyle(
+          color: Colors.blue,
+          fontSize: 14.0,
+        ),
+      ),
+      onPressed:(){
+        var router = new MaterialPageRoute(
+            builder: (BuildContext context) => new CustomWebView(url: APIData.termsandcondition,appbarTitle: "Terms and Conditions",));
+        Navigator.of(context).push(router);
+      },
+    );
+  }
+
   resetPasswordAlertBox() {
     return showDialog(
         context: context,
@@ -362,6 +381,7 @@ class LoginFormState extends State<LoginForm> {
               ),
               signInButtonListRow(),
               forgotPasswordField(),
+              termsandcoditions()
             ],
           ),
         ),

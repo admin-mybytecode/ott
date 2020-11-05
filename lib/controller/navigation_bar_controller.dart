@@ -14,6 +14,8 @@ import 'package:nexthour/page_home.dart';
 import 'package:nexthour/ui/custom_drawer.dart';
 import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
+import 'package:nexthour/ui/music_home.dart';
+import 'package:nexthour/ui/search.dart';
 import 'package:http/http.dart' as http;
 import 'package:nexthour/ui/store_page.dart';
 
@@ -64,6 +66,7 @@ class _BottomNavigationBarControllerState
 
   static List<Widget> _widgetOptions = <Widget>[
     PageHome(),
+    Musify(),
     StorePage(),
     DonationPage(),
     CustomDrawer()
@@ -130,6 +133,8 @@ class _BottomNavigationBarControllerState
                           items: const <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
+                            BottomNavigationBarItem(
+                                label: "Music", icon: Icon(Icons.music_note_outlined)),
                             BottomNavigationBarItem(
                                 label: "Store",
                                 icon: Icon(Icons.store_outlined)),

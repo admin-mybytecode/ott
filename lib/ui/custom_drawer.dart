@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nexthour/ui/login_page.dart';
 import 'package:nexthour/ui/my_list.dart';
+import 'package:nexthour/ui/webview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/ui/membership.dart';
@@ -692,6 +693,10 @@ class CustomDrawerState extends State<CustomDrawer> {
             Divider(),
             help(),
             Divider(),
+            privacy(),
+            Divider(),
+            terms(),
+            Divider(),
             blogStatus == 1 ? blog() : SizedBox.shrink(),
             Divider(),
             rateUs(),
@@ -890,5 +895,43 @@ class CustomDrawerState extends State<CustomDrawer> {
     File file = new File(dir.path + "/" + fileName);
     file.delete();
     fileExists = false;
+  }
+
+  privacy() {
+    return ListTile(
+      title: Text(
+        "Privacy and Policy",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context) => new CustomWebView(url: APIData.privacyandpolicy,appbarTitle: "Privacy and Policy",));
+          Navigator.of(context).push(router);
+        },
+      ),
+    );
+  }
+
+  terms() {
+    return ListTile(
+      title: Text(
+        "Terms and Conditions",
+        style: TextStyle(
+            color: textColor, fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+
+      trailing: IconButton(
+        icon: Icon(Icons.arrow_forward_ios),
+        onPressed: () {
+          var router = new MaterialPageRoute(
+              builder: (BuildContext context) => new CustomWebView(url: APIData.termsandcondition,appbarTitle: "Terms and Conditions",));
+          Navigator.of(context).push(router);
+        },
+      ),
+    );
   }
 }
