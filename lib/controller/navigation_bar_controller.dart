@@ -15,7 +15,6 @@ import 'package:nexthour/ui/custom_drawer.dart';
 import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
 import 'package:http/http.dart' as http;
-import 'package:nexthour/ui/music_page.dart';
 import 'package:nexthour/ui/store_page.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
@@ -65,7 +64,6 @@ class _BottomNavigationBarControllerState
 
   static List<Widget> _widgetOptions = <Widget>[
     PageHome(),
-    MusicPage(),
     StorePage(),
     DonationPage(),
     CustomDrawer()
@@ -132,9 +130,6 @@ class _BottomNavigationBarControllerState
                           items: const <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
-                            BottomNavigationBarItem(
-                                label: "Music",
-                                icon: Icon(Icons.music_note_outlined)),
                             BottomNavigationBarItem(
                                 label: "Store",
                                 icon: Icon(Icons.store_outlined)),
