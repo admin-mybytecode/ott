@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
@@ -119,7 +118,7 @@ class _BottomNavigationBarControllerState
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                        EdgeInsets.symmetric(horizontal: 25.0, vertical: 12.0),
                     child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),

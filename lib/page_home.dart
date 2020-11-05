@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/ui/page_video.dart';
+import 'package:nexthour/ui/search.dart';
 import 'apidata/apidata.dart';
 
 DateTime currentBackPressTime;
@@ -83,8 +84,25 @@ class _PageHomeState extends State<PageHome>
 //  Sliver app bar
   Widget _sliverAppBar(innerBoxIsScrolled) {
     return SliverAppBar(
+        actions: [
+          IconButton(
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Icon(Icons.search),
+            ),
+            onPressed: () {
+              var router = new MaterialPageRoute(
+                  builder: (BuildContext context) => SearchResultList());
+              Navigator.of(context).push(router);
+            },
+          ),
+        ],
         elevation: 10.0,
-        title: Image.asset('assets/logo.png',height: 100,width: 100,),
+        title: Image.asset(
+          'assets/logo.png',
+          height: 100,
+          width: 100,
+        ),
         centerTitle: true,
         backgroundColor: primaryColor,
         pinned: true,

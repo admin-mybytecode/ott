@@ -50,17 +50,21 @@ class _DescriptionTextState extends State<DescriptionText> {
                           color: theme.accentColor,
                         ),
                       ),
-                descTextShowFlag
-                    ? Icon(
-                        Icons.keyboard_arrow_up,
-                        size: 18.0,
-                        color: primaryDarkColor,
-                      )
-                    : Icon(
-                        Icons.keyboard_arrow_down,
-                        size: 18.0,
-                        color: primaryDarkColor,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0, vertical: 3.0),
+                  child: descTextShowFlag
+                      ? Icon(
+                          Icons.keyboard_arrow_up,
+                          size: 20.0,
+                          color: primaryDarkColor,
+                        )
+                      : Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 20.0,
+                          color: primaryDarkColor,
+                        ),
+                ),
               ],
             ),
           ),
@@ -86,7 +90,8 @@ class _DescriptionTextState extends State<DescriptionText> {
                 });
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 18.0, vertical: 10.0),
                 child: Text(widget.text,
                     style: TextStyle(
                       fontFamily: 'Lato',
