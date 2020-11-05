@@ -653,7 +653,7 @@ class _LoadingPageState extends State<LoadingPage>
             )
           : new CachedNetworkImage(
               imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
-              width: MediaQuery.of(context).size.width * 0.9,
+              width: MediaQuery.of(context).size.width * 0.75,
             ),
     );
   }

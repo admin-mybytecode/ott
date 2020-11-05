@@ -791,7 +791,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               duration: Duration(milliseconds: 1000),
               child: new CachedNetworkImage(
                 imageUrl: '${APIData.logoImageUri}${loginConfigData['logo']}',
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.75,
               ),
             ),
     );

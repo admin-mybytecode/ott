@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nexthour/ui/login_page.dart';
+import 'package:nexthour/ui/my_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/ui/membership.dart';
@@ -12,7 +13,6 @@ import 'package:nexthour/ui/subscription.dart';
 import 'package:nexthour/ui/app_settings.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/ui/help.dart';
-import 'package:nexthour/controller/navigation_bar_controller.dart';
 import 'package:nexthour/ui/notifications.dart';
 import 'package:nexthour/ui/history_page.dart';
 import 'package:nexthour/ui/manage_profile.dart';
@@ -376,10 +376,7 @@ class CustomDrawerState extends State<CustomDrawer> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => BottomNavigationBarController(
-                      pageInd: 2,
-                    )),
+            MaterialPageRoute(builder: (context) => MyListPage()),
           );
         },
       ),

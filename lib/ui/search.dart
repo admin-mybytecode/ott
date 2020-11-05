@@ -41,86 +41,22 @@ class _SearchResultState extends State<SearchResultList> {
 
   List<Map> data = [
     {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
+      "name": "Documentary",
       "Description":
           "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
     },
     {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
+      "name": "God Ganesh",
       "Description":
           "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
     },
     {
       "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
       "Description":
           "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
     },
     {
       "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
       "Description":
           "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
     },
@@ -246,7 +182,45 @@ class _SearchResultState extends State<SearchResultList> {
             height: 30,
             color: redPrime,
             thickness: 2,
+            indent: 8.0,
+            endIndent: 8.0,
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Categories",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: GridView.builder(
+              itemCount: data.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 2.5,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 3.0,
+                  color: primaryColor,
+                  child: Center(
+                    child: FlatButton(
+                      child: Text(
+                        data[index]["name"],
+                        style: TextStyle(color: textColor),
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
         ],
       ),
     );
@@ -293,16 +267,14 @@ class _SearchResultState extends State<SearchResultList> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Expanded(
-                flex: 1,
-                child: new Container(
-                  child: new Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        new RatingInformationSearch(userWatchListOld[index])
-                      ]),
-                )),
-            new Container(
-              width: 32.0,
+              flex: 1,
+              child: new Container(
+                child: new Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      new RatingInformationSearch(userWatchListOld[index])
+                    ]),
+              ),
             ),
           ],
         ),

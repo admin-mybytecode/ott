@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
@@ -15,8 +14,8 @@ import 'package:nexthour/page_home.dart';
 import 'package:nexthour/ui/custom_drawer.dart';
 import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
-import 'package:nexthour/ui/search.dart';
 import 'package:http/http.dart' as http;
+import 'package:nexthour/ui/music_page.dart';
 import 'package:nexthour/ui/store_page.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
@@ -66,7 +65,7 @@ class _BottomNavigationBarControllerState
 
   static List<Widget> _widgetOptions = <Widget>[
     PageHome(),
-    SearchResultList(),
+    MusicPage(),
     StorePage(),
     DonationPage(),
     CustomDrawer()
@@ -118,7 +117,7 @@ class _BottomNavigationBarControllerState
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                        EdgeInsets.symmetric(horizontal: 25.0, vertical: 12.0),
                     child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
@@ -134,7 +133,8 @@ class _BottomNavigationBarControllerState
                             BottomNavigationBarItem(
                                 label: "Home", icon: Icon(Icons.home)),
                             BottomNavigationBarItem(
-                                label: "Search", icon: Icon(Icons.search)),
+                                label: "Music",
+                                icon: Icon(Icons.music_note_outlined)),
                             BottomNavigationBarItem(
                                 label: "Store",
                                 icon: Icon(Icons.store_outlined)),

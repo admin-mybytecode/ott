@@ -731,7 +731,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             )),
         new Expanded(
           child: new Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 25),
+            padding: const EdgeInsets.only(left: 16.0),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,21 +745,12 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                     overflow: TextOverflow.fade,
                   ),
                 ),
-                Flex(
-                  direction: Axis.horizontal,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: widget.game.rating == null
-                          ? SizedBox.shrink()
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 3.0),
-                              child: RatingInformation(widget.game),
-                            ),
-                    )
-                  ],
-                ),
+                widget.game.rating == null
+                    ? SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 3.0),
+                        child: RatingInformation(widget.game),
+                      ),
                 header(theme),
               ],
             ),
@@ -794,13 +785,7 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  flex: 0,
-                  child: Icon(Icons.play_arrow, color: primaryColor),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
-                ),
+                Icon(Icons.play_arrow, color: primaryColor),
                 Expanded(
                   flex: 1,
                   child: new Text(
@@ -817,7 +802,6 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
                 ),
               ],
             ),
-            padding: const EdgeInsets.fromLTRB(6.0, 0.0, 12.0, 0.0),
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(10.0)),
             color: redPrime,
@@ -829,12 +813,6 @@ class VideoDetailHeaderState extends State<VideoDetailHeader>
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    // return Image.asset(
-    //   'assets/bg.jpeg',
-    //   height: 350,
-    //   width: screenSize.width,
-    //   fit: BoxFit.cover,
-    // );
     return CachedNetworkImage(
       imageUrl: widget.game.cover,
       width: screenSize.width,
