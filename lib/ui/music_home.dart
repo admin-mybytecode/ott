@@ -20,6 +20,7 @@ class AppState extends State<Musify> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
   bool cancelSearch = false;
+  bool tapped = false;
   var currentId;
 
   void initState() {
@@ -63,6 +64,7 @@ class AppState extends State<Musify> {
       setState(() {
         checker = "Nahi";
       });
+      tapped = false;
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -81,6 +83,7 @@ class AppState extends State<Musify> {
         checker = "Haa";
       });
       currentId = id;
+      tapped = false;
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -539,8 +542,11 @@ class AppState extends State<Musify> {
 
   Widget getTopSong(String image, String title, String subtitle, String id) {
     return InkWell(
-      onTap: () {
-        getSongDetails(id, context);
+      onTap: () async {
+        if (tapped == false) {
+          tapped = true;
+          await getSongDetails(id, context);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(5.0),
