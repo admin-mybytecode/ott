@@ -8,6 +8,7 @@ import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/home.dart';
 import 'package:nexthour/ui/login_page.dart';
+import 'package:nexthour/ui/music_player.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -53,6 +54,7 @@ class IntroScreenState extends State<IntroScreen> {
       Fluttertoast.showToast(msg: "Press again to exit.");
       return Future.value(false);
     }
+    audioPlayer.stop();
     return SystemNavigator.pop();
   }
 

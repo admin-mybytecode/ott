@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/ui/music_player.dart';
 import 'package:nexthour/ui/page_video.dart';
 import 'package:nexthour/ui/search.dart';
 import 'apidata/apidata.dart';
@@ -44,6 +45,7 @@ class _PageHomeState extends State<PageHome>
       Fluttertoast.showToast(msg: "Press again to exit.");
       return Future.value(false);
     }
+    audioPlayer.stop();
     return SystemNavigator.pop();
   }
 

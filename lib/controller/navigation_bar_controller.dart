@@ -16,6 +16,7 @@ import 'package:nexthour/ui/donation_page.dart';
 import 'package:nexthour/ui/multi_screen_page.dart';
 import 'package:nexthour/ui/music_home.dart';
 import 'package:http/http.dart' as http;
+import 'package:nexthour/ui/music_player.dart';
 import 'package:nexthour/ui/store_page.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
@@ -171,5 +172,6 @@ Future<bool> onWillPopS() {
     Fluttertoast.showToast(msg: "Press again to exit.");
     return Future.value(false);
   }
+  audioPlayer.stop();
   return SystemNavigator.pop();
 }

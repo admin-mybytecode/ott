@@ -9,6 +9,7 @@ import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/controller/navigation_bar_controller.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/ui/create_screen_profile.dart';
+import 'package:nexthour/ui/music_player.dart';
 
 import '../home.dart';
 
@@ -61,6 +62,7 @@ class _MultiScreenPageState extends State<MultiScreenPage> {
       Fluttertoast.showToast(msg: "Press again to exit.");
       return Future.value(false);
     }
+    audioPlayer.stop();
     return SystemNavigator.pop();
   }
 
