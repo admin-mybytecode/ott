@@ -20,6 +20,7 @@ class AppState extends State<Musify> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
   bool cancelSearch = false;
+  var currentId;
 
   void initState() {
     super.initState();
@@ -58,22 +59,35 @@ class AppState extends State<Musify> {
   }
 
   getSongDetails(String id, var context) async {
-    try {
-      await fetchSongDetails(id);
-      print(kUrl);
-    } catch (e) {
-      artist = "Unknown";
-      print(e);
+    if (currentId == id) {
+      setState(() {
+        checker = "Nahi";
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AudioApp(),
+        ),
+      );
+    } else {
+      try {
+        await fetchSongDetails(id);
+        print(kUrl);
+      } catch (e) {
+        artist = "Unknown";
+        print(e);
+      }
+      setState(() {
+        checker = "Haa";
+      });
+      currentId = id;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AudioApp(),
+        ),
+      );
     }
-    setState(() {
-      checker = "Haa";
-    });
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AudioApp(),
-      ),
-    );
   }
   //
   // downloadSong(id) async {
