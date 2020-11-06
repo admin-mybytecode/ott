@@ -6,7 +6,6 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
-import 'package:nexthour/utils/appcolor.dart';
 
 import 'music_player.dart';
 
@@ -20,6 +19,7 @@ class Musify extends StatefulWidget {
 class AppState extends State<Musify> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
+  bool cancelSearch = false;
 
   void initState() {
     super.initState();
@@ -245,7 +245,6 @@ class AppState extends State<Musify> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 0.0, top: 7, bottom: 7, right: 15),
-                              //child: Image.network("https://sgdccdnems06.cdnsrv.jio.com/c.saavncdn.com/830/Music-To-Be-Murdered-By-English-2020-20200117040807-500x500.jpg"),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: CachedNetworkImage(
@@ -357,6 +356,15 @@ class AppState extends State<Musify> {
                       decoration: InputDecoration(
                         fillColor: Colors.transparent,
                         filled: true,
+                        prefixIcon: IconButton(
+                          icon: Icon(
+                            Icons.cancel_outlined,
+                            color: redPrime,
+                          ),
+                          onPressed: () => setState(() {
+                            cancelSearch = searchedList.isEmpty;
+                          }),
+                        ),
                         suffixIcon: IconButton(
                           icon: fetchingSongs
                               ? SizedBox(
@@ -375,6 +383,7 @@ class AppState extends State<Musify> {
                                 ),
                           color: redPrime,
                           onPressed: () {
+                            cancelSearch = searchedList.isNotEmpty;
                             search();
                           },
                         ),
@@ -388,7 +397,7 @@ class AppState extends State<Musify> {
                   ),
                 ),
               ),
-              searchedList.isNotEmpty
+              cancelSearch
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -397,7 +406,7 @@ class AppState extends State<Musify> {
                         return Padding(
                           padding: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Card(
-                            color: Colors.black12,
+                            color: primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -411,10 +420,10 @@ class AppState extends State<Musify> {
                               onLongPress: () {
                                 topSongs();
                               },
-                              splashColor: accent,
-                              hoverColor: accent,
-                              focusColor: accent,
-                              highlightColor: accent,
+                              splashColor: redPrime,
+                              hoverColor: redPrime,
+                              focusColor: redPrime,
+                              highlightColor: redPrime,
                               child: Column(
                                 children: <Widget>[
                                   ListTile(
@@ -423,7 +432,7 @@ class AppState extends State<Musify> {
                                       child: Icon(
                                         MdiIcons.musicNoteOutline,
                                         size: 30,
-                                        color: accent,
+                                        color: redPrime,
                                       ),
                                     ),
                                     title: Text(
@@ -432,12 +441,12 @@ class AppState extends State<Musify> {
                                           .split("(")[0]
                                           .replaceAll("&quot;", "\"")
                                           .replaceAll("&amp;", "&"),
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: textColor),
                                     ),
                                     subtitle: Text(
                                       searchedList[index]['more_info']
                                           ["singers"],
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: textColor),
                                     ),
                                     // trailing: IconButton(
                                     //   color: accent,
@@ -521,44 +530,45 @@ class AppState extends State<Musify> {
       },
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: ListTile(
-          title: Container(
-            width: MediaQuery.of(context).size.width * 0.34,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: CachedNetworkImage(imageUrl: image),
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.32,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image(
+                  fit: BoxFit.cover,
+                  image: CachedNetworkImageProvider(image),
+                ),
+              ),
             ),
-          ),
-          subtitle: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  title
-                      .split("(")[0]
-                      .replaceAll("&amp;", "&")
-                      .replaceAll("&#039;", "'")
-                      .replaceAll("&quot;", "\""),
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(
+                title
+                    .split("(")[0]
+                    .replaceAll("&amp;", "&")
+                    .replaceAll("&#039;", "'")
+                    .replaceAll("&quot;", "\""),
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: textColor.withOpacity(0.5),
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: textColor.withOpacity(0.5),
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
