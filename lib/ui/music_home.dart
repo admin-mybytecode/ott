@@ -19,7 +19,7 @@ class Musify extends StatefulWidget {
 class AppState extends State<Musify> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
-  bool cancelSearch = false;
+  bool cancelSearch = searchedList.isNotEmpty;
   bool tapped = false;
   var currentId;
 
@@ -231,7 +231,7 @@ class AppState extends State<Musify> {
                         borderRadius: BorderRadius.circular(25)),
                     elevation: 3.0,
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 2),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: GestureDetector(
                         onTap: () {
                           checker = "Nahi";
@@ -293,7 +293,7 @@ class AppState extends State<Musify> {
                             ),
                             Spacer(),
                             IconButton(
-                              icon: playerState == PlayerState.playing
+                              icon: state == 'play'
                                   ? Icon(MdiIcons.pauseCircleOutline)
                                   : Icon(MdiIcons.playOutline),
                               color: redPrime,
@@ -301,6 +301,7 @@ class AppState extends State<Musify> {
                               onPressed: () {
                                 setState(() {
                                   if (playerState == PlayerState.playing) {
+                                    state = 'pause';
                                     audioPlayer.pause();
                                     playerState = PlayerState.paused;
                                     MediaNotification.showNotification(
@@ -309,6 +310,7 @@ class AppState extends State<Musify> {
                                         isPlaying: false);
                                   } else if (playerState ==
                                       PlayerState.paused) {
+                                    state = 'play';
                                     audioPlayer.play(kUrl);
                                     playerState = PlayerState.playing;
                                     MediaNotification.showNotification(
@@ -329,7 +331,6 @@ class AppState extends State<Musify> {
               )
             : SizedBox.shrink(),
         body: SingleChildScrollView(
-          padding: EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(bottom: 70.0)),
@@ -353,7 +354,8 @@ class AppState extends State<Musify> {
                 ]),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                 child: Card(
                   elevation: 3.0,
                   shape: RoundedRectangleBorder(
@@ -379,7 +381,12 @@ class AppState extends State<Musify> {
                             color: redPrime,
                           ),
                           onPressed: () => setState(() {
-                            cancelSearch = searchedList.isEmpty;
+                            if (cancelSearch == true) {
+                              cancelSearch = !cancelSearch;
+                            } else {
+                              cancelSearch = searchedList.isEmpty;
+                            }
+                            searchBar.text = "";
                           }),
                         ),
                         suffixIcon: IconButton(
@@ -431,8 +438,11 @@ class AppState extends State<Musify> {
                             child: InkWell(
                               borderRadius: BorderRadius.circular(10.0),
                               onTap: () {
-                                getSongDetails(
-                                    searchedList[index]["id"], context);
+                                if (tapped == false) {
+                                  tapped = true;
+                                  getSongDetails(
+                                      searchedList[index]["id"], context);
+                                }
                               },
                               onLongPress: () {
                                 topSongs();
@@ -488,7 +498,7 @@ class AppState extends State<Musify> {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 30.0, bottom: 10, left: 8),
+                                      top: 30.0, bottom: 10, left: 20),
                                   child: Text(
                                     "Top 15 Songs",
                                     textAlign: TextAlign.left,
@@ -548,48 +558,42 @@ class AppState extends State<Musify> {
           await getSongDetails(id, context);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Column(
-          children: [
-            SizedBox(
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: CachedNetworkImage(
+              imageUrl: image,
               width: MediaQuery.of(context).size.width * 0.32,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image(
-                  fit: BoxFit.cover,
-                  image: CachedNetworkImageProvider(image),
-                ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Text(
+              title
+                  .split("(")[0]
+                  .replaceAll("&amp;", "&")
+                  .replaceAll("&#039;", "'")
+                  .replaceAll("&quot;", "\""),
+              style: TextStyle(
+                color: textColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text(
-                title
-                    .split("(")[0]
-                    .replaceAll("&amp;", "&")
-                    .replaceAll("&#039;", "'")
-                    .replaceAll("&quot;", "\""),
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Text(
+              subtitle,
+              style: TextStyle(
+                color: textColor.withOpacity(0.5),
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                subtitle,
-                style: TextStyle(
-                  color: textColor.withOpacity(0.5),
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
