@@ -6,7 +6,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/repository/database_creator.dart';
 import 'package:nexthour/loading/loading_screen.dart';
-import 'package:nexthour/ui/music_player.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,7 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Religo',
+      title: 'Next Hour',
       home: LoadingScreen(),
       theme: ThemeData(
         brightness: Brightness.light,
@@ -32,17 +31,4 @@ void main() async {
       ),
     ),
   );
-
-  WidgetsBinding.instance.addObserver(new _Handler());
-}
-
-class _Handler extends WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState status) {
-    if (status == AppLifecycleState.inactive) {
-      if (playerState == PlayerState.playing) {
-        audioPlayer.pause();
-      }
-    }
-  }
 }
