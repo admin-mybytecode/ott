@@ -178,24 +178,28 @@ class AudioAppState extends State<AudioApp> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 10.0, bottom: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: CachedNetworkImage(
-                  imageUrl: image,
-                  height: MediaQuery.of(context).size.height * 0.35,
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                  ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   GradientText(
                     title,
@@ -223,9 +227,12 @@ class AudioAppState extends State<AudioApp> {
                 ],
               ),
             ),
-            Material(
-              color: primaryColor,
-              child: _buildPlayer(),
+            Expanded(
+              flex: 2,
+              child: Material(
+                color: primaryColor,
+                child: _buildPlayer(),
+              ),
             ),
           ],
         ),
@@ -234,180 +241,169 @@ class AudioAppState extends State<AudioApp> {
   }
 
   Widget _buildPlayer() => Container(
-        padding: EdgeInsets.only(left: 16, right: 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            duration != null
-                ? Slider(
-                    activeColor: redPrime,
-                    inactiveColor: redPrime.withOpacity(0.2),
-                    value: position?.inMilliseconds?.toDouble() ?? 0.0,
-                    onChanged: (double value) {
-                      return audioPlayer.seek((value / 1000).roundToDouble());
-                    },
-                    min: 0.0,
-                    max: duration.inMilliseconds.toDouble())
-                : SizedBox(),
-            position != null ? _buildProgressView() : SizedBox(),
-            Column(
-              children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    isPlaying
-                        ? Container()
-                        : Container(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    redPrime,
-                                    primaryDarkColor.withOpacity(0.4),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: IconButton(
-                              onPressed: isPlaying ? null : () => play(),
-                              iconSize: 40.0,
-                              icon: Padding(
-                                padding: const EdgeInsets.only(left: 2.2),
-                                child: Icon(MdiIcons.playOutline),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: ListView(
+            children: [
+              duration != null
+                  ? Slider(
+                      activeColor: redPrime,
+                      inactiveColor: redPrime.withOpacity(0.2),
+                      value: position?.inMilliseconds?.toDouble() ?? 0.0,
+                      onChanged: (double value) {
+                        return audioPlayer.seek((value / 1000).roundToDouble());
+                      },
+                      min: 0.0,
+                      max: duration.inMilliseconds.toDouble())
+                  : SizedBox(),
+              position != null ? _buildProgressView() : SizedBox(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isPlaying
+                      ? Container()
+                      : Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  redPrime,
+                                  primaryDarkColor.withOpacity(0.4),
+                                ],
                               ),
-                              color: primaryDarkColor,
-                            ),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: IconButton(
+                            onPressed: isPlaying ? null : () => play(),
+                            iconSize: 40.0,
+                            icon: Icon(MdiIcons.playOutline),
+                            color: primaryDarkColor,
                           ),
-                    isPlaying
-                        ? Container(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    redPrime,
-                                    primaryDarkColor.withOpacity(0.4),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: IconButton(
-                              onPressed: isPlaying ? () => pause() : null,
-                              iconSize: 40.0,
-                              icon: Icon(MdiIcons.pause),
-                              color: primaryDarkColor,
-                            ),
-                          )
-                        : Container()
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Builder(builder: (context) {
-                    return FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)),
-                        color: primaryDarkColor.withOpacity(0.2),
-                        onPressed: () {
-                          showBottomSheet(
-                              context: context,
-                              builder: (context) => Container(
-                                    decoration: BoxDecoration(
-                                        color:
-                                            primaryDarkColor.withOpacity(0.1),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft:
-                                                const Radius.circular(18.0),
-                                            topRight:
-                                                const Radius.circular(18.0))),
-                                    height: 400,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 10.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              IconButton(
-                                                  icon: Icon(
-                                                    Icons.arrow_back_ios,
-                                                    color: redPrime,
-                                                    size: 20,
-                                                  ),
-                                                  onPressed: () =>
-                                                      {Navigator.pop(context)}),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 42.0),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Lyrics",
-                                                      style: TextStyle(
-                                                        color: redPrime,
-                                                        fontSize: 30,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                  ),
+                        ),
+                  isPlaying
+                      ? Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  redPrime,
+                                  primaryDarkColor.withOpacity(0.4),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: IconButton(
+                            onPressed: isPlaying ? () => pause() : null,
+                            iconSize: 40.0,
+                            icon: Icon(MdiIcons.pause),
+                            color: primaryDarkColor,
+                          ),
+                        )
+                      : Container()
+                ],
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 20.0, left: 100, right: 100),
+                child: Builder(builder: (context) {
+                  return FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0)),
+                      color: primaryDarkColor.withOpacity(0.2),
+                      onPressed: () {
+                        showBottomSheet(
+                            context: context,
+                            builder: (context) => Container(
+                                  decoration: BoxDecoration(
+                                      color: primaryDarkColor.withOpacity(0.1),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: const Radius.circular(18.0),
+                                          topRight:
+                                              const Radius.circular(18.0))),
+                                  height: 400,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            IconButton(
+                                                icon: Icon(
+                                                  Icons.arrow_back_ios,
+                                                  color: redPrime,
+                                                  size: 20,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        lyrics != "null"
-                                            ? Expanded(
-                                                flex: 1,
-                                                child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            6.0),
-                                                    child: Center(
-                                                      child:
-                                                          SingleChildScrollView(
-                                                        child: Text(
-                                                          lyrics,
-                                                          style: TextStyle(
-                                                            fontSize: 16.0,
-                                                            color: redPrime
-                                                                .withOpacity(
-                                                                    0.7),
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    )),
-                                              )
-                                            : Padding(
+                                                onPressed: () =>
+                                                    {Navigator.pop(context)}),
+                                            Expanded(
+                                              child: Padding(
                                                 padding: const EdgeInsets.only(
-                                                    top: 120.0),
+                                                    right: 42.0),
                                                 child: Center(
-                                                  child: Container(
-                                                    child: Text(
-                                                      "No Lyrics available ;(",
-                                                      style: TextStyle(
-                                                          color: redPrime
-                                                              .withOpacity(0.5),
-                                                          fontSize: 25),
+                                                  child: Text(
+                                                    "Lyrics",
+                                                    style: TextStyle(
+                                                      color: redPrime,
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                      ],
-                                    ),
-                                  ));
-                        },
-                        child: Text(
-                          "Lyrics",
-                          style: TextStyle(color: redPrime),
-                        ));
-                  }),
-                )
-              ],
-            ),
-          ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      lyrics != "null"
+                                          ? Expanded(
+                                              flex: 1,
+                                              child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(6.0),
+                                                  child: Center(
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Text(
+                                                        lyrics,
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          color: redPrime
+                                                              .withOpacity(0.7),
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  )),
+                                            )
+                                          : Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 120.0),
+                                              child: Center(
+                                                child: Container(
+                                                  child: Text(
+                                                    "No Lyrics available ;(",
+                                                    style: TextStyle(
+                                                        color: redPrime
+                                                            .withOpacity(0.5),
+                                                        fontSize: 25),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                ));
+                      },
+                      child: Text(
+                        "Lyrics",
+                        style: TextStyle(color: redPrime),
+                      ));
+                }),
+              ),
+            ],
+          ),
         ),
       );
 

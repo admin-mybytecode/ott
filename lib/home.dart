@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:nexthour/global.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/ui/login_page.dart';
+import 'package:nexthour/ui/music_player.dart';
 import 'package:nexthour/ui/signup.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
@@ -78,6 +79,7 @@ class _HomeState extends State<Home> {
       Fluttertoast.showToast(msg: "Press again to exit.");
       return Future.value(false);
     }
+    audioPlayer.stop();
     return SystemNavigator.pop();
   }
 
