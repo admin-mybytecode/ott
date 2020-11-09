@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayer/audioplayer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_media_notification/flutter_media_notification.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -46,7 +47,7 @@ class AudioAppState extends State<AudioApp> {
   @override
   void initState() {
     super.initState();
-
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     initAudioPlayer();
   }
 
@@ -139,7 +140,15 @@ class AudioAppState extends State<AudioApp> {
   }
 
   void onComplete() {
-    if (mounted) setState(() => playerState = PlayerState.stopped);
+    if (mounted)
+      setState(() {
+        playerState = PlayerState.stopped;
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ]);
+      });
   }
 
   @override
