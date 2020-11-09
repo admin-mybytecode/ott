@@ -261,42 +261,22 @@ class AudioAppState extends State<AudioApp> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  isPlaying
-                      ? Container()
-                      : Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  redPrime,
-                                  primaryDarkColor.withOpacity(0.4),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: IconButton(
-                            onPressed: isPlaying ? null : () => play(),
-                            iconSize: 40.0,
-                            icon: Icon(MdiIcons.playOutline),
-                            color: primaryDarkColor,
-                          ),
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            redPrime,
+                            primaryDarkColor.withOpacity(0.4),
+                          ],
                         ),
-                  isPlaying
-                      ? Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  redPrime,
-                                  primaryDarkColor.withOpacity(0.4),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: IconButton(
-                            onPressed: isPlaying ? () => pause() : null,
-                            iconSize: 40.0,
-                            icon: Icon(MdiIcons.pause),
-                            color: primaryDarkColor,
-                          ),
-                        )
-                      : Container()
+                        borderRadius: BorderRadius.circular(100)),
+                    child: IconButton(
+                      onPressed: isPlaying ? () => pause() : () => play(),
+                      iconSize: 40.0,
+                      icon: Icon(isPlaying ? MdiIcons.pause : MdiIcons.play),
+                      color: primaryDarkColor,
+                    ),
+                  ),
                 ],
               ),
               Padding(
