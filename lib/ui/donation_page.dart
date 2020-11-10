@@ -1,100 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/model/donation_data.dart';
 
 class DonationPage extends StatefulWidget {
   @override
   _DonationPageState createState() => _DonationPageState();
 }
 
-class _DonationPageState extends State<DonationPage> {
-  List<Map> data = [
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Siddhivinayak temple",
-      "image":
-          "https://www.mygoldguide.in/sites/default/files/Mumbais-Wealthiest-Temple-Shri-Sidhivinayak_600x410.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Dagadusheth halwai ganapati",
-      "image":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/DagduHalwai2013.jpg/1200px-DagduHalwai2013.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-    {
-      "name": "Iskon Temple",
-      "image":
-          "https://www.trawell.in/admin/images/upload/148027305ISKCONTemple_Main.jpg",
-      "Description":
-          "Shree Siddhivinayak Temple, dedicated to Lord Ganesha, is an iconic place of worship in Mumbai. The shrine, which is more than 200 years old, is one of the richest temples in India and frequented by celebrities, Bollywood stars, politicians, and commoners alike."
-    },
-  ];
+var jsonString =
+    '[{ "temple" : [ { "name" : "test", "description": "test", "file": "test_1604863718.jpeg", "bank_account_number": "test", "ifsc": "test", "branch": "test", "address": "test", "id": 8, "updated_at": "2020-11-09 00:58:38", "created_at": "2020-11-09 00:58:38" }]}]';
+var parsedjson = jsonDecode(jsonString);
+TempleData data = TempleData.fromJson(parsedjson);
 
+class _DonationPageState extends State<DonationPage> {
   Widget appBar() {
     return AppBar(
       leading: SizedBox(),
@@ -120,7 +39,7 @@ class _DonationPageState extends State<DonationPage> {
       body: Padding(
         padding: const EdgeInsets.only(bottom: 70),
         child: ListView.builder(
-          itemCount: data.length,
+          itemCount: data.temple.length,
           physics: ClampingScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemBuilder: (BuildContext context, int index) {
@@ -134,22 +53,22 @@ class _DonationPageState extends State<DonationPage> {
                 ),
                 child: Row(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: CachedNetworkImage(
-                        imageUrl: data[index]["image"],
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(10.0),
+                    //   child: CachedNetworkImage(
+                    //     imageUrl: data[index]["image"],
+                    //     width: MediaQuery.of(context).size.width * 0.2,
+                    //     height: 120,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: new ListTile(
                         title: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
-                            data[index]["name"].toString() ?? '',
+                            data.temple[index].name ?? '',
                             style: TextStyle(
                                 fontFamily: 'Lato',
                                 fontSize: 14.0,
@@ -162,7 +81,7 @@ class _DonationPageState extends State<DonationPage> {
                         subtitle: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
-                            data[index]["Description"] ?? '',
+                            data.temple[index].description ?? '',
                             style: TextStyle(
                                 fontFamily: 'Lato',
                                 fontSize: 10.0,
