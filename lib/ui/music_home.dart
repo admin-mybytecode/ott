@@ -300,7 +300,7 @@ class AppState extends State<Musify> {
                   ),
                 ),
               ),
-              cancelSearch
+              cancelSearch && searchBar.text.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
