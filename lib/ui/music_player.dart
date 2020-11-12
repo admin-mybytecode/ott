@@ -9,15 +9,14 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/model/musicpage_state.dart';
 import 'package:nexthour/utils/appcolor.dart';
+import 'package:provider/provider.dart';
 
 String state = 'hidden';
 AudioPlayer audioPlayer;
-PlayerState playerState;
 
 typedef void OnError(Exception exception);
-
-enum PlayerState { stopped, playing, paused }
 
 class AudioApp extends StatefulWidget {
   @override
@@ -28,10 +27,6 @@ class AudioApp extends StatefulWidget {
 class AudioAppState extends State<AudioApp> {
   Duration duration;
   Duration position;
-
-  get isPlaying => playerState == PlayerState.playing;
-
-  get isPaused => playerState == PlayerState.paused;
 
   get durationText =>
       duration != null ? duration.toString().split('.').first : '';
@@ -53,6 +48,8 @@ class AudioAppState extends State<AudioApp> {
 
   @override
   void dispose() {
+    _positionSubscription.cancel();
+    _audioPlayerStateSubscription.cancel();
     super.dispose();
   }
 
@@ -66,7 +63,8 @@ class AudioAppState extends State<AudioApp> {
         play();
       }
       if (checker == "Nahi") {
-        if (playerState == PlayerState.playing) {
+        if (Provider.of<AudioState>(context, listen: false).playerState ==
+            PlayerState.playing) {
           play();
         } else {
           //Using (Hack) Play() here Else UI glitch is being caused, Will try to find better solution.
@@ -96,7 +94,8 @@ class AudioAppState extends State<AudioApp> {
     }, onError: (msg) {
       if (mounted)
         setState(() {
-          playerState = PlayerState.stopped;
+          Provider.of<AudioState>(context, listen: false)
+              .state(PlayerState.stopped);
           duration = Duration(seconds: 0);
           position = Duration(seconds: 0);
         });
@@ -109,7 +108,8 @@ class AudioAppState extends State<AudioApp> {
         title: title, author: artist, isPlaying: true);
     if (mounted)
       setState(() {
-        playerState = PlayerState.playing;
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.playing);
       });
   }
 
@@ -118,7 +118,7 @@ class AudioAppState extends State<AudioApp> {
     MediaNotification.showNotification(
         title: title, author: artist, isPlaying: false);
     setState(() {
-      playerState = PlayerState.paused;
+      Provider.of<AudioState>(context, listen: false).state(PlayerState.paused);
     });
   }
 
@@ -126,7 +126,8 @@ class AudioAppState extends State<AudioApp> {
     await audioPlayer.stop();
     if (mounted)
       setState(() {
-        playerState = PlayerState.stopped;
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.stopped);
         position = Duration();
       });
   }
@@ -142,7 +143,8 @@ class AudioAppState extends State<AudioApp> {
   void onComplete() {
     if (mounted)
       setState(() {
-        playerState = PlayerState.stopped;
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.stopped);
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.landscapeLeft,
@@ -279,11 +281,17 @@ class AudioAppState extends State<AudioApp> {
                           ],
                         ),
                         borderRadius: BorderRadius.circular(100)),
-                    child: IconButton(
-                      onPressed: isPlaying ? () => pause() : () => play(),
-                      iconSize: 40.0,
-                      icon: Icon(isPlaying ? MdiIcons.pause : MdiIcons.play),
-                      color: primaryDarkColor,
+                    child: Consumer<AudioState>(
+                      builder: (context, pstate, child) => IconButton(
+                        onPressed: pstate.playerState == PlayerState.playing
+                            ? () => pause()
+                            : () => play(),
+                        iconSize: 40.0,
+                        icon: Icon(pstate.playerState == PlayerState.playing
+                            ? MdiIcons.pause
+                            : MdiIcons.play),
+                        color: primaryDarkColor,
+                      ),
                     ),
                   ),
                 ],
