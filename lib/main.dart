@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:nexthour/global.dart';
-import 'package:nexthour/model/musicpage_state.dart';
 import 'package:nexthour/repository/database_creator.dart';
 import 'package:nexthour/loading/loading_screen.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +23,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Next Hour',
-      home: ChangeNotifierProvider(
-        create: (BuildContext context) => AudioState(),
-        builder: (context, child) => LoadingScreen(),
-      ),
+      home: LoadingScreen(),
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: primaryColor,
