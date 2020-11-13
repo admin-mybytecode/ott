@@ -22,17 +22,17 @@ void main() async {
   );
 
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Next Hour',
-      home: ChangeNotifierProvider(
-        create: (BuildContext context) => AudioState(),
-        builder: (context, child) => LoadingScreen(),
-      ),
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: primaryColor,
-        accentColor: redPrime,
+    ChangeNotifierProvider<AudioState>(
+      create: (context) => AudioState(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Next Hour',
+        home: LoadingScreen(),
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: primaryColor,
+          accentColor: redPrime,
+        ),
       ),
     ),
   );

@@ -30,18 +30,12 @@ class AppState extends State<Musify> {
 
     MediaNotification.setListener('play', () {
       setState(() {
-        Provider.of<AudioState>(context, listen: false)
-            .state(PlayerState.playing);
-        state = 'play';
         audioPlayer.play(kUrl);
       });
     });
 
     MediaNotification.setListener('pause', () {
       setState(() {
-        Provider.of<AudioState>(context, listen: false)
-            .state(PlayerState.paused);
-        state = 'pause';
         audioPlayer.pause();
       });
     });
@@ -64,7 +58,7 @@ class AppState extends State<Musify> {
     setState(() {});
   }
 
-  getSongDetails(String id, var context) async {
+  getSongDetails(String id, var context, AudioState playerstate) async {
     if (currentId == id) {
       setState(() {
         checker = "Nahi";
@@ -73,7 +67,7 @@ class AppState extends State<Musify> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AudioApp(),
+          builder: (context) => AudioApp(playerstate),
         ),
       );
     } else {
@@ -92,7 +86,7 @@ class AppState extends State<Musify> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AudioApp(),
+          builder: (context) => AudioApp(playerstate),
         ),
       );
     }
@@ -100,6 +94,7 @@ class AppState extends State<Musify> {
 
   @override
   Widget build(BuildContext context) {
+    final playerstate = Provider.of<AudioState>(context, listen: false);
     return Container(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -122,7 +117,7 @@ class AppState extends State<Musify> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AudioApp()),
+                                  builder: (context) => AudioApp(playerstate)),
                             );
                           }
                         },
@@ -176,28 +171,27 @@ class AppState extends State<Musify> {
                             ),
                             Spacer(),
                             Consumer<AudioState>(
-                              builder: (context, pstate, child) => IconButton(
-                                icon: pstate.playerState == PlayerState.playing
+                              builder: (_, playerstate, __) => IconButton(
+                                icon: playerstate.playerState ==
+                                        PlayerState.playing
                                     ? Icon(MdiIcons.pauseCircleOutline)
                                     : Icon(MdiIcons.playCircleOutline),
                                 color: redPrime,
                                 splashColor: Colors.transparent,
                                 onPressed: () {
                                   setState(() {
-                                    if (pstate.playerState ==
+                                    if (playerstate.playerState ==
                                         PlayerState.playing) {
-                                      state = 'pause';
                                       audioPlayer.pause();
-                                      pstate.state(PlayerState.paused);
+                                      playerstate.state(PlayerState.paused);
                                       MediaNotification.showNotification(
                                           title: title,
                                           author: artist,
                                           isPlaying: false);
-                                    } else if (pstate.playerState ==
+                                    } else if (playerstate.playerState ==
                                         PlayerState.paused) {
-                                      state = 'play';
                                       audioPlayer.play(kUrl);
-                                      pstate.state(PlayerState.playing);
+                                      playerstate.state(PlayerState.playing);
                                       MediaNotification.showNotification(
                                           title: title,
                                           author: artist,
@@ -307,7 +301,7 @@ class AppState extends State<Musify> {
                   ),
                 ),
               ),
-              cancelSearch
+              cancelSearch && searchBar.text.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -326,8 +320,8 @@ class AppState extends State<Musify> {
                               onTap: () {
                                 if (tapped == false) {
                                   tapped = true;
-                                  getSongDetails(
-                                      searchedList[index]["id"], context);
+                                  getSongDetails(searchedList[index]["id"],
+                                      context, playerstate);
                                 }
                               },
                               onLongPress: () {
@@ -408,7 +402,8 @@ class AppState extends State<Musify> {
                                           data.data[index]["more_info"]
                                                   ["artistMap"]
                                               ["primary_artists"][0]["name"],
-                                          data.data[index]["id"]);
+                                          data.data[index]["id"],
+                                          playerstate);
                                     },
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
@@ -436,12 +431,13 @@ class AppState extends State<Musify> {
     );
   }
 
-  Widget getTopSong(String image, String title, String subtitle, String id) {
+  Widget getTopSong(String image, String title, String subtitle, String id,
+      AudioState playerstate) {
     return InkWell(
       onTap: () async {
         if (tapped == false) {
           tapped = true;
-          await getSongDetails(id, context);
+          await getSongDetails(id, context, playerstate);
         }
       },
       child: Column(

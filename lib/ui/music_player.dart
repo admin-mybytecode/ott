@@ -13,12 +13,14 @@ import 'package:nexthour/model/musicpage_state.dart';
 import 'package:nexthour/utils/appcolor.dart';
 import 'package:provider/provider.dart';
 
-String state = 'hidden';
 AudioPlayer audioPlayer;
 
 typedef void OnError(Exception exception);
 
+// ignore: must_be_immutable
 class AudioApp extends StatefulWidget {
+  AudioState audioState;
+  AudioApp(this.audioState);
   @override
   AudioAppState createState() => AudioAppState();
 }
@@ -59,17 +61,17 @@ class AudioAppState extends State<AudioApp> {
     }
     setState(() {
       if (checker == "Haa") {
-        stop();
-        play();
+        stop(widget.audioState);
+        play(widget.audioState);
       }
       if (checker == "Nahi") {
         if (Provider.of<AudioState>(context, listen: false).playerState ==
             PlayerState.playing) {
-          play();
+          play(widget.audioState);
         } else {
           //Using (Hack) Play() here Else UI glitch is being caused, Will try to find better solution.
-          play();
-          pause();
+          play(widget.audioState);
+          pause(widget.audioState);
         }
       }
     });
@@ -102,32 +104,30 @@ class AudioAppState extends State<AudioApp> {
     });
   }
 
-  Future play() async {
+  Future play(AudioState playerstate) async {
     await audioPlayer.play(kUrl);
     MediaNotification.showNotification(
         title: title, author: artist, isPlaying: true);
     if (mounted)
       setState(() {
-        Provider.of<AudioState>(context, listen: false)
-            .state(PlayerState.playing);
+        playerstate.state(PlayerState.playing);
       });
   }
 
-  Future pause() async {
+  Future pause(AudioState playerstate) async {
     await audioPlayer.pause();
     MediaNotification.showNotification(
         title: title, author: artist, isPlaying: false);
     setState(() {
-      Provider.of<AudioState>(context, listen: false).state(PlayerState.paused);
+      playerstate.state(PlayerState.paused);
     });
   }
 
-  Future stop() async {
+  Future stop(AudioState playerstate) async {
     await audioPlayer.stop();
     if (mounted)
       setState(() {
-        Provider.of<AudioState>(context, listen: false)
-            .state(PlayerState.stopped);
+        playerstate.state(PlayerState.stopped);
         position = Duration();
       });
   }
@@ -155,13 +155,13 @@ class AudioAppState extends State<AudioApp> {
 
   @override
   Widget build(BuildContext context) {
+    final playerstate = Provider.of<AudioState>(context, listen: false);
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
         brightness: Brightness.light,
         backgroundColor: primaryColor,
         elevation: 0,
-        //backgroundColor: Color(0xff384850),
         centerTitle: true,
         title: GradientText(
           "Now Playing",
@@ -242,7 +242,7 @@ class AudioAppState extends State<AudioApp> {
               flex: 2,
               child: Material(
                 color: primaryColor,
-                child: _buildPlayer(),
+                child: _buildPlayer(playerstate),
               ),
             ),
           ],
@@ -251,7 +251,7 @@ class AudioAppState extends State<AudioApp> {
     );
   }
 
-  Widget _buildPlayer() => Container(
+  Widget _buildPlayer(AudioState playerstate) => Container(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: ListView(
@@ -282,14 +282,16 @@ class AudioAppState extends State<AudioApp> {
                         ),
                         borderRadius: BorderRadius.circular(100)),
                     child: Consumer<AudioState>(
-                      builder: (context, pstate, child) => IconButton(
-                        onPressed: pstate.playerState == PlayerState.playing
-                            ? () => pause()
-                            : () => play(),
+                      builder: (_, playerstate, __) => IconButton(
+                        onPressed:
+                            playerstate.playerState == PlayerState.playing
+                                ? () => pause(playerstate)
+                                : () => play(playerstate),
                         iconSize: 40.0,
-                        icon: Icon(pstate.playerState == PlayerState.playing
-                            ? MdiIcons.pause
-                            : MdiIcons.play),
+                        icon: Icon(
+                            playerstate.playerState == PlayerState.playing
+                                ? MdiIcons.pause
+                                : MdiIcons.play),
                         color: primaryDarkColor,
                       ),
                     ),
