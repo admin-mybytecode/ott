@@ -231,13 +231,12 @@ class ImageSlider extends StatelessWidget {
                                 DetailedViewPage(showsMoviesList[index]));
                         Navigator.of(context).push(router);
                       },
-                      child: Container(),
-                      // child: new CachedNetworkImage(
-                      //   imageUrl: "${APIData.silderImageUri}" +
-                      //       "movies/" +
-                      //       "${sliderData[index]['slide_image']}",
-                      //   fit: BoxFit.cover,
-                      // ),
+                      child: new CachedNetworkImage(
+                        imageUrl: "${APIData.silderImageUri}" +
+                            "movies/" +
+                            "${sliderData[index]['slide_image']}",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
