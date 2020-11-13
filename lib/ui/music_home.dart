@@ -6,6 +6,8 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/model/musicpage_state.dart';
+import 'package:provider/provider.dart';
 
 import 'music_player.dart';
 
@@ -28,7 +30,8 @@ class AppState extends State<Musify> {
 
     MediaNotification.setListener('play', () {
       setState(() {
-        playerState = PlayerState.playing;
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.playing);
         state = 'play';
         audioPlayer.play(kUrl);
       });
@@ -36,6 +39,8 @@ class AppState extends State<Musify> {
 
     MediaNotification.setListener('pause', () {
       setState(() {
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.paused);
         state = 'pause';
         audioPlayer.pause();
       });
@@ -99,7 +104,6 @@ class AppState extends State<Musify> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.transparent,
-        //backgroundColor: Color(0xff384850),
         bottomNavigationBar: kUrl != ""
             ? Padding(
                 padding: const EdgeInsets.only(bottom: 75, left: 15, right: 15),
@@ -171,35 +175,38 @@ class AppState extends State<Musify> {
                               ),
                             ),
                             Spacer(),
-                            IconButton(
-                              icon: state == 'play'
-                                  ? Icon(MdiIcons.pauseCircleOutline)
-                                  : Icon(MdiIcons.playCircleOutline),
-                              color: redPrime,
-                              splashColor: Colors.transparent,
-                              onPressed: () {
-                                setState(() {
-                                  if (playerState == PlayerState.playing) {
-                                    state = 'pause';
-                                    audioPlayer.pause();
-                                    playerState = PlayerState.paused;
-                                    MediaNotification.showNotification(
-                                        title: title,
-                                        author: artist,
-                                        isPlaying: false);
-                                  } else if (playerState ==
-                                      PlayerState.paused) {
-                                    state = 'play';
-                                    audioPlayer.play(kUrl);
-                                    playerState = PlayerState.playing;
-                                    MediaNotification.showNotification(
-                                        title: title,
-                                        author: artist,
-                                        isPlaying: true);
-                                  }
-                                });
-                              },
-                              iconSize: 45,
+                            Consumer<AudioState>(
+                              builder: (context, pstate, child) => IconButton(
+                                icon: pstate.playerState == PlayerState.playing
+                                    ? Icon(MdiIcons.pauseCircleOutline)
+                                    : Icon(MdiIcons.playCircleOutline),
+                                color: redPrime,
+                                splashColor: Colors.transparent,
+                                onPressed: () {
+                                  setState(() {
+                                    if (pstate.playerState ==
+                                        PlayerState.playing) {
+                                      state = 'pause';
+                                      audioPlayer.pause();
+                                      pstate.state(PlayerState.paused);
+                                      MediaNotification.showNotification(
+                                          title: title,
+                                          author: artist,
+                                          isPlaying: false);
+                                    } else if (pstate.playerState ==
+                                        PlayerState.paused) {
+                                      state = 'play';
+                                      audioPlayer.play(kUrl);
+                                      pstate.state(PlayerState.playing);
+                                      MediaNotification.showNotification(
+                                          title: title,
+                                          author: artist,
+                                          isPlaying: true);
+                                    }
+                                  });
+                                },
+                                iconSize: 45,
+                              ),
                             )
                           ],
                         ),
