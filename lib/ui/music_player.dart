@@ -9,17 +9,18 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/model/musicpage_state.dart';
 import 'package:nexthour/utils/appcolor.dart';
+import 'package:provider/provider.dart';
 
-String state = 'hidden';
 AudioPlayer audioPlayer;
-PlayerState playerState;
 
 typedef void OnError(Exception exception);
 
-enum PlayerState { stopped, playing, paused }
-
+// ignore: must_be_immutable
 class AudioApp extends StatefulWidget {
+  AudioState audioState;
+  AudioApp(this.audioState);
   @override
   AudioAppState createState() => AudioAppState();
 }
@@ -28,10 +29,6 @@ class AudioApp extends StatefulWidget {
 class AudioAppState extends State<AudioApp> {
   Duration duration;
   Duration position;
-
-  get isPlaying => playerState == PlayerState.playing;
-
-  get isPaused => playerState == PlayerState.paused;
 
   get durationText =>
       duration != null ? duration.toString().split('.').first : '';
@@ -53,6 +50,8 @@ class AudioAppState extends State<AudioApp> {
 
   @override
   void dispose() {
+    _positionSubscription.cancel();
+    _audioPlayerStateSubscription.cancel();
     super.dispose();
   }
 
@@ -62,16 +61,17 @@ class AudioAppState extends State<AudioApp> {
     }
     setState(() {
       if (checker == "Haa") {
-        stop();
-        play();
+        stop(widget.audioState);
+        play(widget.audioState);
       }
       if (checker == "Nahi") {
-        if (playerState == PlayerState.playing) {
-          play();
+        if (Provider.of<AudioState>(context, listen: false).playerState ==
+            PlayerState.playing) {
+          play(widget.audioState);
         } else {
           //Using (Hack) Play() here Else UI glitch is being caused, Will try to find better solution.
-          play();
-          pause();
+          play(widget.audioState);
+          pause(widget.audioState);
         }
       }
     });
@@ -96,37 +96,38 @@ class AudioAppState extends State<AudioApp> {
     }, onError: (msg) {
       if (mounted)
         setState(() {
-          playerState = PlayerState.stopped;
+          Provider.of<AudioState>(context, listen: false)
+              .state(PlayerState.stopped);
           duration = Duration(seconds: 0);
           position = Duration(seconds: 0);
         });
     });
   }
 
-  Future play() async {
+  Future play(AudioState playerstate) async {
     await audioPlayer.play(kUrl);
     MediaNotification.showNotification(
         title: title, author: artist, isPlaying: true);
     if (mounted)
       setState(() {
-        playerState = PlayerState.playing;
+        playerstate.state(PlayerState.playing);
       });
   }
 
-  Future pause() async {
+  Future pause(AudioState playerstate) async {
     await audioPlayer.pause();
     MediaNotification.showNotification(
         title: title, author: artist, isPlaying: false);
     setState(() {
-      playerState = PlayerState.paused;
+      playerstate.state(PlayerState.paused);
     });
   }
 
-  Future stop() async {
+  Future stop(AudioState playerstate) async {
     await audioPlayer.stop();
     if (mounted)
       setState(() {
-        playerState = PlayerState.stopped;
+        playerstate.state(PlayerState.stopped);
         position = Duration();
       });
   }
@@ -142,7 +143,8 @@ class AudioAppState extends State<AudioApp> {
   void onComplete() {
     if (mounted)
       setState(() {
-        playerState = PlayerState.stopped;
+        Provider.of<AudioState>(context, listen: false)
+            .state(PlayerState.stopped);
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
           DeviceOrientation.landscapeLeft,
@@ -153,13 +155,13 @@ class AudioAppState extends State<AudioApp> {
 
   @override
   Widget build(BuildContext context) {
+    final playerstate = Provider.of<AudioState>(context, listen: false);
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
         brightness: Brightness.light,
         backgroundColor: primaryColor,
         elevation: 0,
-        //backgroundColor: Color(0xff384850),
         centerTitle: true,
         title: GradientText(
           "Now Playing",
@@ -240,7 +242,7 @@ class AudioAppState extends State<AudioApp> {
               flex: 2,
               child: Material(
                 color: primaryColor,
-                child: _buildPlayer(),
+                child: _buildPlayer(playerstate),
               ),
             ),
           ],
@@ -249,7 +251,7 @@ class AudioAppState extends State<AudioApp> {
     );
   }
 
-  Widget _buildPlayer() => Container(
+  Widget _buildPlayer(AudioState playerstate) => Container(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: ListView(
@@ -279,11 +281,19 @@ class AudioAppState extends State<AudioApp> {
                           ],
                         ),
                         borderRadius: BorderRadius.circular(100)),
-                    child: IconButton(
-                      onPressed: isPlaying ? () => pause() : () => play(),
-                      iconSize: 40.0,
-                      icon: Icon(isPlaying ? MdiIcons.pause : MdiIcons.play),
-                      color: primaryDarkColor,
+                    child: Consumer<AudioState>(
+                      builder: (_, playerstate, __) => IconButton(
+                        onPressed:
+                            playerstate.playerState == PlayerState.playing
+                                ? () => pause(playerstate)
+                                : () => play(playerstate),
+                        iconSize: 40.0,
+                        icon: Icon(
+                            playerstate.playerState == PlayerState.playing
+                                ? MdiIcons.pause
+                                : MdiIcons.play),
+                        color: primaryDarkColor,
+                      ),
                     ),
                   ),
                 ],

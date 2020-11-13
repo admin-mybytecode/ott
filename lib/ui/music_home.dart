@@ -6,6 +6,8 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
+import 'package:nexthour/model/musicpage_state.dart';
+import 'package:provider/provider.dart';
 
 import 'music_player.dart';
 
@@ -28,15 +30,12 @@ class AppState extends State<Musify> {
 
     MediaNotification.setListener('play', () {
       setState(() {
-        playerState = PlayerState.playing;
-        state = 'play';
         audioPlayer.play(kUrl);
       });
     });
 
     MediaNotification.setListener('pause', () {
       setState(() {
-        state = 'pause';
         audioPlayer.pause();
       });
     });
@@ -59,7 +58,7 @@ class AppState extends State<Musify> {
     setState(() {});
   }
 
-  getSongDetails(String id, var context) async {
+  getSongDetails(String id, var context, AudioState playerstate) async {
     if (currentId == id) {
       setState(() {
         checker = "Nahi";
@@ -68,7 +67,7 @@ class AppState extends State<Musify> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AudioApp(),
+          builder: (context) => AudioApp(playerstate),
         ),
       );
     } else {
@@ -87,7 +86,7 @@ class AppState extends State<Musify> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AudioApp(),
+          builder: (context) => AudioApp(playerstate),
         ),
       );
     }
@@ -95,11 +94,11 @@ class AppState extends State<Musify> {
 
   @override
   Widget build(BuildContext context) {
+    final playerstate = Provider.of<AudioState>(context, listen: false);
     return Container(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.transparent,
-        //backgroundColor: Color(0xff384850),
         bottomNavigationBar: kUrl != ""
             ? Padding(
                 padding: const EdgeInsets.only(bottom: 75, left: 15, right: 15),
@@ -118,7 +117,7 @@ class AppState extends State<Musify> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AudioApp()),
+                                  builder: (context) => AudioApp(playerstate)),
                             );
                           }
                         },
@@ -171,35 +170,37 @@ class AppState extends State<Musify> {
                               ),
                             ),
                             Spacer(),
-                            IconButton(
-                              icon: state == 'play'
-                                  ? Icon(MdiIcons.pauseCircleOutline)
-                                  : Icon(MdiIcons.playCircleOutline),
-                              color: redPrime,
-                              splashColor: Colors.transparent,
-                              onPressed: () {
-                                setState(() {
-                                  if (playerState == PlayerState.playing) {
-                                    state = 'pause';
-                                    audioPlayer.pause();
-                                    playerState = PlayerState.paused;
-                                    MediaNotification.showNotification(
-                                        title: title,
-                                        author: artist,
-                                        isPlaying: false);
-                                  } else if (playerState ==
-                                      PlayerState.paused) {
-                                    state = 'play';
-                                    audioPlayer.play(kUrl);
-                                    playerState = PlayerState.playing;
-                                    MediaNotification.showNotification(
-                                        title: title,
-                                        author: artist,
-                                        isPlaying: true);
-                                  }
-                                });
-                              },
-                              iconSize: 45,
+                            Consumer<AudioState>(
+                              builder: (_, playerstate, __) => IconButton(
+                                icon: playerstate.playerState ==
+                                        PlayerState.playing
+                                    ? Icon(MdiIcons.pauseCircleOutline)
+                                    : Icon(MdiIcons.playCircleOutline),
+                                color: redPrime,
+                                splashColor: Colors.transparent,
+                                onPressed: () {
+                                  setState(() {
+                                    if (playerstate.playerState ==
+                                        PlayerState.playing) {
+                                      audioPlayer.pause();
+                                      playerstate.state(PlayerState.paused);
+                                      MediaNotification.showNotification(
+                                          title: title,
+                                          author: artist,
+                                          isPlaying: false);
+                                    } else if (playerstate.playerState ==
+                                        PlayerState.paused) {
+                                      audioPlayer.play(kUrl);
+                                      playerstate.state(PlayerState.playing);
+                                      MediaNotification.showNotification(
+                                          title: title,
+                                          author: artist,
+                                          isPlaying: true);
+                                    }
+                                  });
+                                },
+                                iconSize: 45,
+                              ),
                             )
                           ],
                         ),
@@ -319,8 +320,8 @@ class AppState extends State<Musify> {
                               onTap: () {
                                 if (tapped == false) {
                                   tapped = true;
-                                  getSongDetails(
-                                      searchedList[index]["id"], context);
+                                  getSongDetails(searchedList[index]["id"],
+                                      context, playerstate);
                                 }
                               },
                               onLongPress: () {
@@ -401,7 +402,8 @@ class AppState extends State<Musify> {
                                           data.data[index]["more_info"]
                                                   ["artistMap"]
                                               ["primary_artists"][0]["name"],
-                                          data.data[index]["id"]);
+                                          data.data[index]["id"],
+                                          playerstate);
                                     },
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
@@ -429,12 +431,13 @@ class AppState extends State<Musify> {
     );
   }
 
-  Widget getTopSong(String image, String title, String subtitle, String id) {
+  Widget getTopSong(String image, String title, String subtitle, String id,
+      AudioState playerstate) {
     return InkWell(
       onTap: () async {
         if (tapped == false) {
           tapped = true;
-          await getSongDetails(id, context);
+          await getSongDetails(id, context, playerstate);
         }
       },
       child: Column(
