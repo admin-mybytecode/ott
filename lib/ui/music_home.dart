@@ -8,7 +8,6 @@ import 'package:nexthour/apidata/music_api.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/model/musicpage_state.dart';
 import 'package:provider/provider.dart';
-
 import 'music_player.dart';
 
 class Musify extends StatefulWidget {

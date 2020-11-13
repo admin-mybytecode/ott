@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:nexthour/apidata/apidata.dart';
 import 'package:nexthour/global.dart';
 import 'package:nexthour/model/donation_data.dart';
@@ -66,7 +67,7 @@ class _DonationPageState extends State<DonationPage> {
                           // ClipRRect(
                           //   borderRadius: BorderRadius.circular(10.0),
                           //   child: CachedNetworkImage(
-                          //     imageUrl: data[index]["image"],
+                          //     imageUrl: snapshot.data.temple[index].file,
                           //     width: MediaQuery.of(context).size.width * 0.2,
                           //     height: 120,
                           //     fit: BoxFit.cover,
@@ -90,16 +91,15 @@ class _DonationPageState extends State<DonationPage> {
                                 ),
                               ),
                               subtitle: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Text(
-                                  snapshot.data.temple[index].description ?? '',
-                                  style: TextStyle(
-                                      fontFamily: 'Lato',
-                                      fontSize: 10.0,
-                                      letterSpacing: 0.9,
-                                      color: textColor),
-                                  maxLines: 4,
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: SizedBox(
+                                  height: 72,
+                                  child: SingleChildScrollView(
+                                    child: Html(
+                                      data: snapshot
+                                          .data.temple[index].description,
+                                    ),
+                                  ),
                                 ),
                               ),
                               trailing: Padding(
