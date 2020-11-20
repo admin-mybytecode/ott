@@ -6,6 +6,7 @@ import 'package:nexthour/global.dart';
 import 'package:nexthour/model/donation_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
+import 'package:nexthour/ui/paymentScreen.dart';
 
 class DonationPage extends StatefulWidget {
   @override
@@ -173,6 +174,9 @@ class _DonationPageState extends State<DonationPage> {
                                             showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
+                                                TextEditingController
+                                                    _amountController =
+                                                    TextEditingController();
                                                 return AlertDialog(
                                                   backgroundColor: primaryColor,
                                                   shape: RoundedRectangleBorder(
@@ -216,13 +220,6 @@ class _DonationPageState extends State<DonationPage> {
                                                                         textColor),
                                                               ),
                                                             ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: <
-                                                                  Widget>[],
-                                                            ),
                                                           ],
                                                         ),
                                                         InkWell(
@@ -242,19 +239,44 @@ class _DonationPageState extends State<DonationPage> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(8.0),
-                                                              child:
-                                                                  TextField(),
+                                                              child: TextField(
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 18,
+                                                                ),
+                                                                controller:
+                                                                    _amountController,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .number,
+                                                                decoration: InputDecoration(
+                                                                    hintText:
+                                                                        "Enter Amount",
+                                                                    border:
+                                                                        UnderlineInputBorder()),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                         InkWell(
                                                           onTap: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                              MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    PaymentScreen(
+                                                                        amount:
+                                                                            _amountController.text),
+                                                              ),
+                                                            );
                                                             SnackBar(
                                                               content: Text(
                                                                   "Payment Successful"),
                                                             );
-                                                            Navigator.pop(
-                                                                context);
                                                           },
                                                           child: Container(
                                                             padding:
